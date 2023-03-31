@@ -97,7 +97,7 @@ let T_spammer = {};
 var Tinker_Spammer;
 (function (Tinker_Spammer) {
     const path = ['Custom Scripts', 'Heroes', 'Intelligence', 'Tinker'];
-    const item_Images = ['item_enchanted_mango', 'item_arcane_ring', 'item_arcane_boots', 'item_guardian_greaves', 'item_soul_ring'];
+    const item_Images = ['item_bottle', 'item_arcane_ring', 'item_arcane_boots', 'item_guardian_greaves', 'item_soul_ring'];
     let [myHero, myPlayer] = [null, null];
     let shivaUsed = 0;
     let gameStarted = false;
