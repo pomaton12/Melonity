@@ -44,7 +44,7 @@ eval(`
 				if (modifier.GetName() === 'modifier_windrunner_focusfire') {
 					const remainingTime = modifier.GetRemainingTime();
 					if (remainingTime <= 20) {
-						var gale_force = localHero.GetAbilityByName("windrunner_gale_force");
+						let gale_force = localHero.GetAbilityByIndex(3);
 						if (gale_force.IsFullyCastable()) {
 							var target = ability.GetCursorTarget();
 							var targetPos = target.GetAbsOrigin();
