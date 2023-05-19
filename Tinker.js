@@ -23,7 +23,7 @@ eval(`
 	let localHero;
 
 	// Definición del array path_
-	const path_ = ['Heroes', 'Intelligence', 'Windranger', 'Gale Force'];
+	const path_ = ['Heroes', 'Intelligence', 'Windranger'];
 
 	// Creación del toggle isUiEnabled
 	let isUiEnabled = Menu.AddToggle(path_, 'Gale Force Use', true)
@@ -56,7 +56,6 @@ eval(`
 							
 							if (distance <= 1000) {
 								gale_force.CastPosition(vec2);
-								gale_force.CastDirection(vec1);
 							}
 						}
 					}
