@@ -41,7 +41,7 @@ eval(`
 					if (remainingTime <= 20) {
 						let gale_force = localHero.GetAbilityByIndex(3);
 						if (gale_force && gale_force.IsExist() && gale_force.CanCast()) {
-							let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY).length;
+							//let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY).length;
 
 							let vec1 = localHero.GetAbsOrigin();
 							let vec2 = Input.GetWorldCursorPos();
@@ -49,13 +49,13 @@ eval(`
 							let pos2 = (vec2.x ? (vec2) : (vec2.GetAbsOrigin ? (vec2.GetAbsOrigin()) : (0)));
 							let distance = pos1 && pos2 && pos1.sub(pos2).Length2D();
 							
+							//let cursorPos = Input.GetWorldCursorPos();
 							let target = EntitySystem.GetLocalHero();
-							let rotation = target.GetRotation();
-							let radians = rotation.y * Math.PI / 180;
-							let direction = new Vector(Math.cos(radians), -Math.sin(radians), 0);
 							
+							let angle = Math.atan2(Input.GetWorldCursorPos().y - target.GetAbsOrigin().y, Input.GetWorldCursorPos().x - target.GetAbsOrigin().x) * (180 / Math.PI);
+														
 							if (distance <= 1000) {
-								gale_force.CastPosition(target.GetAbsOrigin().add(direction.mul(500)), false);
+								gale_force.CastPosition(target.GetAbsOrigin().add(new Vector(999, 0, 0).Rotated(angle)));
 							}
 						}
 					}
