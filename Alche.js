@@ -42,35 +42,29 @@ eval(`
       .GetValue();
 
   // Definición de la función OnUpdate
-  let mantaActivated = false;
-
   AutoSaverAlchemist.OnUpdate = () => {
-      if (localHero && isUiEnabled) {
-          (localHero.GetUnitName() !== "npc_dota_hero_alchemist")
-              return;
-          const modifiers = localHero.GetModifiers();
-          for (let modifier of modifiers) {
-              if (modifier.GetName() === 'modifier_alchemist_unstable_concoction') {
-                  const remainingTime = modifier.GetRemainingTime();
-                  if (remainingTime <= -6.45) {
-                      const manta = localHero.GetItem('item_manta', true);
-                      const bkb = localHero.GetItem('item_black_king_bar', true);
-                      if (itemSelection[1] && manta && manta.GetCooldown() === 0 && !mantaActivated) {
-                          manta.CastNoTarget();
-                          mantaActivated = true;
-                          setTimeout(() => {
-                              mantaActivated = false;
-                          }, 1000);
-                          return;
-                      } else if (itemSelection[0] && (!manta || manta.GetCooldown() > 0) && bkb && bkb.GetCooldown() === 0 && !mantaActivated) {
-                          bkb.CastNoTarget();
-                          return;
-                      }
-                  }
-              }
-          }
-      }
-  };
+        if (localHero && isUiEnabled) {
+            if (localHero.GetUnitName() !== "npc_dota_hero_alchemist")
+                return;
+            const modifiers = localHero.GetModifiers();
+            for (let modifier of modifiers) {
+                if (modifier.GetName() === 'modifier_alchemist_unstable_concoction') {
+                    const remainingTime = modifier.GetRemainingTime();
+                    if (remainingTime <= -6.45) {
+                        const manta = localHero.GetItem('item_manta', true);
+                        const bkb = localHero.GetItem('item_black_king_bar', true);
+                        if (itemSelection[1] && manta && manta.GetCooldown() === 0) {
+                            manta.CastNoTarget();
+                            return;
+                        } else if (itemSelection[0] && (!manta || manta.GetCooldown() > 0) && bkb && bkb.GetCooldown() === 0) {
+                            bkb.CastNoTarget();
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    };
 
 
   // Definición de la función OnScriptLoad
