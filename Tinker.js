@@ -36,30 +36,31 @@ eval(`
 
 	// Definición de la función OnUpdate
 	AutoSaverWindrunner.OnUpdate = () => {
-	if (localHero && isUiEnabled) {
-		if (localHero.GetUnitName() !== "npc_dota_hero_windrunner")
-			return;
-		const modifiers = localHero.GetModifiers();
-		for (let modifier of modifiers) {
-			if (modifier.GetName() === 'modifier_windrunner_focusfire') {
-				const remainingTime = modifier.GetRemainingTime();
-				if (remainingTime <= 20) {
-					let gale_force = localHero.GetAbilityByIndex(3);
-					if (gale_force && gale_force.IsExist() && gale_force.CanCast()) {
-						let nearestEnemy = Game.FindNearestUnit("enemy", localHero.GetAbsOrigin(), false);
-						if (nearestEnemy) {
-							let targetPos = nearestEnemy.GetAbsOrigin();
-							let myPos = localHero.GetAbsOrigin();
-							let direction = (myPos - targetPos).Normalized();
-							let distance = (myPos - targetPos).Length2D();
-							if (distance <= 1000) {
-								gale_force.CastPosition(targetPos);
-							} else {
-								var angle = Math.acos(direction.Dot(localHero.GetForwardVector())) * 180 / Math.PI;
-								if (angle <= 90) {
-									gale_force.CastPosition(myPos + direction * 1000);
+		if (localHero && isUiEnabled) {
+			if (localHero.GetUnitName() !== "npc_dota_hero_windrunner")
+				return;
+			const modifiers = localHero.GetModifiers();
+			for (let modifier of modifiers) {
+				if (modifier.GetName() === 'modifier_windrunner_focusfire') {
+					const remainingTime = modifier.GetRemainingTime();
+					if (remainingTime <= 20) {
+						let gale_force = localHero.GetAbilityByIndex(3);
+						if (gale_force && gale_force.IsExist() && gale_force.CanCast()) {
+							let nearestEnemy = Game.FindNearestUnit("enemy", localHero.GetAbsOrigin(), false);
+							if (nearestEnemy) {
+								let targetPos = nearestEnemy.GetAbsOrigin();
+								let myPos = localHero.GetAbsOrigin();
+								let direction = (myPos - targetPos).Normalized();
+								let distance = (myPos - targetPos).Length2D();
+								if (distance <= 1000) {
+									gale_force.CastPosition(targetPos);
 								} else {
-									gale_force.CastPosition(myPos - direction * 1000);
+									var angle = Math.acos(direction.Dot(localHero.GetForwardVector())) * 180 / Math.PI;
+									if (angle <= 90) {
+										gale_force.CastPosition(myPos + direction * 1000);
+									} else {
+										gale_force.CastPosition(myPos - direction * 1000);
+									}
 								}
 							}
 						}
