@@ -49,11 +49,11 @@ eval(`
 							let pos2 = (vec2.x ? (vec2) : (vec2.GetAbsOrigin ? (vec2.GetAbsOrigin()) : (0)));
 							//let distance = pos1 && pos2 && pos1.sub(pos2).Length2D();
 							
-							//let target = EntitySystem.GetLocalHero();							
+							let target = EntitySystem.GetLocalHero();							
 							//let angle = Math.atan2(Input.GetWorldCursorPos().y - target.GetAbsOrigin().y, Input.GetWorldCursorPos().x - target.GetAbsOrigin().x) * (180 / Math.PI);
 									
 							let targetPoint = Input.GetWorldCursorPos();
-							let startPoint = localHero.GetAbs();
+							let startPoint = target.GetAbsOrigin();
 							let direction = targetPoint.sub(startPoint).Normalized();
 							let distance = targetPoint.sub(startPoint).Length2D();
 									
