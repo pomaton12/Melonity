@@ -53,7 +53,7 @@ eval(`
 							let angle = Math.atan2(Input.GetWorldCursorPos().y - target.GetAbsOrigin().y, Input.GetWorldCursorPos().x - target.GetAbsOrigin().x) * (180 / Math.PI);
 							let pushDirection = new Vector(999, 0, 0).Rotated(angle);								
 							if (distance <= 1000) {
-								gale_force.CastPosition(vec2);
+								gale_force.CastPosition(vec1.add(pushDirection));
 							}
 						}
 					}
