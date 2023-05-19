@@ -27,7 +27,7 @@ eval(`
 
 	// Creación del toggle isUiEnabled
 	let isUiEnabled = Menu.AddToggle(path_, 'Gale Force Use', true);
-	isUiEnabled.SetImage('panorama/images/items/stormcrafter_png.vtex_c');
+	isUiEnabled.SetImage('panorama/images/spellicons/windrunner_gale_force_png.vtex_c');
 
 	// Definición de la función OnUpdate
 	AutoSaverWindrunner.OnUpdate = () => {
@@ -53,7 +53,7 @@ eval(`
 							let angle = Math.atan2(Input.GetWorldCursorPos().y - target.GetAbsOrigin().y, Input.GetWorldCursorPos().x - target.GetAbsOrigin().x) * (180 / Math.PI);
 							let pushDirection = new Vector(999, 0, 0).Rotated(angle);								
 							if (distance <= 1000) {
-								gale_force.CastPosition(target.GetAbs().add(pushDirection));
+								gale_force.CastPosition(target.GetAbsOrigin().add(pushDirection));
 							}
 						}
 					}
