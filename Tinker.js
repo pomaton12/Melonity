@@ -52,7 +52,7 @@ eval(`
 							let target = EntitySystem.GetLocalHero();
 							let rotation = target.GetRotation();
 							let radians = rotation.y * Math.PI / 180;
-							let direction = new Vector2(Math.cos(radians), -Math.sin(radians));
+							let direction = new Vector(Math.cos(radians), -Math.sin(radians), 0);
 							
 							if (distance <= 1000) {
 								gale_force.CastPosition(target.GetAbsOrigin().add(direction.mul(500)));
