@@ -46,7 +46,11 @@ eval(`
 					if (remainingTime <= 20) {
 						let gale_force = localHero.GetAbilityByIndex(3);
 						if (gale_force && gale_force.IsExist() && gale_force.CanCast()) {
-							gale_force.CastNoTarget();
+							const manta = localHero.GetItem('item_manta', true);
+							if (manta && manta.GetCooldown() === 0) {
+								  manta.CastNoTarget();
+								  return;
+							}
 						}
 					}
 				}
