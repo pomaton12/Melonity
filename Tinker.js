@@ -45,7 +45,7 @@ eval(`
 					const remainingTime = modifier.GetRemainingTime();
 					if (remainingTime <= 20) {
 						let gale_force = localHero.GetAbilityByIndex(3);
-						if (gale_force.IsFullyCastable()) {
+						if (gale_force && gale_force.IsFullyCastable()) {
 							var target = ability.GetCursorTarget();
 							var targetPos = target.GetAbsOrigin();
 							var myPos = localHero.GetAbsOrigin();
