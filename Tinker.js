@@ -47,17 +47,9 @@ eval(`
 						let gale_force = localHero.GetAbilityByIndex(3);
 						if (gale_force && gale_force.IsExist() && gale_force.CanCast()) {
 							let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY).length;
-							let nearestEnemy = null;
-							let nearestDistance = 999999;
-							for (let enemy of enemies) {
-								let distance = (localHero.GetAbsOrigin() - enemy.GetAbsOrigin()).Length2D();
-								if (distance < nearestDistance) {
-									nearestEnemy = enemy;
-									nearestDistance = distance;
-								}
-							}
-							if (nearestEnemy) {
-								let targetPos = nearestEnemy.GetAbsOrigin();
+
+							if (enemies) {
+								let targetPos = enemies.GetAbsOrigin();
 								let myPos = localHero.GetAbsOrigin();
 								let direction = (myPos - targetPos).Normalized();
 								let distance = (myPos - targetPos).Length2D();
