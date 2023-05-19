@@ -26,13 +26,13 @@ eval(`
 	const path_ = ['Heroes', 'Intelligence', 'Windranger'];
 
 	// Creación del toggle isUiEnabled
-	let isUiEnabled = Menu.AddToggle(path_, 'Gale Force Use', true).SetImage('panorama/images/items/stormcrafter_png.vtex_c');
+	let isUiEnabled = Menu.AddToggle(path_, 'Gale Force Use', true)
 		.OnChange(state => {
 			isUiEnabled = state.newValue;
 		})
 		.SetNameLocale('ru', 'штормовая сила')
 		.GetValue();
-	//Menu.GetFolder([...path_,'Gale Force Use']).SetImage('panorama/images/items/stormcrafter_png.vtex_c');
+	isUiEnabled.SetImage('panorama/images/items/stormcrafter_png.vtex_c');
 
 	// Definición de la función OnUpdate
 	AutoSaverWindrunner.OnUpdate = () => {
