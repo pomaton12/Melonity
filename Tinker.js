@@ -56,6 +56,7 @@ eval(`
 							
 							if (distance <= 1000) {
 								gale_force.CastPosition(vec2);
+								gale_force.CastDirection(vec1);
 							}
 						}
 					}
