@@ -42,9 +42,11 @@ eval(`
       .GetValue();
 
   // Definición de la función OnUpdate
+  let mantaActivated = false;
+
   AutoSaverAlchemist.OnUpdate = () => {
       if (localHero && isUiEnabled) {
-          if (localHero.GetUnitName() !== "npc_dota_hero_alchemist")
+          (localHero.GetUnitName() !== "npc_dota_hero_alchemist")
               return;
           const modifiers = localHero.GetModifiers();
           for (let modifier of modifiers) {
@@ -53,10 +55,14 @@ eval(`
                   if (remainingTime <= -6.45) {
                       const manta = localHero.GetItem('item_manta', true);
                       const bkb = localHero.GetItem('item_black_king_bar', true);
-                      if (itemSelection[1] && manta && manta.GetCooldown() === 0) {
+                      if (itemSelection[1] && manta && manta.GetCooldown() === 0 && !mantaActivated) {
                           manta.CastNoTarget();
+                          mantaActivated = true;
+                          setTimeout(() => {
+                              mantaActivated = false;
+                          }, 1000);
                           return;
-                      } else if (itemSelection[0] && (!manta || manta.GetCooldown() > 0) && bkb && bkb.GetCooldown() === 0) {
+                      } else if (itemSelection[0] && (!manta || manta.GetCooldown() > 0) && bkb && bkb.GetCooldown() === 0 && !mantaActivated) {
                           bkb.CastNoTarget();
                           return;
                       }
@@ -65,6 +71,7 @@ eval(`
           }
       }
   };
+
 
   // Definición de la función OnScriptLoad
   AutoSaverAlchemist.OnScriptLoad = AutoSaverAlchemist.OnGameStart = () => {
