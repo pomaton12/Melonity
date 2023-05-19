@@ -46,7 +46,7 @@ eval(`
 					if (remainingTime <= 20) {
 						let gale_force = localHero.GetAbilityByIndex(3);
 						if (gale_force && gale_force.IsExist() && gale_force.CanCast()) {
-							let enemies = Entities.FindEnemies(localHero);
+							let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY).length;
 							let nearestEnemy = null;
 							let nearestDistance = 999999;
 							for (let enemy of enemies) {
