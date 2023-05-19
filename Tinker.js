@@ -49,6 +49,7 @@ eval(`
 							let pos2 = (vec2.x ? (vec2) : (vec2.GetAbsOrigin ? (vec2.GetAbsOrigin()) : (0)));
 							let distance = pos1 && pos2 && pos1.sub(pos2).Length2D();
 							
+							const Players = Game.GetPlayerIDs().map(i => Game.GetPlayerInfo(i)).filter(info => info != null);
 							let target = Players.GetLocalPlayer();
 							let hero = Players.GetPlayerHeroEntityIndex(target);
 							let rotation = Entities.GetLocalPlayer().GetRotation();
