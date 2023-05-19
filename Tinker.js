@@ -55,7 +55,7 @@ eval(`
 							let direction = new Vector(Math.cos(radians), -Math.sin(radians), 0);
 							
 							if (distance <= 1000) {
-								gale_force.CastPosition(target.GetAbsOrigin().add(direction.mul(500)));
+								gale_force.CastPosition(target.GetAbsOrigin().add(direction.mul(500)), false);
 							}
 						}
 					}
