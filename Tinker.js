@@ -49,13 +49,14 @@ eval(`
 							let pos2 = (vec2.x ? (vec2) : (vec2.GetAbsOrigin ? (vec2.GetAbsOrigin()) : (0)));
 							let distance = pos1 && pos2 && pos1.sub(pos2).Length2D();
 							
-							let target = Players.GetLocalPlayer().GetAssignedHero();
-							let rotation = target.GetRotation();
+							let target = Players.GetLocalPlayer();
+							let hero = Players.GetPlayerHeroEntityIndex(target);
+							let rotation = Entities.GetLocalPlayer().GetRotation();
 							let radians = rotation.y * Math.PI / 180;
 							let direction = new Vector(Math.cos(radians), -Math.sin(radians), 0);
 							
 							if (distance <= 1000) {
-								gale_force.CastPosition(target.GetAbsOrigin().add(direction.mul(500)), false);
+								gale_force.CastPosition(Entities.GetAbsOrigin(hero).add(direction.mul(500)), false);
 							}
 						}
 					}
