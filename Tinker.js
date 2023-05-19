@@ -49,7 +49,7 @@ eval(`
 							let pos2 = (vec2.x ? (vec2) : (vec2.GetAbsOrigin ? (vec2.GetAbsOrigin()) : (0)));
 							let distance = pos1 && pos2 && pos1.sub(pos2).Length2D();
 							
-							let target = Heroes.GetLocalHero();
+							let target = Players.GetLocalPlayer().GetAssignedHero();
 							let rotation = target.GetRotation();
 							let radians = rotation.y * Math.PI / 180;
 							let direction = new Vector(Math.cos(radians), -Math.sin(radians), 0);
