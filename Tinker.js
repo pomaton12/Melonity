@@ -49,7 +49,7 @@ eval(`
 							let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY).length;
 							let targetPos = enemies;
 							let myPos = localHero.GetAbsOrigin();
-							let direction = (myPos - targetPos).Normalized();
+							let direction = targetPos.clone().sub(myPos).normalize();
 							let distance = (myPos - targetPos).Length2D();
 							if (distance <= 1000) {
 								gale_force.CastPosition(targetPos);
