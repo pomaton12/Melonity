@@ -23,7 +23,7 @@ eval(`
 	let localHero;
 
 	// Definición del array path_
-	const path_ = ['Heroes', 'Intelligence', 'Windrunner', 'Gale Force'];
+	const path_ = ['Heroes', 'Intelligence', 'Windranger', 'Gale Force'];
 
 	// Creación del toggle isUiEnabled
 	let isUiEnabled = Menu.AddToggle(path_, 'Gale Force Use', true)
