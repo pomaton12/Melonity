@@ -42,8 +42,8 @@ eval(`
       .GetValue();
 
   // Definición de la función OnUpdate
-  AutoSaverAlchemist.OnUpdate = () => {   
-    if (localHero && isUiEnabled) {
+  AutoSaverAlchemist.OnUpdate = () => {
+      if (localHero && isUiEnabled) {
           if (localHero.GetUnitName() !== "npc_dota_hero_alchemist")
               return;
           const modifiers = localHero.GetModifiers();
@@ -56,7 +56,7 @@ eval(`
                       if (itemSelection[1] && manta && manta.GetCooldown() === 0) {
                           manta.CastNoTarget();
                           return;
-                      } else if (itemSelection[0] && bkb && bkb.GetCooldown() === 0 && !manta) {
+                      } else if (itemSelection[0] && (!manta || manta.GetCooldown() > 0) && bkb && bkb.GetCooldown() === 0) {
                           bkb.CastNoTarget();
                           return;
                       }
@@ -65,7 +65,6 @@ eval(`
           }
       }
   };
-
 
   // Definición de la función OnScriptLoad
   AutoSaverAlchemist.OnScriptLoad = AutoSaverAlchemist.OnGameStart = () => {
