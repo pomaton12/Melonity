@@ -50,7 +50,7 @@ eval(`
 							let distance = pos1 && pos2 && pos1.sub(pos2).Length2D();
 							
 							if (distance <= 1000) {
-								gale_force.CastPosition(vec2);
+								gale_force.CastPosition(enemies);
 							}
 						}
 					}
