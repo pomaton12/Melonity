@@ -46,7 +46,16 @@ eval(`
 					if (remainingTime <= 20) {
 						let gale_force = localHero.GetAbilityByIndex(3);
 						if (gale_force && gale_force.IsExist() && gale_force.CanCast()) {
-							let nearestEnemy = Game.FindNearestUnit("enemy", localHero.GetAbsOrigin(), false);
+							let enemies = Entities.FindEnemies(localHero);
+							let nearestEnemy = null;
+							let nearestDistance = 999999;
+							for (let enemy of enemies) {
+								let distance = (localHero.GetAbsOrigin() - enemy.GetAbsOrigin()).Length2D();
+								if (distance < nearestDistance) {
+									nearestEnemy = enemy;
+									nearestDistance = distance;
+								}
+							}
 							if (nearestEnemy) {
 								let targetPos = nearestEnemy.GetAbsOrigin();
 								let myPos = localHero.GetAbsOrigin();
