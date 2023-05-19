@@ -51,7 +51,8 @@ eval(`
 							
 							let target = EntitySystem.GetLocalHero();
 							let angles = target.GetAngles();
-							let radians = angles.y * Math.PI / 180let direction = new Vector2(Math.cos(radians), -Math.sin(radians));
+							let radians = angles.y * Math.PI / 180;
+							let direction = new Vector2(Math.cos(radians), -Math.sin(radians));
 							
 							if (distance <= 1000) {
 								gale_force.CastPosition(target.GetAbsOrigin().add(direction.mul(500)));
