@@ -32,7 +32,7 @@ eval(`
 		})
 		.SetNameLocale('ru', 'штормовая сила')
 		.GetValue();
-	Menu.GetFolder(path_, 'Gale Force Use').SetImage('panorama/images/items/stormcrafter_png.vtex_c');
+	Menu.GetFolder(isUiEnabled).SetImage('panorama/images/items/stormcrafter_png.vtex_c');
 
 	// Definición de la función OnUpdate
 	AutoSaverWindrunner.OnUpdate = () => {
