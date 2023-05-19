@@ -26,12 +26,7 @@ eval(`
 	const path_ = ['Heroes', 'Intelligence', 'Windranger'];
 
 	// Creación del toggle isUiEnabled
-	let isUiEnabled = Menu.AddToggle(path_, 'Gale Force Use', true)
-		.OnChange(state => {
-			isUiEnabled = state.newValue;
-		})
-		.SetNameLocale('ru', 'штормовая сила')
-		.GetValue();
+	let isUiEnabled = Menu.AddToggle(path_, 'Gale Force Use', true);
 	isUiEnabled.SetImage('panorama/images/items/stormcrafter_png.vtex_c');
 
 	// Definición de la función OnUpdate
