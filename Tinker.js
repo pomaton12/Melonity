@@ -50,10 +50,11 @@ eval(`
 							let distance = pos1 && pos2 && pos1.sub(pos2).Length2D();
 							
 							let target = EntitySystem.GetLocalHero();
-							let forwardVector = target.GetForwardVector();
+							let angles = target.GetAngles();
+							let radians = angles.y * Math.PI / 180let direction = new Vector2(Math.cos(radians), -Math.sin(radians));
 							
 							if (distance <= 1000) {
-								gale_force.CastPosition(target.GetAbsOrigin().add(forwardVector.mul(500)));
+								gale_force.CastPosition(target.GetAbsOrigin().add(direction.mul(500)));
 							}
 						}
 					}
