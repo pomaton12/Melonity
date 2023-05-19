@@ -50,8 +50,8 @@ eval(`
 							let distance = pos1 && pos2 && pos1.sub(pos2).Length2D();
 							
 							let target = EntitySystem.GetLocalHero();
-							let angles = target.GetAngles();
-							let radians = angles.y * Math.PI / 180;
+							let rotation = target.GetRotation();
+							let radians = rotation.y * Math.PI / 180;/ 180;
 							let direction = new Vector2(Math.cos(radians), -Math.sin(radians));
 							
 							if (distance <= 1000) {
