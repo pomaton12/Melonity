@@ -48,9 +48,10 @@ eval(`
 							let pos1 = (vec1.x ? (vec1) : (vec1.GetAbsOrigin ? (vec1.GetAbsOrigin()) : (0)));
 							let pos2 = (vec2.x ? (vec2) : (vec2.GetAbsOrigin ? (vec2.GetAbsOrigin()) : (0)));
 							let distance = pos1 && pos2 && pos1.sub(pos2).Length2D();
+							let forwardVector = target.GetForwardVector();
 							
 							if (distance <= 1000) {
-								gale_force.CastPosition(enemies);
+								gale_force.CastPosition(vec1.add(forwardVector.mul(500)));
 							}
 						}
 					}
