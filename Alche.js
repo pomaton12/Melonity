@@ -42,7 +42,7 @@ eval(`
       .GetValue();
 
   // Definición de la función OnUpdate
-  AutoSaverAlchemist.OnUpdate = () =>    
+  AutoSaverAlchemist.OnUpdate = () => {   
     if (localHero && isUiEnabled) {
           if (localHero.GetUnitName() !== "npc_dota_hero_alchemist")
               return;
