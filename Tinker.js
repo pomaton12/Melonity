@@ -63,6 +63,12 @@ eval(`
 		      let distance = vec1.sub(vec2).Length2D();
 
 		      if (distance <= 1000) {
+			// Agregar condiciones para no lanzar Gale Force
+			if (enemy.HasModifier('modifier_windrunner_shackleshot') ||
+			    enemy.HasModifier('modifier_sheepstick_debuff') ||
+			    enemy.IsMagicImmune()) {
+			  continue;
+			}
 			let pushDirection;
 			if (isAttacking) {
 			  pushDirection = vec2.sub(vec1).Normalized();
@@ -80,6 +86,7 @@ eval(`
 	    }
 	  }
 	};
+
 	// Definición de la función OnScriptLoad
 	AutoSaverWindrunner.OnScriptLoad = AutoSaverWindrunner.OnGameStart = () => {
 		localHero = EntitySystem.GetLocalHero();
