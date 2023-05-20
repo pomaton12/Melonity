@@ -41,8 +41,9 @@ if (localHero && isUiEnabled1) {
 
   // Verificar si la habilidad está lista para ser lanzada
   if (torrentStorm && torrentStorm.IsExist() && torrentStorm.CanCast()) {
+
     // Verificar si algún héroe enemigo ha sido afectado por el ultimate
-    let enemies = FindUnitsInRadius(localHero.GetTeamNumber(), targetPoint, null, torrentStorm.GetCastRange(), DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false);
+    let enemies = FindUnitsInRadiusWithTeam(localHero.GetTeamNumber(), targetPoint, null, torrentStorm.GetCastRange(), DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false);
     let enemyAffected = false;
     for (let i = 0; i < enemies.length; i++) {
       if (enemies[i].IsAlive() && enemies[i].IsHero() && enemies[i].IsEnemy(localHero)) {
@@ -53,10 +54,14 @@ if (localHero && isUiEnabled1) {
 
     // Si se encuentra al menos un héroe enemigo afectado por el ultimate, lanzar "Torrent Storm" en el punto seleccionado
     if (enemyAffected) {
-      torrentStorm.CastPosition(localHero.GetAbsOrigin());
+      torrentStorm.CastPosition(targetPoint);
     }
   }
-}	
+}
+En este ejemplo, después de lanzar "Torrent Storm", se busca a los héroes enemigos dentro del rango del ultimate usando la función "FindUnitsInRadiusWithTeam". Luego, se verifica si al menos un héroe enemigo ha sido afectado por el ultimate. Si se encuentra al menos un héroe enemigo afectado, se lanza "Torrent Storm" en el punto seleccionado nuevamente.
+GPT-3.5
+
+Share
 	  	if (localHero && isUiEnabled2) {
 
 		}
