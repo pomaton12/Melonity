@@ -41,10 +41,20 @@ eval(`
 	      if (modifier.GetName() === 'modifier_windrunner_focusfire') {
 		const remainingTime = modifier.GetRemainingTime();
 		if (remainingTime <= 20) {
+		  // Nueva condición para activar BKB si el enemigo tiene activado Blade Mail
+		  let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
+		  for (let enemy of enemies) {
+		    if (enemy.HasModifier("modifier_item_blade_mail_reflect")) {
+		      let bkb = localHero.GetItem('item_black_king_bar', true);
+		      if (bkb && bkb.CanCast()) {
+			bkb.CastNoTarget();
+		      }
+		    }
+		  }
+
 		  let gale_force = localHero.GetAbilityByIndex(3);
 		  if (gale_force && gale_force.IsExist() && gale_force.CanCast()) {
-		    let windrun = localHero.GetAbilityByIndex(1);
-		    let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
+		    enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 		    for (let enemy of enemies) {
 		      let enemyId = enemy.GetPlayerID();
 		      let isAttacking = enemy.IsAttacking() && enemy.GetAttackTarget() === localHero;
@@ -72,22 +82,7 @@ eval(`
 			} else {
 			  continue;
 			}
-
-			// Agregar condición para evitar que se active la habilidad "gale_force" en ciertas situaciones
-			if (enemy.HasModifier("modifier_item_blade_mail_reflect") && modifier.GetStackCount() > 0) {
-			  let bkb = localHero.GetAbilityByIndex(4);
-			  if (bkb && bkb.IsExist() && bkb.CanCast()) {
-			    bkb.CastNoTarget();
-			  }
-			} else if ((enemy.HasModifier("modifier_windrunner_windrun") && modifier.GetStackCount() > 0) || enemy.HasModifier("modifier_black_king_bar_immune") || enemy.HasModifier("modifier_sheepstick_debuff")) {
-			  continue;
-			} else {
-			  // Agregar verificación para usar la habilidad "Windrun" mientras se usa el ultimate "Focus Fire"
-			  if (windrun && windrun.IsExist() && windrun.CanCast() && distance <= 600) {
-			    windrun.CastNoTarget();
-			  }
-			  gale_force.CastPosition(vec1.add(pushDirection));
-			}
+			gale_force.CastPosition(vec1.add(pushDirection));
 		      }
 		    }
 		  }
