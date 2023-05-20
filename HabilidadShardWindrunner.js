@@ -1,11 +1,3 @@
-/*
- * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
- * This devtool is neither made for production nor for readable output files.
- * It uses "eval()" calls to create a separate source file in the browser devtools.
- * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
- * or disable the default devtool with "devtool: false".
- * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
- */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -16,8 +8,8 @@
 /***/ (() => {
 
 eval(`
-	// Definición del objeto Windranger
-	constSaverWindrunner = {};
+	// Definición del objeto AutoSaverWindrunner
+	const AutoSaverWindrunner = {};
 
 	// Declaración de la variable localHero
 	let localHero;
@@ -60,10 +52,7 @@ eval(`
 		  let gale_force = localHero.GetAbilityByIndex(3);
 		  if (gale_force && gale_force.IsExist() && gale_force.CanCast()) {
 		    enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
-		    for (let enemy of enemies) {
-		      if (enemy.HasModifier("modifier_item_black_king_bar_immune")) {
-			continue; // Si el enemigo tiene activado BKB, salta a la siguiente iteración del bucle
-		      }
+		    for (let enemy of enemies {
 		      let enemyId = enemy.GetPlayerID();
 		      let isAttacking = enemy.IsAttacking() && enemy.GetAttackTarget() === localHero;
 		      let currentPosition = enemy.GetAbsOrigin();
@@ -90,7 +79,11 @@ eval(`
 			} else {
 			  continue;
 			}
-			gale_force.CastPosition(vec1.add(pushDirection));
+
+			// Agregar condición para evitar lanzar gale force si el enemigo tiene activado bkb
+			if (enemy.HasModifier("modifier_black_king_bar_immune") === false) {
+			  gale_force.CastPosition(vec1.add(pushDirection));
+			}
 		      }
 		    }
 		  }
@@ -120,8 +113,6 @@ eval(`
 /************************************************************************/
 /******/ 	
 /******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	// This entry module can't be inlined because the eval devtool is used.
 /******/ 	var __webpack_exports__ = {};
 /******/ 	__webpack_modules__["./src/AutoSaverWindrunner.ts"]();
 /******/ 	
