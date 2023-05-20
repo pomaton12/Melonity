@@ -39,10 +39,10 @@ eval(`
 		  const hasUsedUltimate = localHero.HasModifier("modifier_kunkka_ghostship");
 		  const enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 		  const stunnedEnemies = enemies.filter(enemy => {
-		    const modifier = enemy.GetModifierByName("modifier_kunkka_torrent");
-		    const ultimateModifier = enemy.GetModifierByName("modifier_kunkka_ghostship");
-		    const bkbModifier = enemy.GetModifierByName("modifier_black_king_bar_immune");
-		    return (modifier || ultimateModifier) && !bkbModifier;
+		    const hasTorrentModifier = enemy.HasModifier("modifier_kunkka_torrent");
+		    const hasultimateModifier = enemy.HasModifier("modifier_kunkka_ghostship");
+		    const hasbkbModifier = enemy.HasModifier("modifier_black_king_bar_immune");
+		    return (hasTorrentModifier || hasultimateModifier) && !hasbkbModifier;
 		  });
 
 		  if (torrentStorm && torrentStorm.IsExist() && torrentStorm.CanCast() && (hasUsedFirstAbility || hasUsedUltimate) && stunnedEnemies.length > 0) {
