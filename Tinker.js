@@ -63,9 +63,17 @@ eval(`
 		      let distance = vec1.sub(vec2).Length2D();
 
 		      if (distance <= 1000) {
-			let isStunned = enemy.IsStunned() || enemy.IsHexed();
+			let isStunned = enemy.IsStunned();
+			let owner = gale_force.GetOwner();
+			let hasModf = owner.HasState(Enum.ModifierState.MODIFIER_STATE_MUTED)
+			  || owner.HasState(Enum.ModifierState.MODIFIER_STATE_STUNNED)
+			  || owner.HasState(Enum.ModifierState.MODIFIER_STATE_HEXED)
+			  || owner.HasState(Enum.ModifierState.MODIFIER_STATE_INVULNERABLE)
+			  || owner.HasState(Enum.ModifierState.MODIFIER_STATE_FROZEN)
+			  || owner.HasState(Enum.ModifierState.MODIFIER_STATE_FEARED)
+			  || owner.HasState(Enum.ModifierState.MODIFIER_STATE_TAUNTED);
 			let hasBKB = enemy.HasModifier("modifier_black_king_bar_immune");
-			if (!isStunned && !hasBKB && !isAttacking && !isEscaping) {
+			if (!isStunned && !hasModf && !hasBKB && !isAttacking && !isEscaping) {
 			  let pushDirection = isAttacking ? vec2.sub(vec1).Normalized() : vec1.sub(vec2).Normalized();
 			  gale_force.CastPosition(vec1.add(pushDirection));
 			}
@@ -77,6 +85,7 @@ eval(`
 	    }
 	  }
 	};
+
 	// Definición de la función OnScriptLoad
 	AutoSaverWindrunner.OnScriptLoad = AutoSaverWindrunner.OnGameStart = () => {
 		localHero = EntitySystem.GetLocalHero();
