@@ -33,7 +33,7 @@ eval(`
 	let previousEnemyPositions = {};
 	//===============================
 	AutoSaverWindrunner.OnUpdate = () => {
-	  if (localHero && isUiEnabled) {
+	  if (localHero isUiEnabled) {
 	    if (localHero.GetUnitName() !== "npc_dota_hero_windrunner")
 	      return;
 	    const modifiers = localHero.GetModifiers();
@@ -63,6 +63,11 @@ eval(`
 		      let distance = vec1.sub(vec2).Length2D();
 
 		      if (distance <= 1000) {
+			// Comprobar si el enemigo está aturdido con Shackleshot, Scythe of Vyse o tiene la BKB activada
+			if (enemy.HasModifier('modifier_windrunner_shackleshot') || enemy.HasModifier('modifier_sheepstick_debuff') || enemy.HasModifier('modifier_black_king_bar_immune')) {
+			  continue;
+			}
+
 			let pushDirection;
 			if (isAttacking) {
 			  pushDirection = vec2.sub(vec1).Normalized();
@@ -80,6 +85,7 @@ eval(`
 	    }
 	  }
 	};
+
 	// Definición de la función OnScriptLoad
 	AutoSaverWindrunner.OnScriptLoad = AutoSaverWindrunner.OnGameStart = () => {
 		localHero = EntitySystem.GetLocalHero();
