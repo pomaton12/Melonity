@@ -19,11 +19,11 @@ eval(`
 
 	// Creación del toggle isUiEnabled1  para habilidad 4
 	let isUiEnabled1 = Menu.AddToggle(path_, 'Torrent Storm Use', true);
-	isUiEnabled1.SetImage('panorama\images\spellicons\kunkka_torrent_storm_png.vtex_c');
+	isUiEnabled1.SetImage('panorama/images/spellicons/kunkka_torrent_storm_png.vtex_c');
 	
 	// Creación del toggle isUiEnabled2  para habilidad 5
 	let isUiEnabled2 = Menu.AddToggle(path_, 'Tidal Wave Use', true);
-	isUiEnabled2.SetImage('panorama\images\spellicons\kunkka_tidal_wave_png.vtex_c');
+	isUiEnabled2.SetImage('panorama/images/spellicons/kunkka_tidal_wave_png.vtex_c');
 	
 
 	// Definición de la función OnUpdate
