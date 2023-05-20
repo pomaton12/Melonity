@@ -23,7 +23,8 @@ eval(`
 	const path_ = ['Heroes', 'Intelligence', 'Windranger'];
 	let isUiEnabled = Menu.AddToggle(path_, 'Gale Force Use', true);
 	isUiEnabled.SetImage('panorama/images/spellicons/windrunner_gale_force_png.vtex_c');
-
+	
+	const { CBaseAnimating } = require('wrapper/imports');
 	let previousEnemyPositions = {};
 
 	AutoSaverWindrunner.OnUpdate = () => {
