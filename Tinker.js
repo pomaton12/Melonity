@@ -71,7 +71,18 @@ eval(`
 			} else {
 			  continue;
 			}
-			gale_force.CastPosition(vec1.add(pushDirection));
+
+			// Agregar condición para evitar que se active la habilidad "gale_force" en ciertas situaciones
+			if (enemy.HasModifier("modifier_item_blade_mail_reflect") && modifier.GetStackCount() > 0) {
+			  let bkb = localHero.GetAbilityByIndex(4);
+			  if (bkb && bkb.IsExist() && bkb.CanCast()) {
+			    bkb.CastNoTarget();
+			  }
+			} else if ((enemy.HasModifier("modifier_windrunner_windrun") && modifier.GetStackCount() > 0) || enemy.HasModifier("modifier_black_king_bar_immune") || enemy.HasModifier("modifier_sheepstick_debuff")) {
+			  continue;
+			} else {
+			  gale_force.CastPosition(vec1.add(pushDirection));
+			}
 		      }
 		    }
 		  }
