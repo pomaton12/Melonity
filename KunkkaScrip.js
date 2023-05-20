@@ -32,7 +32,7 @@ eval(`
 	//===============================
 	UseShardKunkka.OnUpdate = () => {
 		if (localHero && isUiEnabled1) {
-		  if (localHero.GetUnitName() !== "npc_dota_hero_windrunner")
+		  if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
 	      	     return;
 		  const torrentStorm = localHero.AbilityByIndex(3);
 		  if (torrentStorm && torrentStorm.IsExist() && torrentStorm.CanCast()) {
