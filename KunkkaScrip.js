@@ -53,7 +53,7 @@ if (localHero && isUiEnabled1) {
 
     // Si se encuentra al menos un héroe enemigo afectado por el ultimate, lanzar "Torrent Storm" en el punto seleccionado
     if (enemyAffected) {
-      torrentStorm.CastPosition(localHero.GetAbsOrigin(););
+      torrentStorm.CastPosition(localHero.GetAbsOrigin());
     }
   }
 }	
