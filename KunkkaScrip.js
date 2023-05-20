@@ -31,33 +31,24 @@ eval(`
 	let bkbEnemies = {};
 	//===============================
 	UseShardKunkka.OnUpdate = () => {
-if (localHero && isUiEnabled1) {
-  if (localHero.GetUnitName() !== "npc_dota_hero_kunkka") {
-    return;
-  }
+		if (localHero && isUiEnabled1) {
+		  if (localHero.GetUnitName() !== "npc_dota_hero_kunkka") {
+		    return;
+		  }
 
-  // Obtener habilidad "Torrent Storm"
-  let torrentStorm = localHero.GetAbilityByIndex(3);
+		  // Obtener habilidad "Torrent Storm"
+		  let torrentStorm = localHero.GetAbilityByIndex(3);
 
-  // Verificar si la habilidad está lista para ser lanzada
-  if (torrentStorm && torrentStorm.IsExist() && torrentStorm.CanCast()) {
-
-    // Verificar si algún héroe enemigo ha sido afectado por el ultimate
-    let enemies = FindUnitsInRadiusWithTeam(localHero.GetTeamNumber(), targetPoint, null, torrentStorm.GetCastRange(), DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false);
-    let enemyAffected = false;
-    for (let i = 0; i < enemies.length; i++) {
-      if (enemies[i].IsAlive() && enemies[i].IsHero() && enemies[i].IsEnemy(localHero)) {
-        enemyAffected = true;
-        break;
-      }
-    }
-
-    // Si se encuentra al menos un héroe enemigo afectado por el ultimate, lanzar "Torrent Storm" en el punto seleccionado
-    if (enemyAffected) {
-      torrentStorm.CastPosition(targetPoint);
-    }
-  }
-}
+		  // Verificar si la habilidad está lista para ser lanzada
+		  if (torrentStorm && torrentStorm.IsExist() && torrentStorm.CanCast()) {
+		    // Verificar si se ha lanzado el ultimate de Kunkka
+		    let ultimateAbility = localHero.GetAbilityByIndex(5);
+		    if (ultimateAbility && ultimateAbility.IsExist() && ultimateAbility.GetCooldownTimeRemaining() === 0) {
+		      // Lanzar "Torrent Storm" en el punto seleccionado
+		      torrentStorm.CastPosition(localHero.GetAbsOrigin());
+		    }
+		  }
+		}
 
 	  	if (localHero && isUiEnabled2) {
 
