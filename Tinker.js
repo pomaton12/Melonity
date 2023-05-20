@@ -30,6 +30,8 @@ eval(`
 	isUiEnabled.SetImage('panorama/images/spellicons/windrunner_gale_force_png.vtex_c');
 
 	// Definición de la función OnUpdate
+	let previousEnemyPositions = {};
+	//===============================
 	AutoSaverWindrunner.OnUpdate = () => {
 	  if (localHero && isUiEnabled) {
 	    if (localHero.GetUnitName() !== "npc_dota_hero_windrunner")
@@ -43,8 +45,18 @@ eval(`
 		  if (gale_force && gale_force.IsExist() && gale_force.CanCast()) {
 		    let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 		    for (let enemy of enemies) {
+		      let enemyId = enemy.GetEntityIndex();
 		      let isAttacking = enemy.IsAttacking() && enemy.GetAttackTarget() === localHero;
-		      let isEscaping = !isAttacking && enemy.IsMoving();
+		      let currentPosition = enemy.GetAbsOrigin();
+		      let isEscaping = false;
+
+		      if (previousEnemyPositions[enemyId]) {
+			let previousPosition = previousEnemyPositions[enemyId];
+			let distanceMoved = currentPosition.sub(previousPosition).Length2D();
+			isEscaping = distanceMoved > 0 && !isAttacking;
+		      }
+
+		      previousEnemyPositions[enemyId] = currentPosition;
 
 		      let vec1 = localHero.GetAbsOrigin();
 		      let vec2 = enemy.GetAbsOrigin();
