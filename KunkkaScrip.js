@@ -31,30 +31,34 @@ eval(`
 	let bkbEnemies = {};
 	//===============================
 	UseShardKunkka.OnUpdate = () => {
-		if (localHero && isUiEnabled1) {
-		  if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
-	      	     return; 
-		  const  torrentStorm = localHero.GetAbilityByIndex(3);
-		  const hasUsedFirstAbility = localHero.HasModifier("modifier_kunkka_torrent");
-		  const hasUsedUltimate = localHero.HasModifier("modifier_kunkka_ghostship");
-		  const enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
-		  const stunnedEnemies = enemies.filter(enemy => {
-		    const hasTorrentModifier = enemy.HasModifier("modifier_kunkka_torrent");
-		    const hasultimateModifier = enemy.HasModifier("modifier_kunkka_ghostship");
-		    const hasbkbModifier = enemy.HasModifier("modifier_black_king_bar_immune");
-		    return (hasTorrentModifier || hasultimateModifier) && !hasbkbModifier;
-		  });
+		  if (!localHero || localHero.GetUnitName() !== "npc_dota_hero_kunkka") {
+		    return;
+		  }
 
-		  if (torrentStorm && torrentStorm.IsExist() && torrentStorm.CanCast() && (hasUsedFirstAbility || hasUsedUltimate) && stunnedEnemies.length > 0) {
-		    if (stunnedEnemies.length === 1) {
-		      torrentStorm.CastTarget(stunnedEnemies[0]);
-		    } else {
-		      const center = GetCenterOfEntities(stunnedEnemies);
-		      torrentStorm.CastPosition(center);
+		  let torrentStorm = localHero.GetAbilityByIndex(3);
+
+		  if (isUiEnabled1.GetValue() && torrentStorm && torrentStorm.IsExist() && torrentStorm.CanCast()) {
+		    const hasUsedFirstAbility = localHero.HasModifier("modifier_kunkka_torrent");
+		    const hasUsedUltimate = localHero.HasModifier("modifier_kunkka_ghostship");
+		    const enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
+
+		    const stunnedEnemies = enemies.filter(enemy => {
+		      const hasTorrentModifier = enemy.HasModifier("modifier_kunkka_torrent");
+		      const hasUltimateModifier = enemy.HasModifier("modifier_kunkka_ghostship");
+		      const hasBkbModifier = enemy.HasModifier("modifier_black_king_bar_immune");
+		      return (hasTorrentModifier || hasUltimateModifier) && !hasBkbModifier;
+		    });
+
+		    if ((hasUsedFirstAbility || hasUsedUltimate) && stunnedEnemies.length > 0) {
+		      if (stunnedEnemies.length === 1) {
+			torrentStorm.CastNoTarget();
+		      } else {
+			const center = GetCenterOfEntities(stunnedEnemies);
+			localHero.CastPosition(torrentStorm, center);
+		      }
 		    }
 		  }
-		}
-	  
+
 	  	if (localHero && isUiEnabled2) {
 
 		}
