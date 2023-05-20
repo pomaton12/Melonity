@@ -34,7 +34,7 @@ eval(`
 		if (localHero && isUiEnabled1) {
 		  if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
 	      	     return;
-		  const torrentStorm = localHero.AbilityByIndex(3);
+		  let torrentStorm = localHero.GetAbilityByIndex(3);
 		  if (torrentStorm && torrentStorm.IsExist() && torrentStorm.CanCast()) {
 		    const enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 		    const torrentedEnemies = enemies.filter(enemy => {
