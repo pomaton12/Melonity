@@ -29,7 +29,7 @@ eval(`
 	let isUiEnabled = Menu.AddToggle(path_, 'Gale Force Use', true);
 	isUiEnabled.SetImage('panorama/images/spellicons/windrunner_gale_force_png.vtex_c');
 
-	// Definición de la función OnUpdate 
+	// Definición de la función OnUpdate
 	let previousEnemyPositions = {};
 	//===============================
 	AutoSaverWindrunner.OnUpdate = () => {
@@ -90,10 +90,10 @@ eval(`
 		localHero = null;
 	};
 
+	// Registro del script
 	RegisterScript(AutoSaverWindrunner);
 
-`);	// Registro del script
-
+`);
 
 /***/ })
 
