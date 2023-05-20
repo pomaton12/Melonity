@@ -32,7 +32,7 @@ eval(`
 	// Definición de la función OnUpdate
 	let previousEnemyPositions = {};
 	//===============================
-	SaverWindrunner.OnUpdate = () => {
+	AutoSaverWindrunner.OnUpdate = () => {
 	  if (localHero && isUiEnabled) {
 	    if (localHero.GetUnitName() !== "npc_dota_hero_windrunner")
 	      return;
