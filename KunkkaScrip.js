@@ -43,7 +43,7 @@ eval(`
     if (torrentStorm && torrentStorm.IsExist() && torrentStorm.CanCast()) {
       // Buscar enemigos cercanos
       let enemies = EntitySystem.GetHeroesList().filter(hero => {
-        return hero.IsAlive() && hero.IsEnemyHero(localHero) && hero.IsVisible() && !hero.IsIllusion();
+        return hero.IsAlive()  && hero.IsVisible() && !hero.IsIllusion();
       });
 
       // Seleccionar el punto de lanzamiento de "Torrent Storm"
