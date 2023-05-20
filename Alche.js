@@ -42,65 +42,29 @@ eval(`
       .GetValue();
 
   // Definición de la función OnUpdate
-  AutoSaverWindrunner.OnUpdate = () => {
-    if (localHero && isUiEnabled) {
-      if (localHero.GetUnitName() !== "npc_dota_hero_windrunner")
-        return;
-      const modifiers = localHero.GetModifiers();
-      for (let modifier of modifiers) {
-        if (modifier.GetName() === 'modifier_windrunner_focusfire') {
-          const remainingTime = modifier.GetRemainingTime();
-          if (remainingTime <= 20) {
-            // Nueva condición para activar BKB si el enemigo tiene activado Blade Mail
-            let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
-            for (let enemy of enemies) {
-              if (enemy.HasModifier("modifier_item_blade_mail_reflect")) {
-                let bkb = localHero.GetItem('item_black_king_bar', true);
-                if (bkb && bkb.CanCast()) {
-                  bkb.CastNoTarget();
+  AutoSaverAlchemist.OnUpdate = () => {
+        if (localHero && isUiEnabled) {
+            if (localHero.GetUnitName() !== "npc_dota_hero_alchemist")
+                return;
+            const modifiers = localHero.GetModifiers();
+            for (let modifier of modifiers) {
+                if (modifier.GetName() === 'modifier_alchemist_unstable_concoction') {
+                    const remainingTime = modifier.GetRemainingTime();
+                    if (remainingTime <= -6.45) {
+                        const manta = localHero.GetItem('item_manta', true);
+                        const bkb = localHero.GetItem('item_black_king_bar', true);
+                        if (itemSelection[1] && manta && manta.GetCooldown() === 0) {
+                            manta.CastNoTarget();
+                            return;
+                        } else if (itemSelection[0] && (!manta || manta.GetCooldown() > 0) && bkb && bkb.GetCooldown() === 0) {
+                            bkb.CastNoTarget();
+                            return;
+                        }
+                    }
                 }
-              }
             }
-
-            let gale_force = localHero.GetAbilityByIndex(3);
-            if (gale_force && gale_force.IsExist() && gale_force.CanCast()) {
-              enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
-              for (let enemy of enemies) {
-                let enemyId = enemy.GetPlayerID();
-                let isAttacking = enemy.IsAttacking() && enemy.GetAttackTarget() === localHero;
-                let currentPosition = enemy.GetAbsOrigin();
-                let isEscaping = false;
-
-                if (previousEnemyPositions[enemyId]) {
-                  let previousPosition = previousEnemyPositions[enemyId];
-                  let distanceMoved = currentPosition.sub(previousPosition).Length2D();
-                  isEscaping = distanceMoved > 0 && !isAttacking;
-                }
-
-                previousEnemyPositions[enemyId] = currentPosition;
-
-                let vec1 = localHero.GetAbsOrigin();
-                let vec2 = enemy.GetAbsOrigin();
-                let distance = vec1.sub(vec2).Length2D();
-
-                if (distance <= 1000) {
-                  let pushDirection;
-                  if (isAttacking) {
-                    pushDirection = vec2.sub(vec1).Normalized();
-                  } else if (isEscaping) {
-                    pushDirection = vec1.sub(vec2).Normalized();
-                  } else {
-                    continue;
-                  }
-                  gale_force.CastPosition(vec1.add(pushDirection));
-                }
-              }
-            }
-          }
         }
-      }
-    }
-  };
+    };
 
 
   // Definición de la función OnScriptLoad
