@@ -16,8 +16,8 @@
 /***/ (() => {
 
 eval(`
-	// Definición del objeto AutoSaverAlchemist
-	const AutoSaverWindrunner = {};
+	// Definición del objeto Windranger
+	constSaverWindrunner = {};
 
 	// Declaración de la variable localHero
 	let localHero;
@@ -41,11 +41,11 @@ eval(`
 	      if (modifier.GetName() === 'modifier_windrunner_focusfire') {
 		const remainingTime = modifier.GetRemainingTime();
 		if (remainingTime <= 20) {
-		// Nueva condición para activar winrun siempre
-			let windrun = localHero.GetAbilityByIndex(2);
-			if (windrun && windrun.IsExist() && windrun.CanCast()) {
-			  windrun.CastNoTarget();
-			}
+		  // Nueva condición para activar winrun siempre
+		  let windrun = localHero.GetAbilityByIndex(2);
+		  if (windrun && windrun.IsExist() && windrun.CanCast()) {
+		    windrun.CastNoTarget();
+		  }
 		  // Nueva condición para activar BKB si el enemigo tiene activado Blade Mail
 		  let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 		  for (let enemy of enemies) {
@@ -61,6 +61,9 @@ eval(`
 		  if (gale_force && gale_force.IsExist() && gale_force.CanCast()) {
 		    enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 		    for (let enemy of enemies) {
+		      if (enemy.HasModifier("modifier_item_black_king_bar_immune")) {
+			continue; // Si el enemigo tiene activado BKB, salta a la siguiente iteración del bucle
+		      }
 		      let enemyId = enemy.GetPlayerID();
 		      let isAttacking = enemy.IsAttacking() && enemy.GetAttackTarget() === localHero;
 		      let currentPosition = enemy.GetAbsOrigin();
@@ -98,12 +101,12 @@ eval(`
 	};
 	// Definición de la función OnScriptLoad
 	AutoSaverWindrunner.OnScriptLoad = AutoSaverWindrunner.OnGameStart = () => {
-		localHero = EntitySystem.GetLocalHero();
+	  localHero = EntitySystem.GetLocalHero();
 	};
 
 	// Definición de la función OnGameEnd
 	AutoSaverWindrunner.OnGameEnd = () => {
-		localHero = null;
+	  localHero = null;
 	};
 
 	// Registro del script
