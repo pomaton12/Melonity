@@ -33,7 +33,7 @@ eval(`
 	let previousEnemyPositions = {};
 	//===============================
 	AutoSaverWindrunner.OnUpdate = () => {
-	  if (localHero isUiEnabled) {
+	  if (localHero && isUiEnabled) {
 	    if (localHero.GetUnitName() !== "npc_dota_hero_windrunner")
 	      return;
 	    const modifiers = localHero.GetModifiers();
