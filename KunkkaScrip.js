@@ -37,7 +37,7 @@ if (localHero && isUiEnabled1) {
   }
 
   // Obtener habilidad "Torrent Storm"
-  let torrentStorm localHero.GetAbilityByIndex(3);
+  let torrentStorm = localHero.GetAbilityByIndex(3);
 
   // Verificar si la habilidad está lista para ser lanzada
   if (torrentStorm && torrentStorm.IsExist() && torrentStorm.CanCast()) {
