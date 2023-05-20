@@ -58,10 +58,7 @@ if (localHero && isUiEnabled1) {
     }
   }
 }
-En este ejemplo, después de lanzar "Torrent Storm", se busca a los héroes enemigos dentro del rango del ultimate usando la función "FindUnitsInRadiusWithTeam". Luego, se verifica si al menos un héroe enemigo ha sido afectado por el ultimate. Si se encuentra al menos un héroe enemigo afectado, se lanza "Torrent Storm" en el punto seleccionado nuevamente.
-GPT-3.5
 
-Share
 	  	if (localHero && isUiEnabled2) {
 
 		}
