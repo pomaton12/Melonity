@@ -33,7 +33,7 @@ eval(`
 	UseShardKunkka.OnUpdate = () => {
 		if (localHero && isUiEnabled1) {
 		  if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
-	      	     return;
+	      	     return; 
 		  let torrentStorm = localHero.GetAbilityByIndex(3);
 		  const hasUsedFirstAbility = localHero.HasModifier("modifier_kunkka_torrent");
 		  const hasUsedUltimate = localHero.HasModifier("modifier_kunkka_ghostship");
