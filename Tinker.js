@@ -32,7 +32,7 @@ eval(`
 	// Definición de la función OnUpdate
 	let previousEnemyPositions = {};
 	//===============================
-	AutoSaverWindrunner.OnUpdate = () => {
+	SaverWindrunner.OnUpdate = () => {
 	  if (localHero && isUiEnabled) {
 	    if (localHero.GetUnitName() !== "npc_dota_hero_windrunner")
 	      return;
@@ -63,15 +63,12 @@ eval(`
 		      let distance = vec1.sub(vec2).Length2D();
 
 		      if (distance <= 1000) {
-			let pushDirection;
-			if (isAttacking) {
-			  pushDirection = vec2.sub(vec1).Normalized();
-			} else if (isEscaping) {
-			  pushDirection = vec1.sub(vec2).Normalized();
-			} else {
-			  continue;
+			let isStunned = enemy.IsStunned() || enemy.IsHexed();
+			let hasBKB = enemy.HasModifier("modifier_black_king_bar_immune");
+			if (!isStunned && !hasBKB && !isAttacking && !isEscaping) {
+			  let pushDirection = isAttacking ? vec2.sub(vec1).Normalized() : vec1.sub(vec2).Normalized();
+			  gale_force.CastPosition(vec1.add(pushDirection));
 			}
-			gale_force.CastPosition(vec1.add(pushDirection));
 		      }
 		    }
 		  }
