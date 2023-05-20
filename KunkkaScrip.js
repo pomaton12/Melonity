@@ -35,17 +35,21 @@ eval(`
 		  if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
 	      	     return;
 		  let torrentStorm = localHero.GetAbilityByIndex(3);
-		  if (torrentStorm && torrentStorm.IsExist() && torrentStorm.CanCast()) {
-		    const enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
-		    const torrentedEnemies = enemies.filter(enemy => {
-		      const modifier = enemy.GetModifierByName("modifier_kunkka_torrent_thinker");
-		      const bkbModifier = enemy.GetModifierByName("modifier_black_king_bar_immune");
-		      return modifier || bkbModifier;
-		    });
-		    if (torrentedEnemies.length > 0) {
-		      torrentStorm.CastNoTarget();
-		    } else if (enemies.length >= 3) {
-		      const center = GetCenterOfEntities(enemies);
+		  const hasUsedFirstAbility = localHero.HasModifier("modifier_kunkka_torrent");
+		  const hasUsedUltimate = localHero.HasModifier("modifier_kunkka_ghostship");
+		  const enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
+		  const stunnedEnemies = enemies.filter(enemy => {
+		    const modifier = enemy.GetModifierByName("modifier_kunkka_torrent");
+		    const ultimateModifier = enemy.GetModifierByName("modifier_kunkka_ghostship");
+		    const bkbModifier = enemy.GetModifierByName("modifier_black_king_bar_immune");
+		    return (modifier || ultimateModifier) && !bkbModifier;
+		  });
+
+		  if (torrentStorm && torrentStorm.IsExist() && torrentStorm.CanCast() && (hasUsedFirstAbility || hasUsedUltimate) && stunnedEnemies.length > 0) {
+		    if (stunnedEnemies.length === 1) {
+		      torrentStorm.CastTarget(stunnedEnemies[0]);
+		    } else {
+		      const center = GetCenterOfEntities(stunnedEnemies);
 		      torrentStorm.CastPosition(center);
 		    }
 		  }
