@@ -40,7 +40,7 @@ eval(`
     let torrentStorm = localHero.GetAbilityByIndex(3);
 
     // Verificar si la habilidad está lista para ser lanzada
-    if (torrentStorm.CanCast() && (torrentStorm.GetCooldownTimeRemaining() === 0)) {
+    if (torrentStorm && torrentStorm.IsExist() && torrentStorm.CanCast()) {
       // Buscar enemigos cercanos
       let enemies = EntitySystem.GetHeroesList().filter(hero => {
         return hero.IsAlive() && hero.IsEnemy(localHero) && hero.IsVisible() && !hero.IsIllusion();
