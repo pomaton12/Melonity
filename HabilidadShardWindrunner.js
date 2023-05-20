@@ -41,6 +41,11 @@ eval(`
 	      if (modifier.GetName() === 'modifier_windrunner_focusfire') {
 		const remainingTime = modifier.GetRemainingTime();
 		if (remainingTime <= 20) {
+		// Nueva condición para activar winrun siempre
+			let windrun = localHero.GetAbilityByIndex(2);
+			if (windrun && windrun.IsExist() && windrun.CanCast()) {
+			  windrun.CastNoTarget();
+			}
 		  // Nueva condición para activar BKB si el enemigo tiene activado Blade Mail
 		  let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 		  for (let enemy of enemies) {
