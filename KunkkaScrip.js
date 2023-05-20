@@ -31,7 +31,7 @@ eval(`
 	let bkbEnemies = {};
 	//===============================
 	UseShardKunkka.OnUpdate = () => {
-	  	if (localHero && isUiEnabled1) {
+  		if (localHero && isUiEnabled1) {
 		    if (localHero.GetUnitName() !== "npc_dota_hero_kunkka") {
 		      return;
 		    }
@@ -54,7 +54,7 @@ eval(`
 			} else {
 			  let center = { x: 0, y: 0, z: 0 };
 			  for (let i = 0; i < enemies.length; i++) {
-			    center.x += enemies[i].().x;
+			    center.x += enemies[i].GetPosition().x;
 			    center.y += enemies[i].GetPosition().y;
 			    center.z += enemies[i].GetPosition().z;
 			  }
@@ -71,7 +71,6 @@ eval(`
 		      torrentStorm.CastPosition(targetPoint);
 		    }
 		  }
-		}	
 		
 	  	if (localHero && isUiEnabled2) {
 
