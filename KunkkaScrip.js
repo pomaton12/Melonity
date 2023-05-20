@@ -51,10 +51,10 @@ eval(`
 
 		    if ((hasUsedFirstAbility || hasUsedUltimate) && stunnedEnemies.length > 0) {
 		      if (stunnedEnemies.length === 1) {
-			torrentStorm.CastNoTarget();
+			torrentStorm.CastPosition(localHero.GetAbsOrigin());
 		      } else {
 			const center = GetCenterOfEntities(stunnedEnemies);
-			localHero.CastPosition(torrentStorm, center);
+			torrentStorm.CastPosition(center);
 		      }
 		    }
 		  }
