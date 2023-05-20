@@ -41,7 +41,7 @@ eval(`
 		  let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 		  for (let enemy of enemies) {
 		    let enemyId = enemy.GetPlayerID();
-		    let isAttacking = enemy.IsAttacking() && enemy.GetAttackTarget() === localHero;
+		    let isAttacking = enemy.IsAttacking() === CBaseAnimating.AttackState.ABILITY && enemy.GetAttackTarget() === localHero;
 		    let currentPosition = enemy.GetAbsOrigin();
 		    let isEscaping = false;
 
