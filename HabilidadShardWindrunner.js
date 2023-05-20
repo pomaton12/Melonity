@@ -52,7 +52,7 @@ eval(`
 		  let gale_force = localHero.GetAbilityByIndex(3);
 		  if (gale_force && gale_force.IsExist() && gale_force.CanCast()) {
 		    enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
-		    for (let enemy of enemies {
+		    for (let enemy of enemies) {
 		      let enemyId = enemy.GetPlayerID();
 		      let isAttacking = enemy.IsAttacking() && enemy.GetAttackTarget() === localHero;
 		      let currentPosition = enemy.GetAbsOrigin();
