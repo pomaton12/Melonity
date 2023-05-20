@@ -37,16 +37,15 @@ if (localHero && isUiEnabled1) {
   }
 
   // Obtener habilidad "Torrent Storm"
-  let torrentStorm = localHero.GetAbilityByIndex(3);
+  let torrentStorm localHero.GetAbilityByIndex(3);
 
   // Verificar si la habilidad está lista para ser lanzada
   if (torrentStorm && torrentStorm.IsExist() && torrentStorm.CanCast()) {
-
-// Verificar si algún héroe enemigo ha sido afectado por el ultimate
-    let enemies = localHero.FindEnemiesInRange(torrentStorm.GetCastRange());
+    // Verificar si algún héroe enemigo ha sido afectado por el ultimate
+    let enemies = FindUnitsInRadius(localHero.GetTeamNumber(), targetPoint, null, torrentStorm.GetCastRange(), DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false);
     let enemyAffected = false;
     for (let i = 0; i < enemies.length; i++) {
-      if (enemies[i].IsHero() && enemies[i].IsAlive() && enemies[i].IsEnemy(localHero)) {
+      if (enemies[i].IsAlive() && enemies[i].IsHero() && enemies[i].IsEnemy(localHero)) {
         enemyAffected = true;
         break;
       }
@@ -54,11 +53,10 @@ if (localHero && isUiEnabled1) {
 
     // Si se encuentra al menos un héroe enemigo afectado por el ultimate, lanzar "Torrent Storm" en el punto seleccionado
     if (enemyAffected) {
-      torrentStorm.CastPosition(localHero.GetAbsOrigin());
+      torrentStorm.CastPosition(localHero.GetAbsOrigin(););
     }
   }
-}
-		
+}	
 	  	if (localHero && isUiEnabled2) {
 
 		}
