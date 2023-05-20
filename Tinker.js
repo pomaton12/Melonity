@@ -43,6 +43,7 @@ eval(`
 		if (remainingTime <= 20) {
 		  let gale_force = localHero.GetAbilityByIndex(3);
 		  if (gale_force && gale_force.IsExist() && gale_force.CanCast()) {
+		    let windrun = localHero.GetAbilityByIndex(1);
 		    let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 		    for (let enemy of enemies) {
 		      let enemyId = enemy.GetPlayerID();
@@ -81,6 +82,10 @@ eval(`
 			} else if ((enemy.HasModifier("modifier_windrunner_windrun") && modifier.GetStackCount() > 0) || enemy.HasModifier("modifier_black_king_bar_immune") || enemy.HasModifier("modifier_sheepstick_debuff")) {
 			  continue;
 			} else {
+			  // Agregar verificación para usar la habilidad "Windrun" mientras se usa el ultimate "Focus Fire"
+			  if (windrun && windrun.IsExist() && windrun.CanCast() && distance <= 600) {
+			    windrun.CastNoTarget();
+			  }
 			  gale_force.CastPosition(vec1.add(pushDirection));
 			}
 		      }
