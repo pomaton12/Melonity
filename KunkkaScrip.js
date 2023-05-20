@@ -32,7 +32,9 @@ eval(`
 	//===============================
 	UseShardKunkka.OnUpdate = () => {
 		if (localHero && isUiEnabled1) {
-		  const torrentStorm = localHeroAbilityByIndex(3);
+		  if (localHero.GetUnitName() !== "npc_dota_hero_windrunner")
+	      	     return;
+		  const torrentStorm = localHero.AbilityByIndex(3);
 		  if (torrentStorm && torrentStorm.IsExist() && torrentStorm.CanCast()) {
 		    const enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 		    const torrentedEnemies = enemies.filter(enemy => {
