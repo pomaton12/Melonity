@@ -31,35 +31,42 @@ eval(`
 
 	// Definición de la función OnUpdate
 	AutoSaverWindrunner.OnUpdate = () => {
-		if (localHero && isUiEnabled) {
-			if (localHero.GetUnitName() !== "npc_dota_hero_windrunner")
-				return;
-			const modifiers = localHero.GetModifiers();
-			for (let modifier of modifiers) {
-				if (modifier.GetName() === 'modifier_windrunner_focusfire') {
-					const remainingTime = modifier.GetRemainingTime();
-					if (remainingTime <= 20) {
-						let gale_force = localHero.GetAbilityByIndex(3);
-						if (gale_force && gale_force.IsExist() && gale_force.CanCast()) {
-							//let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY).length;
+	  if (localHero && isUiEnabled) {
+	    if (localHero.GetUnitName() !== "npc_dota_hero_windrunner")
+	      return;
+	    const modifiers = localHero.GetModifiers();
+	    for (let modifier of modifiers) {
+	      if (modifier.GetName() === 'modifier_windrunner_focusfire') {
+		const remainingTime = modifier.GetRemainingTime();
+		if (remainingTime <= 20) {
+		  let gale_force = localHero.GetAbilityByIndex(3);
+		  if (gale_force && gale_force.IsExist() && gale_force.CanCast()) {
+		    let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
+		    for (let enemy of enemies) {
+		      let isAttacking = enemy.IsAttacking() && enemy.GetAttackTarget() === localHero;
+		      let isEscaping = !isAttacking && enemy.IsMoving();
 
-							let vec1 = localHero.GetAbsOrigin();
-							let vec2 = Input.GetWorldCursorPos();
-							let pos1 = (vec1.x ? (vec1) : (vec1.GetAbsOrigin ? (vec1.GetAbsOrigin()) : (0)));
-							let pos2 = (vec2.x ? (vec2) : (vec2.GetAbsOrigin ? (vec2.GetAbsOrigin()) : (0)));
-							let distance = pos1 && pos2 && pos1.sub(pos2).Length2D();
-							
-							let target = EntitySystem.GetLocalHero();							
-							let angle = Math.atan2(Input.GetWorldCursorPos().y - target.GetAbsOrigin().y, Input.GetWorldCursorPos().x - target.GetAbsOrigin().x) * (180 / Math.PI);
-							let pushDirection = new Vector(999, 0, 0).Rotated(angle);								
-							if (distance <= 1000) {
-								gale_force.CastPosition(vec1.add(pushDirection));
-							}
-						}
-					}
-				}
+		      let vec1 = localHero.GetAbsOrigin();
+		      let vec2 = enemy.GetAbsOrigin();
+		      let distance = vec1.sub(vec2).Length2D();
+
+		      if (distance <= 1000) {
+			let pushDirection;
+			if (isAttacking) {
+			  pushDirection = vec2.sub(vec1).Normalized();
+			} else if (isEscaping) {
+			  pushDirection = vec1.sub(vec2).Normalized();
+			} else {
+			  continue;
 			}
+			gale_force.CastPosition(vec1.add(pushDirection));
+		      }
+		    }
+		  }
 		}
+	      }
+	    }
+	  }
 	};
 
 	// Definición de la función OnScriptLoad
