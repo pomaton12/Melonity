@@ -32,7 +32,21 @@ eval(`
 	//===============================
 	UseShardKunkka.OnUpdate = () => {
 		if (localHero && isUiEnabled1) {
-
+		  const torrentStorm = localHeroAbilityByIndex(3);
+		  if (torrentStorm && torrentStorm.IsExist() && torrentStorm.CanCast()) {
+		    const enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
+		    const torrentedEnemies = enemies.filter(enemy => {
+		      const modifier = enemy.GetModifierByName("modifier_kunkka_torrent_thinker");
+		      const bkbModifier = enemy.GetModifierByName("modifier_black_king_bar_immune");
+		      return modifier || bkbModifier;
+		    });
+		    if (torrentedEnemies.length > 0) {
+		      torrentStorm.CastNoTarget();
+		    } else if (enemies.length >= 3) {
+		      const center = GetCenterOfEntities(enemies);
+		      torrentStorm.CastPosition(center);
+		    }
+		  }
 		}
 	  
 	  	if (localHero && isUiEnabled2) {
