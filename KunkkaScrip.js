@@ -36,7 +36,7 @@ eval(`
           if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
               return;
           if (!chargedStrike) {
-              chargedStrike = localHero.GetAbilityByIndex(2);
+              chargedStrike = localHero.GetAbilityByIndex(3);
           }
           phylacteryItem = localHero.GetItem("item_phylactery", true);
           if (phylacteryItem) {
@@ -47,7 +47,9 @@ eval(`
                   let hero = enemyHeroes[i];
                   if (hero) {
                       if (hero.GetTeamNum() !== localHero.GetTeamNum() && hero.GetHealth() <= damageFromPhylactery && chargedStrike.CanCast() && phylacteryItem.CanCast() && hero.IsAlive()) {
-                          chargedStrike.CastTarget(hero);
+                          //chargedStrike.CastTarget(hero); // Si es targeteable un hero objetivo
+                          chargedStrike.CastPosition(localHero.GetAbsOrigin());
+                          
                           if (Engine.OnceAt(0.6)) {
                               stop();
                           }
