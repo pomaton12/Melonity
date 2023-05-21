@@ -22,10 +22,10 @@ eval(`
   let chargedStrike;
   let enemyHeroes;
   let phylacteryItem;
-  let damageFromPhylactery = 150;
-  const path_ = ['Heroes', 'Strength', 'Spirit Breaker'];
-  let isUiEnabled = Menu.AddToggle(path_, 'AutoSte Phylactery', true);
-  isUiEnabled.SetImage('panorama/images/items/phylactery_png.vtex_c');
+  let damageFromPhylactery = 1000;
+  const path_ = ['Heroes', 'Strength', 'Kunkka'];
+  let isUiEnabled = Menu.AddToggle(path_, 'Torrent Storm Use', true);
+  isUiEnabled.SetImage('panorama/images/spellicons/kunkka_torrent_storm_png.vtex_c');
 
   function stop() {
       localPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_STOP, null, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero, false, true);
@@ -33,10 +33,10 @@ eval(`
 
   AutoStealBara.OnUpdate = () => {
       if (localHero && isUiEnabled) {
-          if (localHero.GetUnitName() !== "npc_dota_hero_spirit_breaker")
+          if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
               return;
           if (!chargedStrike) {
-              chargedStrike = localHero.GetAbilityByIndex(0);
+              chargedStrike = localHero.GetAbilityByIndex(3);
           }
           phylacteryItem = localHero.GetItem("item_phylactery", true);
           if (phylacteryItem) {
