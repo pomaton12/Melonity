@@ -75,7 +75,7 @@ eval(`
 			
 			if (enemyHero) {
 				if (enemyHero.GetTeamNum() !== localHero.GetTeamNum() && TidalWave.CanCast() && enemyHero.IsAlive()) {
-					if (distance <= 599 && !hasBKBActive) {
+					if (distance <= 749 && !hasBKBActive) {
 						if (localHeroHealthPercentage < 30) {
 							// Si la vida del héroe local es menor al 30%, usa Tidal Wave para alejar al enemigo
 							const enemyHeroPosition = enemyHero.GetAbsOrigin();
@@ -92,9 +92,9 @@ eval(`
 						break;
 					}
 
-					if (Engine.OnceAt(0.6)) {
-						stop();
-					}
+					//if (Engine.OnceAt(0.6)) {
+						//stop();
+					//}
 				}
 			}
 		}
