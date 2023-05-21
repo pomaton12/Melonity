@@ -22,8 +22,8 @@ eval(`
   let TorrentStorm;
   let TidalWave;
   let enemyHeroes;
-
-  let damageFromPhylactery = 1000;
+  let torrentStormTimer = null;
+  
   const path_ = ['Heroes', 'Strength', 'Kunkka'];
   let isUiEnabled1 = Menu.AddToggle(path_, 'Torrent Storm Use', true);
   isUiEnabled1.SetImage('panorama/images/spellicons/kunkka_torrent_storm_png.vtex_c');
@@ -32,24 +32,36 @@ eval(`
   isUiEnabled2.SetImage('panorama/images/spellicons/kunkka_tidal_wave_png.vtex_c');
 
   AutoStealKunkka.OnUpdate = () => {
-if (localHero && isUiEnabled1.GetValue()) {
-    if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
-        return;
-    if (!TorrentStorm) {
-        TorrentStorm = localHero.GetAbilityByIndex(3);
-    }
+    if (localHero && isUiEnabled1.GetValue()) {
+        // Verifica si el héroe local es Kunkka
+        if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
+            return;
 
-    // Obtén la habilidad ultimate de Kunkka (Ghostship)
-    const Ghostship = localHero.GetAbility("kunkka_ghostship");
+        // Si no se ha inicializado TorrentStorm, obtén la habilidad Torrent Storm de Kunkka
+        if (!TorrentStorm) {
+            TorrentStorm = localHero.GetAbilityByIndex(3);
+        }
 
-    // Verifica si la habilidad ultimate de Kunkka se ha lanzado recientemente
-    if (Ghostship && Game.Time() - Ghostship.GetLastCastTime() < 3) {
-        // Si la habilidad ultimate se ha lanzado recientemente, activa Torrent Storm
-        if (TorrentStorm && TorrentStorm.CanCast()) {
-            TorrentStorm.CastPosition(localHero.GetAbsOrigin());
+        // Obtén la habilidad ultimate de Kunkka (Ghostship)
+        const Ghostship = localHero.GetAbilityByIndex(5);
+
+        // Verifica si el ultimate de Kunkka está en cooldown y si no hay un temporizador activo
+        if (Ghostship && Ghostship.GetCooldown() > 0 && !torrentStormTimer) {
+            // Genera un tiempo aleatorio entre 0 y 3000 milisegundos (3 segundos)
+            const randomDelay = Math.floor(Math.random() * 3000);
+
+            // Establece un temporizador para activar Torrent Storm dentro de los 3 segundos después
+            torrentStormTimer = setTimeout(() => {
+                // Si Torrent Storm se puede lanzar, actívalo
+                if (TorrentStorm.CanCast()) {
+                    TorrentStorm.CastPosition(localHero.GetAbsOrigin());
+                }
+                // Limpia el temporizador
+                clearTimeout(torrentStormTimer);
+                torrentStormTimer = null;
+            }, randomDelay);
         }
     }
-}
 if (localHero && isUiEnabled2.GetValue()) {
     if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
         return;
