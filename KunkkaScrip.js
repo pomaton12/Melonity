@@ -80,7 +80,7 @@ if (localHero && isUiEnabled2.GetValue()) {
         const hasBKBActive = enemyHero.HasModifier("modifier_black_king_bar_immune");
 
         if (enemyHero) {
-            if (enemyHero.GetTeamNum() !== localHero.GetTeamNum() && TidalWave.CanCast() && enemyHero.IsAlive()) {
+            if (enemyHero.GetTeamNum() !== localHero.GetTeamNum() && TidalWave.CanCast() && enemyHero.IsAlive() && !MyHeroInvi) {
                 if (distance <= 749 && !hasBKBActive) {
                     if (localHeroHealthPercentage < 30) {
                         const enemyHeroPosition = enemyHero.GetAbsOrigin();
