@@ -56,20 +56,15 @@ eval(`
     }
 	  
     if (localHero && isUiEnabled2.GetValue()) {
-        if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
-            return;
-        if (!TidalWave) {
-            TidalWave = localHero.GetAbilityByIndex(4);
-        }
+		if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
+		    return;
+		if (!TidalWave) {
+		    TidalWave = localHero.GetAbilityByIndex(4);
+		}
 
-        const localHeroHealthPercentage = (localHero.GetHealth() / localHero.GetMaxHealth()) * 100;
-        const localHeroPosition = localHero.GetAbsOrigin();
-		
-		 if (localHero.HasModifier("modifier_invisible")) {
-            		// Si el héroe está invisible, no uses Tidal Wave
-           		 return;
-       		 }
-		
+		const localHeroHealthPercentage = (localHero.GetHealth() / localHero.GetMaxHealth()) * 100;
+		const localHeroPosition = localHero.GetAbsOrigin();
+
 		if (Engine.OnceAt(2)) {
 		  enemyHeroes = EntitySystem.GetHeroesList();
 		}
@@ -79,7 +74,7 @@ eval(`
             		const hasBKBActive = enemyHero.HasModifier("modifier_black_king_bar_immune");
 			
 			if (enemyHero) {
-				if (enemyHero.GetTeamNum() !== localHero.GetTeamNum() && TidalWave.CanCast() && enemyHero.IsAlive()) {
+				if (enemyHero.GetTeamNum() !== localHero.GetTeamNum() && TidalWave.CanCast() && enemyHero.IsAlive() && !localHero.HasModifier("modifier_invisible")) {
 					if (distance <= 749 && !hasBKBActive) {
 						if (localHeroHealthPercentage < 30) {
 							// Si la vida del héroe local es menor al 30%, usa Tidal Wave para alejar al enemigo
