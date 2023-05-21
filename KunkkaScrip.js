@@ -55,14 +55,36 @@ eval(`
         }
     }
 	  
-	if (localHero && isUiEnabled2) {
-		if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
-			return;
-		if (!TidalWave) {
-			TidalWave = localHero.GetAbilityByIndex(4);
-		}
+    if (localHero && isUiEnabled2.GetValue()) {
+        if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
+            return;
+        if (!TidalWave) {
+            TidalWave = localHero.GetAbilityByIndex(6);
+        }
 
-	}
+        const localHeroHealthPercentage = (localHero.GetHealth() / localHero.GetMaxHealth()) * 100;
+        const localHeroPosition = localHero.GetAbsOrigin();
+
+        for (const enemyHero of enemyHeroes) {
+            const distance = localHeroPosition.Distance(enemyHero.GetAbsOrigin());
+            const hasBKBActive = enemyHero.HasModifier("modifier_black_king_bar_immune");
+
+            if (distance <= 599 && !hasBKBActive) {
+                if (localHeroHealthPercentage < 30) {
+                    // Si la vida del héroe local es menor al 30%, usa Tidal Wave para alejar al enemigo
+                    const direction = (enemyHero.GetAbsOrigin() - localHeroPosition).Normalized();
+                    const castPosition = localHeroPosition - (direction * 300);
+                    TidalWave.CastPosition(castPosition);
+                } else {
+                    // Si la vida del héroe local es mayor o igual al 30%, usa Tidal Wave para atraer al enemigo
+                    const direction = (enemyHero.GetAbsOrigin() - localHeroPosition).Normalized();
+                    const castPosition = localHeroPosition + (direction * 300);
+                    TidalWave.CastPosition(castPosition);
+                }
+                break;
+            }
+        }
+    }
   };
 
   AutoStealKunkka.OnScriptLoad = AutoStealKunkka.OnGameStart = () => {
