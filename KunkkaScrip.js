@@ -66,20 +66,6 @@ if (localHero && isUiEnabled2.GetValue()) {
 
     const localHeroHealthPercentage = (localHero.GetHealth() / localHero.GetMaxHealth()) * 100;
     const localHeroPosition = localHero.GetAbsOrigin();
-	const SilverEdge = localHero.GetItem("item_silver_edge", true);
-	const ShadowBlade = localHero.GetItem("item_invis_sword", true);
-
-	if ((SilverEdge && SilverEdge.IsActivated()) || (ShadowBlade && ShadowBlade.IsActivated())) {
-	    let bkb = localHero.GetItem('item_black_king_bar', true);
-	    if (bkb && bkb.CanCast()) {
-		bkb.CastNoTarget();
-	    }
-	}
-
-
-    if (Engine.OnceAt(2)) {
-	enemyHeroes = EntitySystem.GetHeroesList();
-    }
 
     for (let i = 0; i < enemyHeroes.length; i++) {
         let enemyHero = enemyHeroes[i];
@@ -100,11 +86,12 @@ if (localHero && isUiEnabled2.GetValue()) {
                         const castPosition = localHeroPosition + (direction * 300);
                         TidalWave.CastPosition(localHero.GetAbsOrigin());
                     }
-                    if (Engine.OnceAt(0.6)) {
-                       stop();
-                    }
+		    break;
                 }
             }
+        }
+        if (localHero.HasModifier("modifier_invisible")) {
+            break;
         }
     }
 }
