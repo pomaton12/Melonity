@@ -55,32 +55,32 @@ eval(`
         }
     }
 
-    if (localHero && isUiEnabled2.GetValue() && !localHero.IsInvisible()) {
-        if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
-            return;
+if (localHero && isUiEnabled2.GetValue() && !localHero.IsIn()) {
+    if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
+        return;
 
-        let TidalWave = localHero.GetAbilityByIndex(4);
-        if (!TidalWave) {
-            return;
-        }
+    let TidalWave = localHero.GetAbilityByIndex(4);
+    if (!TidalWave || localHero.HasModifier("modifier_item_invisibility_edge_windwalk") || localHero.HasModifier("modifier_item_silver_edge_windwalk")) {
+        return;
+    }
 
-        const localHeroHealthPercentage = (localHero.GetHealth() / localHero.GetMaxHealth()) * 100;
-        const localHeroPosition = localHero.GetAbsOrigin();
-        const enemyHeroes = EntitySystem.GetHeroesList().filter(hero => hero.GetTeamNum() !== localHero.GetTeamNum() && hero.IsAlive() && !hero.HasModifier("modifier_black_king_bar_immune") && localHeroPosition.Distance(hero.GetAbsOrigin()) <= 749);
-        const closestEnemyHero = enemyHeroes.reduce((closest, hero) => closest ? (localHeroPosition.Distance(hero.GetAbsOrigin()) < localHeroPosition.Distance(closest.GetAbsOrigin()) ? hero : closest) : hero, null);
+    const localHeroHealthPercentage = (localHero.GetHealth() / localHero.GetMaxHealth()) * 100;
+    const localHeroPosition = localHero.GetAbsOrigin();
+    const enemyHeroes = EntitySystem.GetHeroesList().filter(hero => hero.GetTeamNum() !== localHero.GetTeamNum() && hero.IsAlive() && !hero.HasModifier("modifier_black_king_bar_immune") && localHeroPosition.Distance(hero.GetAbsOrigin()) <= 749);
+    const closestEnemyHero = enemyHeroes.reduce((closest, hero) => closest ? (localHeroPosition.Distance(hero.GetAbsOrigin()) < localHeroPosition.Distance(closest.GetAbsOrigin()) ? hero : closest) : hero, null);
 
-        if (closestEnemyHero && TidalWave.CanCast() && !localHero.HasModifier("modifier_invisible")) {
-            const enemyHeroPosition = closestEnemyHero.GetAbsOrigin();
-            const direction = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
-            if (localHeroHealthPercentage < 30) {
-                castPosition = localHeroPosition - (direction * 300);
-		TidalWave.CastPosition(closestEnemyHero.GetAbsOrigin());
-            } else {
-                castPosition = localHeroPosition + (direction * 300);
-		TidalWave.CastPosition(localHero.GetAbsOrigin());
-            }
+    if (closestEnemyHero && TidalWave.CanCast()) {
+        const enemyHeroPosition = closestEnemyHero.GetAbsOrigin();
+        const direction = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
+        if (localHeroHealthPercentage < 30) {
+            castPosition = localHeroPosition - (direction * 300);
+            TidalWave.CastPosition(closestEnemyHero.GetAbsOrigin());
+        } else {
+            castPosition = localHeroPosition + (direction * 300);
+            TidalWave.CastPosition(localHero.GetAbsOrigin());
         }
     }
+}
 
   };
 
