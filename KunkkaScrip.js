@@ -87,7 +87,7 @@ eval(`
 							const enemyHeroPosition = enemyHero.GetAbsOrigin();
 							const direction = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
 							const castPosition = localHeroPosition + (direction * 300);
-							TidalWave.CastPosition(enemyHero.GetAbsOrigin());
+							TidalWave.CastPosition(localHero.GetAbsOrigin());
 						}
 						break;
 					}
