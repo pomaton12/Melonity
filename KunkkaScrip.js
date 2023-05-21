@@ -66,6 +66,9 @@ if (localHero && isUiEnabled2.GetValue()) {
 
     const localHeroHealthPercentage = (localHero.GetHealth() / localHero.GetMaxHealth()) * 100;
     const localHeroPosition = localHero.GetAbsOrigin();
+	if (Engine.OnceAt(2)) {
+	  enemyHeroes = EntitySystem.GetHeroesList();
+	}
 
     for (let i = 0; i < enemyHeroes.length; i++) {
         let enemyHero = enemyHeroes[i];
