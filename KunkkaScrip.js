@@ -65,6 +65,11 @@ eval(`
         const localHeroHealthPercentage = (localHero.GetHealth() / localHero.GetMaxHealth()) * 100;
         const localHeroPosition = localHero.GetAbsOrigin();
 		
+		 if (localHero.IsInvisible()) {
+            		// Si el héroe está invisible, no uses Tidal Wave
+           		 return;
+       		 }
+		
 		if (Engine.OnceAt(2)) {
 		  enemyHeroes = EntitySystem.GetHeroesList();
 		}
