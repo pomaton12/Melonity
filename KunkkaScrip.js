@@ -69,7 +69,11 @@ if (localHero && isUiEnabled2.GetValue()) {
     const MyHeroInvi = localHero.HasModifier("modifier_invisible");
 
     if (MyHeroInvi) {
-        return;
+        //return;
+	let bkb = localHero.GetItem('item_black_king_bar', true);
+	if (bkb && bkb.CanCast()) {
+		bkb.CastNoTarget();
+	}
     }
 
     if (Engine.OnceAt(2)) {
