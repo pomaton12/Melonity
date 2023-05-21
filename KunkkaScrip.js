@@ -66,7 +66,8 @@ if (localHero && isUiEnabled2.GetValue()) {
 
     const localHeroHealthPercentage = (localHero.GetHealth() / localHero.GetMaxHealth()) * 100;
     const localHeroPosition = localHero.GetAbsOrigin();
-    const MyHeroInvi = localHero.HasModifier("modifier_invisible");
+    const MyHeroInvi = localHero.GetItemInSlot(ITEM_SLOT_1) && (localHero.GetItemInSlot(ITEM_SLOT_1).GetName() === "item_invis_sword" || local.GetItemInSlot(ITEM_SLOT_1).GetName() === "item_silver_edge") ||
+                   localHero.GetItemInSlot(ITEM_SLOT_2) && (localHero.GetItemInSlot(ITEM_SLOT_2).GetName() === "item_invis_sword" || localHero.GetItemInSlot(ITEM_SLOT_2).GetName() === "item_silver_edge");
 
     if (MyHeroInvi) {
         //return;
