@@ -9,58 +9,64 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/AutoStealBara.ts":
+/***/ "./src/AutoStealKunkka.ts":
 /*!******************************!*\
-  !*** ./src/AutoStealBara.ts ***!
+  !*** ./src/AutoStealKunkka.ts ***!
   \******************************/
 /***/ (() => {
 
 eval(`
-  const AutoStealBara = {};
+  const AutoStealKunkka = {};
   let local;
   let localPlayer;
-  let chargedStrike;
+  let TorrentStorm;
+  let TidalWave;
   let enemyHeroes;
-  let phylacteryItem;
+
   let damageFromPhylactery = 1000;
   const path_ = ['Heroes', 'Strength', 'Kunkka'];
-  let isUiEnabled = Menu.AddToggle(path_, 'Torrent Storm Use', true);
-  isUiEnabled.SetImage('panorama/images/spellicons/kunkka_torrent_storm_png.vtex_c');
+  let isUiEnabled1 = Menu.AddToggle(path_, 'Torrent Storm Use', true);
+  isUiEnabled1.SetImage('panorama/images/spellicons/kunkka_torrent_storm_png.vtex_c');
+  
+  let isUiEnabled2 = Menu.AddToggle(path_, 'Tidal Wave Use', true);
+  isUiEnabled2.SetImage('panorama/images/spellicons/kunkka_tidal_wave_png.vtex_c');
 
   function stop() {
       localPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_STOP, null, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero, false, true);
   }
 
-  AutoStealBara.OnUpdate = () => {
-      if (localHero && isUiEnabled) {
-          if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
-              return;
-          if (!chargedStrike) {
-              chargedStrike = localHero.GetAbilityByIndex(3);
-          }
-          phylacteryItem = localHero.GetItem("item_phylactery", true);
-          if (phylacteryItem) {
-              if (Engine.OnceAt(2)) {
-                  enemyHeroes = EntitySystem.GetHeroesList();
-              }
-              for (let i = 0; i < enemyHeroes.length; i++) {
-                  let hero = enemyHeroes[i];
-                  if (hero) {
-                      if (hero.GetTeamNum() !== localHero.GetTeamNum() && hero.GetHealth() <= damageFromPhylactery && chargedStrike.CanCast() && phylacteryItem.CanCast() && hero.IsAlive()) {
-                          //chargedStrike.CastTarget(hero); // Si es targeteable un hero objetivo
-                          chargedStrike.CastPosition(localHero.GetAbsOrigin());
-                          
-                          if (Engine.OnceAt(0.6)) {
-                              stop();
-                          }
-                      }
-                  }
-              }
-          }
-      }
+  AutoStealKunkka.OnUpdate = () => {
+    if (localHero && isUiEnabled1.GetValue()) {
+        if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
+            return;
+        if (!TorrentStorm) {
+            TorrentStorm = localHero.GetAbilityByIndex(3);
+        }
+
+        // Obtén la habilidad ultimate de Kunkka (Ghostship)
+        const Ghostship = localHero.GetAbilityByIndex(5);
+
+        // Verifica si el ultimate de Kunkka está en cooldown
+        if (Ghostship && Ghostship.GetCooldownTimeRemaining() > 0) {
+            // Si el ultimate está en cooldown, activa Torrent Storm
+            if (TorrentStorm.CanCast()) {
+                TorrentStorm.CastPosition(localHero.GetAbsOrigin());
+            }
+        }
+    }
+
+	  
+	if (localHero && isUiEnabled2) {
+		if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
+			return;
+		if (!TidalWave) {
+			TidalWave = localHero.GetAbilityByIndex(4);
+		}
+
+	}
   };
 
-  AutoStealBara.OnScriptLoad = AutoStealBara.OnGameStart = () => {
+  AutoStealKunkka.OnScriptLoad = AutoStealKunkka.OnGameStart = () => {
       localPlayer = EntitySystem.GetLocalPlayer();
       localHero = EntitySystem.GetLocalHero();
   };
@@ -68,8 +74,9 @@ eval(`
   AutoStealBara.OnGameEnd = () => {
       localPlayer = null;
       localHero = null;
-      chargedStrike = null;
-      phylacteryItem = null;
+      TorrentStorm = null;
+	  TidalWave = null;
+
   };
 
   RegisterScript(AutoStealBara);
@@ -83,7 +90,7 @@ eval(`
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
 /******/ 	var __webpack_exports__ = {};
-/******/ 	__webpack_modules__["./src/AutoStealBara.ts"]();
+/******/ 	__webpack_modules__["./src/AutoStealKunkka.ts"]();
 /******/ 	
 /******/ })()
 ;
