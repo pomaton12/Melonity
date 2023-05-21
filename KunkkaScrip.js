@@ -65,6 +65,11 @@ eval(`
         const localHeroHealthPercentage = (localHero.GetHealth() / localHero.GetMaxHealth()) * 100;
         const localHeroPosition = localHero.GetAbsOrigin();
 
+        const enemyHeroes = Object.values(Game.GetPlayerIDsOnTeam(DOTATeam_t.DOTA_TEAM_BADGUYS))
+            .map(playerId => Game.GetPlayerInfo(playerId))
+            .filter(playerInfo => playerInfo && playerInfo.player_connection_state === 2)
+            .map(playerInfo => playerInfo.hero);
+
         for (const enemyHero of enemyHeroes) {
             const distance = localHeroPosition.Distance(enemyHero.GetAbsOrigin());
             const hasBKBActive = enemyHero.HasModifier("modifier_black_king_bar_immune");
