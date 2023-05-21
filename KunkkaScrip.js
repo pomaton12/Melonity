@@ -71,7 +71,7 @@ eval(`
       localHero = EntitySystem.GetLocalHero();
   };
 
-  AutoStealBara.OnGameEnd = () => {
+  AutoStealKunkka.OnGameEnd = () => {
       localPlayer = null;
       localHero = null;
       TorrentStorm = null;
@@ -79,7 +79,7 @@ eval(`
 
   };
 
-  RegisterScript(AutoStealBara);
+  RegisterScript(AutoStealKunkka);
 `);
 /***/ })
 
