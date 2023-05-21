@@ -81,13 +81,13 @@ eval(`
 							const enemyHeroPosition = enemyHero.GetAbsOrigin();
 							const direction = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
 							const castPosition = localHeroPosition - (direction * 300);
-							TidalWave.CastPosition(castPosition);
+							TidalWave.CastPosition(enemyHero.GetAbsOrigin());
 						} else {
 							// Si la vida del héroe local es mayor o igual al 30%, usa Tidal Wave para atraer al enemigo
 							const enemyHeroPosition = enemyHero.GetAbsOrigin();
 							const direction = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
 							const castPosition = localHeroPosition + (direction * 300);
-							TidalWave.CastPosition(castPosition);
+							TidalWave.CastPosition(enemyHero.GetAbsOrigin());
 						}
 						break;
 					}
