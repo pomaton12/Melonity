@@ -36,7 +36,7 @@ eval(`
           if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
               return;
           if (!chargedStrike) {
-              chargedStrike = localHero.GetAbilityByIndex(3);
+              chargedStrike = localHero.GetAbilityByIndex(2);
           }
           phylacteryItem = localHero.GetItem("item_phylactery", true);
           if (phylacteryItem) {
