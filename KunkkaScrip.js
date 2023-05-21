@@ -46,8 +46,8 @@ eval(`
               for (let i = 0; i < enemyHeroes.length; i++) {
                   let hero = enemyHeroes[i];
                   if (hero) {
-                      if (hero.GetTeamNum() !== localHero.GetTeamNum() && hero.GetHealth() <= damageFromPhylactery && chargedStrikeAbility.CanCast() && phylacteryItem.CanCast() && hero.IsAlive()) {
-                          chargedStrikeAbility.CastTarget(hero);
+                      if (hero.GetTeamNum() !== localHero.GetTeamNum() && hero.GetHealth() <= damageFromPhylactery && chargedStrike.CanCast() && phylacteryItem.CanCast() && hero.IsAlive()) {
+                          chargedStrike.CastTarget(hero);
                           if (Engine.OnceAt(0.6)) {
                               stop();
                           }
@@ -66,7 +66,7 @@ eval(`
   AutoStealBara.OnGameEnd = () => {
       localPlayer = null;
       localHero = null;
-      chargedStrikeAbility = null;
+      chargedStrike = null;
       phylacteryItem = null;
   };
 
