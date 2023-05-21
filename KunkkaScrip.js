@@ -23,6 +23,8 @@ eval(`
   let TidalWave;
   let enemyHeroes;
   let torrentStormTimer = null;
+  let lastUltimateCastTime = 0;
+  let tidalWaveCastAfterUltimate = false;
   
   const path_ = ['Heroes', 'Strength', 'Kunkka'];
   let isUiEnabled1 = Menu.AddToggle(path_, 'Torrent Storm Use', true);
@@ -66,8 +68,8 @@ if (localHero && isUiEnabled2.GetValue()) {
     if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
         return;
 
-    let TidalWave = localHero.GetAbilityByIndex(4);
-    if (!TidalWave || localHero.HasModifier("modifier_item_invisibility_edge_windwalk") || localHero.HasModifier("modifier_item_silver_edge_windwalk")) {
+    let TidalWave = local.GetAbilityByIndex(4);
+ if (!TidalWave || localHero.HasModifier("modifier_item_invisibility_edge_windwalk") || localHero.HasModifier("modifier_item_silver_edge_windwalk")) {
         return;
     }
 
@@ -76,16 +78,25 @@ if (localHero && isUiEnabled2.GetValue()) {
     const enemyHeroes = EntitySystem.GetHeroesList().filter(hero => hero.GetTeamNum() !== localHero.GetTeamNum() && hero.IsAlive() && !hero.HasModifier("modifier_black_king_bar_immune") && localHeroPosition.Distance(hero.GetAbsOrigin()) <= 749);
     const closestEnemyHero = enemyHeroes.reduce((closest, hero) => closest ? (localHeroPosition.Distance(hero.GetAbsOrigin()) < localHeroPosition.Distance(closest.GetAbsOrigin()) ? hero : closest) : hero, null);
 
-    if (closestEnemyHero && TidalWave.CanCast()) {
+    if (closestEnemyHero && TidalWave.CanCast() && !tidalWaveCastAfterUltimate) {
         const enemyHeroPosition = closestEnemyHero.GetAbsOrigin();
         const direction = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
-        let castPosition;
         if (localHeroHealthPercentage < 30) {
-            castPosition = localHeroPosition.sub(direction.scaled(300));
-            TidalWave.CastPosition(castPosition);
+            castPosition = localHeroPosition - (direction * 300);
+            TidalWave.CastPosition(closestEnemyHero.GetAbsOrigin());
         } else {
-            castPosition = localHeroPosition.add(direction.scaled(300));
-            TidalWave.CastPosition(castPosition);
+            castPosition = localHeroPosition + (direction * 300);
+            TidalWave.CastPosition(localHero.GetAbsOrigin());
+        }
+        tidalWaveCastAfterUltimate = true;
+    }
+
+    const ultimateAbility = localHero.GetAbilityByIndex(5);
+    if (ultimateAbility && ultimateAbility.IsActivated() && TidalWave.CanCast()) {
+        const currentTime = GameRules.GetGameTime();
+        if (currentTime - lastUltimateCastTime > 2) {
+            tidalWaveCastAfterUltimate = false;
+            lastUltimateCastTime = currentTime;
         }
     }
 }
