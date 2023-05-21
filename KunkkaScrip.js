@@ -87,11 +87,13 @@ if (localHero && isUiEnabled2.GetValue()) {
                         const direction = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
                         const castPosition = localHeroPosition - (direction * 300);
                         TidalWave.CastPosition(enemyHero.GetAbsOrigin());
+			break;
                     } else {
                         const enemyHeroPosition = enemyHero.GetAbsOrigin();
                         const direction = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
                         const castPosition = localHeroPosition + (direction * 300);
                         TidalWave.CastPosition(localHero.GetAbsOrigin());
+			break;
                     }
                     break;
                 }
