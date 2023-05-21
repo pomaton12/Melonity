@@ -72,9 +72,10 @@ eval(`
 			let enemyHero = enemyHeroes[i];
 			const distance = localHeroPosition.Distance(enemyHero.GetAbsOrigin());
             		const hasBKBActive = enemyHero.HasModifier("modifier_black_king_bar_immune");
+			const MyHeroInvi = localHero.HasModifier("modifier_invisible");
 			
 			if (enemyHero) {
-				if (enemyHero.GetTeamNum() !== localHero.GetTeamNum() && TidalWave.CanCast() && enemyHero.IsAlive() && !localHero.HasModifier("modifier_invisible")) {
+				if (enemyHero.GetTeamNum() !== localHero.GetTeamNum() && TidalWave.CanCast() && enemyHero.IsAlive() && !MyHeroInvi) {
 					if (distance <= 749 && !hasBKBActive) {
 						if (localHeroHealthPercentage < 30) {
 							// Si la vida del héroe local es menor al 30%, usa Tidal Wave para alejar al enemigo
