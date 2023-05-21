@@ -66,16 +66,16 @@ if (localHero && isUiEnabled2.GetValue()) {
 
     const localHeroHealthPercentage = (localHero.GetHealth() / localHero.GetMaxHealth()) * 100;
     const localHeroPosition = localHero.GetAbsOrigin();
-    const MyHeroInvi = localHero.GetItemInSlot(ITEM_SLOT_1) && (localHero.GetItemInSlot(ITEM_SLOT_1).GetName() === "item_invis_sword" || local.GetItemInSlot(ITEM_SLOT_1).GetName() === "item_silver_edge") ||
-                   localHero.GetItemInSlot(ITEM_SLOT_2) && (localHero.GetItemInSlot(ITEM_SLOT_2).GetName() === "item_invis_sword" || localHero.GetItemInSlot(ITEM_SLOT_2).GetName() === "item_silver_edge");
+	const SilverEdge = localHero.GetItem("item_silver_edge", true);
+	const ShadowBlade = localHero.GetItem("item_invis_sword", true);
 
-    if (MyHeroInvi) {
-        //return;
-	let bkb = localHero.GetItem('item_black_king_bar', true);
-	if (bkb && bkb.CanCast()) {
+	if (SilverEdge || ShadowBlade) {
+		let bkb = localHero.GetItem('item_black_king_bar', true);
+		if (bkb && bkb.CanCast()) {
 		bkb.CastNoTarget();
 	}
-    }
+	}
+
 
     if (Engine.OnceAt(2)) {
 	enemyHeroes = EntitySystem.GetHeroesList();
@@ -87,7 +87,7 @@ if (localHero && isUiEnabled2.GetValue()) {
         const hasBKBActive = enemyHero.HasModifier("modifier_black_king_bar_immune");
 
         if (enemyHero) {
-            if (enemyHero.GetTeamNum() !== localHero.GetTeamNum() && TidalWave.CanCast() && enemyHero.IsAlive() && !MyHeroInvi) {
+            if (enemyHero.GetTeamNum() !== localHero.GetTeamNum() && TidalWave.CanCast() && enemyHero.IsAlive()) {
                 if (distance <= 749 && !hasBKBActive) {
                     if (localHeroHealthPercentage < 30) {
                         const enemyHeroPosition = enemyHero.GetAbsOrigin();
