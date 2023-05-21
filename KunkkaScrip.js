@@ -47,14 +47,13 @@ eval(`
         const Ghostship = localHero.GetAbilityByIndex(5);
 
         // Verifica si el ultimate de Kunkka está en cooldown
-        if (Ghostship && Ghostship.GetCooldownTimeRemaining() > 0) {
+        if (Ghostship && Ghostship.GetCooldown() > 0) {
             // Si el ultimate está en cooldown, activa Torrent Storm
             if (TorrentStorm.CanCast()) {
                 TorrentStorm.CastPosition(localHero.GetAbsOrigin());
             }
         }
     }
-
 	  
 	if (localHero && isUiEnabled2) {
 		if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
