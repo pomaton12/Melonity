@@ -35,8 +35,8 @@ eval(`
       if (localHero && isUiEnabled) {
           if (localHero.GetUnitName() !== "npc_dota_hero_spirit_breaker")
               return;
-          if (!chargedStrikeAbility) {
-              chargedStrikeAbility = localHero.GetAbilityByIndex(0);
+          if (!chargedStrike) {
+              chargedStrike = localHero.GetAbilityByIndex(0);
           }
           phylacteryItem = localHero.GetItem("item_phylactery", true);
           if (phylacteryItem) {
