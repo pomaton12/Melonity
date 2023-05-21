@@ -72,8 +72,6 @@ if (localHero && isUiEnabled2.GetValue()) {
         return;
     }
 
-    let enemyHeroes = EntitySystem.GetHeroesList();
-
     if (Engine.OnceAt(2)) {
 	enemyHeroes = EntitySystem.GetHeroesList();
     }
