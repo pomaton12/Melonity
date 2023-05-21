@@ -68,7 +68,7 @@ if (localHero && isUiEnabled2.GetValue()) {
     if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
         return;
 
-    let TidalWave = local.GetAbilityByIndex(4);
+    let TidalWave = localHero.GetAbilityByIndex(4);
  if (!TidalWave || localHero.HasModifier("modifier_item_invisibility_edge_windwalk") || localHero.HasModifier("modifier_item_silver_edge_windwalk")) {
         return;
     }
