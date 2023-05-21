@@ -59,36 +59,42 @@ eval(`
         if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
             return;
         if (!TidalWave) {
-            TidalWave = localHero.GetAbilityByIndex(6);
+            TidalWave = localHero.GetAbilityByIndex(4);
         }
 
         const localHeroHealthPercentage = (localHero.GetHealth() / localHero.GetMaxHealth()) * 100;
         const localHeroPosition = localHero.GetAbsOrigin();
-
-        const enemyHeroes = Object.values(Game.GetPlayerIDsOnTeam(DOTATeam_t.DOTA_TEAM_BADGUYS))
-            .map(playerId => Game.GetPlayerInfo(playerId))
-            .filter(playerInfo => playerInfo && playerInfo.player_connection_state === 2)
-            .map(playerInfo => playerInfo.hero);
-
-        for (const enemyHero of enemyHeroes) {
-            const distance = localHeroPosition.Distance(enemyHero.GetAbsOrigin());
+		
+		if (Engine.OnceAt(2)) {
+		  enemyHeroes = EntitySystem.GetHeroesList();
+		}
+		for (let i = 0; i < enemyHeroes.length; i++) {
+			const distance = localHeroPosition.Distance(enemyHero.GetAbsOrigin());
             const hasBKBActive = enemyHero.HasModifier("modifier_black_king_bar_immune");
+			let enemyHero = enemyHeroes[i];
+			if (enemyHero) {
+				if (enemyHero.GetTeamNum() !== localHero.GetTeamNum() && chargedStrike.CanCast() && enemyHero.IsAlive()) {
+					if (distance <= 599 && !hasBKBActive) {
+						if (localHeroHealthPercentage < 30) {
+							// Si la vida del héroe local es menor al 30%, usa Tidal Wave para alejar al enemigo
+							const direction = (enemyHero.GetAbsOrigin() - localHeroPosition).Normalized();
+							const castPosition = localHeroPosition - (direction * 300);
+							TidalWave.CastPosition(castPosition);
+						} else {
+							// Si la vida del héroe local es mayor o igual al 30%, usa Tidal Wave para atraer al enemigo
+							const direction = (enemyHero.GetAbsOrigin() - localHeroPosition).Normalized();
+							const castPosition = localHeroPosition + (direction * 300);
+							TidalWave.CastPosition(castPosition);
+						}
+						break;
+					}
 
-            if (distance <= 599 && !hasBKBActive) {
-                if (localHeroHealthPercentage < 30) {
-                    // Si la vida del héroe local es menor al 30%, usa Tidal Wave para alejar al enemigo
-                    const direction = (enemyHero.GetAbsOrigin() - localHeroPosition).Normalized();
-                    const castPosition = localHeroPosition - (direction * 300);
-                    TidalWave.CastPosition(castPosition);
-                } else {
-                    // Si la vida del héroe local es mayor o igual al 30%, usa Tidal Wave para atraer al enemigo
-                    const direction = (enemyHero.GetAbsOrigin() - localHeroPosition).Normalized();
-                    const castPosition = localHeroPosition + (direction * 300);
-                    TidalWave.CastPosition(castPosition);
-                }
-                break;
-            }
-        }
+					if (Engine.OnceAt(0.6)) {
+						stop();
+					}
+				}
+			}
+		}
     }
   };
 
