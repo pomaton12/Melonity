@@ -69,7 +69,7 @@ if (localHero && isUiEnabled2.GetValue()) {
 	const SilverEdge = localHero.GetItem("item_silver_edge", true);
 	const ShadowBlade = localHero.GetItem("item_invis_sword", true);
 
-	if (SilverEdge || ShadowBlade) {
+	if (SilverEdge && SilverEdge.IsActivated() || ShadowBlade && ShadowBlade.IsActivated()) {
 		let bkb = localHero.GetItem('item_black_king_bar', true);
 		if (bkb && bkb.CanCast()) {
 		bkb.CastNoTarget();
