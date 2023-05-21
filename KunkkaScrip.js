@@ -58,8 +58,10 @@ eval(`
 if (localHero && isUiEnabled2.GetValue()) {
     if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
         return;
-    if (TidalWave) {
-        TidalWave = localHero.GetAbilityByIndex(4);
+
+    let TidalWave = localHero.GetAbilityByIndex(4);
+    if (!TidalWave) {
+        return;
     }
 
     const localHeroHealthPercentage = (localHero.GetHealth() / localHero.GetMaxHealth()) * 100;
