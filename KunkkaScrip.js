@@ -54,7 +54,11 @@ eval(`
             }
         }
     }
-	  
+
+if (localHero.HasModifier("modifier_invisible")) {
+    return;
+}
+
 if (localHero && isUiEnabled2.GetValue()) {
     if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
         return;
@@ -92,9 +96,6 @@ if (localHero && isUiEnabled2.GetValue()) {
 		    break;
                 }
             }
-        }
-        if (localHero.HasModifier("modifier_invisible")) {
-            break;
         }
     }
 }
