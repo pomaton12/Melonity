@@ -78,12 +78,14 @@ eval(`
 					if (distance <= 599 && !hasBKBActive) {
 						if (localHeroHealthPercentage < 30) {
 							// Si la vida del héroe local es menor al 30%, usa Tidal Wave para alejar al enemigo
-							const direction = (enemyHero.GetAbsOrigin() - localHeroPosition).Normalized();
+							const enemyHeroPosition = enemyHero.GetAbsOrigin();
+							const direction = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
 							const castPosition = localHeroPosition - (direction * 300);
 							TidalWave.CastPosition(castPosition);
 						} else {
 							// Si la vida del héroe local es mayor o igual al 30%, usa Tidal Wave para atraer al enemigo
-							const direction = (enemyHero.GetAbsOrigin() - localHeroPosition).Normalized();
+							const enemyHeroPosition = enemyHero.GetAbsOrigin();
+							const direction = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
 							const castPosition = localHeroPosition + (direction * 300);
 							TidalWave.CastPosition(castPosition);
 						}
