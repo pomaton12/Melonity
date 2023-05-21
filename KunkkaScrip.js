@@ -74,6 +74,10 @@ if (localHero && isUiEnabled2.GetValue()) {
 
     let enemyHeroes = EntitySystem.GetHeroesList();
 
+    if (Engine.OnceAt(2)) {
+	enemyHeroes = EntitySystem.GetHeroesList();
+    }
+
     for (let i = 0; i < enemyHeroes.length; i++) {
         let enemyHero = enemyHeroes[i];
         const distance = localHeroPosition.Distance(enemyHero.GetAbsOrigin());
@@ -87,15 +91,15 @@ if (localHero && isUiEnabled2.GetValue()) {
                         const direction = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
                         const castPosition = localHeroPosition - (direction * 300);
                         TidalWave.CastPosition(enemyHero.GetAbsOrigin());
-			break;
                     } else {
                         const enemyHeroPosition = enemyHero.GetAbsOrigin();
                         const direction = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
                         const castPosition = localHeroPosition + (direction * 300);
                         TidalWave.CastPosition(localHero.GetAbsOrigin());
-			break;
                     }
-                    break;
+                    if (Engine.OnceAt(0.6)) {
+                       stop();
+                    }
                 }
             }
         }
