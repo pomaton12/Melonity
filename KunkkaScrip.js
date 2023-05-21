@@ -58,7 +58,7 @@ eval(`
 if (localHero && isUiEnabled2.GetValue()) {
     if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
         return;
-    if (!idalWave) {
+    if (TidalWave) {
         TidalWave = localHero.GetAbilityByIndex(4);
     }
 
