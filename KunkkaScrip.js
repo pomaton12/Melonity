@@ -68,30 +68,32 @@ if (localHero && isUiEnabled2.GetValue()) {
     const localHeroPosition = localHero.GetAbsOrigin();
     const MyHeroInvi = localHero.HasModifier("modifier_invisible");
 
+    if (MyHeroInvi) {
+        return;
+    }
+
     let enemyHeroes = EntitySystem.GetHeroesList();
 
-    if (!MyHeroInvi) {
-        for (let i = 0; i < enemyHeroes.length; i++) {
-            let enemyHero = enemyHeroes[i];
-            const distance = localHeroPosition.Distance(enemyHero.GetAbsOrigin());
-            const hasBKBActive = enemyHero.HasModifier("modifier_black_king_bar_immune");
+    for (let i = 0; i < enemyHeroes.length; i++) {
+        let enemyHero = enemyHeroes[i];
+        const distance = localHeroPosition.Distance(enemyHero.GetAbsOrigin());
+        const hasBKBActive = enemyHero.HasModifier("modifier_black_king_bar_immune");
 
-            if (enemyHero) {
-                if (enemyHero.GetTeamNum() !== localHero.GetTeamNum() && TidalWave.CanCast() && enemyHero.IsAlive()) {
-                    if (distance <= 749 && !hasBKBActive) {
-                        if (localHeroHealthPercentage < 30) {
-                            const enemyHeroPosition = enemyHero.GetAbsOrigin();
-                            const direction = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
-                            const castPosition = localHeroPosition - (direction * 300);
-                            TidalWave.CastPosition(enemyHero.GetAbsOrigin());
-                        } else {
-                            const enemyHeroPosition = enemyHero.GetAbsOrigin();
-                            const direction = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
-                            const castPosition = localHeroPosition + (direction * 300);
-                            TidalWave.CastPosition(localHero.GetAbsOrigin());
-                        }
-                        break;
+        if (enemyHero) {
+            if (enemyHero.GetTeamNum() !== localHero.GetTeamNum() && TidalWave.CanCast() && enemyHero.IsAlive()) {
+                if (distance <= 749 && !hasBKBActive) {
+                    if (localHeroHealthPercentage < 30) {
+                        const enemyHeroPosition = enemyHero.GetAbsOrigin();
+                        const direction = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
+                        const castPosition = localHeroPosition - (direction * 300);
+                        TidalWave.CastPosition(enemyHero.GetAbsOrigin());
+                    } else {
+                        const enemyHeroPosition = enemyHero.GetAbsOrigin();
+                        const direction = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
+                        const castPosition = localHeroPosition + (direction * 300);
+                        TidalWave.CastPosition(localHero.GetAbsOrigin());
                     }
+                    break;
                 }
             }
         }
