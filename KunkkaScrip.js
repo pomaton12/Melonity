@@ -94,7 +94,7 @@ if (localHero && isUiEnabled2.GetValue()) {
     const ultimateAbility = localHero.GetAbilityByIndex(5);
     if (ultimateAbility && ultimateAbility.IsActivated() && TidalWave.CanCast()) {
         const currentTime = GameRules.GetGameTime();
-        if (currentTime - lastUltimateCastTime > 2) {
+        if (currentTime - lastUltimateCastTime > 3.1) {
             tidalWaveCastAfterUltimate = false;
             lastUltimateCastTime = currentTime;
         }
