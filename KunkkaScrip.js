@@ -69,9 +69,10 @@ eval(`
 		  enemyHeroes = EntitySystem.GetHeroesList();
 		}
 		for (let i = 0; i < enemyHeroes.length; i++) {
-			const distance = localHeroPosition.Distance(enemyHero.GetAbsOrigin());
-            const hasBKBActive = enemyHero.HasModifier("modifier_black_king_bar_immune");
 			let enemyHero = enemyHeroes[i];
+			const distance = localHeroPosition.Distance(enemyHero.GetAbsOrigin());
+            		const hasBKBActive = enemyHero.HasModifier("modifier_black_king_bar_immune");
+			
 			if (enemyHero) {
 				if (enemyHero.GetTeamNum() !== localHero.GetTeamNum() && chargedStrike.CanCast() && enemyHero.IsAlive()) {
 					if (distance <= 599 && !hasBKBActive) {
