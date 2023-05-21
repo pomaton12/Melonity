@@ -25,7 +25,7 @@ eval(`
   let damageFromPhylactery = 150;
   const path_ = ['Heroes', 'Strength', 'Spirit Breaker'];
   let isUiEnabled = Menu.AddToggle(path_, 'AutoSte Phylactery', true);
-  isUiEnabled.SetImage('panorama\images\items\phylactery_png.vtex_c');
+  isUiEnabled.SetImage('panorama/images/items/phylactery_png.vtex_c');
 
   function stop() {
       localPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_STOP, null, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero, false, true);
