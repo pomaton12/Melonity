@@ -55,7 +55,7 @@ eval(`
         }
     }
 
-if (localHero && isUiEnabled2.GetValue() && !localHero.IsIn()) {
+if (localHero && isUiEnabled2.GetValue()) {
     if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
         return;
 
