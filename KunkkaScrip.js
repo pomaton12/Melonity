@@ -72,8 +72,13 @@ eval(`
         if (closestEnemyHero && TidalWave.CanCast() && !localHero.HasModifier("modifier_invisible")) {
             const enemyHeroPosition = closestEnemyHero.GetAbsOrigin();
             const direction = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
-            const castPosition = localHeroHealthPercentage < 30 ? localHeroPosition - (direction * 300) : localHeroPosition + (direction * 300);
-            TidalWave.CastPosition(castPosition);
+            if (localHeroHealthPercentage < 30) {
+                castPosition = localHeroPosition - (direction * 300);
+		TidalWave.CastPosition(closestEnemyHero.GetAbsOrigin());
+            } else {
+                castPosition = localHeroPosition + (direction * 300);
+		TidalWave.CastPosition(localHero.GetAbsOrigin());
+            }
         }
     }
 
