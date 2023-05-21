@@ -32,24 +32,24 @@ eval(`
   isUiEnabled2.SetImage('panorama/images/spellicons/kunkka_tidal_wave_png.vtex_c');
 
   AutoStealKunkka.OnUpdate = () => {
-	if (localHero && isUiEnabled1.GetValue()) {
-	    if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
-		return;
-	    if (!TorrentStorm) {
-		TorrentStorm = localHero.GetAbilityByIndex(3);
-	    }
+if (localHero && isUiEnabled1.GetValue()) {
+    if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
+        return;
+    if (!TorrentStorm) {
+        TorrentStorm = localHero.GetAbilityByIndex(3);
+    }
 
-	    // Obtén la habilidad ultimate de Kunkka (Ghostship)
-	    const Ghostship = localHero.GetAbilityBy(5);
+    // Obtén la habilidad ultimate de Kunkka (Ghostship)
+    const Ghostship = localHero.GetAbility("kunkka_ghostship");
 
-	    // Verifica si la habilidad ultimate de Kunkka se ha lanzado recientemente
-	    if (Ghostship && Game.Time() - Ghostship.GetLastCastTime() < 3) {
-		// Si la habilidad ultimate se ha lanzado recientemente, activa Torrent Storm
-		if (TorrentStorm && TorrentStorm.CanCast()) {
-		    TorrentStorm.CastPosition(localHero.GetAbsOrigin());
-		}
-	    }
-	}
+    // Verifica si la habilidad ultimate de Kunkka se ha lanzado recientemente
+    if (Ghostship && Game.Time() - Ghostship.GetLastCastTime() < 3) {
+        // Si la habilidad ultimate se ha lanzado recientemente, activa Torrent Storm
+        if (TorrentStorm && TorrentStorm.CanCast()) {
+            TorrentStorm.CastPosition(localHero.GetAbsOrigin());
+        }
+    }
+}
 if (localHero && isUiEnabled2.GetValue()) {
     if (localHero.GetUnitName() !== "npc_dota_hero_kunkka")
         return;
