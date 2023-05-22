@@ -60,22 +60,25 @@ HitRunHeros.OnUpdate = () => {
     }, null);
   }
 
-  if (targetEnemy) {
-    const distanceToTarget = localHero.GetAbsOrigin().sub(targetEnemy.GetAbsOrigin()).Length2D();
-    const game_time = GameRules.GetGameTime();
-    const attackCooldown = 1 / attackSpeed;
+if (targetEnemy) {
+  const distanceToTarget = localHero.GetAbsOrigin().sub(targetEnemy.GetAbsOrigin()).Length2D();
+  const game_time = GameRules.GetGameTime();
+  const attackCooldown = 1 / attackSpeed;
 
-    if (distanceToTarget <= attackRange) {
-      if (localHero.CanAttack(targetEnemy) && game_time - lastAttackTime > attackCooldown + attackPoint) {
-        myPlayer.AttackTarget(localHero, targetEnemy);
-        lastAttackTime = game_time;
-      } else {
-        myPlayer.Move(mousePos); // Modificado aquí
-      }
+  if (distanceToTarget <= attackRange) {
+    if (localHero.CanAttack(targetEnemy) && game_time - lastAttackTime > attackCooldown + attackPoint) {
+      myPlayer.AttackTarget(localHero, targetEnemy);
+      lastAttackTime = game_time;
     } else {
-      localHero.MoveToPosition(targetEnemy.GetAbsOrigin()); // Modificado aquí
+      // Mover al héroe a la posición del objetivo
+      ExecuteOrder(localHero, DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, targetEnemy.GetAbsOrigin(), null, null);
     }
+  } else {
+    // Mover al héroe a la posición del objetivo
+    ExecuteOrder(localHero, DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, targetEnemy.GetAbsOrigin(), null, null);
   }
+}
+
 };
 	// Definición de la función OnScriptLoad
 	HitRunHeros.OnScriptLoad = HitRunHeros.OnGameStart = () => {
