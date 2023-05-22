@@ -7,7 +7,7 @@
   \**********************************/
 /***/ (() => {
 
-//eval(`
+eval(`
 	// Definición del objeto HitRunHeros
 	const HitRunHeros = {};
 
