@@ -79,6 +79,20 @@ eval(`
 	    }
 	  }
 	};
+	// Definición de la función OnScriptLoad
+	HitRunHeros.OnScriptLoad = HitRunHeros.OnGameStart = () => {
+	  localHero = EntitySystem.GetLocalHero();
+	};
+
+	// Definición de la función OnGameEnd
+	HitRunHeros.OnGameEnd = () => {
+	  localHero = null;
+	};
+
+	// Registro del script
+	RegisterScript(HitRunHeros);
+
+`);
 
 /***/ })
 
