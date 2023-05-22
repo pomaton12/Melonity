@@ -44,7 +44,7 @@ eval(`
 
   let targetEnemy = null;
 
-  ifDisplayMode === 0) { // To Enemy
+  if (DisplayMode === 0) { // To Enemy
     targetEnemy = enemies.reduce((closest, enemy) => {
       const distanceToEnemy = localHero.GetAbsOrigin().sub(enemy.GetAbsOrigin()).Length2D();
       const distanceToClosest = closest ? localHero.GetAbsOrigin().sub(closest.GetAbsOrigin()).Length2D() : Infinity;
