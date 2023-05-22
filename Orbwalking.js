@@ -29,7 +29,7 @@ let lastAttackTime = 0;
 HitRunHeros.OnUpdate = () => {
   if (localHero && isUiEnabled1.GetValue()) {
   	var localHero = Players.GetLocalPlayerPortraitUnit();
-	var attackTarget = localHero.GetAttackTarget();
+	const attackTarget = localHero.GetAttackTarget();
     const localHeroPosition = localHero.GetAbsOrigin();
     const enemy  = EntitySystem.GetHeroesList().filter(hero => hero.GetTeamNum() !== localHero.GetTeamNum() && hero.IsAlive() && localHeroPosition.Distance(hero.GetAbsOrigin()) <= 1000);
     const EnemyHero = enemy.reduce((closest, hero) => closest ? (localHeroPosition.Distance(hero.GetAbsOrigin()) < localHeroPosition.Distance(closest.GetAbsOrigin()) ? hero : closest) : hero, null);
