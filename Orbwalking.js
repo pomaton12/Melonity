@@ -32,7 +32,7 @@ HitRunHeros.OnUpdate = () => {
 
 	const enemy = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 
-    if (enemy && enemy.IsHero() && !enemy.IsTower()) {
+    if (enemy) {
       
       const dist = enemy.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
       const attackRange = localHero.GetAttackRange();
