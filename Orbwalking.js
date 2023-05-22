@@ -28,25 +28,12 @@ let lastAttackTime = 0;
 
 HitRunHeros.OnUpdate = () => {
   if (localHero && isUiEnabled1) {
-  localHero = EntitySystem.GetLocalHero();
-  
-  if (localHero && localHero.IsHero()) {
-  // localHero es un héroe, puedes llamar a métodos específicos de héroe aquí
-  let attackTarget = localHero.GetAttackTarget();
-  // ...
-  }
-  
-  //attackTarget = localHero.GetAttackTarget();
-  
-		      let bkb = localHero.GetItem('item_black_king_bar', true);
-		      if (bkb && bkb.CanCast()) {
-			      bkb.CastNoTarget();
-		      }
+    //let attackTarget = localHero.GetAttackTarget();
 
+	const enemy = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 
-  
-  if (attackTarget && attackTarget.IsAlive() && attackTarget.IsHero() && !attackTarget.IsTower()) {
-      const enemy = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
+    if (enemy && enemy.IsAlive() && enemy.IsHero() && !enemy.IsTower()) {
+      
       const dist = enemy.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
       const attackRange = localHero.GetAttackRange();
 
@@ -66,7 +53,9 @@ HitRunHeros.OnUpdate = () => {
           localHero.MoveTo(mousePos);
         }
       }
-    } else if (KeyBindOrbwalk.IsKeyDown()) {
+    } 
+	
+	if (KeyBindOrbwalk.IsKeyDown()) {
       const mousePos = Input.GetWorldCursorPos();
       const enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
       enemies.sort((a, b) => {
