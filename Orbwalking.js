@@ -39,14 +39,14 @@ HitRunHeros.OnUpdate = () => {
 
       if (dist > attackRange) {
         const dir = (enemyHeroPosition.sub(localHeroPosition));
-        const pos = EnemyHero.GetAbsOrigin().add(dir.mul(100));
+        const pos = EnemyHero.GetAbsOrigin().add(dir.Multiply(100));
         localHero.MoveTo(pos);
       } else {
         localHero.Attack(EnemyHero);
 
         if (DisplayMode === 0) {
           const dir = (enemyHeroPosition.sub(localHeroPosition));
-          const pos = EnemyHero.GetAbsOrigin().add(dir.mul(-100));
+          const pos = EnemyHero.GetAbsOrigin().add(dir.Multiply(-100));
           localHero.MoveTo(pos);
         } else if (DisplayMode === 1) {
           const mousePos = Input.GetWorldCursorPos();
