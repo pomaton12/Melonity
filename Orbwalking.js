@@ -30,7 +30,7 @@ HitRunHeros.OnUpdate = () => {
   if (localHero && isUiEnabled1) {
     //let attackTarget = localHero.GetAttackTarget();
 
-	const enemy = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
+	const enemy  = EntitySystem.GetHeroesList().filter(hero => hero.GetTeamNum() !== localHero.GetTeamNum() && hero.IsAlive() && localHeroPosition.Distance(hero.GetAbsOrigin()) <= 1000);
 
     if (enemy) {
       
