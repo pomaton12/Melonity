@@ -27,7 +27,7 @@ Menu.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama/images/hud/reborn/ic
 let lastAttackTime = 0;
 
 HitRunHeros.OnUpdate = () => {
-  if (isUiEnabled1) {
+  if (localHero && isUiEnabled1) {
   localHero = EntitySystem.GetLocalHero();
   
   if (localHero && localHero.IsHero()) {
