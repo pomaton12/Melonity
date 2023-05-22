@@ -30,10 +30,10 @@ eval(`
 	let lastAttackTime = 0;
 	
 	//===============================
-	HitRunHeros.OnUpdate = () => {
-		  if (!localHero || !isUiEnabled1) {
-		    return;
-		  }
+HitRunHeros.OnUpdate = () => {
+  if (!localHero || !isUiEnabled1) {
+    return;
+  }
   const myPlayer = EntitySystem.GetLocalPlayer();
   const mousePos = Input.GetWorldCursorPos();
   const attackRange = localHero.GetAttackRange();
@@ -70,13 +70,13 @@ eval(`
         myPlayer.AttackTarget(localHero, targetEnemy);
         lastAttackTime = game_time;
       } else {
-        myPlayer.MoveTo(mousePos.x, mousePos.y, mousePos.z);
+        myPlayer.Move(mousePos); // Modificado aquí
       }
     } else {
-      myPlayer.MoveTo(targetEnemy.GetAbsOrigin().x, targetEnemy.GetAbsOrigin().y, targetEnemy.GetAbsOrigin().z);
+      myPlayer.Move(targetEnemy.GetAbsOrigin()); // Modificado aquí
     }
   }
-	};
+};
 	// Definición de la función OnScriptLoad
 	HitRunHeros.OnScriptLoad = HitRunHeros.OnGameStart = () => {
 	  localHero = EntitySystem.GetLocalHero();
