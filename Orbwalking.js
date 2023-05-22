@@ -28,8 +28,8 @@ let lastAttackTime = 0;
 
 HitRunHeros.OnUpdate = () => {
   if (localHero && isUiEnabled1.GetValue()) {
-  	
-	let localPlayerID = EntitySystem.GetLocalPlayer();
+  	let Players = require("dota2/players");
+	let localPlayerID = Players.GetLocalPlayer();
 	let localHeroIndex = Players.GetPlayerHeroEntityIndex(localPlayerID);
 	let localHero = EntIndexToHScript(localHeroIndex);
 	
