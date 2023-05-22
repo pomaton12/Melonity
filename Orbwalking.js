@@ -30,23 +30,23 @@ HitRunHeros.OnUpdate = () => {
   if (localHero && isUiEnabled1) {
     const localHeroPosition = localHero.GetAbsOrigin();
     const enemy  = EntitySystem.GetHeroesList().filter(hero => hero.GetTeamNum() !== localHero.GetTeamNum() && hero.IsAlive() && localHeroPosition.Distance(hero.GetAbsOrigin()) <= 1000);
-    const closestEnemyHero = enemy.reduce((closest, hero) => closest ? (localHeroPosition.Distance(hero.GetAbsOrigin()) < localHeroPosition.Distance(closest.GetAbsOrigin()) ? hero : closest) : hero, null);
+    const EnemyHero = enemy.reduce((closest, hero) => closest ? (localHeroPosition.Distance(hero.GetAbsOrigin()) < localHeroPosition.Distance(closest.GetAbsOrigin()) ? hero : closest) : hero, null);
 
     if (enemy) {
-      const enemyHeroPosition = closestEnemyHero.GetAbsOrigin();
+      const enemyHeroPosition = EnemyHero.GetAbsOrigin();
       const dist = closestEnemyHero.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
       const attackRange = localHero.GetAttackRange();
 
       if (dist > attackRange) {
-        const dir = enemy.GetAbsOrigin().Subtract(localHero.GetAbsOrigin()).Normalized();
-        const pos = enemy.GetAbsOrigin().Add(dir.Multiply(100));
+        const dir = EnemyHero.GetAbsOrigin().Subtract(localHero.GetAbsOrigin()).Normalized();
+        const pos = EnemyHero.GetAbsOrigin().Add(dir.Multiply(100));
         localHero.MoveTo(pos);
       } else {
-        localHero.Attack(enemy);
+        localHero.Attack(EnemyHero);
 
         if (DisplayMode === 0) {
-          const dir = enemy.GetAbsOrigin().Subtract(localHero.GetAbsOrigin()).Normalized();
-          const pos = enemy.GetAbsOrigin().Add(dir.Multiply(-100));
+          const dir = EnemyHero.GetAbsOrigin().Subtract(localHero.GetAbsOrigin()).Normalized();
+          const pos = EnemyHero.GetAbsOrigin().Add(dir.Multiply(-100));
           localHero.MoveTo(pos);
         } else if (DisplayMode === 1) {
           const mousePos = Input.GetWorldCursorPos();
@@ -55,7 +55,7 @@ HitRunHeros.OnUpdate = () => {
       }
     } 
 	
-	if (KeyBindOrbwalk.IsKeyDown()) {
+    if (KeyBindOrbwalk.IsKeyDown()) {
       const mousePos = Input.GetWorldCursorPos();
       const enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
       enemies.sort((a, b) => {
