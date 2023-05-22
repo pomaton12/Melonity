@@ -65,7 +65,7 @@ HitRunHeros.OnUpdate = () => {
     // Si la tecla KeyBindOrbwalk está presionada, buscar al héroe enemigo más cercano o el que está debajo del mouse
     else if (KeyBindOrbwalk.IsKeyDown()) {
       const mousePos = Input.GetWorldCursorPos();
-      const enemies = EntitySystem.GetHeroes(EntitySystem.GetEnemyTeam(localHero), true, true);
+      const enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
       enemies.sort((a, b) => {
         const distA = a.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
         const distB = b.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
