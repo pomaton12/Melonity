@@ -8,7 +8,7 @@
 /***/ (() => {
 
 eval(`
-constRunHeros = {};
+const HitRunHeros = {};
 
 let localHero;
 
