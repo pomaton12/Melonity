@@ -62,13 +62,13 @@ eval(`
 
   if (targetEnemy) {
     const distanceToTarget = localHero.GetAbsOrigin().sub(targetEnemy.GetAbsOrigin()).Length2D();
-    const gameTime = Game.GetGameTime();
+    const game_time = GameRules.GetGameTime();
     const attackCooldown = 1 / attackSpeed;
 
     if (distanceToTarget <= attackRange) {
-      if (localHero.CanAttack(targetEnemy) && gameTime - lastAttackTime > attackCooldown + attackPoint) {
+      if (localHero.CanAttack(targetEnemy) && game_time - lastAttackTime > attackCooldown + attackPoint) {
         myPlayer.AttackTarget(localHero, targetEnemy);
-        lastAttackTime = gameTime;
+        lastAttackTime = game_time;
       } else {
         myPlayer.Move(localHero, mousePos);
       }
