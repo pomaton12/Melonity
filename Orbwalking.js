@@ -46,7 +46,7 @@ eval(`
   if (DisplayMode === 0) { // To Enemy
     targetEnemy = heroes.reduce((closest, enemy) => {
       const distanceToEnemy = localHero.GetAbsOrigin().sub(enemy.GetAbsOrigin()).Length2D();
-      const distanceToClosest = closest ? localHero.GetAbsOrigin().sub(closest.GetAbsOrigin()).Length2D() Infinity;
+      const distanceToClosest = closest ? localHero.GetAbsOrigin().sub(closest.GetAbsOrigin()).Length2D() : Infinity;
 
       return distanceToEnemy < distanceToClosest ? enemy : closest;
     }, null);
