@@ -28,8 +28,8 @@ let lastAttackTime = 0;
 
 HitRunHeros.OnUpdate = () => {
   if (isUiEnabled1) {
-    const attackTarget = localHero.GetAttackTarget();
-    if (attackTarget && attackTarget.IsHero() && !attackTarget.IsTower()) {
+  const attackTarget = localHero.GetAttackTarget();
+  if (attackTarget && attackTarget.IsAlive() && attackTarget.IsHero() && !attackTarget.IsTower()) {
       const enemy = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
       const dist = enemy.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
       const attackRange = localHero.GetAttackRange();
