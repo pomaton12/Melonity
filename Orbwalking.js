@@ -29,7 +29,7 @@ let lastAttackTime = 0;
 HitRunHeros.OnUpdate = () => {
   if (localHero && isUiEnabled1.GetValue()) {
   	
-	let localPlayerID = Players.GetLocalPlayer();
+	let localPlayerID = EntitySystem.GetLocalPlayer();
 	let localHeroIndex = Players.GetPlayerHeroEntityIndex(localPlayerID);
 	let localHero = EntIndexToHScript(localHeroIndex);
 	
