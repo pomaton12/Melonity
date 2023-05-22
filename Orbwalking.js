@@ -24,7 +24,8 @@ eval(`
 	let DisplayMode = Menu.AddComboBox(path_, 'Display', ['To Enemy', 'Mouse position'], 1)
 	.OnChange(state => DisplayMode = state.newValue)
 	.GetValue();
-	Menu.GetFolder(path_).SetImage('panorama\images\hud\reborn\icon_speed_psd.vtex_c');
+	
+	Menu.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama\images\hud\reborn\icon_speed_psd.vtex_c');
 	// Definición de la función OnUpdate
 
 	//===============================
