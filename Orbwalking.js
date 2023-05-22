@@ -24,9 +24,8 @@ eval(`
 	// Creación del target hero o posicion del mouse
 	let DisplayMode = Menu.AddComboBox(PATH, 'Display', ['To Enemy', 'Mouse position'], 1)
 	.OnChange(state => DisplayMode = state.newValue)
-	.GetValue()
-	.SetImage('panorama\images\hud\reborn\icon_speed_psd.vtex_c');
-
+	.GetValue();
+	Menu.GetFolder(path_).SetImage('panorama\images\hud\reborn\icon_speed_psd.vtex_c');
 	// Definición de la función OnUpdate
 	let previousEnemyPositions = {};
 	let bkbEnemies = {};
