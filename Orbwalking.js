@@ -34,18 +34,58 @@ eval(`
 	
 	//===============================
 HitRunHeros.OnUpdate = () => {
-  if (localHero || isUiEnabled1) {
-
+  if (isUiEnabled1) {
+    //probar si el héroe local está atacando a un héroe enemigo
+    if (localHero.IsAttacking() && localHero.GetAttackTarget() != null) {
+      const enemy = localHero.GetAttackTarget();
+      const dist = enemy.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
+      const attackRange = localHero.GetAttackRange();
+      // Si el héroe enemigo está fuera del rango de ataque, moverse hacia él
+      if (dist > attackRange) {
+        const dir = enemy.GetAbsOrigin().Subtract(localHero.GetAbsOrigin()).Normalized();
+        const pos = enemy.GetAbsOrigin().Add(dir.Multiply(100));
+        localHero.MoveTo(pos);
+      }
+      // Si el héroe enemigo está dentro del rango de ataque, atacarlo
+      else {
+        localHero.Attack(enemy);
+        // Si la opción "To Enemy" está seleccionada, moverse hacia el héroe enemigo
+        if (ToEnemy) {
+          const dir = enemy.GetAbsOrigin().Subtract(localHero.GetAbsOrigin()).Normalized();
+          const pos = enemy.GetAbsOrigin().Add(dir.Multiply(-100));
+          localHero.MoveTo(pos);
+        }
+        // Si la opción "Mouse position" está seleccionada, moverse hacia la posición del mouse
+        else if (MousePosition) {
+          const mousePos = Input.GetWorldCursorPos();
+          localHero.MoveTo(mousePos);
+        }
+      }
+    }
+    // Si la tecla KeyBindOrbwalk está presionada, buscar al héroe enemigo más cercano o el que está debajo del mouse
+    else if (Input.IsKeyDown(KeyBindOrbwalk)) {
+      const mousePos = Input.GetWorldCursorPos();
+      const enemies = EntitySystem.GetHeroes(EntitySystem.GetEnemyTeam(localHero), true, true);
+      enemies.sort((a, b) => {
+        const distA = a.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
+        const distB = b.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
+        return distA - distB;
+      });
+      let target = null;
+      for (const enemy of enemies) {
+        const dist = enemy.GetAbsOrigin().Distance(mousePos);
+        if (dist <= 100 || target == null) {
+          target = enemy;
+        }
+      }
+      // Atacar al héroe enemigo seleccionado
+      if (target != null) {
+        localHero.Attack(target);
+      }
+    }
+  } else {
+    // Orbwalking desactivado, no hacer nada
   }
-  
-  if (localHero || KeyBindOrbwalk) {
-
-  }
-
-  if (localHero || DisplayMode) {
-
-  }
-
 };
 	// Definición de la función OnScriptLoad
 	HitRunHeros.OnScriptLoad = HitRunHeros.OnGameStart = () => {
