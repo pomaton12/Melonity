@@ -12,7 +12,7 @@ const HitRunHeros = {};
 
 let localPlayer = null;
 let isUiEnabled1 = Menu.AddToggle(['Heroes', 'Orbwalking'], 'Orbwalking Enable', true);
-let KeyBindOrbwalk = Menu.AddKeyBind(['Heroes', 'Orbwalking'], 'Key of OrbWalk', Enum.ButtonCode.KEY_NONE);
+let KeyBindOrbwalk = Menu.AddKey(['Heroes', 'Orbwalking'], 'Key of OrbWalk', Enum.ButtonCode.KEY_NONE);
 let DisplayMode = Menu.AddComboBox(['Heroes', 'Orbwalking'], 'Display', ['To Enemy', 'Mouse position'], 1)
   .OnChange(state => DisplayMode = state.newValue)
   .GetValue();
