@@ -70,10 +70,10 @@ eval(`
         myPlayer.AttackTarget(localHero, targetEnemy);
         lastAttackTime = game_time;
       } else {
-        myPlayer.MoveTo(mousePos.x, mousePos.y, mousePos.z);
+        myPlayer.Move(mousePos.x, mousePos.y, mousePos.z);
       }
     } else {
-      myPlayer.MoveTo(targetEnemy.GetAbsOrigin().x, targetEnemy.GetAbsOrigin().y, targetEnemy.GetAbsOrigin().z);
+      myPlayer.Move(targetEnemy.GetAbsOrigin().x, targetEnemy.GetAbsOrigin().y, targetEnemy.GetAbsOrigin().z);
     }
   }
 	};
