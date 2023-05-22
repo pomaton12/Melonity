@@ -19,67 +19,28 @@ eval(`
 
 	// Creación del toggle isUiEnabled1  para activar Orbwalking
 	let isUiEnabled1 = Menu.AddToggle(path_, 'Orbwalking Enable', true);
+	isUiEnabled1.SetImage('panorama/images/spellicons/kunkka_torrent_storm_png.vtex_c');
 		
 	// Creación del target hero o posicion del mouse
-	let DisplayMode = Menu.AddComboBox(path_, 'Display', ['To Enemy', 'Mouse position'], 1)
+	let DisplayMode = Menu.AddComboBox(PATH, 'Display', ['To Enemy', 'Mouse position'], 1)
 	.OnChange(state => DisplayMode = state.newValue)
-	.GetValue();
-	
-	Menu.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama/images/hud/reborn/icon_damage_psd.vtex_c');
+	.GetValue()
+	.SetImage('panorama\images\hud\reborn\icon_speed_psd.vtex_c');
+
 	// Definición de la función OnUpdate
-	let lastAttackTime = 0;
-	
+	let previousEnemyPositions = {};
+	let bkbEnemies = {};
 	//===============================
-HitRunHeros.OnUpdate = () => {
-  if (!localHero || !isUiEnabled1) {
-    return;
-  }
-  const myPlayer = EntitySystem.GetLocalPlayer();
-  const mousePos = Input.GetWorldCursorPos();
-  const attackRange = localHero.GetAttackRange();
-  const attackSpeed = localHero.GetAttacksPerSecond();
-  const attackPoint = localHero.GetAttackAnimationPoint();
-  const localTeamNumber = localHero.GetTeamNum();
-  const heroes = EntitySystem.GetHeroesList().filter(hero => hero.GetTeamNum() !== localTeamNumber);
+	HitRunHeros.OnUpdate = () => {
+		if (localHero && isUiEnabled1) {
 
-  let targetEnemy = null;
+		}
+	  
+	  	if (localHero && DisplayMode) {
 
-  if (DisplayMode === 0) { // To Enemy
-    targetEnemy = heroes.reduce((closest, enemy) => {
-      const distanceToEnemy = localHero.GetAbsOrigin().sub(enemy.GetAbsOrigin()).Length2D();
-      const distanceToClosest = closest ? localHero.GetAbsOrigin().sub(closest.GetAbsOrigin()).Length2D() : Infinity;
-
-      return distanceToEnemy < distanceToClosest ? enemy : closest;
-    }, null);
-  } else if (DisplayMode === 1) { // Mouse position
-    targetEnemy = heroes.reduce((closest, enemy) => {
-      const distanceToMouse = enemy.GetAbsOrigin().sub(mousePos).Length2D();
-      const distanceToClosest = closest ? closest.GetAbsOrigin().sub(mousePos).Length2D() : Infinity;
-
-      return distanceToMouse < distanceToClosest ? enemy : closest;
-    }, null);
-  }
-
-if (targetEnemy) {
-  const distanceToTarget = localHero.GetAbsOrigin().sub(targetEnemy.GetAbsOrigin()).Length2D();
-  const game_time = GameRules.GetGameTime();
-  const attackCooldown = 1 / attackSpeed;
-
-  if (distanceToTarget <= attackRange) {
-    if (localHero.CanAttack(targetEnemy) && game_time - lastAttackTime > attackCooldown + attackPoint) {
-      myPlayer.AttackTarget(localHero, targetEnemy);
-      lastAttackTime = game_time;
-    } else {
-      // Mover al héroe a la posición del objetivo
-      ExecuteOrder(localHero, DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, targetEnemy.GetAbsOrigin(), null, null);
-    }
-  } else {
-    // Mover al héroe a la posición del objetivo
-    ExecuteOrder(localHero, DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, targetEnemy.GetAbsOrigin(), null, null);
-  }
-}
-
-};
+		}
+	  
+	};
 	// Definición de la función OnScriptLoad
 	HitRunHeros.OnScriptLoad = HitRunHeros.OnGameStart = () => {
 	  localHero = EntitySystem.GetLocalHero();
