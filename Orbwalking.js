@@ -28,7 +28,7 @@ let lastAttackTime = 0;
 
 HitRunHeros.OnUpdate = () => {
   if (isUiEnabled1) {
-    (localHero.IsAttacking() && localHero.GetAttackTarget() != null) {
+    if (localHero.IsAttacking() && localHero.GetAttackTarget() != null) {
       const enemy = localHero.GetAttackTarget();
       const dist = enemy.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
       const attackRange = localHero.GetAttackRange();
