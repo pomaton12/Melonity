@@ -36,7 +36,7 @@ eval(`
 		  }
 
 		  const myPlayer = EntitySystem.GetLocalPlayer();
-		  const mousePos = myPlayer.GetCursorPosition();
+		  const mousePos = GameUI.GetCursorPosition();
 		  const attackRange = localHero.GetAttackRange();
 		  const attackSpeed = localHero.GetAttackSpeed();
 		  const attackPoint = localHero.GetAttackPoint();
