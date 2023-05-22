@@ -34,7 +34,7 @@ eval(`
 		  if (!localHero || !isUiEnabled1) {
 		    return;
 		  }
-  const myPlayer EntitySystem.GetLocalPlayer();
+  const myPlayer = EntitySystem.GetLocalPlayer();
   const mousePos = Input.GetWorldCursorPos();
   const attackRange = localHero.GetAttackRange();
   const attackSpeed = localHero.GetAttacksPerSecond();
