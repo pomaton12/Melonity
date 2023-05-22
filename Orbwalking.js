@@ -30,7 +30,6 @@ HitRunHeros.OnUpdate = () => {
   if (localHero && isUiEnabled1.GetValue()) {
   
   	const localHero = EntitySystem.GetLocalHero();
-	console.log('Objetivo de ataque actual:', JSON.stringify(localHero));
 	const attackTarget = localHero.GetAttackTarget();
 	console.log('Objetivo de ataque actual:', attackTarget);
     const localHeroPosition = localHero.GetAbsOrigin();
