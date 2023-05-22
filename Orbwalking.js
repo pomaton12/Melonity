@@ -35,47 +35,47 @@ eval(`
 		    return;
 		  }
 
-		  const myPlayer = EntitySystem.GetLocalPlayer();
-		  const mousePos = GameUI.GetCursorPosition();
-		  const attackRange = localHero.GetAttackRange();
-		  const attackSpeed = localHero.GetAttackSpeed();
-		  const attackPoint = localHero.GetAttackPoint();
-		  const enemies = EntitySystem.GetEntitiesByClass('C_DOTA_BaseNPC_Hero').filter(hero => hero.IsEnemy(localHero));
+  const myPlayer = EntitySystem.GetLocalPlayer();
+  const mousePos = Input.GetWorldCursorPos();
+  const attackRange = localHero.GetAttackRange();
+  const attackSpeed = localHero.GetAttackSpeed();
+  const attackPoint = localHero.GetAttackPoint();
+  const enemies = EntitySystem.GetEntitiesByClass('C_DOTA_BaseNPC_Hero').filter(hero => hero.IsEnemy(localHero));
 
-		  let targetEnemy = null;
+  let targetEnemy = null;
 
-		  if (DisplayMode === 0) { // To Enemy
-		    targetEnemy = enemies.reduce((closest, enemy) => {
-		      const distanceToEnemy = localHero.GetAbsOrigin().sub(enemy.GetAbsOrigin()).Length2D();
-		      const distanceToClosest = closest ? localHero.GetAbsOrigin().sub(closest.GetAbsOrigin()).Length2D() : Infinity;
+  if (DisplayMode === 0) { // To Enemy
+    targetEnemy = enemies.reduce((closest, enemy) => {
+      const distanceToEnemy = localHero.GetAbsOrigin().sub(enemy.GetAbsOrigin()).Length2D();
+      const distanceToClosest = closest ? localHero.GetAbsOrigin().sub(closest.GetAbsOrigin()).Length2D() : Infinity;
 
-		      return distanceToEnemy < distanceToClosest ? enemy : closest;
-		    }, null);
-		  } else if (DisplayMode === 1) { // Mouse position
-		    targetEnemy = enemies.reduce((closest, enemy) => {
-		      const distanceToMouse = enemy.GetAbsOrigin().sub(mousePos).Length2D();
-		      const distanceToClosest = closest ? closest.GetAbsOrigin().sub(mousePos).Length2D() : Infinity;
+      return distanceToEnemy < distanceToClosest ? enemy : closest;
+    }, null);
+  } else if (DisplayMode === 1) { // Mouse position
+    targetEnemy = enemies.reduce((closest, enemy) => {
+      const distanceToMouse = enemy.GetAbsOrigin().sub(mousePos).Length2D();
+      const distanceToClosest = closest ? closest.GetAbsOrigin().sub(mousePos).Length2D() : Infinity;
 
-		      return distanceToMouse < distanceToClosest ? enemy : closest;
-		    }, null);
-		  }
+      return distanceToMouse < distanceToClosest ? enemy : closest;
+    }, null);
+  }
 
-		  if (targetEnemy) {
-		    const distanceToTarget = localHero.GetAbsOrigin().sub(targetEnemy.GetAbsOrigin()).Length2D();
-		    const gameTime = Game.GetGameTime();
-		    const attackCooldown = 1 / attackSpeed;
+  if (targetEnemy) {
+    const distanceToTarget = localHero.GetAbsOrigin().sub(targetEnemy.GetAbsOrigin()).Length2D();
+    const gameTime = Game.GetGameTime();
+    const attackCooldown = 1 / attackSpeed;
 
-		    if (distanceToTarget <= attackRange) {
-		      if (localHero.CanAttack(targetEnemy) && gameTime - lastAttackTime > attackCooldown + attackPoint) {
-			myPlayer.AttackTarget(localHero, targetEnemy);
-			lastAttackTime = gameTime;
-		      } else {
-			myPlayer.Move(localHero, mousePos);
-		      }
-		    } else {
-		      myPlayer.Move(localHero, targetEnemy.GetAbsOrigin());
-		    }
-		  }
+    if (distanceToTarget <= attackRange) {
+      if (localHero.CanAttack(targetEnemy) && gameTime - lastAttackTime > attackCooldown + attackPoint) {
+        myPlayer.AttackTarget(localHero, targetEnemy);
+        lastAttackTime = gameTime;
+      } else {
+        myPlayer.Move(localHero, mousePos);
+      }
+    } else {
+      myPlayer.Move(localHero, targetEnemy.GetAbsOrigin());
+    }
+  }
 	};
 	// Definición de la función OnScriptLoad
 	HitRunHeros.OnScriptLoad = HitRunHeros.OnGameStart = () => {
