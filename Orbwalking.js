@@ -38,7 +38,7 @@ eval(`
   const myPlayer = EntitySystem.GetLocalPlayer();
   const mousePos = Input.GetWorldCursorPos();
   const attackRange = localHero.GetAttackRange();
-  const attackSpeed = localHero.GetAttackSpeed();
+  const attackSpeed = localHero.GetAttacksPerSecond();
   const attackPoint = localHero.GetAttackPoint();
   const enemies = EntitySystem.GetEntitiesByClass('C_DOTA_BaseNPC_Hero').filter(hero => hero.IsEnemy(localHero));
 
