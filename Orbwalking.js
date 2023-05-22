@@ -11,7 +11,7 @@ eval(`
 const HitRunHeros = {};
 
 let localHero = null;
-
+let attackTarget = null;
 const path_ = ['Heroes', 'Orbwalking'];
 
 let isUiEnabled1 = Menu.AddToggle(path_, 'Orbwalking Enable', true);
@@ -29,7 +29,7 @@ let lastAttackTime = 0;
 HitRunHeros.OnUpdate = () => {
   if (isUiEnabled1) {
   localHero = EntitySystem.GetLocalHero();
-  let attackTarget = localHero.GetAttackTarget();
+  attackTarget = localHero.GetAttackTarget();
   
 		      let bkb = localHero.GetItem('item_black_king_bar', true);
 		      if (bkb && bkb.CanCast()) {
