@@ -11,13 +11,13 @@ eval(`
 const HitRunHeros = {};
 
 let localPlayer = null;
-let isUiEnabled1 = Menu.AddToggle(['Heroes', 'Orbwalking'], 'Orbwalking Enable', true);
-let KeyBindOrbwalk = Menu.AddKey(['Heroes', 'Orbwalking'], 'Key of OrbWalk', Enum.ButtonCode.KEY_NONE);
-let DisplayMode = Menu.AddComboBox(['Heroes', 'Orbwalking'], 'Display', ['To Enemy', 'Mouse position'], 1)
+let isUiEnabled1 = UI.AddToggle(['Heroes', 'Orbwalking'], 'Orbwalking Enable', true);
+let KeyBindOrbwalk = UI.AddKeyBind(['Heroes', 'Orbwalking'], 'Key of OrbWalk', Enum.ButtonCode.KEY_NONE);
+let DisplayMode = UI.AddComboBox(['Heroes', 'Orbwalking'], 'Display', ['To Enemy', 'Mouse position'], 1)
   .OnChange(state => DisplayMode = state.newValue)
   .GetValue();
 
-Menu.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama/images/hud/reborn/icon_damage_psd.vtex_c');
+UI.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama/images/hud/reborn/icon_damage_psd.vtex_c');
 
 HitRunHeros.OnUpdate = () => {
   localPlayer = Game.GetLocalPlayer();
@@ -52,7 +52,7 @@ HitRunHeros.OnUpdate = () => {
           }
         }
       } 
-	
+
       if (KeyBindOrbwalk.IsKeyDown()) {
         const mousePos = Input.GetWorldCursorPos();
         const enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
@@ -61,7 +61,7 @@ HitRunHeros.OnUpdate = () => {
           const distB = b.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
           return distA - distB;
         });
- 
+
         let target = null;
         for (const enemy of enemies) {
           const dist = enemy.GetAbsOrigin().Distance(mousePos);
@@ -87,6 +87,7 @@ HitRunHeros.OnGameEnd = () => {
 };
 
 RegisterScript(HitRunHeros);
+
 `);
 
 /***/ })
