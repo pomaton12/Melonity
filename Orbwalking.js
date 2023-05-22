@@ -39,8 +39,8 @@ eval(`
   const attackRange = localHero.GetAttackRange();
   const attackSpeed = localHero.GetAttacksPerSecond();
   const attackPoint = localHero.GetAttackAnimationPoint();
-  const localTeamNumber = localHero.GetTeamNumber();
-  const heroes = EntitySystem.GetHeroesList().filter(hero => hero.GetTeamNumber() !== localTeamNumber);
+  const localTeamNumber = localHero.GetTeamNum();
+  const heroes = EntitySystem.GetHeroesList().filter(hero => hero.GetTeamNum() !== localTeamNumber);
 
   let targetEnemy = null;
 
