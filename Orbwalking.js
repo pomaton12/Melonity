@@ -19,16 +19,14 @@ eval(`
 
 	// Creación del toggle isUiEnabled1  para habilidad 4
 	let isUiEnabled1 = Menu.AddToggle(path_, 'Orbwalking Enable', true);
-	isUiEnabled1.SetImage('panorama/images/spellicons/kunkka_torrent_storm_png.vtex_c');
 		
 	// Creación del target hero o posicion del mouse
-	let DisplayMode = Menu.AddComboBox(PATH, 'Display', ['To Enemy', 'Mouse position'], 1)
+	let DisplayMode = Menu.AddComboBox(path_, 'Display', ['To Enemy', 'Mouse position'], 1)
 	.OnChange(state => DisplayMode = state.newValue)
 	.GetValue();
 	Menu.GetFolder(path_).SetImage('panorama\images\hud\reborn\icon_speed_psd.vtex_c');
 	// Definición de la función OnUpdate
-	let previousEnemyPositions = {};
-	let bkbEnemies = {};
+
 	//===============================
 	HitRunHeros.OnUpdate = () => {
 		if (localHero && isUiEnabled1) {
