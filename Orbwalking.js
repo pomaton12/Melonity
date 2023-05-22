@@ -28,7 +28,12 @@ let lastAttackTime = 0;
 
 HitRunHeros.OnUpdate = () => {
   if (isUiEnabled1) {
-  bkb.CastNoTarget();
+
+		      let bkb = localHero.GetItem('item_black_king_bar', true);
+		      if (bkb && bkb.CanCast()) {
+			      bkb.CastNoTarget();
+		      }
+
   localHero = EntitySystem.GetLocalHero();
   const attackTarget = localHero.GetAttackTarget();
   if (attackTarget && attackTarget.IsAlive() && attackTarget.IsHero() && !attackTarget.IsTower()) {
