@@ -10,7 +10,7 @@
 eval(`
 const HitRunHeros = {};
 
-let localHero;
+let localHero = null;
 
 const path_ = ['Heroes', 'Orbwalking'];
 
