@@ -31,66 +31,54 @@ eval(`
 	
 	//===============================
 	HitRunHeros.OnUpdate = () => {
-		  if (!localHero || !isUiEnabled1) {
-		    return;
-		  }
-  const myPlayer = EntitySystem.GetLocalPlayer();
-  const mousePos = Input.GetWorldCursorPos();
-  const attackRange = localHero.GetAttackRange();
-  const attackSpeed = localHero.GetAttacksPerSecond();
-  const attackPoint = localHero.GetAttackAnimationPoint();
-  const localTeamNumber = localHero.GetTeamNum();
-  const heroes = EntitySystem.GetHeroesList().filter(hero => hero.GetTeamNum() !== localTeamNumber);
+	  if (!localHero || !isUiEnabled1) {
+	    return;
+	  }
+	  const myPlayer = EntitySystem.GetLocalPlayer();
+	  const mousePos = Input.GetWorldCursorPos();
+	  const attackRange = localHero.GetAttackRange();
+	  const attackSpeed = localHero.GetAttacksPerSecond();
+	  const attackPoint = localHero.GetAttackAnimationPoint();
+	  const localTeamNumber = localHero.GetTeamNum();
+	  const heroes = EntitySystem.GetHeroesList().filter(hero => hero.GetTeamNum() !== localTeamNumber);
 
-  let targetEnemy = null;
+	  let targetEnemy = null;
 
-  if (DisplayMode === 0) { // To Enemy
-    targetEnemy = heroes.reduce((closest, enemy) => {
-      const distanceToEnemy = localHero.GetAbsOrigin().sub(enemy.GetAbsOrigin()).Length2D();
-      const distanceToClosest = closest ? localHero.GetAbsOrigin().sub(closest.GetAbsOrigin()).Length2D() : Infinity;
+	  if (DisplayMode === 0) { // To Enemy
+	    targetEnemy = heroes.reduce((closest, enemy) => {
+	      const distanceToEnemy = localHero.GetAbsOrigin().sub(enemy.GetAbsOrigin()).Length2D();
+	      const distanceToClosest = closest ? localHero.GetAbsOrigin().sub(closest.GetAbsOrigin()).Length2D() : Infinity;
 
-      return distanceToEnemy < distanceToClosest ? enemy : closest;
-    }, null);
-  } else if (DisplayMode === 1) { // Mouse position
-    targetEnemy = heroes.reduce((closest, enemy) => {
-      const distanceToMouse = enemy.GetAbsOrigin().sub(mousePos).Length2D();
-      const distanceToClosest = closest ? closest.GetAbsOrigin().sub(mousePos).Length2D() : Infinity;
+	      return distanceToEnemy <      distanceToClosest ? enemy : closest;
+	    }, null);
+	  } else if (DisplayMode === 1) { // Mouse position
+	    targetEnemy = heroes.reduce((closest, enemy) => {
+	      const distanceToMouse = enemy.GetAbsOrigin().sub(mousePos).Length2D();
+	      const distanceToClosest = closest ? closest.GetAbsOrigin().sub(mousePos).Length2D() : Infinity;
 
-      return distanceToMouse < distanceToClosest ? enemy : closest;
-    }, null);
-  }
+	      return distanceToMouse < distanceToClosest ? enemy : closest;
+	    }, null);
+	  }
 
-  if (targetEnemy) {
-    const distanceToTarget = localHero.GetAbsOrigin().sub(targetEnemy.GetAbsOrigin()).Length2D();
-    const game_time = GameRules.GetGameTime();
-    const attackCooldown = 1 / attackSpeed;
+	  if (targetEnemy) {
+	    const distanceToTarget = localHero.GetAbsOrigin().sub(targetEnemy.GetAbsOrigin()).Length2D();
+	    const game_time = GameRules.GetGameTime();
+	    const attackCooldown = 1 / attackSpeed;
 
-    if (distanceToTarget <= attackRange) {
-      if (localHero.CanAttack(targetEnemy) && game_time - lastAttackTime > attackCooldown + attackPoint) {
-        myPlayer.AttackTarget(localHero, targetEnemy);
-        lastAttackTime = game_time;
-      } else {
-        myPlayer.MoveTo(mousePos.x, mousePos.y, mousePos.z);
-      }
-    } else {
-      myPlayer.MoveTo(targetEnemy.GetAbsOrigin().x, targetEnemy.GetAbsOrigin().y, targetEnemy.GetAbsOrigin().z);
-    }
-  }
+	    if (distanceToTarget <= attackRange) {
+	      if (localHero.CanAttack(targetEnemy) && game_time - lastAttackTime > attackCooldown + attackPoint) {
+		myPlayer.AttackTarget(localHero, targetEnemy);
+		lastAttackTime = game_time;
+	      } else {
+		myPlayer.MoveTo(mousePos.x, mousePos.y, mousePos.z);
+		console.log('Moving to mouse position:', mousePos.x, mousePos.y, mousePos.z);
+	      }
+	    } else {
+	      myPlayer.MoveTo(targetEnemy.GetAbsOrigin().x, targetEnemy.GetAbsOrigin().y, targetEnemy.GetAbsOrigin().z);
+	      console.log('Moving to targetenemy position:', targetEnemy.GetAbsOrigin().x, targetEnemy.GetAbsOrigin().y, targetEnemy.GetAbsOrigin().z);
+	    }
+	  }
 	};
-	// Definición de la función OnScriptLoad
-	HitRunHeros.OnScriptLoad = HitRunHeros.OnGameStart = () => {
-	  localHero = EntitySystem.GetLocalHero();
-	};
-
-	// Definición de la función OnGameEnd
-	HitRunHeros.OnGameEnd = () => {
-	  localHero = null;
-	};
-
-	// Registro del script
-	RegisterScript(HitRunHeros);
-
-`);
 
 /***/ })
 
