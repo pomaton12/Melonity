@@ -73,7 +73,7 @@ HitRunHeros.OnUpdate = () => {
         myPlayer.Move(mousePos); // Modificado aquí
       }
     } else {
-      myPlayer.Move(targetEnemy.GetAbsOrigin()); // Modificado aquí
+      localHero.MoveToPosition(targetEnemy.GetAbsOrigin()); // Modificado aquí
     }
   }
 };
