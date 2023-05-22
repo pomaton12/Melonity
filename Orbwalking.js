@@ -32,7 +32,7 @@ HitRunHeros.OnUpdate = () => {
   
   if (localHero && localHero.IsHero()) {
   // localHero es un héroe, puedes llamar a métodos específicos de héroe aquí
-  let attackTarget = localHero.GetAttackTarget();
+  let attackTarget = localHero.GetAggroTarget();
   // ...
   }
   
