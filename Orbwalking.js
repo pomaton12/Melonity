@@ -39,12 +39,12 @@ eval(`
   const mousePos = Input.GetWorldCursorPos();
   const attackRange = localHero.GetAttackRange();
   const attackSpeed = localHero.GetAttacksPerSecond();
-  const attackPoint = localHero.GetAttackPoint();
+  const attackPoint = localHero.GetAttackAnimationPoint();
   const enemies = EntitySystem.GetEntitiesByClass('C_DOTA_BaseNPC_Hero').filter(hero => hero.IsEnemy(localHero));
 
   let targetEnemy = null;
 
-  if (DisplayMode === 0) { // To Enemy
+  ifDisplayMode === 0) { // To Enemy
     targetEnemy = enemies.reduce((closest, enemy) => {
       const distanceToEnemy = localHero.GetAbsOrigin().sub(enemy.GetAbsOrigin()).Length2D();
       const distanceToClosest = closest ? localHero.GetAbsOrigin().sub(closest.GetAbsOrigin()).Length2D() : Infinity;
