@@ -29,7 +29,14 @@ let lastAttackTime = 0;
 HitRunHeros.OnUpdate = () => {
   if (isUiEnabled1) {
   localHero = EntitySystem.GetLocalHero();
-  attackTarget = localHero.GetAttackTarget();
+  
+  if (localHero && localHero.IsHero()) {
+  // localHero es un héroe, puedes llamar a métodos específicos de héroe aquí
+  let attackTarget = localHero.GetAttackTarget();
+  // ...
+  }
+  
+  //attackTarget = localHero.GetAttackTarget();
   
 		      let bkb = localHero.GetItem('item_black_king_bar', true);
 		      if (bkb && bkb.CanCast()) {
