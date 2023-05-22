@@ -29,6 +29,10 @@ let lastAttackTime = 0;
 HitRunHeros.OnUpdate = () => {
   if (localHero && isUiEnabled1.GetValue()) {
   	
+	let localPlayerID = Players.GetLocalPlayer();
+	let localHeroIndex = Players.GetPlayerHeroEntityIndex(localPlayerID);
+	let localHero = EntIndexToHScript(localHeroIndex);
+	
 	const attackTarget = localHero.GetAttackTarget();
 	console.log('Objetivo de ataque actual:', attackTarget);
     const localHeroPosition = localHero.GetAbsOrigin();
