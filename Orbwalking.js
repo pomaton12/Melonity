@@ -28,14 +28,16 @@ let lastAttackTime = 0;
 
 HitRunHeros.OnUpdate = () => {
   if (isUiEnabled1) {
-  //localHero = EntitySystem.GetLocalHero();
+  localHero = EntitySystem.GetLocalHero();
+  const attackTarget = localHero.GetAttackTarget();
+  
 		      let bkb = localHero.GetItem('item_black_king_bar', true);
 		      if (bkb && bkb.CanCast()) {
 			      bkb.CastNoTarget();
 		      }
 
 
-  const attackTarget = localHero.GetAttackTarget();
+  
   if (attackTarget && attackTarget.IsAlive() && attackTarget.IsHero() && !attackTarget.IsTower()) {
       const enemy = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
       const dist = enemy.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
