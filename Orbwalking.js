@@ -55,29 +55,29 @@ HitRunHeros.OnUpdate = () => {
     
      //console.log('Objetivo de ataque actual:', attackTarget);	
     
-    if (attackTarget) {
-      const enemyHeroPosition = EnemyHero.GetAbsOrigin();
-      const dist = EnemyHero.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
-      const attackRange = localHero.GetAttackRange();
-      console.log('Objetivo de ataque actual:', dist);
-	console.log('Objetivo de ataque actual:', attackRange);
-      if (dist > attackRange) {
-        const dir = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
-        const pos = EnemyHero.GetAbsOrigin()+dir*(100);
-        localHero.MoveTo(enemyHeroPosition);
-      } else {
-        //localHero.Attack(EnemyHero);
+	if (attackTarget) {
+	  const enemyHeroPosition = EnemyHero.GetAbsOrigin();
+	  const dist = EnemyHero.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
+	  const attackRange = localHero.GetAttackRange();
+	  console.log('Objetivo de ataque actual:', dist);
+	  console.log('Objetivo de ataque actual:', attackRange);
+	  if (dist > attackRange) {
+	    const dir = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
+	    const pos = EnemyHero.GetAbsOrigin()+dir*(100);
+	    localHero.MoveTo(enemyHeroPosition);
+	  } else {
+	    localHero.SetAttacking(EnemyHero);
+	    if (DisplayMode === 0) {
+	      const dir = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
+	      const pos = EnemyHero.GetAbsOrigin()+dir*(-100);
+	      localHero.MoveTo(enemyHeroPosition);
+	    } else if (DisplayMode === 1) {
+	      const mousePos = Input.GetWorldCursorPos();
+	      localHero.MoveTo(mousePos);
+	    }
+	  }
+	}
 
-        if (DisplayMode === 0) {
-          const dir = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
-          const pos = EnemyHero.GetAbsOrigin()+dir*(-100);
-          localHero.MoveTo(enemyHeroPosition);
-        } else if (DisplayMode === 1) {
-          const mousePos = Input.GetWorldCursorPos();
-          localHero.MoveTo(mousePos);
-        }
-      }
-    } 
 	
     if (KeyBindOrbwalk.IsKeyDown()) {
       const mousePos = Input.GetWorldCursorPos();
