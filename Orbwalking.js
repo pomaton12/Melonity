@@ -52,6 +52,16 @@ if (vec1 && vec2) {
     return -1;
 }
 
+// 3 .- ====   Funcion POSICION DEL ANGULO
+function GetAngleToPos(_e1, _e2, prefer = _e2, inrad) {
+	let [a, b] = [IsntUndefined(_e1.x) ? _e1 : _e1.GetAbsOrigin(), IsntUndefined(_e2.x) ? _e2 : _e2.GetAbsOrigin()];
+	if (prefer == _e1) {
+	    [a, b] = [b, a];
+	}
+	let atan2 = Math.atan2(b.y - a.y, b.x - a.x);
+	return inrad ? atan2 : (atan2 * (180 / Math.PI));
+}
+
 //=====================
 HitRunHeros.OnUpdate = () => {
   if (localHero && isUiEnabled1.GetValue()) {
@@ -75,19 +85,23 @@ HitRunHeros.OnUpdate = () => {
 	  console.log('Objetivo de ataque actual:', dist);
 	  console.log('Objetivo de ataque actual:', attackRange);
 	  if (dist > attackRange) {
-	    const dir = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
-	    const pos = EnemyHero.GetAbsOrigin()+dir*(100);
-	    localHero.MoveTo(enemyHeroPosition);
+	      const dir = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
+	      const pos = EnemyHero.GetAbsOrigin()+dir*(100);
+	      localHero.MoveTo(enemyHeroPosition);
 	  } else {
-	    //localHero.AttackTarget(EnemyHero);
-	    if (DisplayMode === 0) {
+	      //localHero.AttackTarget(EnemyHero);
 	      const dir = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
 	      const pos = EnemyHero.GetAbsOrigin()+dir*(-100);
-	      localHero.MoveTo(enemyHeroPosition);
-	    } else if (DisplayMode === 1) {
+	      localHero.MoveTo(enemyHeroPosition);	    
+	  }
+	  
+	  if (DisplayMode === 0) {
+	      //const dir = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
+	      //const pos = EnemyHero.GetAbsOrigin()+dir*(-100);
+	      //localHero.MoveTo(enemyHeroPosition);
+	  } else if (DisplayMode === 1) {
 	      const mousePos = Input.GetWorldCursorPos();
 	      localHero.MoveTo(mousePos);
-	    }
 	  }
 	}
 
