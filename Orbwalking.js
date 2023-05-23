@@ -26,7 +26,10 @@ let DisplayMode = Menu.AddComboBox(path_, 'Display', ['To Enemy', 'Mouse positio
 
 Menu.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama/images/hud/reborn/icon_damage_psd.vtex_c');
 
-//Funcion para evaluar attack target a un enemigo o amigo
+//=========================================
+//       Evaluar Funciones
+//=========================================
+// 1 .- ====   Funcion para evaluar attack target a un enemigo o amigo
 function isHeroAttacking(hero, target) {
   // Comprueba si el héroe está dentro del rango de ataque del objetivo
   let distance = target.GetAbsOrigin().Distance(hero.GetAbsOrigin());
@@ -37,6 +40,16 @@ function isHeroAttacking(hero, target) {
     }
   }
   return false;
+}
+
+// 2 .- ====   Funcion para calcular distancia2D
+function Dist2D(vec1, vec2) {
+if (vec1 && vec2) {
+    let pos1 = (vec1.x ? (vec1) : (vec1.GetAbsOrigin ? (vec1.GetAbsOrigin()) : (0)));
+    let pos2 = (vec2.x ? (vec2) : (vec2.GetAbsOrigin ? (vec2.GetAbsOrigin()) : (0)));
+    return pos1 && pos2 && pos1.sub(pos2).Length2D();
+}
+    return -1;
 }
 
 //=====================
@@ -57,7 +70,7 @@ HitRunHeros.OnUpdate = () => {
     
 	if (attackTarget) {
 	  const enemyHeroPosition = EnemyHero.GetAbsOrigin();
-	  const dist = EnemyHero.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
+	  const dist = Dist2D(localHero.GetAbsOrigin(), EnemyHero.GetAbsOrigin());
 	  const attackRange = localHero.GetAttackRange();
 	  console.log('Objetivo de ataque actual:', dist);
 	  console.log('Objetivo de ataque actual:', attackRange);
