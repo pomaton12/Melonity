@@ -93,14 +93,17 @@ HitRunHeros.OnUpdate = () => {
 	  console.log('Objetivo de ataque actual:', dist);
 	  console.log('Objetivo de ataque actual:', attackRange);
 	  if (dist > attackRange) {
-	      const dir = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
-	      const pos = localHeroPosition.add(new Vector(100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
-	      localHero.MoveTo(pos);
+	  
+	      if ( isUiEnabled2.GetValue()) {
+	         const pos = localHeroPosition.add(new Vector(100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
+	         localHero.MoveTo(pos);
+	      }
 	  } else {
 	      //localHero.AttackTarget(EnemyHero);
-	      const dir = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
-	      const pos = localHeroPosition.add(new Vector(-100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
-	      localHero.MoveTo(pos);	    
+              if ( isUiEnabled2.GetValue()) {
+	         const pos = localHeroPosition.add(new Vector(-100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
+	         localHero.MoveTo(pos);
+	      }
 	  }
 	  
 	  if (DisplayMode === 0) {
