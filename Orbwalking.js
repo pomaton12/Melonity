@@ -31,14 +31,20 @@ HitRunHeros.OnUpdate = () => {
   
   	const localHero = EntitySystem.GetLocalHero();
 	const heroName = localHero.GetUnitName();
-	console.log('Objetivo de ataque actual:', heroName);	
-	const attackTarget = localHero.GetAttackTarget();
-
+	
+	const Testenemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
+        for (let enemy1 of Testenemies) {
+	   console.log('Objetivo de ataque actual:', enemy1);	
+	{
+	
+    //const attackTarget = localHero.GetAttackTarget();
+    const attackTarget = enemy1.GetAttackTarget();
+    
     const localHeroPosition = localHero.GetAbsOrigin();
     const enemy  = EntitySystem.GetHeroesList().filter(hero => hero.GetTeamNum() !== localHero.GetTeamNum() && hero.IsAlive() && localHeroPosition.Distance(hero.GetAbsOrigin()) <= 1000);
     const EnemyHero = enemy.reduce((closest, hero) => closest ? (localHeroPosition.Distance(hero.GetAbsOrigin()) < localHeroPosition.Distance(closest.GetAbsOrigin()) ? hero : closest) : hero, null);
 
-    if (attackTarget) {
+    if (attackTarget === localHero) {
       const enemyHeroPosition = EnemyHero.GetAbsOrigin();
       const dist = EnemyHero.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
       const attackRange = localHero.GetAttackRange();
