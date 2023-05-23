@@ -26,25 +26,34 @@ let DisplayMode = Menu.AddComboBox(path_, 'Display', ['To Enemy', 'Mouse positio
 
 Menu.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama/images/hud/reborn/icon_damage_psd.vtex_c');
 
+//Funcion para evaluar attack target a un enemigo o amigo
+function isHeroAttacking(hero, target) {
+  // Comprueba si el héroe está dentro del rango de ataque del objetivo
+  let distance = Math.sqrt(Math.pow(hero.x - target.x, 2) + Math.pow(hero.y - target.y, 2));
+  if (distance <= hero.attackRange) {
+    // Comprueba si el héroe está atacando actualmente
+    if (hero.isAttacking && hero.attackTarget === target) {
+      return true;
+    }
+  }
+  return false;
+}
+
+//=====================
 HitRunHeros.OnUpdate = () => {
   if (localHero && isUiEnabled1) {
   
-	const heroName = localHero.GetUnitName();
-	
 	const Testenemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
         for (let enemy1 of Testenemies) {
-	   attackTarget = enemy1.GetAttackTarget();
-	   console.log('Objetivo de ataque actual:', attackTarget);	
+	   console.log('Objetivo de ataque actual:', enemy1);	
 	}
 	
-    //const attackTarget = localHero.GetAttackTarget();
-    //const attackTarget = EnemyHerotest.GetAttackTarget();
-    
     const localHeroPosition = localHero.GetAbsOrigin();
     const enemy  = EntitySystem.GetHeroesList().filter(hero => hero.GetTeamNum() !== localHero.GetTeamNum() && hero.IsAlive() && localHeroPosition.Distance(hero.GetAbsOrigin()) <= 1000);
     const EnemyHero = enemy.reduce((closest, hero) => closest ? (localHeroPosition.Distance(hero.GetAbsOrigin()) < localHeroPosition.Distance(closest.GetAbsOrigin()) ? hero : closest) : hero, null);
-
-    if (attackTarget === localHero) {
+    const attackTarget = isHeroAttacking(localHero, EnemyHero);
+    
+    if (attackTarget) {
       const enemyHeroPosition = EnemyHero.GetAbsOrigin();
       const dist = EnemyHero.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
       const attackRange = localHero.GetAttackRange();
