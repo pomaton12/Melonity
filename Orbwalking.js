@@ -99,6 +99,8 @@ HitRunHeros.OnUpdate = () => {
 	  } else if (DisplayMode === 1) {
 	      const mousePos = Input.GetWorldCursorPos();
 	      localHero.MoveTo(mousePos);
+	      	setTimeout(function() {
+		}, 1000);
 	  }
 	}
 
