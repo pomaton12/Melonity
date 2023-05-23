@@ -66,7 +66,8 @@ function GetAngleToPos(_e1, _e2, prefer = _e2, inrad) {
 //=====================
 HitRunHeros.OnUpdate = () => {
   if (localHero && isUiEnabled1.GetValue()) {
-  
+	setTimeout(function() {
+	}, 600);
 	const Testenemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
         for (let enemy1 of Testenemies) {
 	   //console.log('Objetivo de ataque actual:', enemy1);	
