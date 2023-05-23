@@ -68,10 +68,6 @@ HitRunHeros.OnUpdate = () => {
   if (localHero && isUiEnabled1.GetValue()) {
 	setTimeout(function() {
 	}, 600);
-	const Testenemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
-        for (let enemy1 of Testenemies) {
-	   //console.log('Objetivo de ataque actual:', enemy1);	
-	}
 	
     const localHeroPosition = localHero.GetAbsOrigin();
     const enemy  = EntitySystem.GetHeroesList().filter(hero => hero.GetTeamNum() !== localHero.GetTeamNum() && hero.IsAlive() && localHeroPosition.Distance(hero.GetAbsOrigin()) <= 1000);
