@@ -59,7 +59,7 @@ HitRunHeros.OnUpdate = () => {
       const enemyHeroPosition = EnemyHero.GetAbsOrigin();
       const dist = EnemyHero.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
       const attackRange = localHero.GetAttackRange();
-	console.log('Objetivo de ataque actual:', dist);
+	console.log('Objetivo de ataque actual:', attackRange);
       if (dist > attackRange) {
         const dir = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
         const pos = EnemyHero.GetAbsOrigin()+dir*(100);
