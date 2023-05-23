@@ -67,6 +67,7 @@ HitRunHeros.OnUpdate = () => {
 	    localHero.MoveTo(enemyHeroPosition);
 	  } else {
 	    console.log(typeof localHero);
+	    console.log(typeof EnemyHero);
 	    localHero.SetAttacking(EnemyHero);
 	    if (DisplayMode === 0) {
 	      const dir = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
