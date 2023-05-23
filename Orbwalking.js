@@ -54,6 +54,9 @@ if (vec1 && vec2) {
 }
 
 // 3 .- ====   Funcion POSICION DEL ANGULO
+function IsntUndefined(value, withfalse) {
+	return withfalse ? (value !== false) : value !== undefined && value !== null;
+}
 function GetAngleToPos(_e1, _e2, prefer = _e2, inrad) {
 	let [a, b] = [IsntUndefined(_e1.x) ? _e1 : _e1.GetAbsOrigin(), IsntUndefined(_e2.x) ? _e2 : _e2.GetAbsOrigin()];
 	if (prefer == _e1) {
