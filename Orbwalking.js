@@ -30,6 +30,7 @@ Menu.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama/images/hud/reborn/ic
 function isHeroAttacking(hero, target) {
   // Comprueba si el héroe está dentro del rango de ataque del objetivo
   let distance = Math.sqrt(Math.pow(hero.x - target.x, 2) + Math.pow(hero.y - target.y, 2));
+  console.log('Evaluando duncion distancia', distance);
   if (distance <= hero.attackRange) {
     // Comprueba si el héroe está atacando actualmente
     if (hero.isAttacking && hero.attackTarget === target) {
