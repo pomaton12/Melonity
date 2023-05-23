@@ -32,7 +32,7 @@ Menu.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama/images/hud/reborn/ic
 // 1 .- ====   Funcion para evaluar attack target a un enemigo o amigo
 function isHeroAttacking(hero, target) {
   // Comprueba si el héroe está dentro del rango de ataque del objetivo
-  let distance = target.GetAbsOrigin().Distance(hero.GetAbsOrigin());
+  let distance = Dist2D(target.GetAbsOrigin(), hero.GetAbsOrigin());
   console.log('Objetivo de ataque actual:', distance);  
   if (distance <= hero.GetAttackRange()) {
     // Comprueba si el héroe está atacando actualmente
