@@ -34,7 +34,7 @@ function isHeroAttacking(hero, target) {
   // Comprueba si el héroe está dentro del rango de ataque del objetivo
   let distance = target.GetAbsOrigin().Distance(hero.GetAbsOrigin());
   console.log('Objetivo de ataque actual:', distance);  
-  if (distance <= hero.GetAttackRange()+5) {
+  if (distance <= hero.GetAttackRange()) {
     // Comprueba si el héroe está atacando actualmente
     if (hero.IsAttacking()) {
       return true;
@@ -76,7 +76,7 @@ HitRunHeros.OnUpdate = () => {
     const enemy  = EntitySystem.GetHeroesList().filter(hero => hero.GetTeamNum() !== localHero.GetTeamNum() && hero.IsAlive() && localHeroPosition.Distance(hero.GetAbsOrigin()) <= 1000);
     const EnemyHero = enemy.reduce((closest, hero) => closest ? (localHeroPosition.Distance(hero.GetAbsOrigin()) < localHeroPosition.Distance(closest.GetAbsOrigin()) ? hero : closest) : hero, null);
     const attackTarget = isHeroAttacking(localHero, EnemyHero);
-    console.log('Objetivo de ataque actual:', attackTarget);    
+    //console.log('Objetivo de ataque actual:', attackTarget);    
 	if (attackTarget) {
 	  	
 	  const enemyHeroPosition = EnemyHero.GetAbsOrigin();
