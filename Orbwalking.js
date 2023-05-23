@@ -10,9 +10,9 @@
 eval(`
 const HitRunHeros = {};
 
-let localHero = null;
-let attackTarget = null;
-let EnemyHerotest = null;
+let localHero;
+let attackTarget;
+let EnemyHerotest;
 
 const path_ = ['Heroes', 'Orbwalking'];
 
@@ -26,12 +26,9 @@ let DisplayMode = Menu.AddComboBox(path_, 'Display', ['To Enemy', 'Mouse positio
 
 Menu.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama/images/hud/reborn/icon_damage_psd.vtex_c');
 
-let lastAttackTime = 0;
-
 HitRunHeros.OnUpdate = () => {
-  if (localHero && isUiEnabled1.GetValue()) {
+  if (localHero && isUiEnabled1) {
   
-  	const localHero = EntitySystem.GetLocalHero();
 	const heroName = localHero.GetUnitName();
 	
 	const Testenemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
