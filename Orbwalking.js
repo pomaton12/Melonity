@@ -89,7 +89,7 @@ HitRunHeros.OnUpdate = () => {
 	      //localHero.AttackTarget(EnemyHero);
 	      const dir = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
 	      const pos = EnemyHero.GetAbsOrigin()+dir*(-100);
-	      localHero.MoveTo(enemyHeroPosition);	    
+	      localHero.MoveTo(pos);	    
 	  }
 	  
 	  if (DisplayMode === 0) {
