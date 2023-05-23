@@ -61,7 +61,7 @@ eval(`
 		      let isEscaping = false;
 		      
 			setTimeout(function() {
-			console.log('Objetivo de ataque actual:', enemy.GetAttackTarget());
+			console.log('Objetivo de ataque actual:', isAttacking);
 			}, 300);
 
 		      if (previousEnemyPositions[enemyId]) {
