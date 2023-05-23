@@ -35,7 +35,7 @@ HitRunHeros.OnUpdate = () => {
 	const Testenemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
         for (let enemy1 of Testenemies) {
 	   console.log('Objetivo de ataque actual:', enemy1);	
-	{
+	}
 	
     //const attackTarget = localHero.GetAttackTarget();
     const attackTarget = enemy1.GetAttackTarget();
