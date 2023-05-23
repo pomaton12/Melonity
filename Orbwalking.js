@@ -41,7 +41,7 @@ function isHeroAttacking(hero, target) {
 
 //=====================
 HitRunHeros.OnUpdate = () => {
-  if (localHero && isUiEnabled1) {
+  if (localHero && isUiEnabled1.GetValue()) {
   
 	const Testenemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
         for (let enemy1 of Testenemies) {
