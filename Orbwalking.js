@@ -22,13 +22,15 @@ let KeyBindOrbwalk = Menu.AddKeyBind(path_, 'Key of OrbWalk', Enum.ButtonCode.KE
 
 let isUiEnabled2 = Menu.AddToggle(path_, 'Kill Safe Pos', true);
 
+let DisplayMode = Menu.AddComboBox(path_, 'Display', ['To Enemy', 'Mouse position'], 1)
+  .OnChange(state => DisplayMode = state.newValue)
+  .GetValue();
+  
 let SafeDistanceUI = Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 0, 100, 100)
 	.OnChange(state => SafeDistanceUI = state.newValue)
 	.GetValue();
 
-let DisplayMode = Menu.AddComboBox(path_, 'Display', ['To Enemy', 'Mouse position'], 1)
-  .OnChange(state => DisplayMode = state.newValue)
-  .GetValue();
+
 
 Menu.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama/images/hud/reborn/icon_damage_psd.vtex_c');
 
@@ -92,12 +94,11 @@ HitRunHeros.OnUpdate = () => {
 	  console.log('Objetivo de ataque actual:', attackRange);
 	  if (dist > attackRange) {
 	      const dir = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
-	      const pos = EnemyHero.GetAbsOrigin()+dir*(100);
-	      localHero.MoveTo(enemyHeroPosition);
+	      const pos = localHeroPosition.add(new Vector(100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
+	      localHero.MoveTo(pos);
 	  } else {
 	      //localHero.AttackTarget(EnemyHero);
 	      const dir = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
-	      //const pos = EnemyHero.GetAbsOrigin()+dir*(-100);
 	      const pos = localHeroPosition.add(new Vector(-100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
 	      localHero.MoveTo(pos);	    
 	  }
