@@ -12,6 +12,8 @@ const HitRunHeros = {};
 
 let localHero = null;
 let attackTarget = null;
+let EnemyHerotest = null;
+
 const path_ = ['Heroes', 'Orbwalking'];
 
 let isUiEnabled1 = Menu.AddToggle(path_, 'Orbwalking Enable', true);
@@ -34,11 +36,12 @@ HitRunHeros.OnUpdate = () => {
 	
 	const Testenemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
         for (let enemy1 of Testenemies) {
-	   console.log('Objetivo de ataque actual:', enemy1);	
+	   EnemyHerotest = enemy1;
+	   console.log('Objetivo de ataque actual:', EnemyHerotest);	
 	}
 	
     //const attackTarget = localHero.GetAttackTarget();
-    const attackTarget = enemy1.GetAttackTarget();
+    const attackTarget = EnemyHerotest.GetAttackTarget();
     
     const localHeroPosition = localHero.GetAbsOrigin();
     const enemy  = EntitySystem.GetHeroesList().filter(hero => hero.GetTeamNum() !== localHero.GetTeamNum() && hero.IsAlive() && localHeroPosition.Distance(hero.GetAbsOrigin()) <= 1000);
