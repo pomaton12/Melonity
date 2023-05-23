@@ -66,9 +66,7 @@ HitRunHeros.OnUpdate = () => {
 	    const pos = EnemyHero.GetAbsOrigin()+dir*(100);
 	    localHero.MoveTo(enemyHeroPosition);
 	  } else {
-	    console.log(typeof localHero);
-	    console.log(typeof EnemyHero);
-	    localHero.SetAttacking(EnemyHero);
+	    localHero.AttackTarget(EnemyHero);
 	    if (DisplayMode === 0) {
 	      const dir = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
 	      const pos = EnemyHero.GetAbsOrigin()+dir*(-100);
@@ -99,11 +97,7 @@ HitRunHeros.OnUpdate = () => {
       }
 
       if (target != null) {
-
-  console.log('localHero:', localHero);
-  console.log('target:', target);
-  localHero.Attack(target);
-
+	localHero.AttackTarget(target);
       }
     }
   }
