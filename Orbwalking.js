@@ -99,7 +99,11 @@ HitRunHeros.OnUpdate = () => {
       }
 
       if (target != null) {
-        localHero.Attack(target);
+
+  console.log('localHero:', localHero);
+  console.log('target:', target);
+  localHero.Attack(target);
+
       }
     }
   }
