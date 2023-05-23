@@ -32,7 +32,7 @@ function isHeroAttacking(hero, target) {
   let distance = target.GetAbsOrigin().Distance(hero.GetAbsOrigin());
   if (distance <= hero.GetAttackRange()) {
     // Comprueba si el héroe está atacando actualmente
-    if (hero.IsAttacking() && hero.IsAttackingEntity(target, false)) {
+    if (hero.IsAttacking() && hero.IsAttackingEntity(target.GetEntityIndex(), false)) {
     	console.log('Evaluando duncion distancia', distance);
       return true;
     }
