@@ -87,9 +87,11 @@ HitRunHeros.OnUpdate = () => {
 	  const dist = Dist2D(localHero.GetAbsOrigin(), EnemyHero.GetAbsOrigin());
 	  const attackRange = localHero.GetAttackRange();
 	  const newRange = attackRange * (SafeDistanceUI / 100);
-          localHero.SetAttackRange(newRange);
+          //localHero.SetAttackRange(newRange);
 
-	  console.log('Rango de ataque actual:', localHero.SetAttackRange(newRange));
+	  const attackSpeed = Entities.GetAttackSpeed(localHero);
+          const attackTime = 1 / attackSpeed;
+	  console.log('Rango de ataque actual:', localHero.SetAttackRange(attackTime));
 	  
 	  if (dist > attackRange) {
 	  
