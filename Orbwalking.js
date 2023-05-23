@@ -33,7 +33,6 @@ function isHeroAttacking(hero, target) {
   if (distance <= hero.GetAttackRange()) {
     // Comprueba si el héroe está atacando actualmente
     if (hero.IsAttacking()) {
-    	console.log('Evaluando duncion distancia', distance);
       return true;
     }
   }
@@ -54,13 +53,13 @@ HitRunHeros.OnUpdate = () => {
     const EnemyHero = enemy.reduce((closest, hero) => closest ? (localHeroPosition.Distance(hero.GetAbsOrigin()) < localHeroPosition.Distance(closest.GetAbsOrigin()) ? hero : closest) : hero, null);
     const attackTarget = isHeroAttacking(localHero, EnemyHero);
     
-    console.log('Objetivo de ataque actual:', attackTarget);	
+     //console.log('Objetivo de ataque actual:', attackTarget);	
     
     if (attackTarget) {
       const enemyHeroPosition = EnemyHero.GetAbsOrigin();
       const dist = EnemyHero.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
       const attackRange = localHero.GetAttackRange();
-
+	console.log('Objetivo de ataque actual:', dist);
       if (dist > attackRange) {
         const dir = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
         const pos = EnemyHero.GetAbsOrigin()+dir*(100);
