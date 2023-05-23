@@ -57,9 +57,12 @@ eval(`
 		    for (let enemy of enemies) {
 		      let enemyId = enemy.GetPlayerID();
 		      let isAttacking = enemy.IsAttacking() && enemy.GetAttackTarget() === localHero;
-		      console.log('Objetivo de ataque actual:', enemy);	
 		      let currentPosition = enemy.GetAbsOrigin();
 		      let isEscaping = false;
+		      
+			setTimeout(function() {
+			console.log('Objetivo de ataque actual:', enemy.GetAttackTarget());
+			}, 300);
 
 		      if (previousEnemyPositions[enemyId]) {
 			let previousPosition = previousEnemyPositions[enemyId];
