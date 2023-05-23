@@ -26,7 +26,7 @@ let DisplayMode = Menu.AddComboBox(path_, 'Display', ['To Enemy', 'Mouse positio
   .OnChange(state => DisplayMode = state.newValue)
   .GetValue();
   
-let SafeDistanceUI = Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 0, 100, 100)
+let SafeDistanceUI = Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100)
 	.OnChange(state => SafeDistanceUI = state.newValue)
 	.GetValue();
 
@@ -39,15 +39,10 @@ Menu.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama/images/hud/reborn/ic
 //=========================================
 // 1 .- ====   Funcion para evaluar attack target a un enemigo o amigo
 function isHeroAttacking(hero, target) {
-  // Comprueba si el héroe está dentro del rango de ataque del objetivo
-  //let distance = Dist2D(target.GetAbsOrigin(), hero.GetAbsOrigin());
-  //console.log('Objetivo de ataque actual:', distance);  
-  //if (distance <= hero.GetAttackRange()) {
     // Comprueba si el héroe está atacando actualmente
     if (hero.IsAttacking()) {
       return true;
     }
-  //}
   return false;
 }
 
@@ -84,14 +79,17 @@ HitRunHeros.OnUpdate = () => {
     const enemy  = EntitySystem.GetHeroesList().filter(hero => hero.GetTeamNum() !== localHero.GetTeamNum() && hero.IsAlive() && localHeroPosition.Distance(hero.GetAbsOrigin()) <= 1000);
     const EnemyHero = enemy.reduce((closest, hero) => closest ? (localHeroPosition.Distance(hero.GetAbsOrigin()) < localHeroPosition.Distance(closest.GetAbsOrigin()) ? hero : closest) : hero, null);
     const attackTarget = isHeroAttacking(localHero, EnemyHero);
-    //console.log('Objetivo de ataque actual:', attackTarget);    
+
+
 	if (attackTarget) {
 	  	
 	  const enemyHeroPosition = EnemyHero.GetAbsOrigin();
 	  const dist = Dist2D(localHero.GetAbsOrigin(), EnemyHero.GetAbsOrigin());
 	  const attackRange = localHero.GetAttackRange();
-	  console.log('Objetivo de ataque actual:', dist);
-	  console.log('Objetivo de ataque actual:', attackRange);
+	  
+
+	  console.log('Rango de ataque actual:', SafeDistanceUI);
+	  
 	  if (dist > attackRange) {
 	  
 	      if ( isUiEnabled2.GetValue()) {
@@ -107,9 +105,7 @@ HitRunHeros.OnUpdate = () => {
 	  }
 	  
 	  if (DisplayMode === 0) {
-	      //const dir = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
-	      //const pos = EnemyHero.GetAbsOrigin()+dir*(-100);
-	      //localHero.MoveTo(enemyHeroPosition);
+
 	  } else if (DisplayMode === 1) {
 	      const mousePos = Input.GetWorldCursorPos();
 	      localHero.MoveTo(mousePos);
