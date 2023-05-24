@@ -26,7 +26,6 @@ let isUiEnabled2 = Menu.AddToggle(path_, 'Kill Safe Pos', true);
 let DisplayMode = Menu.AddComboBox(path_, 'Display', ['To Enemy', 'Mouse position'], 1)
   .OnChange(state =>{
       DisplayMode = state.newValue;
-      if 
       })
   .GetValue();
   
