@@ -71,20 +71,17 @@ HitRunHeros.OnUpdate = () => {
 	  const localHeroPosition = localHero.GetAbsOrigin();
 	  const enemy  = EntitySystem.GetHeroesList().filter(hero => hero.GetTeamNum() !== localHero.GetTeamNum() && hero.IsAlive() && localHeroPosition.Distance(hero.GetAbsOrigin()) <= 1000);
           const EnemyHero = enemy.reduce((closest, hero) => closest ? (localHeroPosition.Distance(hero.GetAbsOrigin()) < localHeroPosition.Distance(closest.GetAbsOrigin()) ? hero : closest) : hero, null);
-
+          const attackRange = localHero.GetAttackRange();
 	  const enemyHeroPosition = EnemyHero.GetAbsOrigin();
 	  const dist = Dist2D(localHero.GetAbsOrigin(), EnemyHero.GetAbsOrigin());
 	  
-	  //const newRange = attackRange * (SafeDistanceUI / 100);
-	  localHero.ScriptAttackRange = 50;
-	  const attackRange = localHero.GetAttackRange();
-
-	  const attackSpeed = localHero.GetAttacksPerSecond();
-          const attackTime = 1 / attackSpeed;
+	  const newRange = attackRange * (SafeDistanceUI / 100);
+	  //localHero.ScriptAttackRange = 50;
 	  
-	  // Obtener el tipo de ataque del héroe
-	  //const acquisitionRange = localHero.GetBaseAttackRange();
-	  //
+
+	  //const attackSpeed = localHero.GetAttacksPerSecond();
+          //const attackTime = 1 / attackSpeed;
+	  
 	  
 	  
 	  if (dist > attackRange) {
@@ -93,7 +90,7 @@ HitRunHeros.OnUpdate = () => {
 	         //SafeDistanceUI
 		 
 		 console.log("El héroe local es.",attackRange);
-	         const pos = localHeroPosition.add(new Vector(100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
+	         const pos = localHeroPosition.add(new Vector(0).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
 		 setTimeout(function() {localHero.MoveTo(pos);}, 200); 
 	        		 
 	      }
