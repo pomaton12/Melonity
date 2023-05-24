@@ -63,33 +63,15 @@ function GetAngleToPos(_e1, _e2, prefer = _e2, inrad) {
 	return inrad ? atan2 : (atan2 * (180 / Math.PI));
 }
 
-// 1 .- ====   Funcion para evaluar attack target a un enemigo o amigo
-function isHeroAttacking(hero, target) {
-    // Comprueba si el héroe está atacando actualmente
-    const dist1 = Dist2D(hero.GetAbsOrigin(), target.GetAbsOrigin());
-    const attackRange1 = hero.GetAttackRange();
-    if(dist1 <= attackRange1 ){
-	    if (hero.IsAttacking()) {
-	      return true;
-	    }
-    }
-  return false;
-}
-
 //=====================
 HitRunHeros.OnUpdate = () => {
   if (localHero && isUiEnabled1.GetValue()) {
+    
+	if (hero.IsAttacking()) {
+	  const localHeroPosition = localHero.GetAbsOrigin();
+	  const enemy  = EntitySystem.GetHeroesList().filter(hero => hero.GetTeamNum() !== localHero.GetTeamNum() && hero.IsAlive() && localHeroPosition.Distance(hero.GetAbsOrigin()) <= 1000);
+          const EnemyHero = enemy.reduce((closest, hero) => closest ? (localHeroPosition.Distance(hero.GetAbsOrigin()) < localHeroPosition.Distance(closest.GetAbsOrigin()) ? hero : closest) : hero, null);
 
-    const localHeroPosition = localHero.GetAbsOrigin();
-    const enemy  = EntitySystem.GetHeroesList().filter(hero => hero.GetTeamNum() !== localHero.GetTeamNum() && hero.IsAlive() && localHeroPosition.Distance(hero.GetAbsOrigin()) <= 1000);
-    const EnemyHero = enemy.reduce((closest, hero) => closest ? (localHeroPosition.Distance(hero.GetAbsOrigin()) < localHeroPosition.Distance(closest.GetAbsOrigin()) ? hero : closest) : hero, null);
-    const attackTarget = isHeroAttacking(localHero, EnemyHero);
-    
-    //const AttackTrgg = localHero.IsAttackingEntity(EnemyHero);
-    //console.log("El héroe local es.",AttackTrgg);
-    
-	if (attackTarget) {
-	  	
 	  const enemyHeroPosition = EnemyHero.GetAbsOrigin();
 	  const dist = Dist2D(localHero.GetAbsOrigin(), EnemyHero.GetAbsOrigin());
 	  const attackRange = localHero.GetAttackRange();
