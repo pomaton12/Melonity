@@ -26,18 +26,18 @@ let DisplayMode = Menu.AddComboBox(path_, 'Display', ['To Enemy', 'Mouse positio
   .OnChange(state => {
     DisplayMode = state.newValue;
     if (DisplayMode === 0) {
-      SafeDistanceUI.SetEnabled(true);
+      SafeDistanceUI.SetStyle(C.style_visible, true);
     } else {
-      SafeDistanceUI.SetEnabled(false);
+      SafeDistanceUI.SetStyle(C.style_visible, false);
     }
   })
   .GetValue();
 
 let SafeDistanceUI = Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100)
-  .SetEnabled(false)
+  .SetStyle(C.style_visible, false)
   .OnChange(state => SafeDistanceUI = state.newValue)
   .GetValue();
-
+  
 Menu.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama/images/hud/reborn/icon_damage_psd.vtex_c');
 
 //=========================================
