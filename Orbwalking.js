@@ -114,7 +114,7 @@ HitRunHeros.OnUpdate = () => {
 	      }
 	  } else {
 	      //localHero.AttackTarget(EnemyHero);
-              if ( isUiEnabled2.GetValue() && isEnemyMoving && EnemyHero.IsAttacking()) {
+              if ( isUiEnabled2.GetValue() && isEnemyMoving ) {
 	         const pos = localHeroPosition.add(new Vector(-100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
 		 setTimeout(function() {localHero.MoveTo(pos); }, 100); 
 	         
