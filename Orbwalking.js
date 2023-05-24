@@ -83,7 +83,7 @@ HitRunHeros.OnUpdate = () => {
 	  
 	  // Obtener el tipo de ataque del héroe
 	  //const acquisitionRange = localHero.GetBaseAttackRange();
-	  //console.log("El héroe local es.",acquisitionRange);
+	  //
 	  
 	  
 	  if (dist > attackRange) {
@@ -91,6 +91,7 @@ HitRunHeros.OnUpdate = () => {
 	      if ( !isUiEnabled2.GetValue()) {
 	         //SafeDistanceUI
 		 localHero.ScriptAttackRange = 50;
+		 console.log("El héroe local es.",localHero.ScriptAttackRange);
 	         const pos = localHeroPosition.add(new Vector(100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
 		 setTimeout(function() {localHero.MoveTo(pos);}, 200); 
 	        		 
