@@ -98,7 +98,7 @@ HitRunHeros.OnUpdate = () => {
 	  let isEnemyMoving = false;
 
 	  // Espera un segundo para obtener la nueva posición del héroe
-	  setTimeout(function() {}, 50); 
+	  setTimeout(function() {}, 100); 
 	  let currPos = EnemyHero.GetAbsOrigin();
 	  
 	  if (currPos.length !== prevPos.length) {
