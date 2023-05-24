@@ -29,12 +29,10 @@ let DisplayMode = Menu.AddComboBox(path_, 'Display', ['To Enemy', 'Mouse positio
   })
   .GetValue();
   
-if(DisplayMode === 0){
-   let SafeDistanceUI = Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100)
+
+let SafeDistanceUI = Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100)
 .OnChange(state => SafeDistanceUI = state.newValue)
 .GetValue();
-}
-
   
 Menu.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama/images/hud/reborn/icon_damage_psd.vtex_c');
 
