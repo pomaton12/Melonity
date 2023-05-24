@@ -22,7 +22,7 @@ let KeyBindOrbwalk = Menu.AddKeyBind(path_, 'Key of OrbWalk', Enum.ButtonCode.KE
 
 let isUiEnabled2 = Menu.AddToggle(path_, 'Kill Safe Pos', true);
 
-let DisplayMode = Menu.AddComboBox(path_, 'Display', ['To Enemy', 'Mouse position'], )
+let DisplayMode = Menu.AddComboBox(path_, 'Display', ['To Enemy', 'Mouse position'], 0)
   .OnChange(state => {
     DisplayMode = state.newValue;
     if (DisplayMode === 0) {
