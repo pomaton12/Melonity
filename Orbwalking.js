@@ -106,7 +106,7 @@ HitRunHeros.OnUpdate = () => {
 	    	    
 	  }
 
-	  console.log('Rango de ataque actual:',currPos = prevPos );
+	  console.log('Rango de ataque actual:',isEnemyMoving );
 	  
 	  if (dist > attackRange) {
 	  
