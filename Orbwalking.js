@@ -109,14 +109,14 @@ HitRunHeros.OnUpdate = () => {
 	  
 	      if ( isUiEnabled2.GetValue() && isEnemyMoving) {
 	         const pos = localHeroPosition.add(new Vector(100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
-		 setTimeout(function() {localHero.MoveTo(pos);}, attackTime*1000+50); 
+		 setTimeout(function() {localHero.MoveTo(pos);}, attackTime*1000); 
 	        		 
 	      }
 	  } else {
 	      //localHero.AttackTarget(EnemyHero);
               if ( isUiEnabled2.GetValue()) {
 	         const pos = localHeroPosition.add(new Vector(-100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
-		 setTimeout(function() {localHero.MoveTo(pos); }, attackTime*1000+50); 
+		 setTimeout(function() {localHero.MoveTo(pos); }, attackTime*1000); 
 	         
 	      }
 	  }
@@ -125,8 +125,7 @@ HitRunHeros.OnUpdate = () => {
 
 	  } else if (DisplayMode === 1) {
 	      const mousePos = Input.GetWorldCursorPos();
-	      localHero.MoveTo(mousePos);
-	      	setTimeout(function() {}, 1000);
+	      setTimeout(function(localHero.MoveTo(mousePos);) {}, attackTime*1000);
 	  }
 	}
 
