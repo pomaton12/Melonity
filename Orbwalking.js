@@ -79,8 +79,10 @@ HitRunHeros.OnUpdate = () => {
     const enemy  = EntitySystem.GetHeroesList().filter(hero => hero.GetTeamNum() !== localHero.GetTeamNum() && hero.IsAlive() && localHeroPosition.Distance(hero.GetAbsOrigin()) <= 1000);
     const EnemyHero = enemy.reduce((closest, hero) => closest ? (localHeroPosition.Distance(hero.GetAbsOrigin()) < localHeroPosition.Distance(closest.GetAbsOrigin()) ? hero : closest) : hero, null);
     const attackTarget = isHeroAttacking(localHero, EnemyHero);
-
-
+    
+    const AttackTrgg = localHero.GetAttackTarget();
+    console.log("El héroe local es.",AttackTrgg);
+    
 	if (attackTarget) {
 	  	
 	  const enemyHeroPosition = EnemyHero.GetAbsOrigin();
@@ -93,8 +95,8 @@ HitRunHeros.OnUpdate = () => {
           const attackTime = 1 / attackSpeed;
 	  
 	  // Obtener el tipo de ataque del héroe
-	  const attackRangebuff = localHero.GetAttackRangeBuffer();
-	  console.log("El héroe local es.",attackRangebuff);
+	  //const attackRangebuff = localHero.GetAttackRangeBuffer();
+	  //console.log("El héroe local es.",attackRangebuff);
 	  
 	  if (dist > attackRange) {
 	  
