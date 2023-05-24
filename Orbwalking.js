@@ -109,7 +109,7 @@ HitRunHeros.OnUpdate = () => {
 	         const pos = localHeroPosition.add(new Vector(-100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
 		 setTimeout(function() {
 		 	//localHero.attack(EnemyHero,true);
-			AttackEnemyHero(EnemyHero);
+			AttackMove(EnemyHero);
 		 }, attackTime*1000+50); 
 	         localHero.MoveTo(pos);
 		 
