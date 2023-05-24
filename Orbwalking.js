@@ -26,8 +26,7 @@ let isUiEnabled2 = Menu.AddToggle(path_, 'Kill Safe Pos', true);
 let DisplayMode = Menu.AddComboBox(path_, 'Display', ['To Enemy', 'Mouse position'], 1)
   .OnChange(state => {
     DisplayMode = state.newValue;
-    // Mostrar u ocultar el control deslizante SafeDistanceUI según la selección actual
-    SafeDistanceUI.SetIsVisible(DisplayMode === 0);
+    updateSafeDistanceUIVisibility();
   })
   .GetValue();
 
@@ -35,8 +34,14 @@ let SafeDistanceUI = Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 
 	.OnChange(state => SafeDistanceUI = state.newValue)
 	.GetValue();
 
+// Función personalizada para actualizar la visibilidad de SafeDistanceUI
+function updateSafeDistanceUIVisibility() {
+  const isVisible = DisplayMode === 0;
+  SafeDistanceUI.GetUIElement().style.visibility = isVisible ? 'visible' : 'collapse';
+}
+
 // Establecer la visibilidad inicial de SafeDistanceUI según la selección actual
-SafeDistanceUI.SetIsVisible(DisplayMode === 0);
+updateSafeDistanceUIVisibility();
   
 Menu.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama/images/hud/reborn/icon_damage_psd.vtex_c');
 
