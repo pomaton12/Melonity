@@ -39,18 +39,6 @@ Menu.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama/images/hud/reborn/ic
 //=========================================
 //       Evaluar Funciones
 //=========================================
-// 1 .- ====   Funcion para evaluar attack target a un enemigo o amigo
-function isHeroAttacking(hero, target) {
-    // Comprueba si el héroe está atacando actualmente
-    const dist1 = Dist2D(hero.GetAbsOrigin(), target.GetAbsOrigin());
-    const attackRange1 = hero.GetAttackRange();
-    if(dist1 <= attackRange1 ){
-	    if (hero.IsAttacking()) {
-	      return true;
-	    }
-    }
-  return false;
-}
 
 // 2 .- ====   Funcion para calcular distancia2D
 function Dist2D(vec1, vec2) {
@@ -73,6 +61,19 @@ function GetAngleToPos(_e1, _e2, prefer = _e2, inrad) {
 	}
 	let atan2 = Math.atan2(b.y - a.y, b.x - a.x);
 	return inrad ? atan2 : (atan2 * (180 / Math.PI));
+}
+
+// 1 .- ====   Funcion para evaluar attack target a un enemigo o amigo
+function isHeroAttacking(hero, target) {
+    // Comprueba si el héroe está atacando actualmente
+    const dist1 = Dist2D(hero.GetAbsOrigin(), target.GetAbsOrigin());
+    const attackRange1 = hero.GetAttackRange();
+    if(dist1 <= attackRange1 ){
+	    if (hero.IsAttacking()) {
+	      return true;
+	    }
+    }
+  return false;
 }
 
 //=====================
