@@ -91,7 +91,7 @@ HitRunHeros.OnUpdate = () => {
 
 	  const attackSpeed = localHero.GetAttacksPerSecond();
           const attackTime = 1 / attackSpeed;
-	  console.log('Rango de ataque actual:',attackTime );
+	  //console.log('Rango de ataque actual:',attackTime );
 	  
 	  //condicion para crear si esta en movimiento
 	  let prevPos = EnemyHero.GetAbsOrigin();
