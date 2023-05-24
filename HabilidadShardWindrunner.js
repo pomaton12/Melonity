@@ -26,7 +26,7 @@ eval(`
 	let bkbEnemies = {};
 	//===============================
 	AutoSaverWindrunner.OnUpdate = () => {
-	  if (localHero && isUiEnabled) {
+	  if (localHero && isUiEnabled.GetValue()) {
 	    if (localHero.GetUnitName() !== "npc_dota_hero_windrunner")
 	      return;
 	      	    
