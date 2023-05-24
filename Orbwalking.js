@@ -8,7 +8,7 @@
 /***/ (() => {
 
 eval(`
-const $ = jQuery;
+const jQuery = $;
 const C = $.GetContextPanel().GetParent().GetParent().GetParent().FindChildTraverse("CustomUIRoot").GetChild(0).GetChild(0).Child(0);
 const HitRunHeros = {};
 
