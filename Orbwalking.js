@@ -89,7 +89,7 @@ HitRunHeros.OnUpdate = () => {
 	  const dist = Dist2D(localHero.GetAbsOrigin(), EnemyHero.GetAbsOrigin());
 	  const attackRange = localHero.GetAttackRange();
 	  const newRange = attackRange * (SafeDistanceUI / 100);
-          localHero.SetAttackRange(500);
+          //localHero.SetAttackRange(500);
 
 	  const attackSpeed = localHero.GetAttacksPerSecond();
           const attackTime = 1 / attackSpeed;
@@ -108,7 +108,8 @@ HitRunHeros.OnUpdate = () => {
               if ( isUiEnabled2.GetValue()) {
 	         const pos = localHeroPosition.add(new Vector(-100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
 		 setTimeout(function() {
-		 localHero.attack(EnemyHero,true);
+		 	//localHero.attack(EnemyHero,true);
+			AttackEnemyHero(EnemyHero);
 		 }, attackTime*1000+50); 
 	         localHero.MoveTo(pos);
 		 
