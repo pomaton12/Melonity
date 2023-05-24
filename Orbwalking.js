@@ -96,9 +96,8 @@ HitRunHeros.OnUpdate = () => {
 	  
 	  // Obtener el tipo de ataque del héroe
 	  //const attackRangebuff = localHero.GetAttackRangeBuffer();
-	  //console.log("El héroe local es.",attackRangebuff);
+	  console.log("El héroe local es.",attackRange);
 	  
-	  localHero.MoveToTargetToAttack(attackRange);
 	  
 	  if (dist > attackRange) {
 	  
