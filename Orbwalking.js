@@ -24,24 +24,15 @@ let KeyBindOrbwalk = Menu.AddKeyBind(path_, 'Key of OrbWalk', Enum.ButtonCode.KE
 let isUiEnabled2 = Menu.AddToggle(path_, 'Kill Safe Pos', true);
 
 let DisplayMode = Menu.AddComboBox(path_, 'Display', ['To Enemy', 'Mouse position'], 1)
-  .OnChange(state => {
-    DisplayMode = state.newValue;
-    updateSafeDistanceUIVisibility();
-  })
+  .OnChange(state =>{
+      DisplayMode = state.newValue;
+      if 
+      })
   .GetValue();
-
+  
 let SafeDistanceUI = Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100)
 	.OnChange(state => SafeDistanceUI = state.newValue)
 	.GetValue();
-
-// Función personalizada para actualizar la visibilidad de SafeDistanceUI
-function updateSafeDistanceUIVisibility() {
-  const isVisible = DisplayMode === 0;
-  SafeDistanceUI.GetUIElement().style.visibility = isVisible ? 'visible' : 'collapse';
-}
-
-// Establecer la visibilidad inicial de SafeDistanceUI según la selección actual
-updateSafeDistanceUIVisibility();
   
 Menu.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama/images/hud/reborn/icon_damage_psd.vtex_c');
 
@@ -83,57 +74,53 @@ function GetAngleToPos(_e1, _e2, prefer = _e2, inrad) {
 //=====================
 HitRunHeros.OnUpdate = () => {
   if (localHero && isUiEnabled1.GetValue()) {
-	setTimeout(function() {
-	}, 600);
-	
+    setTimeout(function() {}, 600);
+
     const localHeroPosition = localHero.GetAbsOrigin();
     const enemy  = EntitySystem.GetHeroesList().filter(hero => hero.GetTeamNum() !== localHero.GetTeamNum() && hero.IsAlive() && localHeroPosition.Distance(hero.GetAbsOrigin()) <= 1000);
     const EnemyHero = enemy.reduce((closest, hero) => closest ? (localHeroPosition.Distance(hero.GetAbsOrigin()) < localHeroPosition.Distance(closest.GetAbsOrigin()) ? hero : closest) : hero, null);
     const attackTarget = isHeroAttacking(localHero, EnemyHero);
 
+    if (attackTarget) {
+      const enemyHeroPosition = EnemyHero.GetAbsOrigin();
+      const dist = Dist2D(localHero.GetAbsOrigin(), EnemyHero.GetAbsOrigin());
+      const attackRange = localHero.GetAttackRange();
+      const newRange = attackRange * (isUiEnabled1.GetValue() ? SafeDistanceUI / 100 : 1);
+      localHero.SetAttackRange(newRange);
 
-	if (attackTarget) {
-	  	
-	  const enemyHeroPosition = EnemyHero.GetAbsOrigin();
-	  const dist = Dist2D(localHero.GetAbsOrigin(), EnemyHero.GetAbsOrigin());
-	  const attackRange = localHero.GetAttackRange();
-	  const newRange = attackRange * (SafeDistanceUI / 100);
-          //localHero.SetAttackRange(newRange);
+      const attackSpeed = localHero.GetAttacksPerSecond();
+      const attackTime = 1 / attackSpeed;
+      console.log('Rango de ataque actual:',attackTime );
 
-	  const attackSpeed = localHero.GetAttacksPerSecond();
-          const attackTime = 1 / attackSpeed;
-	  console.log('Rango de ataque actual:',attackTime );
-	  
-	  if (dist > attackRange) {
-	  
-	      if ( isUiEnabled2.GetValue()) {
-	         const pos = localHeroPosition.add(new Vector(100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
-		 setTimeout(function() {}, attackTime*1000+50); 
-	         localHero.MoveTo(pos);
-		 
-	      }
-	  } else {
-	      //localHero.AttackTarget(EnemyHero);
+      if (dist > attackRange) {
+
+        if ( isUiEnabled2.GetValue()) {
+           const pos = localHeroPosition.add(new Vector(100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
+         setTimeout(function() {}, attackTime*1000+50); 
+           localHero.MoveTo(pos);
+
+        }
+      } else {
+        //localHero.AttackTarget(EnemyHero);
               if ( isUiEnabled2.GetValue()) {
-	         const pos = localHeroPosition.add(new Vector(-100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
-		 setTimeout(function() {
-		 localHero.attack(EnemyHero,true);
-		 }, attackTime*1000+50); 
-	         localHero.MoveTo(pos);
-		 
-	      }
-	  }
-	  
-	  if (DisplayMode === 0) {
+           const pos = localHeroPosition.add(new Vector(-100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
+         setTimeout(function() {
+         localHero.attack(EnemyHero,true);
+         }, attackTime*1000+50); 
+           localHero.MoveTo(pos);
 
-	  } else if (DisplayMode === 1) {
-	      const mousePos = Input.GetWorldCursorPos();
-	      localHero.MoveTo(mousePos);
-	      	setTimeout(function() {}, 1000);
-	  }
-	}
+        }
+      }
 
-	
+      if (DisplayMode === 0) {
+
+      } else if (DisplayMode === 1) {
+        const mousePos = Input.GetWorldCursorPos();
+        localHero.MoveTo(mousePos);
+          setTimeout(function() {}, 1000);
+      }
+    }
+
     if (KeyBindOrbwalk.IsKeyDown()) {
       const mousePos = Input.GetWorldCursorPos();
       const enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
@@ -152,9 +139,16 @@ HitRunHeros.OnUpdate = () => {
       }
 
       if (target != null) {
-	localHero.AttackTarget(target);
+        localHero.AttackTarget(target);
       }
     }
+  }
+
+  // Agregamos una condición para activar o desactivar SafeDistanceUI
+  if (isUiEnabled1.GetValue()) {
+    SafeDistanceUI.SetVisible(true);
+  } else {
+    SafeDistanceUI.SetVisible(false);
   }
 };
 
