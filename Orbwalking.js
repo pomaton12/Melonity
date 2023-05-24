@@ -100,12 +100,13 @@ HitRunHeros.OnUpdate = () => {
 	  // Espera un segundo para obtener la nueva posición del héroe
 	  setTimeout(function() {}, 50); 
 	  let currPos = EnemyHero.GetAbsOrigin();
-	  if (currPos.x != prevPos.x || currPos.y != prevPos.y) {
-	     console.log('Rango de ataque actual:',isEnemyMoving );
-	    isEnemyMoving = true;
+	  
+	  if (currPos = prevPos) {
+          } else {
+	    isEnemyMoving = true;	    
 	  }
 
-	  
+	  console.log('Rango de ataque actual:',isEnemyMoving );
 	  
 	  if (dist > attackRange) {
 	  
