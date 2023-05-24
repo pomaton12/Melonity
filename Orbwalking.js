@@ -25,12 +25,13 @@ let isUiEnabled2 = Menu.AddToggle(path_, 'Kill Safe Pos', true);
 
 let DisplayMode = Menu.AddComboBox(path_, 'Display', ['To Enemy', 'Mouse position'], 1)
   .OnChange(state =>{ 
-  	DisplayMode = state.newValue;
+  	
 	if(DisplayMode === 0){
 	   let SafeDistanceUI = Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100)
 	.OnChange(state => SafeDistanceUI = state.newValue)
 	.GetValue();
 	}
+	DisplayMode = state.newValue;
   })
   .GetValue();
   
