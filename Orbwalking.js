@@ -80,7 +80,6 @@ HitRunHeros.OnUpdate = () => {
     const EnemyHero = enemy.reduce((closest, hero) => closest ? (localHeroPosition.Distance(hero.GetAbsOrigin()) < localHeroPosition.Distance(closest.GetAbsOrigin()) ? hero : closest) : hero, null);
     const attackTarget = isHeroAttacking(localHero, EnemyHero);
     
-    localHero.SetAttackTarget(EnemyHero);
     const AttackTrgg = localHero.GetForceAttackTarget();
     console.log("El héroe local es.",AttackTrgg);
     
