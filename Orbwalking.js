@@ -93,7 +93,7 @@ HitRunHeros.OnUpdate = () => {
           const attackTime = 1 / attackSpeed;
 	  
 	  // Obtener el tipo de ataque del héroe
-	  const attackCapability = localHero.GetAttackCapability();
+	  const attackCapability = IsRangedHero(localHero);
 	  console.log(' tipo de ataque del héroe',attackCapability);
 	  
 	  if (dist > attackRange) {
