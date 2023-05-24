@@ -81,7 +81,7 @@ HitRunHeros.OnUpdate = () => {
     const attackTarget = isHeroAttacking(localHero, EnemyHero);
     
     localHero.SetAttackTarget(EnemyHero);
-    const AttackTrgg = localHero.IsAttackingEntity(EnemyHero);
+    const AttackTrgg = localHero.GetForceAttackTarget();
     console.log("El héroe local es.",AttackTrgg);
     
 	if (attackTarget) {
