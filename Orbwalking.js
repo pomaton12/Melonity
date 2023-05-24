@@ -75,7 +75,7 @@ HitRunHeros.OnUpdate = () => {
 	  const enemyHeroPosition = EnemyHero.GetAbsOrigin();
 	  const dist = Dist2D(localHero.GetAbsOrigin(), EnemyHero.GetAbsOrigin());
 	  
-	  const newRange = attackRange * (SafeDistanceUI / 100);
+	  const newRange = attackRange - attackRange * (SafeDistanceUI / 100);
 	  //localHero.ScriptAttackRange = 50;
 	  
 
@@ -87,12 +87,10 @@ HitRunHeros.OnUpdate = () => {
 	  if (dist > attackRange) {
 	  
 	      if ( !isUiEnabled2.GetValue()) {
-	         //SafeDistanceUI
-		 
-		 console.log("El héroe local es.",attackRange);
-	         const pos = localHeroPosition.add(new Vector(0).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
+	        if(newRange > 0){
+	         const pos = localHeroPosition.add(new Vector(newRange).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
 		 setTimeout(function() {localHero.MoveTo(pos);}, 200); 
-	        		 
+	        }	 
 	      }
 	  } else {
 	  
