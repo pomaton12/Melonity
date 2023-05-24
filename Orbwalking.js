@@ -93,9 +93,20 @@ HitRunHeros.OnUpdate = () => {
           const attackTime = 1 / attackSpeed;
 	  
 	  // Obtener el tipo de ataque del héroe
-	  GameUI.LoadFrame("panorama://root/scripts/custom_game/util.js");
-	  const attackCapability = Game.IsRangedHero(localHero.GetUnitName());
-	  console.log(' tipo de ataque del héroe',attackCapability);
+	  
+		const heroName = 'Lion';
+
+		fetch(`https://api.opendota.com/api/hero/${heroName}`)
+		  .then(res => res.json())
+		  .then(data => {
+		    const role = data.roles[0]; 
+
+		    if(role === 'Initiator' || role === 'Nuker') {
+		      console.log('Este héroe es tipo rango');
+		    } else {
+		      console.log('Este héroe es melle');
+		    }
+		})
 	  
 	  if (dist > attackRange) {
 	  
