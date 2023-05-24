@@ -98,7 +98,7 @@ HitRunHeros.OnUpdate = () => {
 	  //const attackRangebuff = localHero.GetAttackRangeBuffer();
 	  //console.log("El héroe local es.",attackRangebuff);
 	  
-	  localHero.MoveToTargetToAttack(EnemyHero);
+	  localHero.MoveToTargetToAttack(attackRange);
 	  
 	  if (dist > attackRange) {
 	  
