@@ -95,7 +95,7 @@ HitRunHeros.OnUpdate = () => {
 	  
 	  if (dist > attackRange) {
 	  
-	      if ( isUiEnabled2.GetValue() && EnemyHero.GetCurrentMovementSpeed() > 0) {
+	      if ( isUiEnabled2.GetValue() && EnemyHero.IsIdle()) {
 	         const pos = localHeroPosition.add(new Vector(100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
 		 setTimeout(function() {localHero.MoveTo(pos);}, attackTime*1000+50); 
 	        		 
