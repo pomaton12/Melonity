@@ -23,12 +23,21 @@ let KeyBindOrbwalk = Menu.AddKeyBind(path_, 'Key of OrbWalk', Enum.ButtonCode.KE
 let isUiEnabled2 = Menu.AddToggle(path_, 'Kill Safe Pos', true);
 
 let DisplayMode = Menu.AddComboBox(path_, 'Display', ['To Enemy', 'Mouse position'], 1)
-  .OnChange(state => DisplayMode = state.newValue)
+  .OnChange(state => {
+    DisplayMode = state.newValue;
+    if (DisplayMode === 0) {
+      SafeDistanceUI.SetEnabled(true);
+    } else {
+      SafeDistanceUI.SetEnabled(false);
+    }
+  })
   .GetValue();
-  
+
 let SafeDistanceUI = Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100)
-	.OnChange(state => SafeDistanceUI = state.newValue)
-	.GetValue();
+  .SetEnabled(false)
+  .OnChange(state => SafeDistanceUI = state.newValue)
+  .GetValue();
+
 
 
 
