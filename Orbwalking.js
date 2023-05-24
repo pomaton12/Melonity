@@ -93,7 +93,7 @@ HitRunHeros.OnUpdate = () => {
           const attackTime = 1 / attackSpeed;
 	  
 	  // Obtener el tipo de ataque del héroe
-	  const Game = require("game");
+	  GameUI.LoadFrame("panorama://root/scripts/custom_game/util.js");
 	  const attackCapability = Game.IsRangedHero(localHero.GetUnitName());
 	  console.log(' tipo de ataque del héroe',attackCapability);
 	  
