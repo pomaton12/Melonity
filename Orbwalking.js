@@ -97,20 +97,15 @@ HitRunHeros.OnUpdate = () => {
 	  
 	      if ( isUiEnabled2.GetValue()) {
 	         const pos = localHeroPosition.add(new Vector(100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
-		 setTimeout(function() {}, attackTime*1000+50); 
-	         localHero.MoveTo(pos);
-		 
+		 setTimeout(function() {localHero.MoveTo(pos);}, attackTime*1000+50); 
+	        		 
 	      }
 	  } else {
 	      //localHero.AttackTarget(EnemyHero);
               if ( isUiEnabled2.GetValue()) {
 	         const pos = localHeroPosition.add(new Vector(-100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
-		 setTimeout(function() {
-		 	//localHero.attack(EnemyHero,true);
-			AttackMove(EnemyHero);
-		 }, attackTime*1000+50); 
-	         localHero.MoveTo(pos);
-		 
+		 setTimeout(function() {localHero.MoveTo(pos); }, attackTime*1000+50); 
+	         
 	      }
 	  }
 	  
