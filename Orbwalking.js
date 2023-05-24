@@ -89,8 +89,10 @@ HitRunHeros.OnUpdate = () => {
 	  if (dist > attackRange) {
 	  
 	      if ( !isUiEnabled2.GetValue()) {
+	         //SafeDistanceUI
+		 localHero.ScriptAttackRange = 50;
 	         const pos = localHeroPosition.add(new Vector(100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
-		 setTimeout(function() {localHero.MoveTo(enemyHeroPosition);}, 200); 
+		 setTimeout(function() {localHero.MoveTo(pos);}, 200); 
 	        		 
 	      }
 	  } else {
