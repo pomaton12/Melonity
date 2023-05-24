@@ -99,14 +99,14 @@ HitRunHeros.OnUpdate = () => {
 	  
 	      if ( isUiEnabled2.GetValue()) {
 	         const pos = localHeroPosition.add(new Vector(100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
-		 setTimeout(function() {localHero.MoveTo(pos);}, 100); 
+		 setTimeout(function() {localHero.MoveTo(pos);}, 1000); 
 	        		 
 	      }
 	  } else {
 	  
               if ( isUiEnabled2.GetValue() ) {
 	         const pos = localHeroPosition.add(new Vector(-100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
-		 setTimeout(function() {localHero.MoveTo(pos); }, 100); 
+		 setTimeout(function() {localHero.MoveTo(pos); }, 1000); 
 	         
 	      }
 	  }
