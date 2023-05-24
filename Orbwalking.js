@@ -93,9 +93,21 @@ HitRunHeros.OnUpdate = () => {
           const attackTime = 1 / attackSpeed;
 	  console.log('Rango de ataque actual:',attackTime );
 	  
+	  //condicion para crear si esta en movimiento
+	  let prevPos = EnemyHero.GetAbsOrigin();
+	  let isEnemyMoving = false;
+
+	  // Espera un segundo para obtener la nueva posición del héroe
+	  setTimeout(function() {}, 50); 
+	  let currPos = EnemyHero.GetAbsOrigin();
+	  if (currPos.x != prevPos.x || currPos.y != prevPos.y) {
+	    isEnemyMoving = true;
+	  }
+
+	  
 	  if (dist > attackRange) {
 	  
-	      if ( isUiEnabled2.GetValue() && EnemyHero.IsIdle()) {
+	      if ( isUiEnabled2.GetValue() && isEnemyMoving) {
 	         const pos = localHeroPosition.add(new Vector(100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
 		 setTimeout(function() {localHero.MoveTo(pos);}, attackTime*1000+50); 
 	        		 
