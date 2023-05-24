@@ -87,37 +87,25 @@ HitRunHeros.OnUpdate = () => {
 	  const dist = Dist2D(localHero.GetAbsOrigin(), EnemyHero.GetAbsOrigin());
 	  const attackRange = localHero.GetAttackRange();
 	  const newRange = attackRange * (SafeDistanceUI / 100);
-          //localHero.SetAttackRange(500);
+
 
 	  const attackSpeed = localHero.GetAttacksPerSecond();
           const attackTime = 1 / attackSpeed;
 	  
-	  
-	  //condicion para crear si esta en movimiento
-	  let prevPos = EnemyHero.GetAbsOrigin();
-	  let isEnemyMoving = false;
-
-	  // Espera un segundo para obtener la nueva posición del héroe
-	  setTimeout(function() {}, 100); 
-	  let currPos = EnemyHero.GetAbsOrigin();
-	  
-	  if (currPos.length !== prevPos.length) {
-	  	isEnemyMoving = true;
-	    	    
-	  }
-
-	  console.log('Rango de ataque actual:',isEnemyMoving );
+	  // Obtener el tipo de ataque del héroe
+	  const attackCapability = Entities.GetAttackCapability(localHero);
+	  console.log(' tipo de ataque del héroe',attackCapability);
 	  
 	  if (dist > attackRange) {
 	  
-	      if ( isUiEnabled2.GetValue() && isEnemyMoving) {
+	      if ( isUiEnabled2.GetValue()) {
 	         const pos = localHeroPosition.add(new Vector(100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
 		 setTimeout(function() {localHero.MoveTo(pos);}, 100); 
 	        		 
 	      }
 	  } else {
 	  
-              if ( isUiEnabled2.GetValue() && isEnemyMoving ) {
+              if ( isUiEnabled2.GetValue() ) {
 	         const pos = localHeroPosition.add(new Vector(-100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
 		 setTimeout(function() {localHero.MoveTo(pos); }, 100); 
 	         
