@@ -42,8 +42,12 @@ Menu.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama/images/hud/reborn/ic
 // 1 .- ====   Funcion para evaluar attack target a un enemigo o amigo
 function isHeroAttacking(hero, target) {
     // Comprueba si el héroe está atacando actualmente
-    if (hero.IsAttacking()) {
-      return true;
+    const dist1 = Dist2D(hero.GetAbsOrigin(), target.GetAbsOrigin());
+    const attackRange1 = hero.GetAttackRange();
+    if(dist1 <= attackRange1 ){
+	    if (hero.IsAttacking()) {
+	      return true;
+	    }
     }
   return false;
 }
