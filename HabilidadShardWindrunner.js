@@ -74,15 +74,14 @@ eval(`
 			let pushDirection;
 			
                         // Calcular la dirección en la que el enemigo está viendo
-			let enemyPosition = enemy.GetAbsOrigin();
-			let enemyDirection = enemy.GetFacing();
+			const enemyPosition = enemy.GetAbsOrigin();
+			const enemyDirection = enemy.GetFacing();
 			
 			console.log("x:", enemyDirection);
                         // Calcular la dirección opuesta
                         let oppositeDirection = enemyDirection * -1;
                         
                         // Lanzar Gale Force en la dirección opuesta desde la posición del héroe enemigo
-                        let enemyPosition = enemy.GetAbsOrigin();
                         let pushPosition = enemyPosition.add(oppositeDirection * 500);
 
 			// Agregar condición para evitar lanzar gale force si el enemigo tiene activado bkb
