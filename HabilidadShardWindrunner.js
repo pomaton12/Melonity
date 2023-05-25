@@ -81,18 +81,12 @@ eval(`
 						
 			// Calcular la dirección en la que el enemigo está viendo
 			let enemyPositionINI = enemyPositions[enemyId];
+			setTimeout(function() {}, 300); 
 			let enemyPositionFIN = enemy.GetAbsOrigin();
-			console.log("x:", enemyPositionINI, "y:", enemyPositionFIN);
-			if (enemyPositionINI.x !== enemyPositionFIN.x || enemyPositionINI.y !== enemyPositionFIN.y) {
-			     console.log("Esta en movimiento");
-			} else {
-			     continue;
-			}
 			
-		        
-
 		        const enemyDirection = (enemyPositionFIN.sub(enemyPositionINI)).Normalized();
-
+			enemyPositions[enemyId] = enemyPositionFIN;
+						
 		        console.log("direction", enemyDirection);
 
 		        // Calcular la dirección opuesta
@@ -114,8 +108,6 @@ eval(`
 			    endTime: GameRules.GetGameTime() + enemy.FindModifierByName("modifier_black_king_bar_immune").GetRemainingTime()
 			  };
 			}
-			// Actualizar la posición inicial del enemigo para la próxima iteración
-      			enemyPositions[enemyId] = enemyPositionFIN;
 		      }
 		    }
 		  }
