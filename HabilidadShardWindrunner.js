@@ -35,40 +35,18 @@ eval(`
 	    if (localHero.GetUnitName() !== "npc_dota_hero_windrunner") {
 	      return;
 	    }
-		// Dentro de la función OnUpdate
-		let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
-
-		// Lista de habilidades de aturdimiento y hex
-		const stunAndHexAbilities = [
-		  'ability_sven_storm_bolt', // Reemplaza esto con el nombre de la habilidad de aturdimiento o hex
-		  'ability_alchemist_unstable_concoction', // Añade más habilidades según sea necesario
-		  // ...
-		];
-
+		let enemies = localHero.GetHeroesInRadius(300, Enum.TeamType.TEAM_ENEMY);
 		for (let enemy of enemies) {
-		  // Verificar si el enemigo está lanzando un hechizo de aturdimiento o hex con un objeto
-		  let enemyItem = enemy.GetItem("item_sheepstick", true) || enemy.GetItem("item_abyssal_blade", true);
-
-		  // Verificar si el enemigo está lanzando un hechizo de aturdimiento o hex con una habilidad
-		  let enemyAbility = stunAndHexAbilities.find(abilityName => {
-		    let ability = enemy.GetAbility(abilityName);
-		    return ability && ability.IsInAbilityPhase() && ability.GetTarget() === localHero;
-		  });
-
-		  // Lanzar "gale force" si el enemigo está a punto de lanzar un hechizo de aturdimiento o hex y tú eres el objetivo
-		  if ((enemyItem && enemyItem.IsInAbilityPhase() && enemyItem.GetTarget() === localHero) || enemyAbility) {
+		    // Lanzar "gale force" en la opuesta a la dirección en la que el enemigo está mirando
 		    let galeForce = localHero.GetAbilityByIndex(3);
-
 		    if (galeForce && galeForce.IsExist() && galeForce.CanCast()) {
-		      let heroPosition = localHero.GetAbsOrigin();
+		      let herolPosition = localHero.GetAbsOrigin();
 		      let enemyPosition = enemy.GetAbsOrigin();
-		      let enemyDirection = (enemyPosition.sub(heroPosition)).Normalized();
+		      let enemyDirection = (enemyPosition.sub(herolPosition)).Normalized();
 		      let oppositeDirection = enemyDirection.mul(new Vector(-1, -1, -1));
 		      let pushPosition = enemyPosition.add(oppositeDirection.mul(new Vector(500, 500, 0)));
-
 		      galeForce.CastPosition(pushPosition);
 		    }
-		  }
 		}
 
 	      
