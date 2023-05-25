@@ -78,9 +78,7 @@ eval(`
 			if (!enemyPositions[enemyId]) {
 			    enemyPositions[enemyId] = enemy.GetAbsOrigin();
 			}
-			
-          		const enemyPositionINI = enemy.GetAbsOrigin();
-			
+						
 			// Calcular la dirección en la que el enemigo está viendo
 			let enemyPositionINI = enemyPositions[enemyId];
 			let enemyPositionFIN = enemy.GetAbsOrigin();
