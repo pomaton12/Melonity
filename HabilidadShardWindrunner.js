@@ -72,11 +72,11 @@ eval(`
 		       
 		      if (distance <= 1000) {
 			let pushDirection;
-			
+			let enemyPositionFIN;
                         // Calcular la dirección en la que el enemigo está viendo
 			
           		const enemyPositionINI = enemy.GetAbsOrigin();
-			setTimeout(function() {const enemyPositionFIN = enemy.GetAbsOrigin(); }, 200); 
+			setTimeout(function() {enemyPositionFIN = enemy.GetAbsOrigin(); }, 200); 
 			
 			const enemyDirection = (enemyPositionINI.sub(enemyPositionFIN)).Normalized();
 			console.log("x:", enemyDirection);
