@@ -98,7 +98,7 @@ eval(`
 
 		        // Calcular la dirección opuesta
 		        const enemyPosition = enemy.GetAbsOrigin();
-		        const oppositeDirection = enemyDirection.Negated();
+		        const oppositeDirection = enemyDirection.mul(-1);
 
 		        console.log("Opositindirection", oppositeDirection);
 
