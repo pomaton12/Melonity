@@ -34,6 +34,7 @@ eval(`
           if (localHero && isUiEnabledDogde.GetValue()) {
 	    if (localHero.GetUnitName() !== "npc_dota_hero_windrunner") {
 	      return;
+	    }
 	    // Dentro de la función OnUpdate
 		let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 		for (let enemy of enemies) {
