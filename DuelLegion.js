@@ -39,6 +39,7 @@ eval(`
 		  let Overwhelming = localHero.GetAbilityByIndex(0);
 		  if (Overwhelming && Overwhelming.IsExist() && Overwhelming.CanCast()) {
 		    Overwhelming.CastNoTarget();
+		    console.log("Se ha castado la habilidad Overwhelming");
 		  }
 		  break;
 	        }
