@@ -79,13 +79,18 @@ eval(`
 			    enemyPositions[enemyId] = enemy.GetAbsOrigin();
 			}
 						
-			// Calcular la dirección en la que el enemigo está viendo
-			let enemyPositionINI = enemyPositions[enemyId];
-			setTimeout(function() {}, 300); 
-			let enemyPositionFIN = enemy.GetAbsOrigin();
-			
-		        const enemyDirection = (enemyPositionFIN.sub(enemyPositionINI)).Normalized();
-			enemyPositions[enemyId] = enemyPositionFIN;
+		      let posINI = enemyPositions[enemyId];
+		      let posFIN = enemy.GetAbsOrigin();
+
+		      if (posINI.x === posFIN.x && posINI.y === posFIN.y) {
+			console.log("El enemigo no se está moviendo. Reiniciando el código...");
+			enemyPositions[enemyId] = enemy.GetAbsOrigin();
+			continue;
+		      }
+
+		      const enemyDirection = (posFIN.sub(posINI)).Normalized();
+
+			enemyPositions[enemyId] = posFIN;
 						
 		        console.log("direction", enemyDirection);
 
