@@ -77,7 +77,7 @@ eval(`
                         let enemyDirection = vec2.sub(vec1).Normalized();
 
                         // Calcular la dirección opuesta
-                        let oppositeDirection = enemyDirection.clone().multiplyScalar(-1);
+                        let oppositeDirection = new THREE.Vector3().copy(enemyDirection).multiplyScalar(-1);
 
                         // Lanzar Gale Force en la dirección opuesta desde la posición del héroe enemigo
                         let enemyPosition = enemy.GetAbsOrigin();
