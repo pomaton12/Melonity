@@ -45,7 +45,7 @@ eval(`
 		  
 		  if (enemies.length >= 3) {
 	            let bkb = localHero.GetItem('item_black_king_bar', true);
-		    if (bkb bkb.CanCast()) {
+		    if (bkb && bkb.CanCast()) {
 		         bkb.CastNoTarget();
 		    }
 		  }
@@ -64,12 +64,13 @@ eval(`
 		    enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 		    for (let enemy of enemies) {
 		      let enemyId = enemy.GetPlayerID();
-		      let isAttacking = enemy.IsAttacking() && enemy.GetAttackTarget() === localHero;
+		      let isAttacking = enemy.IsAttacking();
 		      let currentPosition = enemy.GetAbsOrigin();
 		      let isEscaping = false;
 
 		      setTimeout(function() {
-			//console.log('Objetivo de ataque actual:', isAttacking);
+		          let forwardVector = enemy.GetForwardVector();
+		          console.log('Objetivo de ataque actual:', forwardVector);
 		      }, 300);
 
 		      if (previousEnemyPositions[enemyId]) {
