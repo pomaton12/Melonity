@@ -72,19 +72,15 @@ eval(`
 		      let distance = vec1.sub(vec2).Length2D();
 		       
 		      if (distance <= 1000) {
-			let pushDirection;
+		      // Actualizar la posición inicial del enemigo en cada iteración
+		      enemyPositions[enemyId] = enemy.GetAbsOrigin();
 
-                        // Obtener la posición inicial del enemigo
-			if (!enemyPositions[enemyId]) {
-			    enemyPositions[enemyId] = enemy.GetAbsOrigin();
-			}
-						
+		      // Calcular la dirección en la que el enemigo está viendo
 		      let posINI = enemyPositions[enemyId];
 		      let posFIN = enemy.GetAbsOrigin();
 
 		      if (posINI.x === posFIN.x && posINI.y === posFIN.y) {
-			console.log("El enemigo no se está moviendo. Reiniciando el código...");
-			enemyPositions[enemyId] = enemy.GetAbsOrigin();
+			console.log("El enemigo no se está moviendo. Saltando al siguiente enemigo...");
 			continue;
 		      }
 
