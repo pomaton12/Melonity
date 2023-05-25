@@ -19,14 +19,42 @@ eval(`
 	const path_ = ['Heroes', 'Intelligence', 'Windranger'];
 
 	// Creación del toggle isUiEnabled
-	let isUiEnabled = Menu.AddToggle(path_, 'Gale Force Use', true);
+	let isUiEnabled = Menu.AddToggle(path_, 'GaleForce Use in Ulti', true);
 	isUiEnabled.SetImage('panorama/images/spellicons/windrunner_gale_force_png.vtex_c');
+	
+	// Creación del toggle isUiEnabledDogde
+	let isUiEnabledDogde = Menu.AddToggle(path_, 'Use to Dogde', true);
+	isUiEnabledDogde.SetImage('panorama/images/spellicons/windrunner_gale_force_png.vtex_c');
 
 	// Definición de la función OnUpdate
 	let previousEnemyPositions = {};
 	let bkbEnemies = {};
 
 	AutoSaverWindrunner.OnUpdate = () => {
+          if (localHero && isUiEnabledDogde.GetValue()) {
+	    if (localHero.GetUnitName() !== "npc_dota_hero_windrunner") {
+	      return;
+	    // Dentro de la función OnUpdate
+		let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
+		for (let enemy of enemies) {
+		  // Verificar si el enemigo está lanzando un hechizo de aturdimiento o hex
+		  let enemyAbility = enemy.GetAbility(0);
+		  if (enemyAbility && (enemyAbility.GetName() === "stun" || enemyAbility.GetName() === "hex")) {
+		    // Lanzar "gale force" en la dirección opuesta a la dirección en la que el enemigo está mirando
+		    let galeForce localHero.GetAbilityByIndex(3);
+		    if (galeForce && galeForce.IsExist() && galeForce.CanCast()) {
+		      let enemyPosition = enemy.GetAbsOrigin();
+		      let enemyDirection = enemy.GetFacing();
+		      let oppositeDirection = enemyDirection.mul(new Vector(-1, -1, -1));
+		      let pushPosition = enemyPosition.add(oppositeDirection.mul(new Vector(500, 500, 0)));
+		      galeForce.CastPosition(pushPosition);
+		    }
+		  }
+		}
+	      
+	  }
+	
+	
 	  if (localHero && isUiEnabled.GetValue()) {
 	    if (localHero.GetUnitName() !== "npc_dota_hero_windrunner") {
 	      return;
