@@ -32,10 +32,17 @@ eval(`
 			}
 		}
 		
-		if (Game.IsInDuel(localHero)) {
-			Abilities.CastAbilityNoTarget(localHero, 0);
-		}
-		
+	    const modifiers = localHero.GetModifiers();
+	    for (let modifier of modifiers) {
+	      if (modifier.GetName() === 'modifier_commander_duel') {
+		  // Nueva condición para activar Overwhelming siempre
+		  let Overwhelming = localHero.GetAbilityByIndex(0);
+		  if (Overwhelming && Overwhelming.IsExist() && Overwhelming.CanCast()) {
+		    Overwhelming.CastNoTarget();
+		  }
+		  break;
+	        }
+             }
 	};
 	// Definición de la función OnScriptLoad
 	LegionUltiCast.OnScriptLoad = LegionUltiCast.OnGameStart = () => {
