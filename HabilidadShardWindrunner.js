@@ -69,7 +69,7 @@ eval(`
 		      let isEscaping = false;
 
 		      setTimeout(function() {
-		          let forwardVector = enemy.GetForwardVector();
+		          let forwardVector = enemyId.GetForwardVector();
 		          console.log('Objetivo de ataque actual:', forwardVector);
 		      }, 300);
 
