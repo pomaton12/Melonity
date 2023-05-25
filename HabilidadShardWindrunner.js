@@ -42,6 +42,14 @@ eval(`
 		  }
 		  // Nueva condición para activar BKB si el enemigo tiene activado Blade Mail
 		  let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
+		  
+		  if (enemies.length >= 3) {
+	            let bkb = localHero.GetItem('item_black_king_bar', true);
+		    if (bkb bkb.CanCast()) {
+		         bkb.CastNoTarget();
+		    }
+		  }
+		  
 		  for (let enemy of enemies) {
 		    if (enemy.HasModifier("modifier_item_blade_mail_reflect")) {
 		      let bkb = localHero.GetItem('item_black_king_bar', true);
