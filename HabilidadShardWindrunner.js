@@ -37,15 +37,21 @@ eval(`
 	    }
 	    // Dentro de la función OnUpdate
 		// Dentro de la función OnUpdate
+		// Dentro de la función OnUpdate
 		let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 		for (let enemy of enemies) {
-		  // Verificar si el enemigo está lanzando un hechizo hacia nosotros
-		  let enemyActivity = enemy.GetActivity();
-		  if (enemyActivity === Enum.Activity.ACT_DOTA_CAST_ABILITY_1 || 
-		      enemyActivity === Enum.Activity.ACT_DOTA_CAST_ABILITY_2 || 
-		      enemyActivity === Enum.Activity.ACT_DOTA_CAST_ABILITY_3 || 
-		      enemyActivity === Enum.Activity.ACT_DOTA_CAST_ABILITY_4) {
-		    // Lanzar "gale force" en la dirección opuesta a la dirección en la que el enemigo está mirando
+		  // Verificar si el enemigo está lanzando un hechizo de aturdimiento o hex
+		  let enemyAbilities = enemy.GetAllAbilities();
+		  let isStunned = false;
+		  for (let ability of enemyilities) {
+		    if (ability.GetName() === "stun" || ability.GetName() === "hex") {
+		      isStunned = true;
+		      break;
+		    }
+		  }
+		  let enemyItem = enemy.GetItem("item_sheepstick", true) || enemy.GetItem("item_abyssal_blade", true);
+		  if (isStunned || enemyItem) {
+		    // Lanzar "gale force" en la opuesta a la dirección en la que el enemigo está mirando
 		    let galeForce = localHero.GetAbilityByIndex(3);
 		    if (galeForce && galeForce.IsExist() && galeForce.CanCast()) {
 		      let enemyPosition = enemy.GetAbsOrigin();
@@ -56,6 +62,7 @@ eval(`
 		    }
 		  }
 		}
+
 
 	      
 	  }
