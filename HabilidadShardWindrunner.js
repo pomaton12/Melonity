@@ -75,9 +75,9 @@ eval(`
 			
                         // Calcular la dirección en la que el enemigo está viendo
 			
-          		cont enemyPositionINI = enemy.GetAbsOrigin();
-			setTimeout(function() {localHero.MoveTo(pos); }, 200); 
-			cont enemyPositionFIN = enemy.GetAbsOrigin();
+          		const enemyPositionINI = enemy.GetAbsOrigin();
+			setTimeout(function() { }, 200); 
+			const enemyPositionFIN = enemy.GetAbsOrigin();
 			const enemyDirection = (enemyPositionFIN.sub(enemyDirection)).Normalized();
 			console.log("x:", enemyDirection);
 			
