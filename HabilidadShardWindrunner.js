@@ -74,11 +74,14 @@ eval(`
 			let pushDirection;
 			
                         // Calcular la dirección en la que el enemigo está viendo
-                        let enemyDirection = vec2.sub(vec1).Normalized();
-
+			const enemyInitialPosition = enemy.GetInitialPosition();
+  			const enemyFinalPosition = enemy.GetFinalPosition();
+                        const enemyDirection = enemyFinalPosition.sub(enemyInitialPosition).Normalized();
+			
+			console.log("x:", enemyDirection);
                         // Calcular la dirección opuesta
                         let oppositeDirection = enemyDirection * -1;
-                        console.log("x:", oppositeDirection);
+                        
                         // Lanzar Gale Force en la dirección opuesta desde la posición del héroe enemigo
                         let enemyPosition = enemy.GetAbsOrigin();
                         let pushPosition = enemyPosition.add(oppositeDirection * 500);
