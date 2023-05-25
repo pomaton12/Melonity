@@ -65,40 +65,24 @@ eval(`
 		    enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 		    for (let enemy of enemies) {
 		      let enemyId = enemy.GetPlayerID();
-		      let isAttacking = enemy.IsAttacking();
-		      let currentPosition = enemy.GetAbsOrigin();
-		      let isEscaping = false;
-
-		      setTimeout(function() {
-			let forwardVector = enemy.GetForwardVector();
-			console.log('Objetivo de ataque actual:', forwardVector);
-		      }, 300);
-
-		      if (previousEnemyPositions[enemyId]) {
-			let previousPosition = previousEnemyPositions[enemyId];
-			let distanceMoved = currentPosition.sub(previousPosition).Length2D();
-			isEscaping = distanceMoved > 0 && !isAttacking;
-		      }
-
-		      previousEnemyPositions[enemyId] = currentPosition;
-
-		      let vec1 = localHero.GetAbsOrigin();
-		      let vec2 = enemy.GetAbsOrigin();
-		      let distance = vec1.sub(vec2).Length2D();
-
+		      
 		      if (distance <= 1000) {
 			let pushDirection;
-			if (isAttacking) {
-			  pushDirection = vec2.sub(vec1).Normalized();
-			} else if (isEscaping) {
-			  pushDirection = vec1.sub(vec2).Normalized();
-			} else {
-			  continue;
-			}
+			
+                        // Calcular la dirección en la que el enemigo está viendo
+                        let enemyDirection = vec2.sub(vec1).Normalized();
+
+                        // Calcular la dirección opuesta
+                        let oppositeDirection = enemyDirection.mul(-1);
+
+                        // Lanzar Gale Force en la dirección opuesta desde la posición del héroe enemigo
+                        let enemyPosition = enemy.GetAbsOrigin();
+                        let pushPosition = enemyPosition.add(oppositeDirection.mul(500));
+                        gale_force.CastPosition(pushPosition);
 
 			// Agregar condición para evitar lanzar gale force si el enemigo tiene activado bkb
 			if (enemy.HasModifier("modifier_black_king_bar_immune") === false) {
-			  gale_force.CastPosition(vec1.add(pushDirection));
+			  gale_force.CastPosition(pushPosition);
 			} else {
 			  // Guardar información del enemigo con BKB activado
 			  bkbEnemies[enemyId] = {
