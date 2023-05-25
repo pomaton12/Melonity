@@ -24,32 +24,33 @@ eval(`
 	// Definición de la función OnUpdate
 	let previousEnemyPositions = {};
 	let bkbEnemies = {};
-	//===============================
+
 	AutoSaverWindrunner.OnUpdate = () => {
 	  if (localHero && isUiEnabled.GetValue()) {
-	    if (localHero.GetUnitName() !== "npc_dota_hero_windrunner")
+	    if (localHero.GetUnitName() !== "npc_dota_hero_windrunner") {
 	      return;
+	    }
 
 	    const modifiers = localHero.GetModifiers();
 	    for (let modifier of modifiers) {
 	      if (modifier.GetName() === 'modifier_windrunner_focusfire') {
 		const remainingTime = modifier.GetRemainingTime();
 		if (remainingTime <= 20) {
-		  // Nueva condición para activar winrun siempre
+		  // Nueva condición para activar windrun siempre
 		  let windrun = localHero.GetAbilityByIndex(2);
 		  if (windrun && windrun.IsExist() && windrun.CanCast()) {
 		    windrun.CastNoTarget();
 		  }
 		  // Nueva condición para activar BKB si el enemigo tiene activado Blade Mail
 		  let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
-		  
+
 		  if (enemies.length >= 3) {
-	            let bkb = localHero.GetItem('item_black_king_bar', true);
+		    let bkb = localHero.GetItem('item_black_king_bar', true);
 		    if (bkb && bkb.CanCast()) {
-		         bkb.CastNoTarget();
+		      bkb.CastNoTarget();
 		    }
 		  }
-		  
+
 		  for (let enemy of enemies) {
 		    if (enemy.HasModifier("modifier_item_blade_mail_reflect")) {
 		      let bkb = localHero.GetItem('item_black_king_bar', true);
@@ -69,8 +70,8 @@ eval(`
 		      let isEscaping = false;
 
 		      setTimeout(function() {
-		          let forwardVector = enemyId.GetForwardVector();
-		          console.log('Objetivo de ataque actual:', forwardVector);
+			let forwardVector = enemy.GetForwardVector();
+			console.log('Objetivo de ataque actual:', forwardVector);
 		      }, 300);
 
 		      if (previousEnemyPositions[enemyId]) {
@@ -148,6 +149,7 @@ eval(`
 
 	// Registro del script
 	RegisterScript(AutoSaverWindrunner);
+
 
 `);
 
