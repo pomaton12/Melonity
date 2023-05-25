@@ -80,9 +80,8 @@ eval(`
 		      let posINI = enemyPositions[enemyId];
 		      //let posFIN = enemy.GetAbsOrigin();
 
-	              if (Engine.OnceAt(0.3)) {
-			posFIN = enemy.GetAbsOrigin();
-			console.log("La posición final del héroe enemigo es: " + posFIN);		      
+	              if (Engine.OnceAt(0.2)) {
+			posFIN = enemy.GetAbsOrigin();	      
 		      }
 			
 		      if (posINI.x === posFIN.x && posINI.y === posFIN.y) {
@@ -93,21 +92,17 @@ eval(`
 
 			enemyPositions[enemyId] = posFIN;
 						
-		        console.log("direction", enemyDirection);
-
 		        // Calcular la dirección opuesta
 		        const enemyPosition = enemy.GetAbsOrigin();
 		        const oppositeDirection = enemyDirection.mul(new Vector(-1, -1, -1));
 
-		        console.log("Opositindirection", oppositeDirection);
-
 		        // Lanzar Gale Force en la dirección opuesta desde la posición del héroe enemigo
 		        let pushPosition = enemyPosition.add(oppositeDirection.mul(new Vector(500, 500, 0)));
-			console.log("pushPosition", pushPosition);
+			
 			// Agregar condición para evitar lanzar gale force si el enemigo tiene activado bkb
 			if (enemy.HasModifier("modifier_black_king_bar_immune") === false) {
 			  gale_force.CastPosition(pushPosition);
-			  Sleep(0.3);
+			  setTimeout(function() {}, 300);
 			}
 		      }
 		    }
