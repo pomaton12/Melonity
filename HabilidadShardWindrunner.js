@@ -40,8 +40,8 @@ eval(`
 
 		// Lista de habilidades de aturdimiento y hex
 		const stunAndHexAbilities = [
-		  'ability_alchemist_unstable_concoction', // Reemplaza esto con el nombre de la habilidad de aturdimiento o hex
-		  'ability_sven_storm_bolt', // Añade más habilidades según sea necesario
+		  'ability_sven_storm_bolt', // Reemplaza esto con el nombre de la habilidad de aturdimiento o hex
+		  'ability_alchemist_unstable_concoction', // Añade más habilidades según sea necesario
 		  // ...
 		];
 
@@ -50,13 +50,13 @@ eval(`
 		  let enemyItem = enemy.GetItem("item_sheepstick", true) || enemy.GetItem("item_abyssal_blade", true);
 
 		  // Verificar si el enemigo está lanzando un hechizo de aturdimiento o hex con una habilidad
-		  let enemyAbility = stunAndHexAbilities.some(abilityName => {
+		  let enemyAbility = stunAndHexAbilities.find(abilityName => {
 		    let ability = enemy.GetAbility(abilityName);
-		    return ability && ability.IsInAbilityPhase();
+		    return ability && ability.IsInAbilityPhase() && ability.GetTarget() === localHero;
 		  });
 
-		  // Lanzar "gale force" si el enemigo está a punto de lanzar un hechizo de aturdimiento o hex
-		  if (enemyItem || enemyAbility) {
+		  // Lanzar "gale force" si el enemigo está a punto de lanzar un hechizo de aturdimiento o hex y tú eres el objetivo
+		  if ((enemyItem && enemyItem.IsInAbilityPhase() && enemyItem.GetTarget() === localHero) || enemyAbility) {
 		    let galeForce = localHero.GetAbilityByIndex(3);
 
 		    if (galeForce && galeForce.IsExist() && galeForce.CanCast()) {
@@ -70,8 +70,6 @@ eval(`
 		    }
 		  }
 		}
-
-
 
 	      
 	  }
