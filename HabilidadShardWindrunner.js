@@ -78,7 +78,7 @@ eval(`
           		const enemyPositionINI = enemy.GetAbsOrigin();
 			setTimeout(function() { }, 200); 
 			const enemyPositionFIN = enemy.GetAbsOrigin();
-			const enemyDirection = (enemyPositionFIN.sub(enemyDirection)).Normalized();
+			const enemyDirection = (enemyPositionINI.sub(enemyPositionFIN)).Normalized();
 			console.log("x:", enemyDirection);
 			
                         // Calcular la dirección opuesta
