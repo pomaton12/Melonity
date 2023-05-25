@@ -46,8 +46,9 @@ eval(`
 		    // Lanzar "gale force" en la opuesta a la dirección en la que el enemigo está mirando
 		    let galeForce = localHero.GetAbilityByIndex(3);
 		    if (galeForce && galeForce.IsExist() && galeForce.CanCast()) {
+		      let herolPosition = localHero.GetAbsOrigin();
 		      let enemyPosition = enemy.GetAbsOrigin();
-		      let enemyDirection = enemy.GetFacing();
+		      let enemyDirection = (enemyPosition.sub(herolPosition)).Normalized();
 		      let oppositeDirection = enemyDirection.mul(new Vector(-1, -1, -1));
 		      let pushPosition = enemyPosition.add(oppositeDirection.mul(new Vector(500, 500, 0)));
 		      galeForce.CastPosition(pushPosition);
