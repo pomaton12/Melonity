@@ -13,7 +13,8 @@ eval(`
 
 	// Declaración de la variable localHero
 	let localHero;
-
+	let posFIN;
+	
 	// Definición del array path_
 	const path_ = ['Heroes', 'Intelligence', 'Windranger'];
 
@@ -80,7 +81,7 @@ eval(`
 		      //let posFIN = enemy.GetAbsOrigin();
 
 	              if (Engine.OnceAt(0.6)) {
-			let posFIN = enemy.GetAbsOrigin();
+			posFIN = enemy.GetAbsOrigin();
 			console.log("La posición final del héroe enemigo es: " + posFIN);		      
 		      }
 			
