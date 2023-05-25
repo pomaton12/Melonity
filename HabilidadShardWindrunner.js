@@ -61,6 +61,7 @@ eval(`
 		  }
 
 		  let gale_force = localHero.GetAbilityByIndex(3);
+		  let enemyPositions = {};
 		  if (gale_force && gale_force.IsExist() && gale_force.CanCast()) {
 		    enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 		    for (let enemy of enemies) {
@@ -73,34 +74,37 @@ eval(`
 		      if (distance <= 1000) {
 			let pushDirection;
 
-                        // Calcular la dirección en la que el enemigo está viendo
+                        // Obtener la posición inicial del enemigo
+			if (!enemyPositions[enemyId]) {
+			    enemyPositions[enemyId] = enemy.GetAbsOrigin();
+			}
 			
           		const enemyPositionINI = enemy.GetAbsOrigin();
 			
-			setTimeout(function() {}, 200); 
-			
-			let enemyPositionFIN = enemy.GetAbsOrigin(); 
-			
+			// Calcular la dirección en la que el enemigo está viendo
+			let enemyPositionINI = enemyPositions[enemyId];
+			let enemyPositionFIN = enemy.GetAbsOrigin();
+
 			if (enemyPositionINI.x !== enemyPositionFIN.x || enemyPositionINI.y !== enemyPositionFIN.y) {
-				console.log("Esta en movimiento");
+			     console.log("Esta en movimiento");
 			} else {
-				return;
+			     continue;
 			}
 			
-			console.log("x:", enemyPositionINI,"y:",enemyPositionFIN);
-			
-			const enemyDirection = (enemyPositionINI.sub(enemyPositionFIN)).Normalized();
-			
-			console.log("direction", enemyDirection);
-			
-                        // Calcular la dirección opuesta
-			const enemyPosition = enemy.GetAbsOrigin();
-                        let oppositeDirection = enemyDirection * -1;
-			
-			console.log("Opositindirection", oppositeDirection);
-                        
-                        // Lanzar Gale Force en la dirección opuesta desde la posición del héroe enemigo
-                        let pushPosition = enemyPosition.add(oppositeDirection * 500);
+		        console.log("x:", enemyPositionINI, "y:", enemyPositionFIN);
+
+		        const enemyDirection = (enemyPositionFIN.sub(enemyPositionINI)).Normalized();
+
+		        console.log("direction", enemyDirection);
+
+		        // Calcular la dirección opuesta
+		        const enemyPosition = enemy.GetAbsOrigin();
+		        let oppositeDirection = enemyDirection.mul(-1);
+
+		        console.log("Opositindirection", oppositeDirection);
+
+		        // Lanzar Gale Force en la dirección opuesta desde la posición del héroe enemigo
+		        let pushPosition = enemyPosition.add(oppositeDirection.mul(500));
 
 			// Agregar condición para evitar lanzar gale force si el enemigo tiene activado bkb
 			if (enemy.HasModifier("modifier_black_king_bar_immune") === false) {
@@ -112,6 +116,8 @@ eval(`
 			    endTime: GameRules.GetGameTime() + enemy.FindModifierByName("modifier_black_king_bar_immune").GetRemainingTime()
 			  };
 			}
+			// Actualizar la posición inicial del enemigo para la próxima iteración
+      			enemyPositions[enemyId] = enemyPositionFIN;
 		      }
 		    }
 		  }
