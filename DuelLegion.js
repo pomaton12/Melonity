@@ -34,7 +34,7 @@ eval(`
 		
 	    const modifiers = localHero.GetModifiers();
 	    for (let modifier of modifiers) {
-	      if (modifier.GetName() === 'modifier_commander_duel') {
+	      if (modifier.GetName() === 'modifier_legion_commander_duel') {
 		  // Nueva condición para activar Overwhelming siempre
 		  let Overwhelming = localHero.GetAbilityByIndex(0);
 		  if (Overwhelming && Overwhelming.IsExist() && Overwhelming.CanCast()) {
