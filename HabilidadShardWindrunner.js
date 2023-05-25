@@ -80,6 +80,13 @@ eval(`
 			setTimeout(function() {}, 200); 
 			
 			let enemyPositionFIN = enemy.GetAbsOrigin(); 
+			
+			if (enemyPositionINI.x !== enemyPositionFIN.x || enemyPositionINI.y !== enemyPositionFIN.y) {
+				console.log("Esta en movimiento");
+			} else {
+				return;
+			}
+			
 			console.log("x:", enemyPositionINI,"y:",enemyPositionFIN);
 			
 			const enemyDirection = (enemyPositionINI.sub(enemyPositionFIN)).Normalized();
