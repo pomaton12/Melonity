@@ -74,8 +74,8 @@ eval(`
 			let pushDirection;
 			
                         // Calcular la dirección en la que el enemigo está viendo
-			const enemyPosition = enemy.GetAbsOrigin();
-			const enemyDirection = enemy.GetFacing();
+			let enemyPosition = enemy.GetAbsOrigin();
+			let enemyDirection = enemy.GetFacing();
 			
 			console.log("x:", enemyDirection);
                         // Calcular la dirección opuesta
