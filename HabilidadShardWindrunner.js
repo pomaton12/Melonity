@@ -29,7 +29,7 @@ eval(`
 	  if (localHero && isUiEnabled.GetValue()) {
 	    if (localHero.GetUnitName() !== "npc_dota_hero_windrunner")
 	      return;
-	      	    
+
 	    const modifiers = localHero.GetModifiers();
 	    for (let modifier of modifiers) {
 	      if (modifier.GetName() === 'modifier_windrunner_focusfire') {
@@ -59,10 +59,10 @@ eval(`
 		      let isAttacking = enemy.IsAttacking() && enemy.GetAttackTarget() === localHero;
 		      let currentPosition = enemy.GetAbsOrigin();
 		      let isEscaping = false;
-		      
-			setTimeout(function() {
+
+		      setTimeout(function() {
 			//console.log('Objetivo de ataque actual:', isAttacking);
-			}, 300);
+		      }, 300);
 
 		      if (previousEnemyPositions[enemyId]) {
 			let previousPosition = previousEnemyPositions[enemyId];
@@ -99,6 +99,11 @@ eval(`
 		      }
 		    }
 		  }
+
+		  // Agregar un if statement para verificar si el modificador "modifier_windrunner_focusfire" ha terminado
+		  if (!modifiers.some(modifier => modifier.GetName() === 'modifier_windrunner_focusfire')) {
+		    break;
+		  }
 		}
 	      }
 	    }
@@ -121,6 +126,7 @@ eval(`
 	    }
 	  }
 	};
+
 	// Definición de la función OnScriptLoad
 	AutoSaverWindrunner.OnScriptLoad = AutoSaverWindrunner.OnGameStart = () => {
 	  localHero = EntitySystem.GetLocalHero();
