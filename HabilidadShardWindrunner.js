@@ -80,7 +80,7 @@ eval(`
 		      let posINI = enemyPositions[enemyId];
 		      //let posFIN = enemy.GetAbsOrigin();
 
-	              if (Engine.OnceAt(0.6)) {
+	              if (Engine.OnceAt(0.1)) {
 			posFIN = enemy.GetAbsOrigin();
 			console.log("La posición final del héroe enemigo es: " + posFIN);		      
 		      }
@@ -103,7 +103,7 @@ eval(`
 		        console.log("Opositindirection", oppositeDirection);
 
 		        // Lanzar Gale Force en la dirección opuesta desde la posición del héroe enemigo
-		        let pushPosition = enemyPosition.add(oppositeDirection.mul(new Vector(0, 500, 0)));
+		        let pushPosition = enemyPosition.add(oppositeDirection.mul(new Vector(500, 500, 0)));
 			console.log("pushPosition", pushPosition);
 			// Agregar condición para evitar lanzar gale force si el enemigo tiene activado bkb
 			if (enemy.HasModifier("modifier_black_king_bar_immune") === false) {
