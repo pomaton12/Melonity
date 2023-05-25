@@ -15,7 +15,7 @@ eval(`
 	let localHero;
 
 	// Definición del array path_
-	const path_ = ['Heroes', 'Intelligence', 'Legion Commander'];
+	const path_ = ['Heroes', 'Strength', 'Legion Commander'];
 
 	// Creación del toggle isUiEnabled
 	let isUiEnabled = Menu.AddToggle(path_, 'Use spell in Duel', true);
