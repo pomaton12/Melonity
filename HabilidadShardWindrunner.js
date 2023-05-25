@@ -41,7 +41,7 @@ eval(`
 		  let enemyAbility = enemy.GetAbility(0);
 		  if (enemyAbility && (enemyAbility.GetName() === "stun" || enemyAbility.GetName() === "hex")) {
 		    // Lanzar "gale force" en la dirección opuesta a la dirección en la que el enemigo está mirando
-		    let galeForce localHero.GetAbilityByIndex(3);
+		    let galeForce = localHero.GetAbilityByIndex(3);
 		    if (galeForce && galeForce.IsExist() && galeForce.CanCast()) {
 		      let enemyPosition = enemy.GetAbsOrigin();
 		      let enemyDirection = enemy.GetFacing();
