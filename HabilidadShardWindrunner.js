@@ -69,7 +69,7 @@ eval(`
 		      let vec1 = localHero.GetAbsOrigin();
 		      let vec2 = enemy.GetAbsOrigin();
 		      let distance = vec1.sub(vec2).Length2D();
-		      
+		       
 		      if (distance <= 1000) {
 			let pushDirection;
 			
