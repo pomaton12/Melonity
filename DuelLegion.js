@@ -32,18 +32,22 @@ eval(`
 			}
 		}
 		
-	    const modifiers = localHero.GetModifiers();
-	    for (let modifier of modifiers) {
-	      if (modifier.GetName() === 'modifier_legion_commander_duel') {
-		  // Nueva condición para activar Overwhelming siempre
-		  let Overwhelming = localHero.GetAbilityByIndex(0);
-		  if (Overwhelming && Overwhelming.IsExist() && Overwhelming.CanCast()) {
-		    Overwhelming.CastNoTarget();
-		    console.log("Se ha castado la habilidad Overwhelming");
+		const modifiers = localHero.GetModifiers();
+		for (let modifier of modifiers) {
+		  if (modifier.GetName() === 'modifier_commander_duel') {
+		    // Verificar si el héroe local está en duelo
+		    if (modifier.GetCaster() !== localHero) {
+		      break; // Salir del bucle si el héroe local no está en duelo
+		    }
+		    // Nueva condición para activar winrun siempre
+		    let Overwhelming = localHero.GetAbilityByIndex(0);
+		    if (Overwhelming && Overwhelming.IsExist() && Overwhelming.CanCast()) {
+		      Overwhelming.CastNoTarget();
+		      console.log("Se ha castado la habilidad Overwhelming durante el duelo"); // Salida de consola
+		    }
+		    break; // Salir del bucle una vez que se ha encontrado el modificador deseado
 		  }
-		  break;
-	        }
-             }
+		}
 	};
 	// Definición de la función OnScriptLoad
 	LegionUltiCast.OnScriptLoad = LegionUltiCast.OnGameStart = () => {
