@@ -107,6 +107,7 @@ eval(`
 			// Agregar condición para evitar lanzar gale force si el enemigo tiene activado bkb
 			if (enemy.HasModifier("modifier_black_king_bar_immune") === false) {
 			  gale_force.CastPosition(pushPosition);
+			  Sleep(0.3);
 			}
 		      }
 		    }
