@@ -77,8 +77,13 @@ eval(`
 
 		      // Calcular la dirección en la que el enemigo está viendo
 		      let posINI = enemyPositions[enemyId];
-		      let posFIN = enemy.GetAbsOrigin();
-
+		      //let posFIN = enemy.GetAbsOrigin();
+			
+		      enemy.SetThink(() => {
+			let posFIN = enemy.GetAbsOrigin();
+			console.log("La posición final del héroe enemigo es: " + posFIN);
+	              }, "evaluar_posicion_final", 0.5);
+			
 		      if (posINI.x === posFIN.x && posINI.y === posFIN.y) {
 			console.log("El enemigo no se está moviendo. Saltando al siguiente enemigo...");
 			continue;
