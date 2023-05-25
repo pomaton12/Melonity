@@ -42,7 +42,7 @@ eval(`
 		for (let enemy of enemies) {
 		  // Verificar si el enemigo está lanzando un hechizo de aturdimiento o hex
 		  let enemyItem = enemy.GetItem("item_sheepstick", true) || enemy.GetItem("item_abyssal_blade", true);
-		  if (isStunned || enemyItem) {
+		  if (enemyItem) {
 		    // Lanzar "gale force" en la opuesta a la dirección en la que el enemigo está mirando
 		    let galeForce = localHero.GetAbilityByIndex(3);
 		    if (galeForce && galeForce.IsExist() && galeForce.CanCast()) {
