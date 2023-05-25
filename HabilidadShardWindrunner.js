@@ -36,11 +36,13 @@ eval(`
 	      return;
 	    }
 	    // Dentro de la función OnUpdate
+		// Dentro de la función OnUpdate
 		let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 		for (let enemy of enemies) {
 		  // Verificar si el enemigo está lanzando un hechizo de aturdimiento o hex
-		  let enemyAbility = enemy.GetAbility(0);
-		  if (enemyAbility && (enemyAbility.GetName() === "stun" || enemyAbility.GetName() === "hex")) {
+		  let enemyAbility = enemy.GetAbilityByName("stun") || enemy.GetAbilityByName("hex");
+		  let enemyItem = enemy.GetItem("item_sheepstick", true) || enemy.GetItem("item_abyssal_blade", true);
+		  if (enemyAbility || enemyItem) {
 		    // Lanzar "gale force" en la dirección opuesta a la dirección en la que el enemigo está mirando
 		    let galeForce = localHero.GetAbilityByIndex(3);
 		    if (galeForce && galeForce.IsExist() && galeForce.CanCast()) {
@@ -52,6 +54,7 @@ eval(`
 		    }
 		  }
 		}
+
 	      
 	  }
 	
