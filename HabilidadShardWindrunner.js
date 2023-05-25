@@ -82,14 +82,14 @@ eval(`
 			// Calcular la dirección en la que el enemigo está viendo
 			let enemyPositionINI = enemyPositions[enemyId];
 			let enemyPositionFIN = enemy.GetAbsOrigin();
-
+			console.log("x:", enemyPositionINI, "y:", enemyPositionFIN);
 			if (enemyPositionINI.x !== enemyPositionFIN.x || enemyPositionINI.y !== enemyPositionFIN.y) {
 			     console.log("Esta en movimiento");
 			} else {
 			     continue;
 			}
 			
-		        console.log("x:", enemyPositionINI, "y:", enemyPositionFIN);
+		        
 
 		        const enemyDirection = (enemyPositionFIN.sub(enemyPositionINI)).Normalized();
 
