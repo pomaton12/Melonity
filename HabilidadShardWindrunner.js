@@ -103,7 +103,7 @@ eval(`
 		        console.log("Opositindirection", oppositeDirection);
 
 		        // Lanzar Gale Force en la dirección opuesta desde la posición del héroe enemigo
-		        let pushPosition = enemyPosition.add(oppositeDirection.mul(500));
+		        let pushPosition = enemyPosition.add(oppositeDirection.mul(new Vector(0, 500, 0)));
 
 			// Agregar condición para evitar lanzar gale force si el enemigo tiene activado bkb
 			if (enemy.HasModifier("modifier_black_king_bar_immune") === false) {
