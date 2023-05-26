@@ -7,7 +7,7 @@
   \**********************************/
 /***/ (() => {
 
-eval(`
+//eval(`
 
 	const HitRunHeros = {};
 
@@ -85,7 +85,7 @@ eval(`
 			let target = null;
 			for (const enemy of enemies) {
 				const dist = enemy.GetAbsOrigin().Distance(mousePos);
-				if (dist <= 500 || target == null) {
+				if (dist <= 550 || target == null) {
 					target = enemy;
 				}
 			}
@@ -93,6 +93,37 @@ eval(`
 			
 			if (Engine.OnceAt(0.2)) {
 				if (target != null) {
+					const EnemyHero = target;
+					const attackRange = localHero.GetAttackRange();
+					const enemyHeroPosition = EnemyHero.GetAbsOrigin();
+					const dist = Dist2D(localHero.GetAbsOrigin(), EnemyHero.GetAbsOrigin());
+					const newRange = attackRange - attackRange * (SafeDistanceUI / 100);
+			
+			
+					if (dist > attackRange) {
+
+						if ( !isUiEnabled2.GetValue()) {
+							if(newRange > 0){
+								const pos1 = localHeroPosition.add(new Vector(newRange).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
+								//myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, enemyHeroPosition, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);		     
+								//setTimeout(function() {
+									localHero.MoveTo(pos1);
+								//}, 200); 
+								//myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, enemyHeroPosition, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);		     
+
+							}	 
+						}
+					} else {
+
+						if ( isUiEnabled2.GetValue() ) {
+							const pos1 = localHeroPosition.add(new Vector(-150).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
+							localHero.MoveTo(pos1);
+							//setTimeout(function() {
+								//myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+							//}, 300); 
+						}
+					}
+			
 					//localHero.AttackTarget(target);
 					let [order, targetHero, pos] = [Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, target, target.GetAbsOrigin()];
 					//myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, Input.GetWorldCursorPos(), null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
