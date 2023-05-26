@@ -12,6 +12,7 @@ eval(`
 const HitRunHeros = {};
 
 let localHero;
+let myPlayer;
 let attackTarget;
 let EnemyHerotest;
 
@@ -128,7 +129,8 @@ HitRunHeros.OnUpdate = () => {
       }
 
       if (target != null) {
-	localHero.AttackTarget(target);
+	//localHero.AttackTarget(target);
+	myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, Input.GetWorldCursorPos(), null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
       }
     }
   }
@@ -136,10 +138,12 @@ HitRunHeros.OnUpdate = () => {
 
 HitRunHeros.OnScriptLoad = HitRunHeros.OnGameStart = () => {
   localHero = EntitySystem.GetLocalHero();
+  myPlayer = EntitySystem.GetLocalPlayer();
 };
 
 HitRunHeros.OnGameEnd = () => {
   localHero = null;
+  myPlayer = null;
 };
 
 RegisterScript(HitRunHeros);
