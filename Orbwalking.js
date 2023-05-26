@@ -85,7 +85,7 @@ eval(`
 			let target = null;
 			for (const enemy of enemies) {
 				const dist = enemy.GetAbsOrigin().Distance(mousePos);
-				if (dist <= 100 || target == null) {
+				if (dist <= 500 || target == null) {
 					target = enemy;
 				}
 			}
