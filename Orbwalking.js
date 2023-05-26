@@ -85,7 +85,7 @@ eval(`
 			let target = null;
 			for (const enemy of enemies) {
 				const dist = enemy.GetAbsOrigin().Distance(mousePos);
-				if (dist <= 550 || target == null) {
+				if (dist <= 100 || target == null) {
 					target = enemy;
 				}
 			}
@@ -93,6 +93,7 @@ eval(`
 			
 			if (Engine.OnceAt(0.2)) {
 				if (target != null) {
+					const localHeroPosition = localHero.GetAbsOrigin();
 					const EnemyHero = target;
 					const attackRange = localHero.GetAttackRange();
 					const enemyHeroPosition = EnemyHero.GetAbsOrigin();
