@@ -130,9 +130,9 @@ HitRunHeros.OnUpdate = () => {
 
       if (target != null) {
 	//localHero.AttackTarget(target);
-	let [order, target, pos] = [Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, target, target.GetAbsOrigin()];
+	let [order, targetHero, pos] = [Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, target, target.GetAbsOrigin()];
 	//myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, Input.GetWorldCursorPos(), null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
-        myPlayer.PrepareUnitOrders(order, target, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+        myPlayer.PrepareUnitOrders(order, targetHero, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
       }
     }
   }
