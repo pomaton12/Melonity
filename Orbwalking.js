@@ -94,6 +94,8 @@ HitRunHeros.OnUpdate = () => {
 		 setTimeout(function() {
 		    localHero.MoveTo(pos);
 		 }, 200); 
+		 myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, enemyHeroPosition, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);		     
+		
 	        }	 
 	      }
 	  } else {
