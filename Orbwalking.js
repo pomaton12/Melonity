@@ -90,9 +90,10 @@ HitRunHeros.OnUpdate = () => {
 	      if ( !isUiEnabled2.GetValue()) {
 	        if(newRange > 0){
 	         const pos = localHeroPosition.add(new Vector(newRange).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
-		 localHero.MoveTo(pos);
+		 
 		 setTimeout(function() {
 		     myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+		     localHero.MoveTo(pos);
 		 }, 200); 
 	        }	 
 	      }
