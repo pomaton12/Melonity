@@ -25,11 +25,13 @@ eval(`
 	// Función para obtener las ilusiones controladas por el jugador
 	function getIllusions() {
 	  return EntitySystem.GetEntitiesList().filter(
-		(ent) =>
-		  ent.IsIllusion() &&
-		  ent.GetPlayerOwnerID() === localHero.GetPlayerID()
+	    (ent) =>
+	      ent.IsHero() &&
+	      ent.IsIllusion() &&
+	      ent.GetPlayerOwnerID() === localHero.GetPlayerID()
 	  );
 	}
+
 
 	// Función para obtener el héroe enemigo más cercano en un radio
 	function getClosestEnemyHero(radius) {
