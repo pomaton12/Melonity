@@ -60,7 +60,7 @@ eval(`
       return;
     }
 
-    if (GameRules.GameStateIs(5)) {
+    if (GameRules.GetGameState() === DOTA_GameState.DOTA_GAMERULES_STATE_GAME_IN_PROGRESS) {
       if (attackHeroToggle.GetValue()) {
         atacarEnemigosCercanos();
       }
