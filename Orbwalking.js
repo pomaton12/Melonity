@@ -98,7 +98,7 @@ eval(`
 					const EnemyHero = target;
 					const attackRange = localHero.GetAttackRange();
 					const enemyHeroPosition = EnemyHero.GetAbsOrigin();
-					const dist = localHeroPosition.Distance(enemyHeroPosition)-40;
+					const dist = localHeroPosition.Distance(enemyHeroPosition)-50;
 					const attackSpeed = localHero.GetAttacksPerSecond();
          				const attackTime = 1 / attackSpeed;
 					
