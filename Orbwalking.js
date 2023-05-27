@@ -99,7 +99,7 @@ eval(`
 					const attackRange = localHero.GetAttackRange();
 					const enemyHeroPosition = EnemyHero.GetAbsOrigin();
 					const dist = Dist2D(localHero.GetAbsOrigin(), EnemyHero.GetAbsOrigin());
-					const newRange =  attackRange * (SafeDistanceUI / 100);
+					let newRange =  attackRange * (SafeDistanceUI / 100);
 					
 					if ( 55 >= newRange ){
 						newRange =  55;
