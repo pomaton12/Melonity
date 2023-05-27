@@ -60,17 +60,16 @@ eval(`
       return;
     }
 
-    if (GameRules.GameStateIs(DOTA_GameState.DOTA_GAMERULES_STATE_GAME_IN_PROGRESS)) {
+    if (GameRules.GameStateIs(DOTA_GameState_t.DOTA_GAMERULES_STATE_GAME_IN_PROGRESS)) {
       if (attackHeroToggle.GetValue()) {
-        atacaremigosCercanos();
+        atacarEnemigosCercanos();
       }
 
       if (pushLineCreepsToggle.GetValue()) {
-        // Lógica para que las ilusiones ataquen a los creeps y empujen lasneas
+        // Lógica para que las ilusiones ataquen a los creeps y empujen las líneas
       }
     }
   };
-
 
   IllusionsAgresive.OnScriptLoad = IllusionsAgresive.OnGameStart = () => {
     localHero = EntitySystem.GetLocalHero();
