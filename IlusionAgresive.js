@@ -28,7 +28,7 @@ eval(`
 	    (ent) =>
 	      ent.IsHero() &&
 	      ent.IsIllusion() &&
-	      ent.GetPlayerOwnerID() === localHero.GetPlayerID()
+	      ent.GetPlayerOwner().GetPlayerID() === localHero.GetPlayerOwner().GetPlayerID()
 	  );
 	}
 
