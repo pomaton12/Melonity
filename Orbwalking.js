@@ -31,6 +31,12 @@ eval(`
 	let KeyBindOrbwalk = Menu.AddKeyBind(path_, 'Key of OrbWalk', Enum.ButtonCode.KEY_NONE);
 
 	let isUiEnabled2 = Menu.AddToggle(path_, 'Kill Safe Pos', true);
+	
+	let DisplayMode = Menu.AddComboBox(path_, 'Display', ['To Enemy', 'Mouse position'],0)
+	.OnChange(state =>{   	
+	DisplayMode = state.newValue;
+	})
+	.GetValue();
   
 	Menu.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama/images/hud/reborn/icon_damage_psd.vtex_c');
 
