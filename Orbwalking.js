@@ -7,7 +7,7 @@
   \**********************************/
 /***/ (() => {
 
-eval(`
+const InicioOrbwalkHUD = eval(`
 
 	const HitRunHeros = {};
 
@@ -80,6 +80,7 @@ eval(`
 		} else {
 		  SafeDistanceUI = 0;
 		  createHUD = 0;
+		  InicioOrbwalkHUD;
 		}
 
 		if (KeyBindOrbwalk.IsKeyDown()) {
