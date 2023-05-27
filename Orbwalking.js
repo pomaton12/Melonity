@@ -111,7 +111,7 @@ eval(`
 								//setTimeout(function() {
 									//localHero.MoveTo(pos1);
 								//}, 200); 
-								//myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, enemyHeroPosition, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);		     
+								myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, pos1, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);		     
 
 							}	 
 						}
@@ -127,9 +127,9 @@ eval(`
 					}
 			
 					//localHero.AttackTarget(target);
-					let [order, targetHero, pos] = [Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, target, pos1];
+					//let [order, targetHero, pos] = [Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, target, pos1];
 					//myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, Input.GetWorldCursorPos(), null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
-					myPlayer.PrepareUnitOrders(order, targetHero, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+					//myPlayer.PrepareUnitOrders(order, targetHero, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 				}
 			}	
 		}
