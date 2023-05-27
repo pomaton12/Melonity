@@ -26,7 +26,7 @@ eval(`
       var ilusion = ilusiones[i];
       var ilusionPos = Entities.GetAbsOrigin(ilusion);
 
-      var enemigos = Entities.GetAllEntitiesByClassname("npc_dota_hero").filter(hero => !Entities.IsSameTeam(hero, localHero));
+      const enemigos = EntitySystem.GetEntitiesByClassname("npc_dota_hero").filter(hero => !Entities.IsSameTeam(hero, localHero) && hero.IsAlive() && !hero.IsIllusion());
       for (var j = 0; j < enemigos.length; j++) {
         var enemigo = enemigos[j];
         var enemigoPos = Entities.GetAbsOrigin(enemigo);
