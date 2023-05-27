@@ -111,7 +111,7 @@ eval(`
 					if (dist >= newRange) {
 
 						if ( !isUiEnabled2.GetValue()) {
-							console.log("time = ",attackTime);
+							console.log("dist = ",dist," dist = ",newRange);
 							if(newRange){
 								pos1 = localHeroPosition.add(new Vector(dist - newRange).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
 
