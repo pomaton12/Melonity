@@ -18,7 +18,6 @@ eval(`
 	let pos1;
 	let timepusepos;
 	let createHUD = 0;	
-	let SafeDistanceUI = null;
 	
 	function resetUI() {
 	  GameUI.ReloadUI();
@@ -37,6 +36,10 @@ eval(`
 	DisplayMode = state.newValue;
 	})
 	.GetValue();
+	
+	let SafeDistanceUI = Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100)
+	    .OnChange(state => SafeDistanceUI = state.newValue)
+	    .GetValue();
   
 	Menu.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama/images/hud/reborn/icon_damage_psd.vtex_c');
 
@@ -72,20 +75,6 @@ eval(`
 	HitRunHeros.OnUpdate = () => {
 	if (localHero && isUiEnabled1.GetValue()) {
 		
-		createHUD = createHUD + 1;
-		if (DisplayMode === 0) {
-			if(createHUD == 1){
-				SafeDistanceUI = Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100)
-				    .OnChange(state => SafeDistanceUI = state.newValue)
-				    .GetValue();
-			}
-
-		} else {
-		  SafeDistanceUI = 0;
-		  createHUD = 0;
-		  resetUI();
-		}
-
 		if (KeyBindOrbwalk.IsKeyDown()) {
 			const mousePos = Input.GetWorldCursorPos();
 			const enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
