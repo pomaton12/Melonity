@@ -69,7 +69,7 @@ eval(`
 
 		if (closestEnemyHero) {
 		  for (const illusion of illusions) {
-			illusion.AttackTarget(closestEnemyHero, Enum.OrderQueueBehavior.Clear);
+			 ilusion.AttackTarget(closestEnemyHero, false);
 		  }
 		  return;
 		}
