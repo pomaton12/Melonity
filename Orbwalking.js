@@ -7,7 +7,7 @@
   \**********************************/
 /***/ (() => {
 
-eval(`
+//eval(`
 
 	const HitRunHeros = {};
 
@@ -17,6 +17,8 @@ eval(`
 	let EnemyHerotest;
 	let pos1;
 	let timepusepos;
+	
+	let SafeDistanceUI = null;
 
 	const path_ = ['Heroes', 'Orbwalking'];
 
@@ -30,11 +32,6 @@ eval(`
 		.OnChange(state =>{   	
 		DisplayMode = state.newValue;
 		})
-		.GetValue();
-
-
-	let SafeDistanceUI = Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100)
-		.OnChange(state => SafeDistanceUI = state.newValue)
 		.GetValue();
 
 	Menu.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama/images/hud/reborn/icon_damage_psd.vtex_c');
@@ -71,8 +68,13 @@ eval(`
 	HitRunHeros.OnUpdate = () => {
 	if (localHero && isUiEnabled1.GetValue()) {
 
-
-
+		if (DisplayMode === 0) {
+		  SafeDistanceUI = Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100)
+		    .OnChange(state => SafeDistanceUI = state.newValue)
+		    .GetValue();
+		} else {
+		  SafeDistanceUI = 0;
+		}
 
 		if (KeyBindOrbwalk.IsKeyDown()) {
 			const mousePos = Input.GetWorldCursorPos();
