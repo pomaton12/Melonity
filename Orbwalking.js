@@ -104,8 +104,8 @@ eval(`
 					
 					let newRange =  attackRange * (SafeDistanceUI / 100);
 					
-					if ( 55 >= newRange ){
-						//newRange =  55;
+					if ( 5 >= newRange ){
+						newRange =  5;
 					}
 			
 					if (dist >= newRange) {
