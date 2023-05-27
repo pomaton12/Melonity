@@ -20,18 +20,10 @@ eval(`
 	let createHUD = 0;	
 	let SafeDistanceUI = null;
 	
-function handleSafeDistanceUI() {
-  if (DisplayMode === 0 && SafeDistanceUI === null) {
-    SafeDistanceUI = Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100)
-      .OnChange(state => SafeDistanceUI = state.newValue)
-      .GetValue();
-  }
-  if (SafeDistanceUI !== null) {
-    Menu.SetEnabled(SafeDistanceUI, DisplayMode === 0);
-  }
-}
-
-
+	function resetScript() {
+		Script.ReloadScript();
+	}
+	
 	const path_ = ['Heroes', 'Orbwalking'];
 
 	let isUiEnabled1 = Menu.AddToggle(path_, 'Orbwalking Enable', true);
@@ -39,14 +31,6 @@ function handleSafeDistanceUI() {
 	let KeyBindOrbwalk = Menu.AddKeyBind(path_, 'Key of OrbWalk', Enum.ButtonCode.KEY_NONE);
 
 	let isUiEnabled2 = Menu.AddToggle(path_, 'Kill Safe Pos', true);
-
-let DisplayMode = Menu.AddComboBox(path_, 'Display', ['To Enemy', 'Mouse position'], 0)
-  .OnChange(state => {
-    DisplayMode = state.newValue;
-    handleSafeDistanceUI();
-  })
-  .GetValue();
-
   
 	Menu.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama/images/hud/reborn/icon_damage_psd.vtex_c');
 
@@ -82,7 +66,19 @@ let DisplayMode = Menu.AddComboBox(path_, 'Display', ['To Enemy', 'Mouse positio
 	HitRunHeros.OnUpdate = () => {
 	if (localHero && isUiEnabled1.GetValue()) {
 		
-		handleSafeDistanceUI();
+		createHUD = createHUD + 1;
+		if (DisplayMode === 0) {
+			if(createHUD == 1){
+				SafeDistanceUI = Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100)
+				    .OnChange(state => SafeDistanceUI = state.newValue)
+				    .GetValue();
+			}
+
+		} else {
+		  SafeDistanceUI = 0;
+		  createHUD = 0;
+		  resetScript();
+		}
 
 		if (KeyBindOrbwalk.IsKeyDown()) {
 			const mousePos = Input.GetWorldCursorPos();
