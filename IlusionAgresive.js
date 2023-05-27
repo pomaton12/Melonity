@@ -19,7 +19,8 @@ eval(`
   let pushLineCreepsToggle = Menu.AddToggle(path_, 'Push Line Creeps', true);
 
   function atacarEnemigosCercanos() {
-    const ilusiones = EntitySystem.GetEntitiesByClassnameAndTeam("npc_dota_illusion", localHero.GetTeamNumber());
+    const equipoLocal = localHero.GetTeam();
+    const ilusiones = EntitySystem.GetEntitiesByClassnameAndTeam("npc_dota_illusion", equipoLocal.GetTeamNumber());
     var enemigosCercanos = [];
 
     for (var i = 0; i < ilusiones.length; i++) {
