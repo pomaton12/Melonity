@@ -108,7 +108,7 @@ eval(`
 						newRange =  55;
 					}
 			
-					if (dist > newRange) {
+					if (dist >= newRange) {
 
 						if ( !isUiEnabled2.GetValue()) {
 							console.log("time = ",attackTime);
@@ -130,17 +130,13 @@ eval(`
 					} else {
 
 						if ( isUiEnabled2.GetValue() ) {
-							pos1 = localHeroPosition.add(new Vector(dist - newRange-100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
+							pos1 = localHeroPosition.add(new Vector(dist - newRange - 100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
 							if (Engine.OnceAt(attackTime)) {
 								myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, pos1, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 							}
 						}
 					}
 			
-					//localHero.AttackTarget(target);
-					//let [order, targetHero, pos] = [Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, target, pos1];
-					//myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, Input.GetWorldCursorPos(), null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
-					//myPlayer.PrepareUnitOrders(order, targetHero, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 				}
 			}	
 		}
