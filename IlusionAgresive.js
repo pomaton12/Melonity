@@ -60,7 +60,7 @@ eval(`
       return;
     }
 
-    if (GameRules.GetGameState() === DOTA_GameState.DOTA_GAMERULES_STATE_GAME_IN_PROGRESS) {
+    if (GameRules.GetGameState() === 5) {
       if (attackHeroToggle.GetValue()) {
         atacarEnemigosCercanos();
       }
@@ -70,7 +70,6 @@ eval(`
       }
     }
   };
-
 
   IllusionsAgresive.OnScriptLoad = IllusionsAgresive.OnGameStart = () => {
     localHero = EntitySystem.GetLocalHero();
