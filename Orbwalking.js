@@ -99,14 +99,14 @@ eval(`
 					const attackRange = localHero.GetAttackRange();
 					const enemyHeroPosition = EnemyHero.GetAbsOrigin();
 					const dist = Dist2D(localHero.GetAbsOrigin(), EnemyHero.GetAbsOrigin());
-					const newRange = attackRange - attackRange * (SafeDistanceUI / 100);
+					const newRange =  attackRange * (SafeDistanceUI / 100);
 			
 			
 					if (dist >= attackRange) {
 
 						if ( !isUiEnabled2.GetValue()) {
 							if(newRange > 0){
-								pos1 = localHeroPosition.add(new Vector(newRange).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
+								pos1 = localHeroPosition.add(new Vector(dist - newRange).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
 
 								//myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, enemyHeroPosition, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);		     
 								if (newRange == dist){
@@ -115,7 +115,7 @@ eval(`
 								} else {
 								
 									//localHero.MoveTo(pos1);
-									myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, enemyHeroPosition, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+									myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, pos1, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 								}
 							}	 
 						}
