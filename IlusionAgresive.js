@@ -24,11 +24,16 @@ eval(`
 
 	// Función para obtener las ilusiones controladas por el jugador
 	function getIllusions() {
+	  const playerID = localHero.GetPlayerOwnerID();
+	  const player = Game.GetPlayerInfoArray().find((p) => p.player_id === playerID);
+	  if (!player) {
+	    return [];
+	  }
 	  return EntitySystem.GetEntitiesList().filter(
 	    (ent) =>
 	      ent.IsHero() &&
 	      ent.IsIllusion() &&
-	      ent.GetPlayerOwner().GetPlayerID() === localHero.GetPlayerOwner().GetPlayerID()
+	      ent.GetPlayerOwnerID() === playerID
 	  );
 	}
 
