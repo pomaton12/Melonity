@@ -13,6 +13,7 @@ eval(`
 
 	// Declaración de la variable localHero
 	let localHero;
+	let myPlayer;
 
 	// Definición del array path_
 	const path_ = ['Player', 'Agresive Illusions'];
@@ -69,7 +70,7 @@ eval(`
 
 		if (closestEnemyHero) {
 		  for (const illusion of illusions) {
-			 illusion.AttackTarget(closestEnemyHero, false);
+			 myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, closestEnemyHero, closestEnemyHero.GetAbsOrigin(), null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, illusion, false, true);
 		  }
 		  return;
 		}
@@ -83,6 +84,7 @@ eval(`
 	// Definición de la función OnScriptLoad
 	IllusionsAgresive.OnScriptLoad = IllusionsAgresive.OnGameStart = () => {
 	  localHero = EntitySystem.GetLocalHero();
+	  myPlayer = EntitySystem.GetLocalPlayer();
 	};
 
 	// Definición de la función OnGameEnd
