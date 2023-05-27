@@ -16,6 +16,7 @@ eval(`
 	let attackTarget;
 	let EnemyHerotest;
 	let pos1;
+	let timepusepos;
 
 	const path_ = ['Heroes', 'Orbwalking'];
 
@@ -141,8 +142,13 @@ eval(`
 
 
 					} else if (DisplayMode === 1) {
+						if (attackTime > 0.6 ){
+							timepusepos = attackTime;
+						} else{
+							timepusepos = 0.6;
+						}
 						const mousePos = Input.GetWorldCursorPos();
-						if (Engine.OnceAt(attackTime)) {
+						if (Engine.OnceAt(timepusepos)) {
 							localHero.MoveTo(mousePos);
 						}
 					}
