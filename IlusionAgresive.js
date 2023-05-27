@@ -28,8 +28,7 @@ eval(`
 	  return EntitySystem.GetEntitiesList().filter(
 	    (ent) =>
 	      ent.IsHero() &&
-	      ent.IsIllusion() &&
-	      ent.GetPlayerOwner().GetPlayerID() === playerID
+	      ent.IsIllusion()
 	  );
 	}
 
