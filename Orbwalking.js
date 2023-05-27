@@ -20,8 +20,8 @@ eval(`
 	let createHUD = 0;	
 	let SafeDistanceUI = null;
 	
-	function resetScript() {
-		Script.ReloadScript();
+	function resetUI() {
+	  GameUI.ReloadUI();
 	}
 	
 	const path_ = ['Heroes', 'Orbwalking'];
@@ -83,7 +83,7 @@ eval(`
 		} else {
 		  SafeDistanceUI = 0;
 		  createHUD = 0;
-		  resetScript();
+		  resetUI();
 		}
 
 		if (KeyBindOrbwalk.IsKeyDown()) {
