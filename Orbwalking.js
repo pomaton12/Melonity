@@ -141,7 +141,9 @@ eval(`
 
 					} else if (DisplayMode === 1) {
 						const mousePos = Input.GetWorldCursorPos();
-						setTimeout(function() {localHero.MoveTo(mousePos);}, 100);
+						if (Engine.OnceAt(attackTime)) {
+							localHero.MoveTo(mousePos);
+						}
 					}
 			
 				}
