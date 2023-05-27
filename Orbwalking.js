@@ -136,6 +136,13 @@ eval(`
 							}
 						}
 					}
+					
+					if (DisplayMode === 0) {
+
+					} else if (DisplayMode === 1) {
+						const mousePos = Input.GetWorldCursorPos();
+						setTimeout(function() {localHero.MoveTo(mousePos);}, 100);
+					}
 			
 				}
 			}	
