@@ -69,7 +69,7 @@ eval(`
 
 		if (closestEnemyHero) {
 		  for (const illusion of illusions) {
-			 ilusion.AttackTarget(closestEnemyHero, false);
+			 illusion.AttackTarget(closestEnemyHero, false);
 		  }
 		  return;
 		}
