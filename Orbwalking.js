@@ -102,7 +102,7 @@ eval(`
 					const newRange =  attackRange * (SafeDistanceUI / 100);
 			
 			
-					if (dist >= attackRange) {
+					if (dist >= newRange) {
 
 						if ( !isUiEnabled2.GetValue()) {
 							if(newRange > 0){
