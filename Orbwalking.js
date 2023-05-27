@@ -17,6 +17,7 @@ eval(`
 	let EnemyHerotest;
 	let pos1;
 	let timepusepos;
+	let createHUD = 0;
 	
 	let SafeDistanceUI = null;
 
@@ -67,13 +68,18 @@ eval(`
 	//=====================
 	HitRunHeros.OnUpdate = () => {
 	if (localHero && isUiEnabled1.GetValue()) {
-
+		
+		createHUD = createHUD + 1;
 		if (DisplayMode === 0) {
-		  SafeDistanceUI = Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100)
-		    .OnChange(state => SafeDistanceUI = state.newValue)
-		    .GetValue();
+			if(createHUD == 1){
+				SafeDistanceUI = Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100)
+				    .OnChange(state => SafeDistanceUI = state.newValue)
+				    .GetValue();
+			}
+
 		} else {
 		  SafeDistanceUI = 0;
+		  createHUD = 0;
 		}
 
 		if (KeyBindOrbwalk.IsKeyDown()) {
