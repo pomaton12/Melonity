@@ -23,36 +23,41 @@ eval(`
 	let attackHeroToggle = Menu.AddToggle(path_, 'Attack Hero', true);
 	let pushLineCreepsToggle = Menu.AddToggle(path_, 'Push Line Creeps', true);
 
-	// Función para obtener las ilusiones controladas por el jugador
-	function getIllusions() {
-	  const playerID = localHero.GetPlayerID();
-	  return EntitySystem.GetEntitiesList().filter(
-	    (ent) =>
-	      ent.IsHero() &&
-	      ent.IsIllusion()
-	  );
-	}
+	function atacarEnemigosCercanos() {
+	  var ilusiones = Entities.GetAllEntitiesByClassname("npc_dota_illusion");
+	  var enemigosCercanos = [];
 
+	  for (var i = 0; i < ilusiones.length; i++) {
+	    var ilusion = ilusiones[i];
+	    var ilusionPos = Entities.GetAbsOrigin(ilusion);
 
+	    var enemigos = Entities.FindAllByClassname("npc_dota_hero_enemy");
+	    for (var j = 0; j < enemigos.length; j++) {
+	      var enemigo = enemigos[j];
+	      var enemigoPos = Entities.GetAbsOrigin(enemigo);
 
-	// Función para obtener el héroe enemigo más cercano en un radio
-	function getClosestEnemyHero(radius) {
-	  const enemyHeroes = EntitySystem.GetHeroesList().filter(
-		(hero) => hero && !hero.IsIllusion() && !hero.IsMeepoClone() && hero.IsHero() && hero.IsAlive() && !hero.IsDormant() && !hero.IsSameTeam(localHero)
-	  );
-
-	  let closestHero = null;
-	  let closestDistance = Number.MAX_VALUE;
-
-	  for (const hero of enemyHeroes) {
-		const distance = localHero.GetAbsOrigin().sub(hero.GetAbsOrigin()).Length2D();
-		if (distance < radius && distance < closestDistance) {
-		  closestHero = hero;
-		  closestDistance = distance;
-		}
+	      var distancia = (ilusionPos - enemigoPos).length();
+	      if (distancia <= 1000) {
+		enemigosCercanos.push(enemigo);
+	      }
+	    }
 	  }
 
-	  return closestHero;
+	  if (enemigosCercanos.length > 0) {
+	    for (var i = 0; i < ilusion.length; i++) {
+	      var ilusion = ilusiones[i];
+	      var closestEnemyHero = enemigosCercanos[0];
+	      var order = {
+		OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_ATTACK_TARGET,
+		TargetIndex: closestEnemyHero,
+		Queue: true
+	      };
+	      ilusion.SetContextThink("atacarEnemigosCercanos", function() {
+		Game.PrepareUnitOrders(order);
+		return 0.5;
+	      }, 0.5);
+	    }
+	  }
 	}
 
 	// Definición de la función OnUpdate
@@ -62,18 +67,13 @@ eval(`
 		return;
 	  }
 
-	  const illusions = getIllusions();
-	  const attackRadius = 1000; // Radio en el que las ilusiones buscarán enemigos
 
 	  if (attackHeroToggle.GetValue()) {
-		const closestEnemyHero = getClosestEnemyHero(attackRadius);
-
-		if (closestEnemyHero) {
-		  for (const illusion of illusions) {
-			 myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, closestEnemyHero, closestEnemyHero.GetAbsOrigin(), null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, illusion, false, true);
+		GameEvents.Subscribe("game_rules_state_change", function(data) {
+		  if (GameRules.State_Get() === DOTA_GameState.DOTA_GAMERULES_STATE_GAME_IN_PROGRESS) {
+		    atacarEnemigosCercanos();
 		  }
-		  return;
-		}
+		});
 	  }
 
 	  if (pushLineCreepsToggle.GetValue()) {
