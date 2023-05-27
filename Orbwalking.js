@@ -115,7 +115,7 @@ eval(`
 							if(newRange){
 								pos1 = localHeroPosition.add(new Vector(dist - newRange).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
 
-								if (newRange == parseInt(dist)){
+								if (parseInt(newRange) == parseInt(dist)){
 									myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, enemyHeroPosition, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);		     
 
 								} else {
