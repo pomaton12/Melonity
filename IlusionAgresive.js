@@ -60,16 +60,14 @@ eval(`
       return;
     }
 
-    if (attackHeroToggle.GetValue()) {
-      GameEvents.Subscribe("game_rules_state_change", function(data) {
-        if (GameRules.State_Get() === DOTA_GameState.DOTA_GAMERULES_STATE_GAME_IN_PROGRESS) {
-          atacarEnemigosCercanos();
-        }
-      });
-    }
+    if (GameRules.State_Get() === DOTA_GameState.DOTA_GAMERULES_STATE_GAME_IN_PROGRESS) {
+      if (attackHeroToggle.GetValue()) {
+        atacarEnemigosCercanos();
+      }
 
-    if (pushLineCreepsToggle.GetValue()) {
-      // Lógica para que las ilusiones ataquen a los creeps y empujen las líneas
+      if (pushLineCreepsToggle.GetValue()) {
+        // Lógica para que las ilusiones ataquen a los creeps y empujen las líneas
+      }
     }
   };
 
