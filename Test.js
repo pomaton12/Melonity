@@ -120,7 +120,12 @@ eval(`
 		const closestEnemyHero = getClosestEnemyHero(attackRadius);
 
 		if (!closestEnemyHero) {
-		    const laneCreeps = illusion.GetUnitsInRadius(2000, Enum.TeamType.TEAM_ENEMY);
+		    if (illusion != null) {
+		         const laneCreeps = illusion.GetUnitsInRadius(2000, Enum.TeamType.TEAM_ENEMY);
+	            } else {
+		    	return;
+		    }
+		    
 		    if (!laneCreeps || laneCreeps.length <= 0) {
 			return;
 		    }
