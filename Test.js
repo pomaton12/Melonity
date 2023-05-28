@@ -27,7 +27,7 @@ eval(`
 	    let heroes = EntitySystem.GetHeroesList();
 	    if (heroes) {
 	      for (let hero of heroes) {
-		if (hero && hero.IsIllusion() && !hero.IsMeepoClone() && !hero.IsHero() && hero.IsAlive() &&
+		if (hero && hero.IsIllusion() && !hero.IsMeepoClone() && hero.IsAlive() &&
 		  !hero.IsDormant() && hero.IsSameTeam(localHero)) {
 		  illusionList.push(hero);
 		}
