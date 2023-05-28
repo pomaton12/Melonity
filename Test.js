@@ -7,7 +7,7 @@
   \**********************************/
 /***/ (() => {
 
-eval(`
+//eval(`
 
 	const IllusionsAgresive = {};
 
@@ -45,8 +45,8 @@ eval(`
 
 		if (illusionList || illusionList.length  > 0) {
 			for (const illusion of illusionList) {
-				// Verifica si la ilusión aún existe y si es válida
-				if (illusion && illusion.IsValid()) {
+				// Verifica si la ilusión está viva y no está inactiva
+				if (illusion && illusion.IsAlive() && !illusion.IsDormant()) {
 					const distance = vector.Distance(illusion.GetAbsOrigin());
 					if (distance <= radius && distance < closestDistance) {
 						closestIllusion = illusion;
@@ -58,6 +58,7 @@ eval(`
 
 		return closestIllusion;
 	}
+
 
 
 	function getClosestEnemyHero(radius) {
