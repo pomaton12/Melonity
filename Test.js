@@ -125,7 +125,7 @@ eval(`
 				
 					if (laneCreeps || laneCreeps.length  > 0) {
 
-						const closestLaneCreep = getClosestCreep(laneCreeps, localHero.AbsOrigin());
+						const closestLaneCreep = getClosestCreep(laneCreeps, localHero.GetAbsOrigin());
 
 						if (closestLaneCreep) {
 							if (illusion) {
