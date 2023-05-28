@@ -21,38 +21,36 @@ eval(`
   function atacarEnemigosCercanos() {
     const equipoLocal = localHero.GetTeam();
     const ilusiones = EntitySystem.GetEntitiesByClassnameAndTeam("npc_dota_illusion", equipoLocal.GetTeamNumber());
-    var enemigosCercanos = [];
+    let enemigosCercanos = [];
 
-    for (var i = 0; i < ilusiones.length; i++) {
-      var ilusion = ilusiones[i];
-      var ilusionPos = Entities.GetAbsOrigin(ilusion);
-
+    ilusiones.forEach(ilusion => {
+      const ilusionPos = Entities.GetAbsOrigin(ilusion);
       const enemigos = EntitySystem.GetEntitiesByClassname("npc_dota_hero").filter(hero => !Entities.IsSameTeam(hero, localHero) && hero.IsAlive() && !hero.IsIllusion());
-      for (var j = 0; j < enemigos.length; j++) {
-        var enemigo = enemigos[j];
-        var enemigoPos = Entities.GetAbsOrigin(enemigo);
 
-        var distancia = (ilusionPos.minus(enemigoPos)).length();
+      enemigos.forEach(enemigo => {
+        const enemigoPos = Entities.GetAbsOrigin(enemigo);
+        const distancia = (ilusionPos.minus(enemigoPos)).length();
+
         if (distancia <= 1000) {
           enemigosCercanos.push(enemigo);
         }
-      }
-    }
+      });
+    });
 
     if (enemigosCercanos.length > 0) {
-      for (var i = 0; i < ilusiones.length; i++) {
-        var ilusion = ilusiones[i];
-        var closestEnemyHero = enemigosCercanos[0];
-        var order = {
+      ilusiones.forEach(ilusion => {
+        const closestEnemyHero = enemigosCercanos[0];
+        const order = {
           OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_ATTACK_TARGET,
           TargetIndex: closestEnemyHero,
           Queue: true
         };
+
         ilusion.SetContextThink("atacarEnemigosCercanos", function() {
           Game.PrepareUnitOrders(order);
           return 0.5;
         }, 0.5);
-      }
+      });
     }
   }
 
