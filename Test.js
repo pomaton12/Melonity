@@ -42,7 +42,7 @@ eval(`
 	// Función para obtener el héroe enemigo más cercano en un radio
 	function getClosestEnemyHero(radius) {
 	  const enemyHeroes = EntitySystem.GetHeroesList().filter(
-		(hero) => hero.IsEnemy() && hero.IsAlive() && !hero.IsIllusion()
+		(hero) => !hero.IsIllusion() && !hero.IsMeepoClone() && !hero.IsSameTeam(localHero) && hero.IsAlive() && !hero.IsIllusion()
 	  );
 
 	  let closestHero = null;
