@@ -83,23 +83,40 @@ eval(`
 
 	  const illusion = getClosestIllusion(Input.GetWorldCursorPos());
 
-	  const attackRadius = 1000;
+	  const attackRadius = 1500;
 
 	  if (attackHeroToggle.GetValue()) {
 	    const closestEnemyHero = getClosestEnemyHero(attackRadius);
 
 	    if (closestEnemyHero) {
 	      if (illusion) {
-		myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, closestEnemyHero, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, illusion, false, true);
-	      } else {
-		SendOrderMovePos(Input.GetWorldCursorPos());
+	        if (Engine.OnceAt(0.2)) {
+		    myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, closestEnemyHero, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, illusion, false, true);
+	         }
+	     } else {
+		//SendOrderMovePos(Input.GetWorldCursorPos());
 	      }
 	    }
 	  }
 
-	  if (pushLineCreepsToggle.GetValue()) {
-	    // Lógica para que las ilusiones ataquen a los creeps y empujen las líneas
-	  }
+		if (pushLineCreepsToggle.GetValue()) {
+		  const closestEnemyHero = getClosestEnemyHero(attackRadius);
+
+		  if (!closestEnemyHero) {
+		    const laneCreeps = EntitySystem.GetLaneCreepsList();
+		    const closestLaneCreep = getClosestEntity(laneCreeps, localHero.GetAbsOrigin());
+
+		    if (closestLaneCreep) {
+		      if (illusion) {
+		          if (Engine.OnceAt(0.2)) {
+			     myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_MOVE, null, closestLaneCreep.GetAbsOrigin(), null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, illusion, false, true);
+		          }
+		     } else {
+			//SendOrderMovePos(closestLaneCreep.GetAbsOrigin());
+		      }
+		    }
+		  }
+		}
 	};
 
 
