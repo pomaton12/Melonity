@@ -7,7 +7,7 @@
   \**********************************/
 /***/ (() => {
 
-eval(`
+//eval(`
 
 	const IllusionsAgresive = {};
 
@@ -39,17 +39,19 @@ eval(`
 	    }
 	}
 
-	function getClosestIllusion(vector, radius = 1500) {
+	function getClosestIllusion(vector, radius = 2000) {
 	    let closestIllusion = null;
 	    let closestDistance = Number.MAX_VALUE;
 
-	    for (const illusion of illusionList) {
-		const distance = vector.Distance(illusion.GetAbsOrigin());
-		if (distance <= radius && distance < closestDistance) {
-		    closestIllusion = illusion;
-		    closestDistance = distance;
+		if (illusionList || illusionList.length  > 0) {
+			for (const illusion of illusionList) {
+				const distance = vector.Distance(illusion.GetAbsOrigin());
+				if (distance <= radius && distance < closestDistance) {
+					closestIllusion = illusion;
+					closestDistance = distance;
+				}
+			}
 		}
-	    }
 
 	    return closestIllusion;
 	}
@@ -121,7 +123,7 @@ eval(`
 				if (illusion != null) {
 					const laneCreeps = illusion.GetUnitsInRadius(2000, Enum.TeamType.TEAM_ENEMY);
 				
-					if (laneCreeps || laneCreeps.length  >= 0) {
+					if (laneCreeps || laneCreeps.length  > 0) {
 
 						const closestLaneCreep = getClosestCreep(laneCreeps, localHeroAbsOrigin());
 
