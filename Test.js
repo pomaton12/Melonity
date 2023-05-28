@@ -87,7 +87,7 @@ eval(`
 		return;
 	  }
 
-	  let target = GetNearHeroInRadius(Input.GetWorldCursorPos());
+	  let illusion = GetNearHeroInRadius(Input.GetWorldCursorPos());
 	  
 
 	  const attackRadius = 1000; // Radio en el que las ilusiones buscarán enemigos
@@ -97,11 +97,10 @@ eval(`
 
 		if (closestEnemyHero) {
 		
-			  if (target && target.IsExist())
-			  	let illusion = target;
+			  if (illusion && illusion.IsExist()){
 				illusion.AttackTarget(closestEnemyHero, Enum.OrderQueueBehavior.Clear);
+			  }
 			  else {
-				comboTarget = null;
 				if (Engine.OnceAt(0.2)){
 				    SendOrderMovePos(Input.GetWorldCursorPos());
 				}
