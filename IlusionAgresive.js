@@ -20,9 +20,8 @@ eval(`
 
   function atacarEnemigosCercanos() {
     const equipoLocal = localHero.GetTeamNum();
-    const ilusiones = EntitySystem.GetEntitiesByClassnameAndTeam("npc_dota_illusion", equipoLocal);
+    const ilusiones = EntitySystem.GetEntitiesByClassname("npc_dota_illusion").filter(illusion => illusion.GetTeamNum() === equipoLocal);
     let enemigosCercanos = [];
-
     ilusiones.forEach(ilusion => {
       const ilusionPos = Entities.GetAbsOrigin(ilusion);
       const enemigos = EntitySystem.GetEntitiesByClassname("npc_dota_hero").filter(hero => !Entities.IsSameTeam(hero, localHero) && hero.IsAlive() && !hero.IsIllusion());
