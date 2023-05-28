@@ -90,7 +90,7 @@ eval(`
 
 	    if (closestEnemyHero) {
 	      if (illusion) {
-		illusion.AttackTarget(closestEnemyHero, Enum.OrderQueueBehavior.Clear);
+		myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, closestEnemyHero, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, illusion, false, true);
 	      } else {
 		SendOrderMovePos(Input.GetWorldCursorPos());
 	      }
@@ -101,6 +101,7 @@ eval(`
 	    // Lógica para que las ilusiones ataquen a los creeps y empujen las líneas
 	  }
 	};
+
 
 	IllusionsAgresive.OnScriptLoad = IllusionsAgresive.OnGameStart = () => {
 	  localHero = EntitySystem.GetLocalHero();
