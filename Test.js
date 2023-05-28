@@ -36,22 +36,13 @@ eval(`
 	  }
 	}
 
-	const myPlayerID = Game.GetLocalPlayerID();
-	
-	function getClosestIllusion(targetPos) {
-	  const illusions = EntitySystem.GetPlayerSelection(myPlayerID).filter(ent => ent.IsIllusion() && ent.IsAlive());
-
+	function getClosestIllusion(vector, radius = 1500) {
 	  let closestIllusion = null;
 	  let closestDistance = Number.MAX_VALUE;
 
-	  for (const illusion of illusions) {
-	    if (!illusion) {
-	      continue;
-	    }
-
-	    const distance = vector.Distance(illusion.GetAbsOrigin(), targetPos);
-
-	    if (distance < closestDistance) {
+	  for (const illusion of illusionList) {
+	    const distance = vector.Distance(illusion.GetAbsOrigin());
+	    if (distance <= radius && distance < closestDistance) {
 	      closestIllusion = illusion;
 	      closestDistance = distance;
 	    }
@@ -59,7 +50,6 @@ eval(`
 
 	  return closestIllusion;
 	}
-
 
 	function getClosestEnemyHero(radius) {
 	  const enemyHeroes = EntitySystem.GetHeroesList().filter(
