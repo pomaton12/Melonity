@@ -73,7 +73,18 @@ eval(`
 	function SendOrderMovePos(vector) {
 	  myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, vector, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 	}
-
+	
+	function getClosestCreep(creeps, target) {
+		let closestCreep = null;
+		for (const creep of creeps) {
+			if (creep.IsCreep() && !creep.IsDormant() && creep.IsAlive()) {
+				closestCreep = creep;
+			}
+		}
+		return closestCreep;
+	}
+	
+	//=======================================
 	IllusionsAgresive.OnUpdate = () => {
 	  if (!localHero || !enableToggle.GetValue()) {
 	    return;
@@ -104,7 +115,11 @@ eval(`
 
 		  if (!closestEnemyHero) {
 		    const laneCreeps = illusion.GetUnitsInRadius(2000, Enum.TeamType.TEAM_ENEMY);
-		    const closestLaneCreep = getClosestEntity(laneCreeps, localHero.GetAbsOrigin());
+		    if (!laneCreeps || laneCreeps.length <= 0) {
+			return;
+		    }
+			
+		    const closestLaneCreep = getClosestCreep(laneCreeps, localHero.GetAbsOrigin());
 
 		    if (closestLaneCreep) {
 		      if (illusion) {
