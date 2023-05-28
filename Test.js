@@ -94,7 +94,7 @@ eval(`
 
 	  if (attackHeroToggle.GetValue()) {
 		const closestEnemyHero = getClosestEnemyHero(attackRadius);
-
+		console.log("Hola mundo",illusion);
 		if (closestEnemyHero) {
 		
 			  if (illusion && illusion.IsExist()){
