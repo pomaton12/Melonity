@@ -7,7 +7,7 @@
   \**********************************/
 /***/ (() => {
 
-eval(`
+//eval(`
 
 	const IllusionsAgresive = {};
 
@@ -121,7 +121,7 @@ eval(`
 				if (illusion != null) {
 					const laneCreeps = illusion.GetUnitsInRadius(2000, Enum.TeamType.TEAM_ENEMY);
 				
-					if (!laneCreeps || laneCreeps.length <= 0) {
+					if (laneCreeps || laneCreeps.length  >= 0) {
 
 						const closestLaneCreep = getClosestCreep(laneCreeps, localHeroAbsOrigin());
 
