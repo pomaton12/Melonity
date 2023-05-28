@@ -36,6 +36,8 @@ eval(`
 	  }
 	}
 
+	const myPlayerID = Game.GetLocalPlayerID();
+	
 	function getClosestIllusion(targetPos) {
 	  const illusions = EntitySystem.GetPlayerSelection(myPlayerID).filter(ent => ent.IsIllusion() && ent.IsAlive());
 
