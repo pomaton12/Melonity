@@ -7,7 +7,7 @@
   \**********************************/
 /***/ (() => {
 
-eval(`
+//eval(`
 
 	const IllusionsAgresive = {};
 
@@ -110,38 +110,36 @@ eval(`
 			if (Engine.OnceAt(0.2)) {
 			    myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, closestEnemyHero, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, illusion, false, true);
 			}
-		    } else {
-			//SendOrderMovePos(Input.GetWorldCursorPos());
 		    }
 		}
 	    }
 
 	    if (pushLineCreepsToggle.GetValue()) {
-		const closestEnemyHero = getClosestEnemyHero(attackRadius);
+			const closestEnemyHero = getClosestEnemyHero(attackRadius);
 
-		if (!closestEnemyHero) {
-		    if (illusion != null) {
-		         const laneCreeps = illusion.GetUnitsInRadius(2000, Enum.TeamType.TEAM_ENEMY);
-	            } else {
-		    	return;
-		    }
-		    
-		    if (!laneCreeps || laneCreeps.length <= 0) {
-			return;
-		    }
+			if (!closestEnemyHero) {
+				if (illusion != null) {
+					const laneCreeps = illusion.GetUnitsInRadius(2000, Enum.TeamType.TEAM_ENEMY);
+				
+					if (!laneCreeps || laneCreeps.length <= 0) {
 
-		    const closestLaneCreep = getClosestCreep(laneCreeps, localHeroAbsOrigin());
+						const closestLaneCreep = getClosestCreep(laneCreeps, localHeroAbsOrigin());
 
-		    if (closestLaneCreep) {
-			if (illusion) {
-			    if (Engine.OnceAt(0.2)) {
-				myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_MOVE, null, closestLaneCreep.GetAbsOrigin(), null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, illusion, false, true);
-			    }
-			} else {
-			    //SendOrderMovePos(closestLaneCreep.GetAbsOrigin());
+						if (closestLaneCreep) {
+							if (illusion) {
+								if (Engine.OnceAt(0.2)) {
+								myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_MOVE, null, closestLaneCreep.GetAbsOrigin(), null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, illusion, false, true);
+								}
+							}
+						}
+					} else {
+						return;
+					}
+					
+				} else {
+					return;
+				}												
 			}
-		    }
-		}
 	    }
 	};
 
