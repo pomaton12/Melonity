@@ -21,23 +21,30 @@ eval(`
 	let attackHeroToggle = Menu.AddToggle(path_, 'Attack Hero', true);
 	let pushLineCreepsToggle = Menu.AddToggle(path_, 'Push Line Creeps', true);
 
-	function getIllusions() {
-	    if (illusionList.length < 5) {
-		illusionList = [];
-		let heroes = EntitySystem.GetHeroesList();
-		if (!heroes || heroes.length <= 0) {
-			return;
-	        }
-		if (heroes) {
-		    for (let hero of heroes) {
-			if (hero && hero.IsIllusion() && !hero.IsMeepoClone() && hero.IsAlive() &&
-			    !hero.IsDormant() && hero.IsSameTeam(localHero)) {
-			    illusionList.push(hero);
+function getIllusions() {
+    if (illusionList.length < 5) {
+        illusionList = [];
+        let heroes = EntitySystem.GetHeroesList();
+        if (heroes || heroes.length > 0) {
+                 
+			if (heroes) {
+				for (let hero of heroes) {
+					if (hero && hero.IsIllusion() && !hero.IsMeepoClone() && hero.IsAlive() &&
+						!hero.IsDormant() && hero.IsSameTeam(localHero)) {
+						illusionList.push(hero);
+					}
+				}
 			}
-		    }
+		} else {
+			return;  
 		}
-	    }
-	}
+		
+    } else {
+        // Elimina las ilusiones no válidas de la lista
+        illusionList = illusionList.filter(illusion => illusion && !illusion.IsDormant() && illusion.IsAlive());
+    }
+}
+
 
 	function getClosestIllusion(vector, radius = 2000) {
 		let closestIllusion = null;
