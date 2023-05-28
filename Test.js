@@ -40,21 +40,25 @@ eval(`
 	}
 
 	function getClosestIllusion(vector, radius = 2000) {
-	    let closestIllusion = null;
-	    let closestDistance = Number.MAX_VALUE;
+		let closestIllusion = null;
+		let closestDistance = Number.MAX_VALUE;
 
 		if (illusionList || illusionList.length  > 0) {
 			for (const illusion of illusionList) {
-				const distance = vector.Distance(illusion.GetAbsOrigin());
-				if (distance <= radius && distance < closestDistance) {
-					closestIllusion = illusion;
-					closestDistance = distance;
+				// Verifica si la ilusión aún existe y si es válida
+				if (illusion && illusion.IsValid()) {
+					const distance = vector.Distance(illusion.GetAbsOrigin());
+					if (distance <= radius && distance < closestDistance) {
+						closestIllusion = illusion;
+						closestDistance = distance;
+					}
 				}
 			}
 		}
 
-	    return closestIllusion;
+		return closestIllusion;
 	}
+
 
 	function getClosestEnemyHero(radius) {
 	    const enemyHeroes = EntitySystem.GetHeroesList().filter(
