@@ -13,6 +13,7 @@ eval(`
 
 	// Declaración de la variable localHero
 	let localHero;
+	let myPlayer;
 	let enemyList = [];
 	
 	// Definición del array path_
@@ -22,6 +23,22 @@ eval(`
 	let enableToggle = Menu.AddToggle(path_, 'Enable', true);
 	let attackHeroToggle = Menu.AddToggle(path_, 'Attack Hero', true);
 	let pushLineCreepsToggle = Menu.AddToggle(path_, 'Push Line Creeps', true);
+	
+	    function GetNearHeroInRadius(vector, radius = menu_SearchRadius) {
+		let en = enemyList;
+		if (en.length == 0)
+		    return undefined;
+		let accessHero = Array(enemyList.length);
+		en.forEach((object) => {
+		    if (object.GetAbsOrigin().Distance(vector) <= radius) {
+			accessHero.push([object, object.GetAbsOrigin().Distance(vector)]);
+		    }
+		});
+		accessHero.sort((a, b) => {
+		    return (a[1] - b[1]);
+		});
+		return accessHero[0] ? accessHero[0][0] : undefined;
+	    }
 
 	// Función para obtener las ilusiones controladas por el jugador
 	function getIllusions() {
@@ -59,6 +76,10 @@ eval(`
 	  return closestHero;
 	}
 
+	    function SendOrderMovePos(vector) {
+		myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, vector, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+	    }
+
 	// Definición de la función OnUpdate
 	//===============================
 	IllusionsAgresive.OnUpdate = () => {
@@ -66,17 +87,27 @@ eval(`
 		return;
 	  }
 
-	  const illusions = getIllusions();
+	  let target = GetNearHeroInRadius(Input.GetWorldCursorPos());
+	  
+
 	  const attackRadius = 1000; // Radio en el que las ilusiones buscarán enemigos
 
 	  if (attackHeroToggle.GetValue()) {
 		const closestEnemyHero = getClosestEnemyHero(attackRadius);
 
 		if (closestEnemyHero) {
-		  for (const illusion of illusions) {
-			illusion.AttackTarget(closestEnemyHero, Enum.OrderQueueBehavior.Clear);
-		  }
-		  return;
+		
+			  if (target && target.IsExist())
+			  	let illusion = target;
+				illusion.AttackTarget(closestEnemyHero, Enum.OrderQueueBehavior.Clear);
+			  else {
+				comboTarget = null;
+				if (Engine.OnceAt(0.2)){
+				    SendOrderMovePos(Input.GetWorldCursorPos());
+				}
+			   }
+		
+			
 		}
 	  }
 
@@ -88,11 +119,13 @@ eval(`
 	// Definición de la función OnScriptLoad
 	IllusionsAgresive.OnScriptLoad = IllusionsAgresive.OnGameStart = () => {
 	  localHero = EntitySystem.GetLocalHero();
+	  myPlayer = EntitySystem.GetLocalPlayer();
 	};
 
 	// Definición de la función OnGameEnd
 	IllusionsAgresive.OnGameEnd = () => {
 	  localHero = null;
+	  myPlayer = null;
 	};
 
 	// Registro del script
