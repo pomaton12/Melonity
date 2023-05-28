@@ -103,7 +103,7 @@ eval(`
 		  const closestEnemyHero = getClosestEnemyHero(attackRadius);
 
 		  if (!closestEnemyHero) {
-		    const laneCreeps = EntitySystem.GetLaneCreepsList();
+		    const laneCreeps = myHero.GetUnitsInRadius(maxDistance, Enum.TeamType.TEAM_ENEMY);
 		    const closestLaneCreep = getClosestEntity(laneCreeps, localHero.GetAbsOrigin());
 
 		    if (closestLaneCreep) {
