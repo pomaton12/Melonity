@@ -24,7 +24,7 @@ eval(`
 	let attackHeroToggle = Menu.AddToggle(path_, 'Attack Hero', true);
 	let pushLineCreepsToggle = Menu.AddToggle(path_, 'Push Line Creeps', true);
 	
-	    function GetNearHeroInRadius(vector, radius = menu_SearchRadius) {
+	    function GetNearHeroInRadius(vector, radius = 1500) {
 		let en = enemyList;
 		if (en.length == 0)
 		    return undefined;
