@@ -8,126 +8,110 @@
 /***/ (() => {
 
 eval(`
-	// Definición del objeto IllusionsAgresive
+
 	const IllusionsAgresive = {};
 
-	// Declaración de la variable localHero
 	let localHero;
 	let myPlayer;
-	let enemyList = [];
-	
-	// Definición del array path_
+	let illusionList = [];
+
 	const path_ = ['Player', 'Agresive Illusions'];
 
-	// Creación del toggle isUiEnabled
 	let enableToggle = Menu.AddToggle(path_, 'Enable', true);
 	let attackHeroToggle = Menu.AddToggle(path_, 'Attack Hero', true);
 	let pushLineCreepsToggle = Menu.AddToggle(path_, 'Push Line Creeps', true);
-	
-	    function GetNearHeroInRadius(vector, radius = 1500) {
-		let en = enemyList;
-		if (en.length == 0)
-		    return undefined;
-		let accessHero = Array(enemyList.length);
-		en.forEach((object) => {
-		    if (object.GetAbsOrigin().Distance(vector) <= radius) {
-			accessHero.push([object, object.GetAbsOrigin().Distance(vector)]);
-		    }
-		});
-		accessHero.sort((a, b) => {
-		    return (a[1] - b[1]);
-		});
-		return accessHero[0] ? accessHero[0][0] : undefined;
-	    }
 
-	// Función para obtener las ilusiones controladas por el jugador
 	function getIllusions() {
-		if (enemyList.length < 5) {
-            enemyList = [];
-			let heroes = EntitySystem.GetHeroesList();
-			if (heroes) {
-				for (let hero of heroes) {
-					if (hero && hero.IsIllusion() && !hero.IsMeepoClone() && !hero.IsHero() && hero.IsAlive() &&
-						!hero.IsDormant() && hero.IsSameTeam(localHero)) {
-						enemyList.push(hero);
-					}
-				}
-			}
+	  if (illusionList.length < 5) {
+	    illusionList = [];
+	    let heroes = EntitySystem.GetHeroesList();
+	    if (heroes) {
+	      for (let hero of heroes) {
+		if (hero && hero.IsIllusion() && !hero.IsMeepoClone() && !hero.IsHero() && hero.IsAlive() &&
+		  !hero.IsDormant() && hero.IsSameTeam(localHero)) {
+		  illusionList.push(hero);
 		}
+	      }
+	    }
+	  }
 	}
 
-	// Función para obtener el héroe enemigo más cercano en un radio
+	function getClosestIllusion(vector, radius = 1500) {
+	  let closestIllusion = null;
+	  let closestDistance = Number.MAX_VALUE;
+
+	  for (const illusion of illusionList) {
+	    const distance = vector.Distance(illusion.GetAbsOrigin());
+	    if (distance <= radius && distance < closestDistance) {
+	      closestIllusion = illusion;
+	      closestDistance = distance;
+	    }
+	  }
+
+	  return closestIllusion;
+	}
+
 	function getClosestEnemyHero(radius) {
 	  const enemyHeroes = EntitySystem.GetHeroesList().filter(
-		(hero) => !hero.IsIllusion() && !hero.IsMeepoClone() && !hero.IsSameTeam(localHero) && hero.IsAlive() && !hero.IsIllusion()
+	    (hero) => !hero.IsIllusion() && !hero.IsMeepoClone() && !hero.IsSameTeam(localHero) && hero.IsAlive() && !hero.IsIllusion()
 	  );
 
 	  let closestHero = null;
 	  let closestDistance = Number.MAX_VALUE;
 
 	  for (const hero of enemyHeroes) {
-		const distance = localHero.GetAbsOrigin().sub(hero.GetAbsOrigin()).Length2D();
-		if (distance < radius && distance < closestDistance) {
-		  closestHero = hero;
-		  closestDistance = distance;
-		}
+	    const distance = localHero.GetAbsOrigin().sub(hero.GetAbsOrigin()).Length2D();
+	    if (distance < radius && distance < closestDistance) {
+	      closestHero = hero;
+	      closestDistance = distance;
+	    }
 	  }
 
 	  return closestHero;
 	}
 
-	    function SendOrderMovePos(vector) {
-		myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, vector, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
-	    }
+	function SendOrderMovePos(vector) {
+	  myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, vector, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+	}
 
-	// Definición de la función OnUpdate
-	//===============================
 	IllusionsAgresive.OnUpdate = () => {
 	  if (!localHero || !enableToggle.GetValue()) {
-		return;
+	    return;
 	  }
 
-	  let illusion = GetNearHeroInRadius(Input.GetWorldCursorPos());
-	  
+	  getIllusions();
 
-	  const attackRadius = 1000; // Radio en el que las ilusiones buscarán enemigos
+	  const illusion = getClosestIllusion(Input.GetWorldCursorPos());
+
+	  const attackRadius = 1000;
 
 	  if (attackHeroToggle.GetValue()) {
-		const closestEnemyHero = getClosestEnemyHero(attackRadius);
-		console.log("Hola mundo",illusion);
-		if (closestEnemyHero) {
-		
-			  if (illusion && illusion.IsExist()){
-				illusion.AttackTarget(closestEnemyHero, Enum.OrderQueueBehavior.Clear);
-			  }
-			  else {
-				if (Engine.OnceAt(0.2)){
-				    SendOrderMovePos(Input.GetWorldCursorPos());
-				}
-			   }
-		
-			
-		}
+	    const closestEnemyHero = getClosestEnemyHero(attackRadius);
+
+	    if (closestEnemyHero) {
+	      if (illusion) {
+		illusion.AttackTarget(closestEnemyHero, Enum.OrderQueueBehavior.Clear);
+	      } else {
+		SendOrderMovePos(Input.GetWorldCursorPos());
+	      }
+	    }
 	  }
 
 	  if (pushLineCreepsToggle.GetValue()) {
-		// Lógica para que las ilusiones ataquen a los creeps y empujen las líneas
+	    // Lógica para que las ilusiones ataquen a los creeps y empujen las líneas
 	  }
 	};
 
-	// Definición de la función OnScriptLoad
 	IllusionsAgresive.OnScriptLoad = IllusionsAgresive.OnGameStart = () => {
 	  localHero = EntitySystem.GetLocalHero();
 	  myPlayer = EntitySystem.GetLocalPlayer();
 	};
 
-	// Definición de la función OnGameEnd
 	IllusionsAgresive.OnGameEnd = () => {
 	  localHero = null;
 	  myPlayer = null;
 	};
 
-	// Registro del script
 	RegisterScript(IllusionsAgresive);
 
 
