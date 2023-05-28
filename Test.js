@@ -1,4 +1,4 @@
-/******/ (() => { // webpackBootstrap  
+/******/ (() => { // webpackBootstrap 
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/IllusionsAgresive.ts":
@@ -125,7 +125,7 @@ eval(`
 				
 					if (laneCreeps || laneCreeps.length  > 0) {
 
-						const closestLaneCreep = getClosestCreep(laneCreeps, localHeroAbsOrigin());
+						const closestLaneCreep = getClosestCreep(laneCreeps, localHero.AbsOrigin());
 
 						if (closestLaneCreep) {
 							if (illusion) {
