@@ -31,7 +31,7 @@ eval(`
 		})
 		.GetValue();
 	
-	let DisplayModeHitCreep = Menu.AddComboBox(path_, 'Hit Creeps', ['Enemy creeps', 'Ally creeps', 'Both'],0)
+	let DisplayModeHitCreep = Menu.AddComboBox(path_, 'Hit Creeps', ['Enemy creeps', 'Ally creeps', 'Both'],2)
 		.OnChange(state =>{   	
 		DisplayModeHitCreep = state.newValue;
 		})
@@ -115,6 +115,7 @@ eval(`
 		
 		const attackRange = localHero.GetAttackRange();
 		let attackRadius;
+		let laneCreeps;
 		
 		if (attackRange <= 500 ){
 			attackRadius = 500;
@@ -122,7 +123,17 @@ eval(`
 			attackRadius = attackRange;
 		}
 		
-		const laneCreeps = localHero.GetUnitsInRadius(attackRadius, Enum.TeamType.TEAM_ENEMY);
+		if(DisplayModeHitCreep == 0){
+			laneCreeps = localHero.GetUnitsInRadius(attackRadius, Enum.TeamType.TEAM_ENEMY);	
+		}
+
+		if(DisplayModeHitCreep == 1){
+			laneCreeps = localHero.GetUnitsInRadius(attackRadius, Enum.TeamType.TEAM_FRIEND);	
+		}
+		
+		if(DisplayModeHitCreep == 2){
+			laneCreeps = localHero.GetUnitsInRadius(attackRadius, Enum.TeamType.TEAM_BOTH);	
+		}
 		
 		let closestCreep = null;
 		let closestCreepHealth = Number.MAX_VALUE;
@@ -150,13 +161,15 @@ eval(`
 		const textPos = heroPosition.add(textOffset);
 		const text = "[Auto LastHit]";
 		const font = Renderer.LoadFont('Arial', 12, Enum.FontWeight.BOLD);
+		const healthBarPosition = localHero.GetHealthBarPosition();
 		
-		let [x, y, onScreen] = Renderer.WorldToScreen(heroPosition);
+		let [x, y, onScreen] = Renderer.WorldToScreen(healthBarPosition);
 
 		if (onScreen) {
 			// Dibuja algo en la posición del héroe en la pantalla
 			Renderer.SetDrawColor(255, 255, 255, 255);
-			Renderer.DrawWorldText(font, textPos.sub(new Vector(Renderer.GetTextSize(font, text)[0] / 2, 0, 0)), text, 0, 0);
+			//Renderer.DrawWorldText(font, textPos.sub(new Vector(Renderer.GetTextSize(font, text)[0] / 2, 0, 0)), text, 0, 0);
+			Renderer.DrawText(font, x, y-10, text)
 		}
 		
 		if(createDrawRadius == 0){
