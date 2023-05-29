@@ -80,8 +80,8 @@ eval(`
 		const heroPosition = localHero.GetAbsOrigin();
 		const targetPosition = target.GetAbsOrigin();
 		const distance = heroPosition.sub(targetPosition).Length2D();
-		const attackSpeed = localHero.GetAttacksPerSecond();
-		console.log("Velocidad de ataque",GetAttacksPerSecond);
+		const attackSpeed = 1/localHero.GetIncreasedAttackSpeed();
+		console.log("Velocidad de ataque",attackSpeed);
 		const attackAnimationPoint = localHero.GetAttackAnimationPoint();
 		const attackTime = attackAnimationPoint / attackSpeed;
 
