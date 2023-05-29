@@ -81,7 +81,6 @@ eval(`
 		const targetPosition = target.GetAbsOrigin();
 		const distance = heroPosition.sub(targetPosition).Length2D();
 		const attackSpeed = 1/localHero.GetAttacksPerSecond();
-		console.log("Velocidad de ataque",attackSpeed);
 		const attackAnimationPoint = localHero.GetAttackAnimationPoint();
 		const attackTime = attackAnimationPoint / attackSpeed;
 
@@ -100,7 +99,6 @@ eval(`
 		const targetPosition = target.GetAbsOrigin();
 		const direction = targetPosition.sub(heroPosition).Normalized();
 		const moveDistance = localHero.GetMoveSpeed();
-		console.log("DIST",moveDistance);
 		const newPosition = heroPosition.add(direction.mul(new Vector(moveDistance, moveDistance, 0)));
 
 		SendOrderMovePos(newPosition);
@@ -124,7 +122,7 @@ eval(`
 			const actualDamage = localHero.GetTrueDamage() + Math.floor((localHero.GetTrueMaximumDamage() - localHero.GetTrueDamage()) / 4);
 			const futureCreepHealth = HPcreepActual - attackTravelTime*actualDamage;
 			
-			console.log("Attack solo = ", localHero.GetTrueDamage()," attack conbinado = ",actualDamage);
+			console.log("AT = ", localHero.GetTrueDamage()," AU = ",actualDamage," HP = ",HPcreepActual);
 			if (futureCreepHealth <= actualDamage && futureCreepHealth < closestCreepHealth) {
 				closestCreep = creep;
 				closestCreepHealth = futureCreepHealth;
@@ -139,6 +137,16 @@ eval(`
 		return closestCreep;
 	}
 
+	function DrawRadiusActionParticle() {
+			const particleName = "particles/ui_mouseactions/range_display.vpcf";
+			const particleAttach = ParticleAttachment_t.PATTACH_ABSORIGIN_FOLLOW;
+			const particleEntity = localHero;
+
+			const particle = Particle.Create(particleName, particleAttach, particleEntity);
+			particle.SetControlPoint(1, [radius, 500, 0]);
+
+			return particle;
+	}
 
 	BestAutoLastHits.OnUpdate = () => {
 		if (!localHero || !enableToggle.GetValue()) {
@@ -162,6 +170,8 @@ eval(`
 				const closestCreep = getClosestLowHealthCreep(localHero);
 				
 				if (closestCreep) {
+					
+					DrawRadiusActionParticle();
 					if (Engine.OnceAt(0.2)) {
 						myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, closestCreep, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);
 					}
