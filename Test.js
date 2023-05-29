@@ -100,7 +100,7 @@ eval(`
 				if (laneCreeps && laneCreeps.length > 0) {
 					const closestCreep = getClosestCreep(laneCreeps, localHero.GetAbsOrigin());
 
-					if (closestCreep && closestCreep.GetHealth() <= localHero.GetAttackDamage()) {
+					if (closestCreep && closestCreep.GetHealth() <= localHero.GetTrueDamage()) {
 						if (Engine.OnceAt(0.2)) {
 							myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, closestCreep, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);
 						}
