@@ -76,26 +76,76 @@ eval(`
 	    return closestCreep;
 	}
 	
-	function getClosestLowHealthCreep(localHero) {
-	    const attackRadius = 500;
-	    const laneCreeps = localHero.GetUnitsInRadius(attackRadius, Enum.TeamType.TEAM_ENEMY);
+	function calculateAttackTravelTime(localHero, target) {
+		const heroPosition = localHero.GetAbsOrigin();
+		const targetPosition = target.GetAbsOrigin();
+		const distance = heroPosition.sub(targetPosition).Length2D();
+		const attackSpeed = localHero.GetAttackSpeed();
+		const attackAnimationPoint = localHero.GetAttackAnimationPoint();
+		const attackTime = attackAnimationPoint / attackSpeed;
 
-	    let closestCreep = null;
-	    let closestCreepHealth = Number.MAX_VALUE;
-
-	    for (let i = 0; i < laneCreeps.length; i++) {
-		const creep = laneCreeps[i];
-		const creepHealth = creep.GetHealth();
-		const actualDamage = localHero.GetTrueDamage();
-
-		if (creepHealth <= actualDamage && creepHealth < closestCreepHealth) {
-		    closestCreep = creep;
-		    closestCreepHealth = creepHealth;
+		let projectileSpeed = localHero.GetProjectileSpeed();
+		if (projectileSpeed === 0) { // Héroe cuerpo a cuerpo
+			projectileSpeed = Number.MAX_VALUE;
 		}
-	    }
 
-	    return closestCreep;
+		const projectileTravelTime = distance / projectileSpeed;
+		return attackTime + projectileTravelTime;
 	}
+
+	
+	function moveToTarget(localHero, target) {
+		const heroPosition = localHero.GetAbsOrigin();
+		const targetPosition = target.GetAbsOrigin();
+		const direction = targetPosition.sub(heroPosition).Normalized();
+		const moveDistance = localHero.GetMoveSpeed();
+		const newPosition = heroPosition.add(direction.scale(moveDistance));
+
+		localHero.MoveToPosition(newPosition);
+	}
+
+	
+	function getClosestLowHealthCreep(localHero) {
+		const attackRadius = 500;
+		const laneCreeps = localHero.GetUnitsInRadius(attackRadius, Enum.TeamType.TEAM_ENEMY);
+		const attackRange = localHero.GetAttackRange();
+
+		let closestCreep = null;
+		let closestCreepHealth = Number.MAX_VALUE;
+		let closestCreepDistance = Number.MAX_VALUE;
+
+		for (let i = 0; i < laneCreeps.length; i++) {
+			const creep = laneCreeps[i];
+			const heroPosition = localHero.GetAbsOrigin();
+			const targetPosition = creep.GetAbsOrigin();
+			const distance = heroPosition.sub(targetPosition).Length2D();
+
+			if (distance > attackRange) {
+				if (distance < closestCreepDistance) {
+					closestCreep = creep;
+					closestCreepDistance = distance;
+				}
+				continue; // Ignora a los súbditos que están fuera del rango de ataque
+			}
+
+			const attackTravelTime = calculateAttackTravelTime(localHero, creep);
+			const futureCreepHealth = creep.GetHealth() - (creep.GetDamageTaken(attackTravelTime, Enum.DamageTypes.DAMAGE_TYPE_PHYSICAL) || 0);
+			const actualDamage = localHero.GetTrueDamage();
+
+			if (futureCreepHealth <= actualDamage && futureCreepHealth < closestCreepHealth) {
+				closestCreep = creep;
+				closestCreepHealth = futureCreepHealth;
+			}
+		}
+
+		if (closestCreep !== null && closestCreepHealth === Number.MAX_VALUE) {
+			// Si el objetivo más cercano está fuera del rango de ataque, muévete hacia él
+			moveToTarget(localHero, closestCreep);
+		}
+
+		return closestCreep;
+	}
+
 
 	BestAutoLastHits.OnUpdate = () => {
 		if (!localHero || !enableToggle.GetValue()) {
