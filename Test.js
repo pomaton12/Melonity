@@ -168,7 +168,10 @@ eval(`
 		if (Input.IsKeyDown(KeyBindLastHit.GetValue())) {
 			const attackRadius = 500;
 			
-			DrawRadiusActionParticle(localHero);
+			if (!Particle_ID) {
+				// Si la partícula no existe, crear una nueva
+				DrawRadiusActionParticle(localHero);
+			}
 
 			if (DisplayModeHitEnemy === 0) {
 				const closestEnemyHero = getClosestEnemyHero(attackRadius);
