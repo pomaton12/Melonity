@@ -13,6 +13,7 @@ eval(`
 
 	let localHero;
 	let myPlayer;
+	let Particle_ID = null;
 
 	const path_ = ['Creeps', 'Best AutoLastHit'];
 
@@ -150,11 +151,13 @@ eval(`
 			// Dibuja algo en la posición del héroe en la pantalla
 			Renderer.SetDrawColor(255, 255, 255, 255);
 			Renderer.DrawWorldText(font, textPos.sub(new Vector(Renderer.GetTextSize(font, text)[0] / 2, 0, 0)), text, 0, 0);
-
 		}
 		
-		const ID = Particle.Create("particles/ui_mouseactions/range_display.vpcf", Enum.ParticleAttachment.PATTACH_ABSORIGIN_FOLLOW, localHero);
-		ID.SetControl(1, Vector(500,0,0));
+		if (!Particle_ID) {
+			const Particle_ID = Particle.Create("particles/ui_mouseactions/range_display.vpcf", Enum.ParticleAttachment.PATTACH_ABSORIGIN_FOLLOW, localHero);
+			Particle_ID.SetControl(1, Vector(500,0,0));
+			Particle_ID.SetControl(6, new Vector(1, 0, 0));
+		}
 	}
 
 	BestAutoLastHits.OnUpdate = () => {
@@ -164,6 +167,7 @@ eval(`
 		
 		if (Input.IsKeyDown(KeyBindLastHit.GetValue())) {
 			const attackRadius = 500;
+			
 			DrawRadiusActionParticle(localHero);
 
 			if (DisplayModeHitEnemy === 0) {
@@ -189,6 +193,11 @@ eval(`
 						SendOrderMovePos(Input.GetWorldCursorPos());
 					}						
 				}
+			}
+		} else {
+			if (Particle_ID) {
+				Particle_ID.Destroy();
+				Particle_ID = null;
 			}
 		}
 	};
