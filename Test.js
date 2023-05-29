@@ -166,12 +166,6 @@ eval(`
 				Particle_ID.SetControl(6, new Vector(1, 0, 0));
 				createDrawRadius = createDrawRadius+1;
 			}
-		} else{
-			if (Particle_ID) {
-				Particle_ID.Destroy();
-				Particle_ID = null;
-				createDrawRadius = 0;
-			}
 		}
 		
 	}
@@ -214,7 +208,12 @@ eval(`
 				}
 			}
 		} else {
-
+			
+			if (createDrawRadius > 0) {
+				Particle_ID.Destroy();
+				Particle_ID = null;
+				createDrawRadius = 0;
+			}
 		}
 	};
 
