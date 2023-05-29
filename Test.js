@@ -7,7 +7,7 @@
   \**********************************/
 /***/ (() => {
 
-eval(`
+//eval(`
 
 	const BestAutoLastHits = {};
 
@@ -121,7 +121,7 @@ eval(`
 			const creep = laneCreeps[i];
 			const HPcreepActual = Math.floor(creep.GetHealth() + creep.GetHealthRegen());
 			const attackTravelTime = calculateAttackTravelTime(localHero, creep);
-			const actualDamage = localHero.GetTrueDamage();
+			const actualDamage = localHero.GetTrueDamage() + Math.floor((localHero.GetTrueMaximumDamage() - localHero.GetTrueDamage()) / 4);
 			const futureCreepHealth = HPcreepActual - attackTravelTime*actualDamage;
 			
 
