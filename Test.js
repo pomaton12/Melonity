@@ -123,16 +123,12 @@ eval(`
 			attackRadius = attackRange;
 		}
 		
-		if(DisplayModeHitCreep == 0){
-			laneCreeps = localHero.GetUnitsInRadius(attackRadius, Enum.TeamType.TEAM_ENEMY);	
-		}
-
-		if(DisplayModeHitCreep == 1){
-			laneCreeps = localHero.GetUnitsInRadius(attackRadius, Enum.TeamType.TEAM_FRIEND);	
-		}
-		
-		if(DisplayModeHitCreep == 2){
-			laneCreeps = localHero.GetUnitsInRadius(attackRadius, Enum.TeamType.TEAM_BOTH);	
+		if (DisplayModeHitCreep == 0) {
+			laneCreeps = localHero.GetUnitsInRadius(attackRadius, Enum.TeamType.TEAM_ENEMY);
+		} else if (DisplayModeHitCreep == 1) {
+			laneCreeps = localHero.GetUnitsInRadius(attackRadius, Enum.TeamType.TEAM_FRIEND);
+		} else if (DisplayModeHitCreep == 2) {
+			laneCreeps = localHero.GetUnitsInRadius(attackRadius, Enum.TeamType.TEAM_BOTH);
 		}
 		
 		let closestCreep = null;
@@ -168,8 +164,8 @@ eval(`
 		if (onScreen) {
 			// Dibuja algo en la posición del héroe en la pantalla
 			Renderer.SetDrawColor(255, 255, 255, 255);
-			//Renderer.DrawWorldText(font, textPos.sub(new Vector(Renderer.GetTextSize(font, text)[0] / 2, 0, 0)), text, 0, 0);
-			Renderer.DrawText(font, x, y-10, text)
+			Renderer.DrawWorldText(font, textPos.sub(new Vector(Renderer.GetTextSize(font, text)[0] / 2, 0, 0)), text, 0, 0);
+			//Renderer.DrawText(font, x, y-10, text)
 		}
 		
 		if(createDrawRadius == 0){
