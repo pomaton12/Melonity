@@ -180,7 +180,11 @@ eval(`
 		
 		if (Input.IsKeyDown(KeyBindLastHit.GetValue())) {
 			const attackRadius = 500;
-			createDrawRadius = 1;
+			if (Particle_ID) {
+				Particle_ID.Destroy();
+				Particle_ID = null;
+				createDrawRadius = 0;
+			}
 			
 			DrawRadiusActionParticle(localHero);
 			
