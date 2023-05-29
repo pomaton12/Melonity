@@ -109,26 +109,21 @@ eval(`
 
 	
 	function getClosestLowHealthCreep(localHero) {
-		const attackRadius = 500;
-		const laneCreeps = localHero.GetUnitsInRadius(attackRadius, Enum.TeamType.TEAM_ENEMY);
+		
 		const attackRange = localHero.GetAttackRange();
-
+		let attackRadius;
+		
+		if (attackRange <= 500 ){
+			attackRadius = 500;
+		} else {
+			attackRadius = attackRange;
+		}
+		
+		const laneCreeps = localHero.GetUnitsInRadius(attackRadius, Enum.TeamType.TEAM_ENEMY);
+		
 		let closestCreep = null;
 		let closestCreepHealth = Number.MAX_VALUE;
 		
-		if(0 < laneCreeps.length && createDrawRadius == 0){
-			if (!Particle_ID) {
-				DrawRadiusActionParticle(localHero);
-				createDrawRadius = createDrawRadius+1;
-			}
-		} else{
-			if (Particle_ID) {
-				Particle_ID.Destroy();
-				Particle_ID = null;
-				createDrawRadius = 0;
-			}
-		}
-
 		for (let i = 0; i < laneCreeps.length; i++) {
 			const creep = laneCreeps[i];
 			const HPcreepActual = Math.floor(creep.GetHealth() + creep.GetHealthRegen());
@@ -161,11 +156,21 @@ eval(`
 			Renderer.DrawWorldText(font, textPos.sub(new Vector(Renderer.GetTextSize(font, text)[0] / 2, 0, 0)), text, 0, 0);
 		}
 		
-		if (!Particle_ID) {
-			const Particle_ID = Particle.Create("particles/ui_mouseactions/range_display.vpcf", Enum.ParticleAttachment.PATTACH_ABSORIGIN_FOLLOW, localHero);
-			Particle_ID.SetControl(1, Vector(500,0,0));
-			Particle_ID.SetControl(6, new Vector(1, 0, 0));
+		if(createDrawRadius == 0){
+			if (!Particle_ID) {
+				const Particle_ID = Particle.Create("particles/ui_mouseactions/range_display.vpcf", Enum.ParticleAttachment.PATTACH_ABSORIGIN_FOLLOW, localHero);
+				Particle_ID.SetControl(1, Vector(500,0,0));
+				Particle_ID.SetControl(6, new Vector(1, 0, 0));
+				createDrawRadius = createDrawRadius+1;
+			}
+		} else{
+			if (Particle_ID) {
+				Particle_ID.Destroy();
+				Particle_ID = null;
+				createDrawRadius = 0;
+			}
 		}
+		
 	}
 
 	BestAutoLastHits.OnUpdate = () => {
@@ -175,6 +180,7 @@ eval(`
 		
 		if (Input.IsKeyDown(KeyBindLastHit.GetValue())) {
 			const attackRadius = 500;
+			DrawRadiusActionParticle(localHero);
 			
 			if (DisplayModeHitEnemy === 0) {
 				const closestEnemyHero = getClosestEnemyHero(attackRadius);
@@ -204,6 +210,7 @@ eval(`
 			if (Particle_ID) {
 				Particle_ID.Destroy();
 				Particle_ID = null;
+				createDrawRadius = 0;
 			}
 		}
 	};
