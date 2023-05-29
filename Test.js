@@ -124,7 +124,7 @@ eval(`
 			const actualDamage = localHero.GetTrueDamage() + Math.floor((localHero.GetTrueMaximumDamage() - localHero.GetTrueDamage()) / 4);
 			const futureCreepHealth = HPcreepActual - attackTravelTime*actualDamage;
 			
-
+			console.log("Attack solo = ", localHero.GetTrueDamage()," attack conbinado = ",actualDamage);
 			if (futureCreepHealth <= actualDamage && futureCreepHealth < closestCreepHealth) {
 				closestCreep = creep;
 				closestCreepHealth = futureCreepHealth;
