@@ -18,7 +18,10 @@ eval(`
 
 	const path_ = ['Creeps', 'Best AutoLastHit'];
 
-	let enableToggle = Menu.AddToggle(path_, 'Enable', true);
+	let enableToggle = Menu.AddToggle(path_, 'Enable', true)
+	    .OnChange(state => {
+        enableToggle = state.newValue;
+    })
 	
 	let KeyBindLastHit = Menu.AddKeyBind(path_, 'AutoLastHits', Enum.ButtonCode.KEY_NONE);
 	
@@ -158,7 +161,7 @@ eval(`
 		
 		if(createDrawRadius == 0){
 			if (!Particle_ID) {
-				const Particle_ID = Particle.Create("particles/ui_mouseactions/range_display.vpcf", Enum.ParticleAttachment.PATTACH_ABSORIGIN_FOLLOW, localHero);
+				Particle_ID = Particle.Create("particles/ui_mouseactions/range_display.vpcf", Enum.ParticleAttachment.PATTACH_ABSORIGIN_FOLLOW, localHero);
 				Particle_ID.SetControl(1, Vector(500,0,0));
 				Particle_ID.SetControl(6, new Vector(1, 0, 0));
 				createDrawRadius = createDrawRadius+1;
@@ -173,6 +176,7 @@ eval(`
 		
 	}
 
+
 	BestAutoLastHits.OnUpdate = () => {
 		if (!localHero || !enableToggle.GetValue()) {
 			return;
@@ -180,11 +184,6 @@ eval(`
 		
 		if (Input.IsKeyDown(KeyBindLastHit.GetValue())) {
 			const attackRadius = 500;
-			if (Particle_ID) {
-				Particle_ID.Destroy();
-				Particle_ID = null;
-				createDrawRadius = 0;
-			}
 			
 			console.log("Evaluar = ",Particle_ID);
 			
