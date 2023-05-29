@@ -138,14 +138,14 @@ eval(`
 	}
 
 	function DrawRadiusActionParticle() {
-		const heroOrigin = localHero.GetAbsOrigin();
-		const circleRadius = 500;
-		const circleSegments = 32;
-		const circleColor = [255, 255, 255, 255];
-		const circleThickness = 5;
-		const RenderCircleDrawRadius = Renderer.DrawOutlineCircle(heroOrigin, circleRadius, circleSegments, circleColor, circleThickness);
-		
-		return RenderCircleDrawRadius;
+		let [x, y, onScreen] = Renderer.WorldToScreen(localHero);
+
+		if (onScreen) {
+			// Dibuja algo en la posición del héroe en la pantalla
+			Renderer.SetDrawColor(255, 255, 255, 255);
+			Renderer.DrawText("Mi héroe", x, y);
+			Renderer.DrawOutlineCircle(x, y, 15, 3, 120);
+		}
 	}
 
 	BestAutoLastHits.OnUpdate = () => {
