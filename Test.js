@@ -141,17 +141,20 @@ eval(`
 		const heroPosition = localHero.GetAbsOrigin();
 		const textOffset = new Vector(0, 0, 370);
 		const textPos = heroPosition.add(textOffset);
-		const text = "[CreepBlocker ON]";
-		const font = Renderer.LoadFont('Arial', 18, Enum.FontWeight.BOLD);
+		const text = "[Auto LastHit]";
+		const font = Renderer.LoadFont('Arial', 12, Enum.FontWeight.BOLD);
 		
 		let [x, y, onScreen] = Renderer.WorldToScreen(heroPosition);
 
 		if (onScreen) {
 			// Dibuja algo en la posición del héroe en la pantalla
 			Renderer.SetDrawColor(255, 255, 255, 255);
-			Renderer.DrawText(font, x, y, text);
-			Renderer.DrawOutlineCircle(x, y, 15, 3, 120);
+			Renderer.DrawWorldText(font, textPos.sub(new Vector(Renderer.GetTextSize(font, text)[0] / 2, 0, 0)), text, 0, 0);
+
 		}
+		
+		const ID = Particle.Create("particles/ui_mouseactions/range_display.vpcf", Enum.ParticleAttachment.PATTACH_ABSORIGIN_FOLLOW, localHero);
+		Particle.SetControlPoint(ID, 1, Vector(tonumber(500),0,0));
 	}
 
 	BestAutoLastHits.OnUpdate = () => {
