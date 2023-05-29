@@ -154,7 +154,7 @@ eval(`
 		}
 		
 		const ID = Particle.Create("particles/ui_mouseactions/range_display.vpcf", Enum.ParticleAttachment.PATTACH_ABSORIGIN_FOLLOW, localHero);
-		ID.SetControl(ID, 1, Vector(500,0,0));
+		ID.SetControl(1, Vector(500,0,0));
 	}
 
 	BestAutoLastHits.OnUpdate = () => {
