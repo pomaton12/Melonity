@@ -139,7 +139,7 @@ eval(`
 
 	function DrawRadiusActionParticle() {
 			const particleName = "particles/ui_mouseactions/range_display.vpcf";
-			const particleAttach = ParticleAttachment_t.PATTACH_ABSORIGIN_FOLLOW;
+			const particleAttach = Enum.ParticleAttachment.PATTACH_ABSORIGIN_FOLLOW;
 			const particleEntity = localHero;
 
 			const particle = Particle.Create(particleName, particleAttach, particleEntity);
