@@ -186,6 +186,8 @@ eval(`
 				createDrawRadius = 0;
 			}
 			
+			console.log("Evaluar = ",Particle_ID);
+			
 			DrawRadiusActionParticle(localHero);
 			
 			if (DisplayModeHitEnemy === 0) {
