@@ -99,7 +99,7 @@ eval(`
 		const targetPosition = target.GetAbsOrigin();
 		const direction = targetPosition.sub(heroPosition).Normalized();
 		const moveDistance = localHero.GetMoveSpeed();
-		const newPosition = heroPosition.add(direction.scale(moveDistance));
+		const newPosition = heroPosition.add(direction.Multiply(moveDistance));
 
 		localHero.MoveToPosition(newPosition);
 	}
