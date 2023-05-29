@@ -132,8 +132,9 @@ eval(`
 
 			const HPcreepActual = Math.floor(creep.GetHealth() + creep.GetHealthRegen());
 			const attackTravelTime = calculateAttackTravelTime(localHero, creep);
-			const futureCreepHealth = HPcreepActual - (creep.GetActualIncomingDamage(attackTravelTime, Enum.DamageTypes.DAMAGE_TYPE_PHYSICAL)|| 0);
 			const actualDamage = localHero.GetTrueDamage();
+			const futureCreepHealth = HPcreepActual - attackTravelTime*actualDamage;
+			
 
 			if (futureCreepHealth <= actualDamage && futureCreepHealth < closestCreepHealth) {
 				closestCreep = creep;
