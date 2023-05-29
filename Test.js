@@ -138,14 +138,14 @@ eval(`
 	}
 
 	function DrawRadiusActionParticle() {
-			const particleName = "particles/ui_mouseactions/range_display.vpcf";
-			const particleAttach = Enum.ParticleAttachment.PATTACH_ABSORIGIN_FOLLOW;
-			const particleEntity = localHero;
-
-			const particle = Particle.Create(particleName, particleAttach, particleEntity);
-			//Particle.SetControlPoint(200, [500, 255, 255, 255]);
-
-			return particle;
+		const heroOrigin = localHero.GetAbsOrigin();
+		const circleRadius = 500;
+		const circleSegments = 32;
+		const circleColor = [255, 255, 255, 255];
+		const circleThickness = 5;
+		const RenderCircleDrawRadius = Renderer.DrawOutlineCircle(heroOrigin, circleRadius, circleSegments, circleColor, circleThickness);
+		
+		return RenderCircleDrawRadius;
 	}
 
 	BestAutoLastHits.OnUpdate = () => {
