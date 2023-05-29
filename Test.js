@@ -139,12 +139,17 @@ eval(`
 
 	function DrawRadiusActionParticle(localHero) {
 		const heroPosition = localHero.GetAbsOrigin();
+		const textOffset = new Vector(0, 0, 370);
+		const textPos = heroPosition.add(textOffset);
+		const text = "[CreepBlocker ON]";
+		const font = Renderer.LoadFont('Arial', 18, Enum.FontWeight.BOLD);
+		
 		let [x, y, onScreen] = Renderer.WorldToScreen(heroPosition);
 
 		if (onScreen) {
 			// Dibuja algo en la posición del héroe en la pantalla
 			Renderer.SetDrawColor(255, 255, 255, 255);
-			Renderer.DrawText("Mi héroe", x, y);
+			Renderer.DrawText(font, x, y, text);
 			Renderer.DrawOutlineCircle(x, y, 15, 3, 120);
 		}
 	}
