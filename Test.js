@@ -137,7 +137,7 @@ eval(`
 		return closestCreep;
 	}
 
-	function DrawRadiusActionParticle() {
+	function DrawRadiusActionParticle(localHero) {
 		const heroPosition = localHero.GetAbsOrigin();
 		let [x, y, onScreen] = Renderer.WorldToScreen(heroPosition);
 
@@ -172,7 +172,7 @@ eval(`
 				
 				if (closestCreep) {
 					
-					DrawRadiusActionParticle();
+					DrawRadiusActionParticle(localHero);
 					if (Engine.OnceAt(0.2)) {
 						myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, closestCreep, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);
 					}
