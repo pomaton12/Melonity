@@ -168,6 +168,11 @@ eval(`
 		if (Input.IsKeyDown(KeyBindLastHit.GetValue())) {
 			const attackRadius = 500;
 			
+			if (Particle_ID) {
+				Particle_ID.Destroy();
+				Particle_ID = null;
+			}
+			
 			if (!Particle_ID) {
 				// Si la partícula no existe, crear una nueva
 				DrawRadiusActionParticle(localHero);
