@@ -161,9 +161,9 @@ eval(`
 		const textPos = heroPosition.add(textOffset);
 		const text = "[Auto LastHit]";
 		const font = Renderer.LoadFont('Arial', 12, Enum.FontWeight.BOLD);
-		const healthBarPosition = localHero.GetHealthBarPosition();
+		//const healthBarPosition = localHero.GetHealthBarPosition();
 		
-		let [x, y, onScreen] = Renderer.WorldToScreen(healthBarPosition);
+		let [x, y, onScreen] = Renderer.WorldToScreen(heroPosition);
 
 		if (onScreen) {
 			// Dibuja algo en la posición del héroe en la pantalla
