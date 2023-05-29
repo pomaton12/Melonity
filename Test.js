@@ -14,6 +14,7 @@ eval(`
 	let localHero;
 	let myPlayer;
 	let Particle_ID = null;
+	let createDrawRadius = 0;
 
 	const path_ = ['Creeps', 'Best AutoLastHit'];
 
@@ -115,14 +116,16 @@ eval(`
 		let closestCreep = null;
 		let closestCreepHealth = Number.MAX_VALUE;
 		
-		if(0 < laneCreeps.length){
+		if(0 < laneCreeps.length && createDrawRadius == 0){
 			if (!Particle_ID) {
 				DrawRadiusActionParticle(localHero);
+				createDrawRadius = createDrawRadius+1;
 			}
 		} else{
 			if (Particle_ID) {
 				Particle_ID.Destroy();
 				Particle_ID = null;
+				createDrawRadius = 0;
 			}
 		}
 
