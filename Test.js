@@ -114,7 +114,13 @@ eval(`
 
 		let closestCreep = null;
 		let closestCreepHealth = Number.MAX_VALUE;
-		let closestCreepDistance = Number.MAX_VALUE;
+		
+		if(0 < laneCreeps.length){
+			DrawRadiusActionParticle(localHero);
+		} else{
+			Particle_ID.Destroy();
+			Particle_ID = null;
+		}
 
 		for (let i = 0; i < laneCreeps.length; i++) {
 			const creep = laneCreeps[i];
@@ -128,11 +134,6 @@ eval(`
 				closestCreep = creep;
 				closestCreepHealth = futureCreepHealth;
 			}
-		}
-
-		if (closestCreep !== null && closestCreepHealth === Number.MAX_VALUE) {
-			// Si el objetivo más cercano está fuera del rango de ataque, muévete hacia él
-			//moveToTarget(localHero, closestCreep);
 		}
 
 		return closestCreep;
@@ -168,16 +169,6 @@ eval(`
 		if (Input.IsKeyDown(KeyBindLastHit.GetValue())) {
 			const attackRadius = 500;
 			
-
-			Particle_ID.Destroy();
-			Particle_ID = null;
-
-			
-			if (!Particle_ID) {
-				// Si la partícula no existe, crear una nueva
-				DrawRadiusActionParticle(localHero);
-			}
-
 			if (DisplayModeHitEnemy === 0) {
 				const closestEnemyHero = getClosestEnemyHero(attackRadius);
 
