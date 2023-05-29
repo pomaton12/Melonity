@@ -101,7 +101,7 @@ eval(`
 		const direction = targetPosition.sub(heroPosition).Normalized();
 		const moveDistance = localHero.GetMoveSpeed();
 		console.log("DIST",moveDistance);
-		const newPosition = heroPosition.add(direction.mul(moveDistance));
+		const newPosition = heroPosition.add(direction.mul(new Vector(moveDistance, moveDistance, 0)));
 
 		localHero.MoveToPosition(newPosition);
 	}
