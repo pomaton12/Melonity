@@ -202,20 +202,20 @@ eval(`
 				}
 			}
 
-			if (DisplayModeHitCreep === 0) {
-				const closestCreep = getClosestLowHealthCreep(localHero);
+
+			const closestCreep = getClosestLowHealthCreep(localHero);
+			
+			if (closestCreep) {
 				
-				if (closestCreep) {
-					
-					if (Engine.OnceAt(0.2)) {
-						myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, closestCreep, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);
-					}
-				} else {
-					if (Engine.OnceAt(0.2)) {
-						SendOrderMovePos(Input.GetWorldCursorPos());
-					}						
+				if (Engine.OnceAt(0.2)) {
+					myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, closestCreep, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);
 				}
+			} else {
+				if (Engine.OnceAt(0.2)) {
+					SendOrderMovePos(Input.GetWorldCursorPos());
+				}						
 			}
+
 		} else {
 			
 			if (createDrawRadius > 0) {
