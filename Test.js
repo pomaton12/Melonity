@@ -214,11 +214,7 @@ eval(`
 				}
 			}
 		} else {
-			if (Particle_ID) {
-				Particle_ID.Destroy();
-				Particle_ID = null;
-				createDrawRadius = 0;
-			}
+
 		}
 	};
 
