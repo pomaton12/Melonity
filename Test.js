@@ -77,45 +77,39 @@ eval(`
 	}
 
 	BestAutoLastHits.OnUpdate = () => {
-	    if (!localHero || !enableToggle.GetValue()) {
-		return;
-	    }
+		if (!localHero || !enableToggle.GetValue()) {
+			return;
+		}
+		
+		if (Input.IsKeyDown(KeyBindLastHit.GetValue())) {
+			const attackRadius = 500;
 
-	    const attackRadius = 500;
+			if (DisplayModeHitEnemy === 0) {
+				const closestEnemyHero = getClosestEnemyHero(attackRadius);
 
-	    if (DisplayModeHitEnemy === 0) {
-			const closestEnemyHero = getClosestEnemyHero(attackRadius);
-
-			if (closestEnemyHero) {
-				if (Engine.OnceAt(0.2)) {
-					myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, closestEnemyHero, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);
+				if (closestEnemyHero) {
+					if (Engine.OnceAt(0.2)) {
+						myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, closestEnemyHero, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);
+					}
 				}
 			}
-	    }
 
-	    if (DisplayModeHitCreep === 0) {
-			const closestEnemyHero = getClosestEnemyHero(attackRadius);
+			if (DisplayModeHitCreep === 0) {
+				const laneCreeps = localHero.GetUnitsInRadius(attackRadius, Enum.TeamType.TEAM_ENEMY);
 
-			if (!closestEnemyHero) {
-				const laneCreeps = localHero.GetUnitsInRadius(2000, Enum.TeamType.TEAM_ENEMY);
-			
-				if (laneCreeps || laneCreeps.length  > 0) {
+				if (laneCreeps && laneCreeps.length > 0) {
+					const closestCreep = getClosestCreep(laneCreeps, localHero.GetAbsOrigin());
 
-					const closestLaneCreep = getClosestCreep(laneCreeps, localHero.GetAbsOrigin());
-
-					if (closestLaneCreep) {
-
+					if (closestCreep && closestCreep.GetHealth() <= localHero.GetAttackDamage()) {
 						if (Engine.OnceAt(0.2)) {
-						myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_MOVE, null, closestLaneCreep.GetAbsOrigin(), null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);
+							myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, closestCreep, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);
 						}
-
 					}
-				} else {
-					return;
-				}											
+				}
 			}
-	    }
+		}
 	};
+
 
 	BestAutoLastHits.OnScriptLoad = BestAutoLastHits.OnGameStart = () => {
 	    localHero = EntitySystem.GetLocalHero();
@@ -144,4 +138,3 @@ eval(`
 /******/ 	
 /******/ })()
 ;
-
