@@ -130,7 +130,7 @@ eval(`
 				continue; // Ignora a los súbditos que están fuera del rango de ataque
 			}
 
-			const HPcreepActual = math.floor(creep.GetHealth() + creep.GetHealthRegen());
+			const HPcreepActual = Math.floor(creep.GetHealth() + creep.GetHealthRegen());
 			const attackTravelTime = calculateAttackTravelTime(localHero, creep);
 			const futureCreepHealth = HPcreepActual - (creep.GetActualIncomingDamage(attackTravelTime, Enum.DamageTypes.DAMAGE_TYPE_PHYSICAL)|| 0);
 			const actualDamage = localHero.GetTrueDamage();
