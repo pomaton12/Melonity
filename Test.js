@@ -119,18 +119,6 @@ eval(`
 
 		for (let i = 0; i < laneCreeps.length; i++) {
 			const creep = laneCreeps[i];
-			const heroPosition = localHero.GetAbsOrigin();
-			const targetPosition = creep.GetAbsOrigin();
-			const distance = heroPosition.sub(targetPosition).Length2D();
-
-			if (distance > attackRange) {
-				if (distance < closestCreepDistance) {
-					closestCreep = creep;
-					closestCreepDistance = distance;
-				}
-				continue; // Ignora a los súbditos que están fuera del rango de ataque
-			}
-
 			const HPcreepActual = Math.floor(creep.GetHealth() + creep.GetHealthRegen());
 			const attackTravelTime = calculateAttackTravelTime(localHero, creep);
 			const actualDamage = localHero.GetTrueDamage();
@@ -145,7 +133,7 @@ eval(`
 
 		if (closestCreep !== null && closestCreepHealth === Number.MAX_VALUE) {
 			// Si el objetivo más cercano está fuera del rango de ataque, muévete hacia él
-			moveToTarget(localHero, closestCreep);
+			//moveToTarget(localHero, closestCreep);
 		}
 
 		return closestCreep;
