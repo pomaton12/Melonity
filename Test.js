@@ -143,7 +143,7 @@ eval(`
 			const particleEntity = localHero;
 
 			const particle = Particle.Create(particleName, particleAttach, particleEntity);
-			Particle.SetControlPoint(200, [500, 255, 255, 255]);
+			//Particle.SetControlPoint(200, [500, 255, 255, 255]);
 
 			return particle;
 	}
