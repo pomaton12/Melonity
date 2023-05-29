@@ -7,7 +7,7 @@
   \**********************************/
 /***/ (() => {
 
-eval(`
+//eval(`
 
 	const BestAutoLastHits = {};
 
@@ -103,7 +103,7 @@ eval(`
 		console.log("DIST",moveDistance);
 		const newPosition = heroPosition.add(direction.mul(new Vector(moveDistance, moveDistance, 0)));
 
-		localHero.MoveToPosition(newPosition);
+		SendOrderMovePos(newPosition);
 	}
 
 
