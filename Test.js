@@ -75,6 +75,27 @@ eval(`
 	    }
 	    return closestCreep;
 	}
+	
+	function getClosestLowHealthCreep(localHero) {
+	    const attackRadius = 500;
+	    const laneCreeps = localHero.GetUnitsInRadius(attackRadius, Enum.TeamType.TEAM_ENEMY);
+
+	    let closestCreep = null;
+	    let closestCreepHealth = Number.MAX_VALUE;
+
+	    for (let i = 0; i < laneCreeps.length; i++) {
+		const creep = laneCreeps[i];
+		const creepHealth = creep.GetHealth();
+		const actualDamage = localHero.GetTrueDamage();
+
+		if (creepHealth <= actualDamage && creepHealth < closestCreepHealth) {
+		    closestCreep = creep;
+		    closestCreepHealth = creepHealth;
+		}
+	    }
+
+	    return closestCreep;
+	}
 
 	BestAutoLastHits.OnUpdate = () => {
 		if (!localHero || !enableToggle.GetValue()) {
@@ -95,20 +116,16 @@ eval(`
 			}
 
 			if (DisplayModeHitCreep === 0) {
-				const laneCreeps = localHero.GetUnitsInRadius(attackRadius, Enum.TeamType.TEAM_ENEMY);
-
-				if (laneCreeps && laneCreeps.length > 0) {
-					const closestCreep = getClosestCreep(laneCreeps, localHero.GetAbsOrigin());
-					console.log("Creeps HP= ",closestCreep.GetHealth()," Dama min + mod = ", localHero.GetTrueDamage());
-					if (closestCreep && closestCreep.GetHealth() <= localHero.GetTrueDamage()) {
-						if (Engine.OnceAt(0.2)) {
-							myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, closestCreep, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);
-						}
-					} else {
-						if (Engine.OnceAt(0.2)) {
-							SendOrderMovePos(Input.GetWorldCursorPos());
-						}						
+				const closestCreep = getClosestLowHealthCreep(localHero);
+				
+				if (closestCreep) {
+					if (Engine.OnceAt(0.2)) {
+						myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, closestCreep, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);
 					}
+				} else {
+					if (Engine.OnceAt(0.2)) {
+						SendOrderMovePos(Input.GetWorldCursorPos());
+					}						
 				}
 			}
 		}
