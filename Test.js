@@ -138,7 +138,8 @@ eval(`
 	}
 
 	function DrawRadiusActionParticle() {
-		let [x, y, onScreen] = Renderer.WorldToScreen(localHero);
+		const heroPosition = localHero.GetAbsOrigin();
+		let [x, y, onScreen] = Renderer.WorldToScreen(heroPosition);
 
 		if (onScreen) {
 			// Dibuja algo en la posición del héroe en la pantalla
