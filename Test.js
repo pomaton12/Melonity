@@ -80,8 +80,8 @@ eval(`
 		const heroPosition = localHero.GetAbsOrigin();
 		const targetPosition = target.GetAbsOrigin();
 		const distance = heroPosition.sub(targetPosition).Length2D();
-		const attackSpeed = localHero.GetIncreasedAttackSpeed();
-		console.log("Velocidad de ataque",attackSpeed);
+		const attackSpeed = localHero.GetAttacksPerSecond();
+		console.log("Velocidad de ataque",GetAttacksPerSecond);
 		const attackAnimationPoint = localHero.GetAttackAnimationPoint();
 		const attackTime = attackAnimationPoint / attackSpeed;
 
@@ -129,8 +129,9 @@ eval(`
 				continue; // Ignora a los súbditos que están fuera del rango de ataque
 			}
 
+			const HPcreepActual = math.floor(creep.GetHealth() + creep.GetHealthRegen());
 			const attackTravelTime = calculateAttackTravelTime(localHero, creep);
-			const futureCreepHealth = creep.GetHealth() - (creep.GetDamageTaken(attackTravelTime, Enum.DamageTypes.DAMAGE_TYPE_PHYSICAL) || 0);
+			const futureCreepHealth = HPcreepActual - (creep.GetActualIncomingDamage(attackTravelTime, Enum.DamageTypes.DAMAGE_TYPE_PHYSICAL)|| 0);
 			const actualDamage = localHero.GetTrueDamage();
 
 			if (futureCreepHealth <= actualDamage && futureCreepHealth < closestCreepHealth) {
