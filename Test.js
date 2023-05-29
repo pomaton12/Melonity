@@ -116,10 +116,14 @@ eval(`
 		let closestCreepHealth = Number.MAX_VALUE;
 		
 		if(0 < laneCreeps.length){
-			DrawRadiusActionParticle(localHero);
+			if (!Particle_ID) {
+				DrawRadiusActionParticle(localHero);
+			}
 		} else{
-			Particle_ID.Destroy();
-			Particle_ID = null;
+			if (Particle_ID) {
+				Particle_ID.Destroy();
+				Particle_ID = null;
+			}
 		}
 
 		for (let i = 0; i < laneCreeps.length; i++) {
