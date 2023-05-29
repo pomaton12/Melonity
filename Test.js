@@ -122,7 +122,7 @@ eval(`
 			const actualDamage = localHero.GetTrueDamage() + Math.floor((localHero.GetTrueMaximumDamage() - localHero.GetTrueDamage()) / 4);
 			const futureCreepHealth = HPcreepActual - attackTravelTime*actualDamage;
 			
-			console.log("AT = ", localHero.GetTrueDamage()," AU = ",actualDamage," HP = ",HPcreepActual);
+			//console.log("AT = ", localHero.GetTrueDamage()," AU = ",actualDamage," HP = ",HPcreepActual);
 			if (futureCreepHealth <= actualDamage && futureCreepHealth < closestCreepHealth) {
 				closestCreep = creep;
 				closestCreepHealth = futureCreepHealth;
@@ -154,7 +154,7 @@ eval(`
 		}
 		
 		const ID = Particle.Create("particles/ui_mouseactions/range_display.vpcf", Enum.ParticleAttachment.PATTACH_ABSORIGIN_FOLLOW, localHero);
-		Particle.SetControlPoint(ID, 1, Vector(tonumber(500),0,0));
+		Particle.SetControlPoint(ID, 1, Vector(500,0,0));
 	}
 
 	BestAutoLastHits.OnUpdate = () => {
@@ -164,6 +164,7 @@ eval(`
 		
 		if (Input.IsKeyDown(KeyBindLastHit.GetValue())) {
 			const attackRadius = 500;
+			DrawRadiusActionParticle(localHero);
 
 			if (DisplayModeHitEnemy === 0) {
 				const closestEnemyHero = getClosestEnemyHero(attackRadius);
@@ -180,7 +181,6 @@ eval(`
 				
 				if (closestCreep) {
 					
-					DrawRadiusActionParticle(localHero);
 					if (Engine.OnceAt(0.2)) {
 						myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, closestCreep, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);
 					}
