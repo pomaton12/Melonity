@@ -106,26 +106,13 @@ BestAutoLastHits.OnScriptLoad = BestAutoLastHits.OnGameStart = () => {
 	localHero = EntitySystem.GetLocalHero();
 	myPlayer = EntitySystem.GetLocalPlayer();
 	
-	Time = performance.now();
-	Math.randomseed(Time);
-	readUser();
-	LastHitCreep.User.LastTarget = null;
-	LastHitCreep.User.LastAttackTime = Time;
-	LastHitCreep.User.LastUpdateTime = Time;
-	LastHitCreep.LastUpdateTime = Time;
-	LastHitCreep.User.LastMoveTime = Time;
-	for (let k in CreepParticles) {
-		CreepParticles[k] = null;
-	}
 };
 
 BestAutoLastHits.OnGameEnd = () => {
 	localHero = null;
 	myPlayer = null;
 
-	for (let k in CreepParticles) {
-		LastHitCreep.ClearParticle(k);
-	}
+
 };
 
 
