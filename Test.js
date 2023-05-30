@@ -143,6 +143,10 @@ eval(`
 			const HeroDamagefINAL = HeroDamage+attackTravelTime*actualDamage;
 			const futureCreepHealth = HPcreepActual - attackTravelTime*actualDamage;
 			
+			if(HPcreepActual < 2*actualDamage){
+				localHero.MoveTo(creep);
+			}
+			
 			console.log("AR = ", actualDamage," AU = ",HeroDamagefINAL," HP = ",HPcreepActual);
 			if (futureCreepHealth <= HeroDamagefINAL && futureCreepHealth < closestCreepHealth) {
 				closestCreep = creep;
