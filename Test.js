@@ -82,7 +82,7 @@ let GameTime = GameRulesGameTime();
 
 //menu options
 //end menu options
-
+console.log("Hasta aqui no hay error");
 
 //=============================================================
 // Funcion Principal para Iniciar el CODIGO
