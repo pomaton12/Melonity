@@ -30,7 +30,7 @@ function tableSum(list, count) {
     count = list.length;
   }
   return table.reduce(
-    list,
+    list;
     function (a, b) {
       return a + b;
     }
