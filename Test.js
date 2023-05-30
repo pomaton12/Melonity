@@ -12,7 +12,7 @@ eval(`
 const BestAutoLastHits = {};
 
 // additional functions
-const HeroInfo = require("scripts.settings.HeroInfo");
+//const HeroInfo = require("scripts.settings.HeroInfo");
 
 const LastHitCreep = {};
 const LastHitCreep_Menu = {};
