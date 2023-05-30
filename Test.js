@@ -89,12 +89,11 @@ let GameTime = GameRulesGameTime();
 //=============================================================
 BestAutoLastHits.OnUpdate = () => {
 	if (!Menu_Enabled) {
-			return;
-		}
-
-		if (localHero == null || !Entity.IsAlive(localHero)) {
 		return;
-		}
+	}
+
+	if (localHero == null || !Entity.IsAlive(localHero)) {
+		return;
 	}
 
 	Time = performance.now();
@@ -131,6 +130,7 @@ BestAutoLastHits.OnGameEnd = () => {
 
 
 RegisterScript(BestAutoLastHits);
+
 `);
 
 /***/ })
