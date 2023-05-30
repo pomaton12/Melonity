@@ -7,108 +7,244 @@
   \**********************************/
 /***/ (() => {
 
-
 eval(`
-const BestAutoLastHits = {};
-let localHero;
-let myPlayer;
 
-// additional functions
-//const HeroInfo = require("scripts.settings.HeroInfo");
+	const BestAutoLastHits = {};
 
-const LastHitCreep = {};
-const LastHitCreep_Menu = {};
-const LastHitCreep_User = {};
-const CreepParticles = {};
-//const SkillModifiers = {"modifier_item_quelling_blade": [24, 7], "modifier_item_bfury": [0.5, 0.25], "modifier_bloodseeker_bloodrage": [0.25, 0.3, 0.35, 0.4]};
+	let localHero;
+	let myPlayer;
+	let Particle_ID = null;
+	let createDrawRadius = 0;
 
-// options
-const Menu_Path = ['Custom HPV', 'Last Hit Creep'];
-const CreepTypes = ['Custom HPV', 'Last Hit Creep','Creep Types'];
+	const path_ = ['Creeps', 'Best AutoLastHit'];
 
-let Menu_Enabled = Menu.AddToggle(Menu_Path,'Enabled',false);
+	let enableToggle = Menu.AddToggle(path_, 'Enable', true)
 	    .OnChange(state => {
-        Menu_Enabled = state.newValue;
+        enableToggle = state.newValue;
     })
 	
-let Menu_Education = Menu.AddToggle(Menu_Path,'Education Mode',false);
-	    .OnChange(state => {
-        Menu_Education = state.newValue;
-    })
-
-let Menu_AttackMove = Menu.AddToggle(Menu_Path,'Attack Move',false);
-	    .OnChange(state => {
-        Menu_AttackMove = state.newValue;
-    })
-
-let Menu_Prediction = Menu.AddComboBox(Menu_Path,'Predict',['Disabled', 'Creeps Die', 'Player Last Hit'],0);
+	let KeyBindLastHit = Menu.AddKeyBind(path_, 'AutoLastHits', Enum.ButtonCode.KEY_NONE);
+	
+	let DisplayModeMove = Menu.AddComboBox(path_, 'Move', ['Holt key', 'One Key'],0)
 		.OnChange(state =>{   	
-		Menu_Prediction = state.newValue;
+		DisplayModeMove = state.newValue;
+		})
+		.GetValue();
+	
+	let DisplayModeHitCreep = Menu.AddComboBox(path_, 'Hit Creeps', ['Enemy creeps', 'Ally creeps', 'Both'],2)
+		.OnChange(state =>{   	
+		DisplayModeHitCreep = state.newValue;
+		})
+		.GetValue();
+	
+	let DisplayModeHitEnemy = Menu.AddComboBox(path_, 'Hit Enemies', ['No hit', 'without creep aggro', 'Aggression mode'],0)
+		.OnChange(state =>{   	
+		DisplayModeHitEnemy = state.newValue;
 		})
 		.GetValue();
 
-let Menu_ShowPrediction = Menu.AddComboBox(Menu_Path,'Show Prediction',['Disabled', 'Enemy', 'Allies', 'Both'],0);
-		.OnChange(state =>{   	
-		Menu_ShowPrediction = state.newValue;
-		})
-		.GetValue();
 
-let Menu_LastHitKey = Menu.AddKeyBind(Menu_Path,'Last Hit Key',Enum.ButtonCode.KEY_NONE);
-
-
-let Menu_Enemys = Menu.AddToggle(CreepTypes,'Kill Enemys',false);
-	    .OnChange(state => {
-        Menu_Enemys = state.newValue;
-    })
-
-let Menu_Friendlys = Menu.AddToggle(CreepTypes,'Deny Allies',false);
-	    .OnChange(state => {
-        Menu_Friendlys = state.newValue;
-    })
-
-let Menu_Neutrals = Menu.AddToggle(CreepTypes,'Kill Neutrals',false);
-	    .OnChange(state => {
-        Menu_Neutrals = state.newValue;
-    })
-
-
-//menu options
-//end menu options
-console.log("Hasta aqui no hay error");
-
-//=============================================================
-// Funcion Principal para Iniciar el CODIGO
-//=============================================================
-BestAutoLastHits.OnUpdate = () => {
-	if (!Menu_Enabled) {
+	function getClosestEnemyHero(radius) {
+	    const enemyHeroes = EntitySystem.GetHeroesList().filter(
+		(hero) => !hero.IsIllusion() && !hero.IsMeepoClone() && !hero.IsSameTeam(localHero) && hero.IsAlive() && !hero.IsIllusion()
+	    );
+	    
+	    if (!enemyHeroes || enemyHeroes.length <= 0) {
 		return;
+	    }
+
+	    let closestHero = null;
+	    let closestDistance = Number.MAX_VALUE;
+
+	    for (const hero of enemyHeroes) {
+		const distance = localHero.GetAbsOrigin().sub(hero.GetAbsOrigin()).Length2D();
+		if (distance < radius && distance < closestDistance) {
+		    closestHero = hero;
+		    closestDistance = distance;
+		}
+	    }
+
+	    return closestHero;
 	}
 
-	if (localHero == null || !Entity.IsAlive(localHero)) {
-		return;
+	function SendOrderMovePos(vector) {
+	    myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, vector, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 	}
 
-	Time = performance.now();
-
-
-};
-
-
-BestAutoLastHits.OnScriptLoad = BestAutoLastHits.OnGameStart = () => {
-	localHero = EntitySystem.GetLocalHero();
-	myPlayer = EntitySystem.GetLocalPlayer();
+	function getClosestCreep(creeps, target) {
+	    let closestCreep = null;
+	    for (const creep of creeps) {
+		if (creep.IsCreep() && !creep.IsDormant() && creep.IsAlive()) {
+		    closestCreep = creep;
+		}
+	    }
+	    return closestCreep;
+	}
 	
-};
+	function calculateAttackTravelTime(localHero, target) {
+		const heroPosition = localHero.GetAbsOrigin();
+		const targetPosition = target.GetAbsOrigin();
+		const distance = heroPosition.sub(targetPosition).Length2D();
+		const attackSpeed = 1/localHero.GetAttacksPerSecond();
+		const attackAnimationPoint = localHero.GetAttackAnimationPoint();
+		const attackTime = attackAnimationPoint / attackSpeed;
 
-BestAutoLastHits.OnGameEnd = () => {
-	localHero = null;
-	myPlayer = null;
+		let projectileSpeed = localHero.GetProjectileSpeed();
+		if (projectileSpeed === 0) { // Héroe cuerpo a cuerpo
+			projectileSpeed = Number.MAX_VALUE;
+		}
+
+		const projectileTravelTime = distance / projectileSpeed;
+		return attackTime + projectileTravelTime;
+	}
+
+	
+	function moveToTarget(localHero, target) {
+		const heroPosition = localHero.GetAbsOrigin();
+		const targetPosition = target.GetAbsOrigin();
+		const direction = targetPosition.sub(heroPosition).Normalized();
+		const moveDistance = localHero.GetMoveSpeed();
+		const newPosition = heroPosition.add(direction.mul(new Vector(moveDistance, moveDistance, 0)));
+
+		SendOrderMovePos(newPosition);
+	}
 
 
-};
+	
+	function getClosestLowHealthCreep(localHero) {
+		
+		const attackRange = localHero.GetAttackRange();
+		let attackRadius;
+		let laneCreeps;
+		
+		if (attackRange <= 500 ){
+			attackRadius = 500;
+		} else {
+			attackRadius = attackRange;
+		}
+		
+		if (DisplayModeHitCreep == 0) {
+			laneCreeps = localHero.GetUnitsInRadius(attackRadius, Enum.TeamType.TEAM_ENEMY);
+		} else if (DisplayModeHitCreep == 1) {
+			laneCreeps = localHero.GetUnitsInRadius(attackRadius, Enum.TeamType.TEAM_FRIEND);
+		} else if (DisplayModeHitCreep == 2) {
+			laneCreeps = localHero.GetUnitsInRadius(attackRadius, Enum.TeamType.TEAM_BOTH);
+		}
+		
+		let closestCreep = null;
+		let closestCreepHealth = Number.MAX_VALUE;
+		
+		for (let i = 0; i < laneCreeps.length; i++) {
+			const creep = laneCreeps[i];
+			const HPcreepActual = Math.floor(creep.GetHealth() + creep.GetHealthRegen());
+			const attackTravelTime = calculateAttackTravelTime(localHero, creep);
+			const actualDamage = localHero.GetTrueDamage() + Math.floor((localHero.GetTrueMaximumDamage() - localHero.GetTrueDamage()) / 2); // SUMAR HABILIDADES
+			const HeroDamage = Math.floor(localHero.GetDamageMultiplierVersus(creep) * actualDamage * localHero.GetArmorDamageMultiplier(creep));
+			const HeroDamagefINAL = HeroDamage+attackTravelTime*actualDamage;
+			const futureCreepHealth = HPcreepActual;
+			
+			if(HPcreepActual < 2*actualDamage){
+				//localHero.MoveTo(creep.GetAbsOrigin());
+			}
+			
+			console.log("AR = ", actualDamage," AU = ",HeroDamagefINAL," HP = ",HPcreepActual);
+			if (futureCreepHealth <= HeroDamagefINAL && futureCreepHealth < closestCreepHealth) {
+				closestCreep = creep;
+				closestCreepHealth = futureCreepHealth;
+			}
+		}
+
+		return closestCreep;
+	}
+
+	function DrawRadiusActionParticle(localHero) {
+		const heroPosition = localHero.GetAbsOrigin();
+		const textOffset = new Vector(0, 0, 370);
+		const textPos = heroPosition.add(textOffset);
+		const text = "[Auto LastHit]";
+		const font = Renderer.LoadFont('Arial', 12, Enum.FontWeight.BOLD);
+		//const healthBarPosition = localHero.GetHealthBarPosition();
+		
+		let [x, y, onScreen] = Renderer.WorldToScreen(heroPosition);
+
+		if (onScreen) {
+			// Dibuja algo en la posición del héroe en la pantalla
+			Renderer.SetDrawColor(255, 255, 255, 255);
+			Renderer.DrawWorldText(font, textPos.sub(new Vector(Renderer.GetTextSize(font, text)[0] / 2, 0, 0)), text, 0, 0);
+			//Renderer.DrawText(font, x, y-10, text)
+		}
+		
+		if(createDrawRadius == 0){
+			if (!Particle_ID) {
+				Particle_ID = Particle.Create("particles/ui_mouseactions/range_display.vpcf", Enum.ParticleAttachment.PATTACH_ABSORIGIN_FOLLOW, localHero);
+				Particle_ID.SetControl(1, Vector(500,0,0));
+				Particle_ID.SetControl(6, new Vector(1, 0, 0));
+				createDrawRadius = createDrawRadius+1;
+			}
+		}
+		
+	}
 
 
-RegisterScript(BestAutoLastHits);
+	BestAutoLastHits.OnUpdate = () => {
+		if (!localHero || !enableToggle.GetValue()) {
+			return;
+		}
+		
+		if (Input.IsKeyDown(KeyBindLastHit.GetValue())) {
+			const attackRadius = 500;
+			
+			
+			DrawRadiusActionParticle(localHero);
+			
+			if (DisplayModeHitEnemy === 0) {
+				const closestEnemyHero = getClosestEnemyHero(attackRadius);
+
+				if (closestEnemyHero) {
+					if (Engine.OnceAt(0.2)) {
+						myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, closestEnemyHero, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);
+					}
+				}
+			}
+
+
+			const closestCreep = getClosestLowHealthCreep(localHero);
+			
+			if (closestCreep) {
+				
+				if (Engine.OnceAt(0.2)) {
+					myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, closestCreep, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);
+				}
+			} else {
+				if (Engine.OnceAt(0.2)) {
+					SendOrderMovePos(Input.GetWorldCursorPos());
+				}						
+			}
+
+		} else {
+			
+			if (createDrawRadius > 0) {
+				Particle_ID.Destroy();
+				Particle_ID = null;
+				createDrawRadius = 0;
+			}
+		}
+	};
+
+
+	BestAutoLastHits.OnScriptLoad = BestAutoLastHits.OnGameStart = () => {
+	    localHero = EntitySystem.GetLocalHero();
+	    myPlayer = EntitySystem.GetLocalPlayer();
+	};
+
+	BestAutoLastHits.OnGameEnd = () => {
+	    localHero = null;
+	    myPlayer = null;
+	};
+
+	RegisterScript(BestAutoLastHits);
+
+
 
 `);
 
