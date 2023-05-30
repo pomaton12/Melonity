@@ -142,7 +142,7 @@ eval(`
 			const HeroDamage = Math.floor(localHero.GetDamageMultiplierVersus(creep) * actualDamage * localHero.GetArmorDamageMultiplier(creep) * 0.975);
 			const futureCreepHealth = HPcreepActual - attackTravelTime*HeroDamage;
 			
-			//console.log("AR = ", localHero.GetTrueDamage()," AU = ",HeroDamage," HP = ",HPcreepActual);
+			console.log("AR = ", localHero.GetTrueDamage()," AU = ",HeroDamage," HP = ",HPcreepActual);
 			if (futureCreepHealth <= HeroDamage && futureCreepHealth < closestCreepHealth) {
 				closestCreep = creep;
 				closestCreepHealth = futureCreepHealth;
@@ -189,7 +189,6 @@ eval(`
 		if (Input.IsKeyDown(KeyBindLastHit.GetValue())) {
 			const attackRadius = 500;
 			
-			console.log("Evaluar = ",Particle_ID);
 			
 			DrawRadiusActionParticle(localHero);
 			
