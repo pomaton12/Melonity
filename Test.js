@@ -76,7 +76,7 @@ let CreepsPredictedDieTime = {};
 let UpdateTime = 0.10;
 let User_UpdateTime = 0.10;
 let DPSMult = (1 / UpdateTime);
-let OrderTime = performance.now();;
+let OrderTime = performance.now();
 let Time = 0;
 let GameTime = GameRulesGameTime();
 
