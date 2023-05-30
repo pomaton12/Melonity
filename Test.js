@@ -94,6 +94,7 @@ BestAutoLastHits.OnUpdate = () => {
 
 		if (localHero == null || !Entity.IsAlive(localHero)) {
 		return;
+		}
 	}
 
 	Time = performance.now();
