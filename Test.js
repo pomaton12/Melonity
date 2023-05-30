@@ -42,7 +42,7 @@ BestAutoLastHits.OnUpdate = () => {
 		return;
 	}
 
-	Time = performance.now();
+	//Time = performance.now();
 
 
 };
