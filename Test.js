@@ -24,7 +24,7 @@ const CreepParticles = {};
 
 // options
 const Menu_Path = ['Custom Scripts', 'Last Hit Creep'];
-const CreepTypes = ['Utility', 'Last Hit Creep', 'Creep Types'];
+const CreepTypes = ['Custom Scripts', 'Last Hit Creep', 'Creep Types'];
 let Menu_Enabled = Menu.AddToggle(Menu_Path,"Enabled",false)
 	    .OnChange(state => {
         Menu_Enabled = state.newValue;
@@ -82,11 +82,11 @@ BestAutoLastHits.OnUpdate = () => {
 		return;
 	}
 
-	if (localHero == null || !Entity.IsAlive(localHero)) {
+	if (localHero == null || !localHero.IsAlive()) {
 		return;
 	}
 
-	//Time = performance.now();
+	Time = performance.now();
 
 
 };
