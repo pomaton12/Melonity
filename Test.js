@@ -20,50 +20,50 @@ const CreepParticles = {};
 //const SkillModifiers = {"modifier_item_quelling_blade": [24, 7], "modifier_item_bfury": [0.5, 0.25], "modifier_bloodseeker_bloodrage": [0.25, 0.3, 0.35, 0.4]};
 
 // options
-const Menu_Path = ["Custom HPV", "Last Hit Creep"];
-let CreepTypes = ["Utility", "Last Hit Creep", "Creep Types"];
+const Menu_Path = ['Custom HPV', 'Last Hit Creep'];
+let CreepTypes = ['Custom HPV', "Last Hit Creep", "Creep Types"];
 
-let Menu_Enabled = Menu.AddToggle(Menu_Path,"Enabled",false);
+let Menu_Enabled = Menu.AddToggle(Menu_Path,'Enabled',false);
 	    .OnChange(state => {
         Menu_Enabled = state.newValue;
     })
 	
-let Menu_Education = Menu.AddToggle(Menu_Path,"Education Mode",false);
+let Menu_Education = Menu.AddToggle(Menu_Path,'Education Mode',false);
 	    .OnChange(state => {
         Menu_Education = state.newValue;
     })
 
-let Menu_AttackMove = Menu.AddToggle(Menu_Path,"Attack Move",false);
+let Menu_AttackMove = Menu.AddToggle(Menu_Path,'Attack Move',false);
 	    .OnChange(state => {
         Menu_AttackMove = state.newValue;
     })
 
-let Menu_Prediction = Menu.AddComboBox(Menu_Path,"Predict",[" Disabled", " Creeps Die", " Player Last Hit"],0);
+let Menu_Prediction = Menu.AddComboBox(Menu_Path,'Predict',['Disabled', 'Creeps Die', 'Player Last Hit'],0);
 		.OnChange(state =>{   	
 		Menu_Prediction = state.newValue;
 		})
 		.GetValue();
 
-let Menu_ShowPrediction = Menu.AddComboBox(Menu_Path,"Show Prediction",[" Disabled", " Enemy", " Allies", " Both"],0);
+let Menu_ShowPrediction = Menu.AddComboBox(Menu_Path,'Show Prediction',['Disabled', 'Enemy', 'Allies', 'Both'],0);
 		.OnChange(state =>{   	
 		Menu_ShowPrediction = state.newValue;
 		})
 		.GetValue();
 
-let Menu_LastHitKey = Menu.AddKeyBind(Menu_Path,"Last Hit Key",Enum.ButtonCode.KEY_NONE);
+let Menu_LastHitKey = Menu.AddKeyBind(Menu_Path,'Last Hit Key',Enum.ButtonCode.KEY_NONE);
 
 
-let Menu_Enemys = Menu.AddToggle(CreepTypes,"Kill Enemys",false);
+let Menu_Enemys = Menu.AddToggle(CreepTypes,'Kill Enemys',false);
 	    .OnChange(state => {
         Menu_Enemys = state.newValue;
     })
 
-let Menu_Friendlys = Menu.AddToggle(CreepTypes,"Deny Allies",false);
+let Menu_Friendlys = Menu.AddToggle(CreepTypes,'Deny Allies',false);
 	    .OnChange(state => {
         Menu_Friendlys = state.newValue;
     })
 
-let Menu_Neutrals = Menu.AddToggle(CreepTypes,"Kill Neutrals",false);
+let Menu_Neutrals = Menu.AddToggle(CreepTypes,'Kill Neutrals',false);
 	    .OnChange(state => {
         Menu_Neutrals = state.newValue;
     })
