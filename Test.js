@@ -7,21 +7,18 @@
   \**********************************/
 /***/ (() => {
 
-//eval(`
+eval(`
 const BestAutoLastHits = {};
 
 // additional functions
 const HeroInfo = require("scripts.settings.HeroInfo");
 
 const LastHitCreep = {};
-LastHitCreep.Menu = {};
-LastHitCreep.User = {};
-LastHitCreep.Particles = {};
-LastHitCreep.SkillModifiers = {
-  modifier_item_quelling_blade: [24, 7],
-  modifier_item_bfury: [0.5, 0.25],
-  "modifier_bloodseeker_bloodrage": [0.25, 0.3, 0.35, 0.4],
-};
+const LastHitCreep.Menu = {};
+const LastHitCreep.User = {};
+const LastHitCreep.Particles = {};
+
+const LastHitCreep.SkillModifiers = {modifier_item_quelling_blade: [24, 7], modifier_item_bfury: [0.5, 0.25], "modifier_bloodseeker_bloodrage": [0.25, 0.3, 0.35, 0.4]};
 
 // options
 const Menu_Path = ["Custom HPV", "Last Hit Creep"];
@@ -99,7 +96,7 @@ function LastHitCreep.CreateOverheadParticle(index, ent, name) {
         return true;
     }
     return false;
-};
+}
 
 function LastHitCreep.CreateTargetingParticle(caster, target) {
     if (caster == null || target == null) {
@@ -124,14 +121,14 @@ function LastHitCreep.CreateTargetingParticle(caster, target) {
         return true;
     }
     return false;
-};
+}
 
 function LastHitCreep.ClearParticle(index) {
     if (LastHitCreep.Particles[parseInt(index)] != null) {
         Particle.Destroy(LastHitCreep.Particles[parseInt(index)].ID);
         LastHitCreep.Particles[parseInt(index)] = null;
     }
-};
+}
 //end particles
 
 function LastHitCreep.IsInvisible(user) {
@@ -157,7 +154,7 @@ function LastHitCreep.IsInvisible(user) {
         return true;
     }
     return false;
-};
+}
 
 function LastHitCreep.IsCastNow(user) {
     if (!user) {
@@ -177,13 +174,13 @@ function LastHitCreep.IsCastNow(user) {
         }
     }
     return false;
-};
+}
 
 function LastHitCreep.OnPrepareUnitOrders(orders) {
     if (orders && orders.order > 1) {
         LastHitCreep.OrderTime = Time;
     }
-};
+}
 
 function LastHitCreep.PreventPlayer(user) {
     if (!user) {
@@ -199,7 +196,7 @@ function LastHitCreep.PreventPlayer(user) {
         return true;
     }
     return false;
-};
+}
 
 function CanCastSpells(caster, enemy) {
   if (!caster) return false;
