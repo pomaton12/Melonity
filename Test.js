@@ -15,10 +15,9 @@ const HeroInfo = require("scripts.settings.HeroInfo");
 
 const LastHitCreep = {};
 const LastHitCreep_Menu = {};
-const LastHitCreep.User = {};
-const LastHitCreep.Particles = {};
-
-const LastHitCreep.SkillModifiers = {modifier_item_quelling_blade: [24, 7], modifier_item_bfury: [0.5, 0.25], "modifier_bloodseeker_bloodrage": [0.25, 0.3, 0.35, 0.4]};
+const LastHitCreep_User = {};
+const CreepParticles = {};
+const SkillModifiers = {modifier_item_quelling_blade: [24, 7], modifier_item_bfury: [0.5, 0.25], "modifier_bloodseeker_bloodrage": [0.25, 0.3, 0.35, 0.4]};
 
 // options
 const Menu_Path = ["Custom HPV", "Last Hit Creep"];
@@ -70,8 +69,8 @@ let Menu_Neutrals = Menu.AddToggle(CreepTypes,"Kill Neutrals",false);
     })
 
 let LastHitCreep = {};
-LastHitCreep.Particles = {};
-LastHitCreep.Particles = {};
+CreepParticles = {};
+CreepParticles = {};
 LastHitCreep.Creeps = null;
 LastHitCreep.CreepsDPS = {};
 LastHitCreep.CreepsPredictedDieTime = {};
@@ -90,9 +89,9 @@ function LastHitCreep.CreateOverheadParticle(index, ent, name) {
     if (ent == null) {
         return false;
     }
-    if (LastHitCreep.Particles[parseInt(index)] == null) {
-        LastHitCreep.Particles[parseInt(index)] = {};
-        LastHitCreep.Particles[parseInt(index)].ID = Particle.Create(name, Enum.ParticleAttachment.PATTACH_OVERHEAD_FOLLOW, ent);
+    if (CreepParticles[parseInt(index)] == null) {
+        CreepParticles[parseInt(index)] = {};
+        CreepParticles[parseInt(index)].ID = Particle.Create(name, Enum.ParticleAttachment.PATTACH_OVERHEAD_FOLLOW, ent);
         return true;
     }
     return false;
@@ -103,12 +102,12 @@ function LastHitCreep.CreateTargetingParticle(caster, target) {
         return false;
     }
     let newParicle = 0;
-    if (LastHitCreep.Particles[caster] == null) {
-        LastHitCreep.Particles[caster] = {};
+    if (CreepParticles[caster] == null) {
+        CreepParticles[caster] = {};
         newParicle = Particle.Create("particles/ui_mouseactions/range_finder_tower_aoe.vpcf", Enum.ParticleAttachment.PATTACH_ABSORIGIN_FOLLOW, target);
     } else {
-        if (LastHitCreep.Particles[caster].ID != null) {
-            Particle.Destroy(LastHitCreep.Particles[caster].ID);
+        if (CreepParticles[caster].ID != null) {
+            Particle.Destroy(CreepParticles[caster].ID);
         }
         newParicle = Particle.Create("particles/ui_mouseactions/range_finder_tower_aoe.vpcf", Enum.ParticleAttachment.PATTACH_ABSORIGIN_FOLLOW, target);
     }
@@ -116,17 +115,17 @@ function LastHitCreep.CreateTargetingParticle(caster, target) {
         Particle.SetControlPoint(newParicle, 2, Entity.GetOrigin(caster));
         Particle.SetControlPoint(newParicle, 6, Vector(1, 0, 0));
         Particle.SetControlPoint(newParicle, 7, Entity.GetOrigin(target));
-        LastHitCreep.Particles[caster].ID = newParicle;
-        LastHitCreep.Particles[caster].Target = target;
+        CreepParticles[caster].ID = newParicle;
+        CreepParticles[caster].Target = target;
         return true;
     }
     return false;
 }
 
 function LastHitCreep.ClearParticle(index) {
-    if (LastHitCreep.Particles[parseInt(index)] != null) {
-        Particle.Destroy(LastHitCreep.Particles[parseInt(index)].ID);
-        LastHitCreep.Particles[parseInt(index)] = null;
+    if (CreepParticles[parseInt(index)] != null) {
+        Particle.Destroy(CreepParticles[parseInt(index)].ID);
+        CreepParticles[parseInt(index)] = null;
     }
 }
 //end particles
@@ -565,8 +564,8 @@ BestAutoLastHits.OnScriptLoad = BestAutoLastHits.OnGameStart = () => {
 	LastHitCreep.User.LastUpdateTime = Time;
 	LastHitCreep.LastUpdateTime = Time;
 	LastHitCreep.User.LastMoveTime = Time;
-	for (let k in LastHitCreep.Particles) {
-		LastHitCreep.Particles[k] = null;
+	for (let k in CreepParticles) {
+		CreepParticles[k] = null;
 	}
 };
 
@@ -575,7 +574,7 @@ BestAutoLastHits.OnGameEnd = () => {
 	myPlayer = null;
 	
 	LastHitCreep.User.Hero = null;
-	for (let k in LastHitCreep.Particles) {
+	for (let k in CreepParticles) {
 		LastHitCreep.ClearParticle(k);
 	}
 };
