@@ -141,10 +141,10 @@ eval(`
 			const actualDamage = localHero.GetTrueDamage() + Math.floor((localHero.GetTrueMaximumDamage() - localHero.GetTrueDamage()) / 2); // SUMAR HABILIDADES
 			const HeroDamage = Math.floor(localHero.GetDamageMultiplierVersus(creep) * actualDamage * localHero.GetArmorDamageMultiplier(creep));
 			const HeroDamagefINAL = HeroDamage+attackTravelTime*actualDamage;
-			const futureCreepHealth = HPcreepActual - attackTravelTime*actualDamage;
+			const futureCreepHealth = HPcreepActual;
 			
 			if(HPcreepActual < 2*actualDamage){
-				localHero.MoveTo(creep);
+				localHero.MoveTo(creep.GetAbsOrigin());
 			}
 			
 			console.log("AR = ", actualDamage," AU = ",HeroDamagefINAL," HP = ",HPcreepActual);
