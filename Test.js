@@ -10,7 +10,7 @@
 eval(`
 const BestAutoLastHits = {};
 
-function table_reduce(list, fn, count) {
+function table.reduce(list, fn, count) {
   let acc;
   for (let k in list) {
     if (k === 1) {
@@ -23,7 +23,7 @@ function table_reduce(list, fn, count) {
     }
   }
   return acc;
-};
+}
 
 function tableSum(list, count) {
   if (!count) {
@@ -35,7 +35,7 @@ function tableSum(list, count) {
       return a + b;
     },
     count
-  );
+  )
 }
 
 function sPairs(t, order) {
@@ -62,7 +62,7 @@ function sPairs(t, order) {
     if (keys[i]) {
       return [keys[i], t[keys[i]]];
     }
-  };
+  }
 }
 
 function roundNumber(num, idp) {
