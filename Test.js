@@ -14,7 +14,7 @@ const BestAutoLastHits = {};
 const HeroInfo = require("scripts.settings.HeroInfo");
 
 const LastHitCreep = {};
-const LastHitCreep.Menu = {};
+const LastHitCreep_Menu = {};
 const LastHitCreep.User = {};
 const LastHitCreep.Particles = {};
 
