@@ -7,6 +7,7 @@
   \**********************************/
 /***/ (() => {
 
+
 eval(`
 const BestAutoLastHits = {};
 
@@ -68,17 +69,6 @@ let Menu_Neutrals = Menu.AddToggle(CreepTypes,'Kill Neutrals',false);
         Menu_Neutrals = state.newValue;
     })
 
-let LastHitCreep = {};
-let CreepParticles = {};
-let UnitCreeps = null;
-let CreepsDPS = {};
-let CreepsPredictedDieTime = {};
-let UpdateTime = 0.10;
-let User_UpdateTime = 0.10;
-let DPSMult = (1 / UpdateTime);
-let OrderTime = performance.now();
-let Time = 0;
-let GameTime = GameRulesGameTime();
 
 //menu options
 //end menu options
