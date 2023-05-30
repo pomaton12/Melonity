@@ -10,6 +10,8 @@
 
 eval(`
 const BestAutoLastHits = {};
+let localHero;
+let myPlayer;
 
 // additional functions
 //const HeroInfo = require("scripts.settings.HeroInfo");
@@ -22,7 +24,7 @@ const CreepParticles = {};
 
 // options
 const Menu_Path = ['Custom HPV', 'Last Hit Creep'];
-let CreepTypes = ['Custom HPV', "Last Hit Creep", "Creep Types"];
+const CreepTypes = ['Custom HPV', "Last Hit Creep", "Creep Types"];
 
 let Menu_Enabled = Menu.AddToggle(Menu_Path,'Enabled',false);
 	    .OnChange(state => {
