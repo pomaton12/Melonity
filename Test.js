@@ -138,8 +138,8 @@ eval(`
 			const creep = laneCreeps[i];
 			const HPcreepActual = Math.floor(creep.GetHealth() + creep.GetHealthRegen());
 			const attackTravelTime = calculateAttackTravelTime(localHero, creep);
-			const actualDamage = localHero.GetTrueDamage() + Math.floor((localHero.GetTrueMaximumDamage() - localHero.GetTrueDamage()) / 4); // SUMAR HABILIDADES
-			const HeroDamage = Math.floor(localHero.GetDamageMultiplierVersus(creep) * actualDamage * localHero.GetArmorDamageMultiplier(creep) * 0.975);
+			const actualDamage = localHero.GetTrueDamage() + Math.floor((localHero.GetTrueMaximumDamage() - localHero.GetTrueDamage()) / 2); // SUMAR HABILIDADES
+			const HeroDamage = Math.floor(localHero.GetDamageMultiplierVersus(creep) * actualDamage * localHero.GetArmorDamageMultiplier(creep));
 			const HeroDamagefINAL = HeroDamage+attackTravelTime*actualDamage;
 			const futureCreepHealth = HPcreepActual - attackTravelTime*actualDamage;
 			
