@@ -24,7 +24,7 @@ const CreepParticles = {};
 
 // options
 const Menu_Path = ['Custom HPV', 'Last Hit Creep'];
-const CreepTypes = ['Custom HPV', "Last Hit Creep", "Creep Types"];
+const CreepTypes = ['Custom HPV', 'Last Hit Creep','Creep Types'];
 
 let Menu_Enabled = Menu.AddToggle(Menu_Path,'Enabled',false);
 	    .OnChange(state => {
