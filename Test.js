@@ -10,31 +10,6 @@
 eval(`
 const BestAutoLastHits = {};
 
-function tableToString(list) {
-  let result = "{";
-  for (let k in list) {
-    // Check the key type (ignore any numerical keys - assume its an array)
-    if (typeof k === "string") {
-      result = result + "[\"" + k + "\"]" + "=";
-    }
-
-    // Check the value type
-    if (typeof list[k] === "object") {
-      result = result + tableToString(list[k]);
-    } else if (typeof list[k] === "boolean") {
-      result = result + list[k].toString();
-    } else {
-      result = result + "\"" + list[k] + "\"";
-    }
-    result = result + ",";
-  }
-  // Remove leading commas from the result
-  if (result !== "") {
-    result = result.substring(0, result.length - 1);
-  }
-  return result + "}";
-}
-
 function table.reduce(list, fn, count) {
   let acc;
   for (let k in list) {
