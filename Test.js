@@ -17,7 +17,7 @@ const LastHitCreep = {};
 const LastHitCreep_Menu = {};
 const LastHitCreep_User = {};
 const CreepParticles = {};
-const SkillModifiers = {modifier_item_quelling_blade: [24, 7], modifier_item_bfury: [0.5, 0.25], "modifier_bloodseeker_bloodrage": [0.25, 0.3, 0.35, 0.4]};
+const SkillModifiers = {"modifier_item_quelling_blade": [24, 7], "modifier_item_bfury": [0.5, 0.25], "modifier_bloodseeker_bloodrage": [0.25, 0.3, 0.35, 0.4]};
 
 // options
 const Menu_Path = ["Custom HPV", "Last Hit Creep"];
