@@ -24,10 +24,50 @@ const CreepParticles = {};
 
 // options
 const Menu_Path = ['Custom Scripts', 'Last Hit Creep'];
-//const CreepTypes = ['Utility', 'Last Hit Creep', 'Creep Types'];
-let Menu_Enabled = Menu.AddToggle(Menu_Path,"Enabled",false);
+const CreepTypes = ['Utility', 'Last Hit Creep', 'Creep Types'];
+let Menu_Enabled = Menu.AddToggle(Menu_Path,"Enabled",false)
 	    .OnChange(state => {
         Menu_Enabled = state.newValue;
+	})
+
+let Menu_Education = Menu.AddToggle(Menu_Path,"Education Mode",false)
+	    .OnChange(state => {
+        Menu_Education = state.newValue;
+    })
+
+let Menu_AttackMove = Menu.AddToggle(Menu_Path,"Attack Move",false)
+	    .OnChange(state => {
+        Menu_AttackMove = state.newValue;
+    })
+
+let Menu_Prediction = Menu.AddComboBox(Menu_Path,"Predict",[" Disabled", " Creeps Die", " Player Last Hit"],0)
+		.OnChange(state =>{   	
+		Menu_Prediction = state.newValue;
+		})
+		.GetValue();
+
+let Menu_ShowPrediction = Menu.AddComboBox(Menu_Path,"Show Prediction",[" Disabled", " Enemy", " Allies", " Both"],0)
+		.OnChange(state =>{   	
+		Menu_ShowPrediction = state.newValue;
+		})
+		.GetValue();
+
+let Menu_LastHitKey = Menu.AddKeyBind(Menu_Path,"Last Hit Key",Enum.ButtonCode.KEY_NONE);
+
+
+let Menu_Enemys = Menu.AddToggle(CreepTypes,"Kill Enemys",false)
+	    .OnChange(state => {
+        Menu_Enemys = state.newValue;
+    })
+
+let Menu_Friendlys = Menu.AddToggle(CreepTypes,"Deny Allies",false)
+	    .OnChange(state => {
+        Menu_Friendlys = state.newValue;
+    })
+
+let Menu_Neutrals = Menu.AddToggle(CreepTypes,"Kill Neutrals",false)
+	    .OnChange(state => {
+        Menu_Neutrals = state.newValue;
     })
 
 //menu options
