@@ -8,7 +8,7 @@
 /***/ (() => {
 
 
-//eval(`
+eval(`
 const BestAutoLastHits = {};
 let localHero;
 let myPlayer;
