@@ -33,8 +33,8 @@ function tableSum(list, count) {
     list,
     function (a, b) {
       return a + b;
-    },
-    count
+    }
+    count;
   )
 }
 
