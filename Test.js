@@ -144,7 +144,7 @@ eval(`
 			const futureCreepHealth = HPcreepActual;
 			
 			if(HPcreepActual < 2*actualDamage){
-				localHero.MoveTo(creep.GetAbsOrigin());
+				//localHero.MoveTo(creep.GetAbsOrigin());
 			}
 			
 			console.log("AR = ", actualDamage," AU = ",HeroDamagefINAL," HP = ",HPcreepActual);
