@@ -10,7 +10,7 @@
 eval(`
 const BestAutoLastHits = {};
 
-function table.reduce(list, fn, count) {
+function table_reduce(list, fn, count) {
   let acc;
   for (let k in list) {
     if (k === 1) {
