@@ -140,10 +140,11 @@ eval(`
 			const attackTravelTime = calculateAttackTravelTime(localHero, creep);
 			const actualDamage = localHero.GetTrueDamage() + Math.floor((localHero.GetTrueMaximumDamage() - localHero.GetTrueDamage()) / 4); // SUMAR HABILIDADES
 			const HeroDamage = Math.floor(localHero.GetDamageMultiplierVersus(creep) * actualDamage * localHero.GetArmorDamageMultiplier(creep) * 0.975);
-			const futureCreepHealth = HPcreepActual - attackTravelTime*HeroDamage;
+			const HeroDamagefINAL = HeroDamage+attackTravelTime*actualDamage;
+			const futureCreepHealth = HPcreepActual - attackTravelTime*actualDamage;
 			
-			console.log("AR = ", localHero.GetTrueDamage()," AU = ",HeroDamage," HP = ",HPcreepActual);
-			if (futureCreepHealth <= HeroDamage && futureCreepHealth < closestCreepHealth) {
+			console.log("AR = ", actualDamage," AU = ",HeroDamagefINAL," HP = ",HPcreepActual);
+			if (futureCreepHealth <= HeroDamagefINAL && futureCreepHealth < closestCreepHealth) {
 				closestCreep = creep;
 				closestCreepHealth = futureCreepHealth;
 			}
