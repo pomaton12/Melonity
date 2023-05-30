@@ -7,78 +7,8 @@
   \**********************************/
 /***/ (() => {
 
-eval(`
+//eval(`
 const BestAutoLastHits = {};
-
-function table.reduce(list, fn, count) {
-  let acc;
-  for (let k in list) {
-    if (k === 1) {
-      acc = list[k];
-    } else {
-      acc = fn(acc, list[k]);
-    }
-    if (k >= count) {
-      break;
-    }
-  }
-  return acc;
-}
-
-function tableSum(list, count) {
-  if (!count) {
-    count = list.length;
-  }
-  return table.reduce(
-    list;
-    function (a, b) {
-      return a + b;
-    }
-    count;
-  )
-}
-
-function sPairs(t, order) {
-  // collect the keys
-  const keys = [];
-  for (let k in t) {
-    keys.push(k);
-  }
-
-  // if order function given, sort by it by passing the table and keys a, b,
-  // otherwise just sort the keys
-  if (order) {
-    keys.sort(function (a, b) {
-      return order(t, a, b);
-    });
-  } else {
-    keys.sort();
-  }
-
-  // return the iterator function
-  let i = 0;
-  return function () {
-    i = i + 1;
-    if (keys[i]) {
-      return [keys[i], t[keys[i]]];
-    }
-  }
-}
-
-function roundNumber(num, idp) {
-  const mult = 10 ** (idp || 0);
-  return Math.floor(num * mult + 0.5) / mult;
-}
-
-function vectorDistance(a, b) {
-  return (a - b).length2D();
-}
-
-function npcDistance(a, b) {
-  const av = Entity.GetAbsOrigin(a);
-  const bv = Entity.GetAbsOrigin(b);
-  return vectorDistance(av, bv);
-}
 
 // additional functions
 const HeroInfo = require("scripts.settings.HeroInfo");
