@@ -17,7 +17,7 @@ const LastHitCreep = {};
 const LastHitCreep_Menu = {};
 const LastHitCreep_User = {};
 const CreepParticles = {};
-const SkillModifiers = {"modifier_item_quelling_blade": [24, 7], "modifier_item_bfury": [0.5, 0.25], "modifier_bloodseeker_bloodrage": [0.25, 0.3, 0.35, 0.4]};
+//const SkillModifiers = {"modifier_item_quelling_blade": [24, 7], "modifier_item_bfury": [0.5, 0.25], "modifier_bloodseeker_bloodrage": [0.25, 0.3, 0.35, 0.4]};
 
 // options
 const Menu_Path = ["Custom HPV", "Last Hit Creep"];
@@ -69,15 +69,14 @@ let Menu_Neutrals = Menu.AddToggle(CreepTypes,"Kill Neutrals",false);
     })
 
 let LastHitCreep = {};
-CreepParticles = {};
-CreepParticles = {};
-LastHitCreep.Creeps = null;
-LastHitCreep.CreepsDPS = {};
-LastHitCreep.CreepsPredictedDieTime = {};
-LastHitCreep.UpdateTime = 0.10;
-LastHitCreep.User.UpdateTime = 0.10;
-LastHitCreep.DPSMult = (1 / LastHitCreep.UpdateTime);
-LastHitCreep.OrderTime = performance.now();;
+let CreepParticles = {};
+let UnitCreeps = null;
+let CreepsDPS = {};
+let CreepsPredictedDieTime = {};
+let UpdateTime = 0.10;
+let User_UpdateTime = 0.10;
+let DPSMult = (1 / UpdateTime);
+let OrderTime = performance.now();;
 let Time = 0;
 let GameTime = GameRulesGameTime();
 
@@ -177,7 +176,7 @@ function LastHitCreep.IsCastNow(user) {
 
 function LastHitCreep.OnPrepareUnitOrders(orders) {
     if (orders && orders.order > 1) {
-        LastHitCreep.OrderTime = Time;
+        OrderTime = Time;
     }
 }
 
@@ -185,7 +184,7 @@ function LastHitCreep.PreventPlayer(user) {
     if (!user) {
         return false;
     }
-    if ((Time - LastHitCreep.OrderTime) < 0.25) {
+    if ((Time - OrderTime) < 0.25) {
         return true;
     }
     if (LastHitCreep.IsCastNow(user)) {
@@ -338,13 +337,10 @@ function readUser() {
 
 
 function writeCreepHPAround(list, ent, range, team) {
-  // calculate DPS
-  // TODO: rewrite - dont calculate it, write it every...
-  // LastHitCreep.Creeps = Entity.GetUnitsInRadius(ent, range, team);
-  if (!LastHitCreep.Creeps || (LastHitCreep.Creeps.length <= 1)) {
+if (!UnitCreeps || (UnitCreeps.length <= 1)) {
     return;
   }
-  for (let i = 0; i < LastHitCreep.Creeps.length; i++) {
+  for (let i = 0; i < UnitCreeps.length; i++) {
     let npc = LastHitep.Creeps[i];
     if (npc && NPC.IsCreep(npc) && !NPC.IsWaitingToSpawn(npc) && Entity.IsAlive(npc)) {
       // todo incapsulate it
@@ -361,7 +357,7 @@ function writeCreepHPAround(list, ent, range, team) {
         temp.HP = Math.floor(Entity.GetHealth(npc) + NPC.GetHealthRegen(npc));
         let curDPS = (temp.OldHP - temp.HP);
         temp.Damage.push(curDPS);
-        if (temp.Damage.length > (LastHitCreep.DPSMult * 2)) {
+        if (temp.Damage.length > (DPSMult * 2)) {
           temp.Damage.shift();
         }
       }
@@ -395,10 +391,10 @@ function predictCreepHpAround(list, ent, range, team) {
       if (damageTaken > 0) {
         temp.OldHP = oldHp;
         temp.HP = hp;
-        const creepDPS = LastHitCreep.CreepsDPS[npc];
-        if (creepDPS && creepDPS.Damage && creepDPS.Damage.length >= LastHitCreep.DPSMult) {
+        const creepDPS = CreepsDPS[npc];
+        if (creepDPS && creepDPS.Damage && creepDPS.Damage.length >= DPSMult) {
           const heroDamage = Math.floor(NPC.GetDamageMultiplierVersus(LastHitCreep.User.Hero, npc) * LastHitCreep.User.DamageToCreep * NPC.GetArmorDamageMultiplier(npc));
-          const dps = Math.floor((creepDPS.Damage.reduce((a, b) => a + b, 0) - damageTaken) * LastHitCreep.DPSMult / creepDPS.Damage.length);
+          const dps = Math.floor((creepDPS.Damage.reduce((a, b) => a + b, 0) - damageTaken) * DPSMult / creepDPS.Damage.length);
           const attackTime = LastHitCreep.CalcAttackTimeTo(npc);
           temp.DPS = dps;
           temp.HeroDamage = heroDamage;
@@ -433,7 +429,7 @@ function FindBestTarget() {
   if (LastHitCreep.User.IsRanged) {
     if (Menu_Prediction) {
       const DieTimeMax = (t, a, b) => t[b].DieTime > t[a].DieTime;
-      for (const [npc, predicted] of Object.entries(LastHitCreep.CreepsPredictedDieTime).sort(DieTimeMax)) {
+      for (const [npc, predicted] of Object.entries(CreepsPredictedDieTime).sort(DieTimeMax)) {
         if (npc && predicted.DPS && Entity.IsNPC(npc) && Entity.IsAlive(npc) && NPC.IsEntityInRange(LastHitCreep.User.Hero, npc, 900) && ((Entity.IsSameTeam(npc, LastHitCreep.User.Hero) && Menu_Friendlys) || (!Entity.IsSameTeam(npc, LastHitCreep.User.Hero) && Menu_Enemys)) && (predicted.DieTime - GameTime) > 0) {
           const AttackTime = LastHitCreep.CalcAttackTimeTo(npc);
           if ((predicted.DieTime - GameTime) >= AttackTime * 0.25 && (predicted.DieTime - GameTime) <= AttackTime * 1.2) {
@@ -443,7 +439,7 @@ function FindBestTarget() {
       }
     }
     const HPMax = (t, a, b) => t[b].HP > t[a].HP;
-    for (const [npc, predicted] of Object.entries(LastHitCreep.CreepsPredictedDieTime).sort(HPMax)) {
+    for (const [npc, predicted] of Object.entries(CreepsPredictedDieTime).sort(HPMax)) {
       if ( && predicted.DPS && Entity.IsNPC(npc) && Entity.IsAlive(npc) && NPC.IsEntityInRange(LastHitCreep.User.Hero, npc, 900) && ((Entity.IsSameTeam(npc, LastHitCreep.User.Hero) && Menu_Friendlys) || (!Entity.IsSameTeam(npc, LastHitCreep.User.Hero) && Menu_Enemys))) {
         const AttackTime = LastHitCreep.CalcAttackTimeTo(npc);
         const HP = Entity.GetHealth(npc);
@@ -455,7 +451,7 @@ function FindBestTarget() {
   } else {
     if (Menu_Prediction) {
       const DieTimeMax = (t, a, b) => t[b].DieTime > t[a].DieTime;
-      for (const [npc, predicted] of Object.entries(LastHitCreep.CreepsPredictedDieTime).sort(DieTime)) {
+      for (const [npc, predicted] of Object.entries(CreepsPredictedDieTime).sort(DieTime)) {
         if (npc && predicted.DPS && Entity.IsNPC(npc) && Entity.IsAlive(npc) && NPC.IsEntityInRange(LastHitCreep.User.Hero, npc, 900) && ((Entity.IsSameTeam(npc, LastHitCreep.User.Hero) && Menu_Friendlys) || (!Entity.IsSameTeam(npc, LastHitCreep.User.Hero) && Menu_Enemys)) && (predicted.DieTime - GameTime) > 0) {
           const AttackTime = LastHitCreep.CalcAttackTimeTo(npc);
           if ((predicted.DieTime - GameTime) >= AttackTime * 0.5 && (predicted.DieTime - GameTime) <= AttackTime * 1.2) {
@@ -465,7 +461,7 @@ function FindBestTarget() {
       }
     }
     const HPMax = (t, a, b) => t[b].HP > t[a].HP;
-    for (const [npc, predicted] of Object.entries(LastHitCreep.CreepsPredictedDieTime).sort(HPMax)) {
+    for (const [npc, predicted] of Object.entries(CreepsPredictedDieTime).sort(HPMax)) {
       if (npc && predicted.DPS && Entity.IsNPC(npc) && Entity.IsAlive(npc) && NPC.IsEntityInRange(LastHitCreep.User.Hero, npc, 900) && ((Entity.IsSameTeam(npc, LastHitCreep.User.Hero) && Menu_Friendlys) || (!Entity.IsSameTeam(npc, LastHitCreep.User.Hero) && Menu_Enemys))) {
         const AttackTime = LastHitCreep.CalcAttackTimeTo(npc);
         const HP = Entity.GetHealth(npc);
@@ -480,16 +476,16 @@ function FindBestTarget() {
 }
 
 function ClearDiedInList() {
-  if (!LastHitCreep.CreepsPredictedDieTime) {
+  if (!CreepsPredictedDieTime) {
     return;
   }
-  for (const [npc, val] of Object(LastHitCreep.CreepsPredictedDieTime)) {
+  for (const [npc, val] of Object(CreepsPredictedDieTime)) {
     if (npc && Entity.IsNPC(npc)) {
       if (!Entity.IsAlive(npc)) {
-        LastHitCreep.CreepsPredictedDieTime[npc] = null;
+        CreepsPredictedDieTime[npc] = null;
       }
     } else {
-      LastHitCreep.CreepsPredictedDieTime[npc] = null;
+      CreepsPredictedDieTime[npc] = null;
     }
   }
 }
@@ -508,7 +504,7 @@ BestAutoLastHits.OnUpdate = () => {
 
 	Time = performance.now();
 
-	if ((Time - User.LastUpdateTime) > User.UpdateTime) {
+	if ((Time - User.LastUpdateTime) > User_UpdateTime) {
 		if (!User.Read()) {
 			return;
 		}
