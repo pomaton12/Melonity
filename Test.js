@@ -24,7 +24,7 @@ const CreepParticles = {};
 
 // options
 const Menu_Path = ['Custom Scripts', 'Last Hit Creep'];
-const CreepTypes = ['Utility', 'Last Hit Creep', 'Creep Types'];
+//const CreepTypes = ['Utility', 'Last Hit Creep', 'Creep Types'];
 let Menu_Enabled = Menu.AddToggle(Menu_Path,"Enabled",false);
 	    .OnChange(state => {
         Menu_Enabled = state.newValue;
