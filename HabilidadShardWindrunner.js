@@ -36,30 +36,34 @@ eval(`
 	      return;
 	    }
 		let enemies = localHero.GetHeroesInRadius(300, Enum.TeamType.TEAM_ENEMY);
-		for (let enemy of enemies) {
-		    // Lanzar "gale force" en la opuesta a la dirección en la que el enemigo está mirando
-		    let galeForce = localHero.GetAbilityByIndex(3);
-		    if (galeForce && galeForce.IsExist() && galeForce.CanCast()) {
-				let herolPosition = localHero.GetAbsOrigin();
-				let enemyPosition = enemy.GetAbsOrigin();
-				let enemyDirection = enemyPosition.sub(herolPosition);
+		
+		if (enemies){
+		
+			for (let enemy of enemies) {
+				// Lanzar "gale force" en la opuesta a la dirección en la que el enemigo está mirando
+				let galeForce = localHero.GetAbilityByIndex(3);
+				
+				if (galeForce && galeForce.IsExist() && galeForce.CanCast()) {
+					let herolPosition = localHero.GetAbsOrigin();
+					let enemyPosition = enemy.GetAbsOrigin();
+					let enemyDirection = enemyPosition.sub(herolPosition);
 
-				let VisionNPC = NPC.FindFacingNPC(enemy);
+					let VisionNPC = localHero.FindFacingNPC(enemy);
 
-				if(VisionNPC  == localHero){
-					enemyDirection = herolPosition.sub(enemyPosition);
-				} else {
-					enemyDirection = enemyPosition.sub(herolPosition);
+					if(VisionNPC){
+						enemyDirection = herolPosition.sub(enemyPosition);
+					} else {
+						enemyDirection = enemyPosition.sub(herolPosition);
+					}
+					
+					let pushPosition = herolPosition.add(oppositeDirection.mul(new Vector(500, 500, 0)));
+					
+					galeForce.CastPosition(pushPosition);
+					setTimeout(function() {}, 300);
+
 				}
-				
-				let pushPosition = herolPosition.add(oppositeDirection.mul(new Vector(500, 500, 0)));
-				
-				galeForce.CastPosition(pushPosition);
-				setTimeout(function() {}, 300);
-
-		    }
+			}
 		}
-
 	      
 	  }
 	
