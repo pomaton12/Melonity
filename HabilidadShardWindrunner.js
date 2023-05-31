@@ -36,7 +36,7 @@ eval(`
 	    if (localHero.GetUnitName() !== "npc_dota_hero_windrunner") {
 	      return;
 	    }
-		let enemies = localHero.GetHeroesInRadius(300, Enum.TeamType.TEAM_ENEMY);
+		let enemies = localHero.GetHeroesInRadius(400, Enum.TeamType.TEAM_ENEMY);
 		let enemyPositions = {};
 		let galeForce = localHero.GetAbilityByIndex(3);
 		
@@ -46,6 +46,7 @@ eval(`
 				let enemyId = enemy.GetPlayerID();
 				if (galeForce && galeForce.IsExist() && galeForce.CanCast()) {
 					let herolPosition = localHero.GetAbsOrigin();
+					enemyPositions[enemyId] = enemy.GetAbsOrigin();
 					let posINI = enemyPositions[enemyId];
 
 					if (Engine.OnceAt(0.2)) {
