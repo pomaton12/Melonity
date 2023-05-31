@@ -65,8 +65,14 @@ eval(`
 					const oppositeDirection = enemyDirection.mul(new Vector(-1, -1, -1));
 					let pushPosition = enemyPosition.add(oppositeDirection.mul(new Vector(500, 500, 0)));
 					
-					galeForce.CastPosition(pushPosition);
+					galeForce.CastPosition(enemyPosition,pushPosition);
 					setTimeout(function() {}, 300);
+					
+					// Nueva condición para activar windrun siempre
+					let windrun = localHero.GetAbilityByIndex(2);
+					if (windrun && windrun.IsExist() && windrun.CanCast()) {
+					windrun.CastNoTarget();
+					}
 
 				}
 			}
