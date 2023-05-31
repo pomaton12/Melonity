@@ -46,7 +46,7 @@ function getIllusions() {
 }
 
 
-	function getClosestIllusion(vector, radius = 2000) {
+	function getClosestIllusion(vector, radius = 1500) {
 		let closestIllusion = null;
 		let closestDistance = Number.MAX_VALUE;
 
