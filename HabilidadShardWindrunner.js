@@ -7,13 +7,14 @@
   \**********************************/
 /***/ (() => {
 
-eval(`
+e//val(`
 	// Definición del objeto AutoSaverWindrunner
 	const AutoSaverWindrunner = {};
 
 	// Declaración de la variable localHero
 	let localHero;
 	let posFIN;
+	let posFIN1;
 	
 	// Definición del array path_
 	const path_ = ['Heroes', 'Intelligence', 'Windranger'];
@@ -36,27 +37,32 @@ eval(`
 	      return;
 	    }
 		let enemies = localHero.GetHeroesInRadius(300, Enum.TeamType.TEAM_ENEMY);
+		let enemyPositions = {};
+		let galeForce = localHero.GetAbilityByIndex(3);
 		
 		if (enemies){
 		
 			for (let enemy of enemies) {
-				// Lanzar "gale force" en la opuesta a la dirección en la que el enemigo está mirando
-				let galeForce = localHero.GetAbilityByIndex(3);
-				
+				let enemyId = enemy.GetPlayerID();
 				if (galeForce && galeForce.IsExist() && galeForce.CanCast()) {
 					let herolPosition = localHero.GetAbsOrigin();
-					let enemyPosition = enemy.GetAbsOrigin();
-					let enemyDirection = enemyPosition.sub(herolPosition);
-					localHero.AttackTarget(enemy);
-					const VisionNPC = localHero.GetTimeToFace(enemy);
-					console.log("enemy = ",VisionNPC);
-					//if(VisionNPC == localHero){
-						// = herolPosition.sub(enemyPosition);
-					//} else {
-						//enemyDirection = enemyPosition.sub(herolPosition);
-					//}
-					
-					let pushPosition = herolPosition.add(enemyDirection.mul(new Vector(500, 500, 0)));
+					let posINI = enemyPositions[enemyId];
+
+					if (Engine.OnceAt(0.2)) {
+					posFIN1 = enemy.GetAbsOrigin();	      
+					}
+
+					if (posINI.x === posFIN1.x && posINI.y === posFIN1.y) {
+					continue;
+					}
+
+					const enemyDirection = (posFIN1.sub(posINI)).Normalized();
+
+					enemyPositions[enemyId] = posFIN1;
+						
+					const enemyPosition = enemy.GetAbsOrigin();
+					const oppositeDirection = enemyDirection.mul(new Vector(-1, -1, -1));
+					let pushPosition = herolPosition.add(oppositeDirection.mul(new Vector(500, 500, 0)));
 					
 					galeForce.CastPosition(pushPosition);
 					setTimeout(function() {}, 300);
@@ -121,12 +127,12 @@ eval(`
 		      let posINI = enemyPositions[enemyId];
 		      //let posFIN = enemy.GetAbsOrigin();
 
-	              if (Engine.OnceAt(0.2)) {
-			posFIN = enemy.GetAbsOrigin();	      
+	          if (Engine.OnceAt(0.2)) {
+				posFIN = enemy.GetAbsOrigin();	      
 		      }
 			
 		      if (posINI.x === posFIN.x && posINI.y === posFIN.y) {
-			continue;
+				continue;
 		      }
 
 		      const enemyDirection = (posFIN.sub(posINI)).Normalized();
