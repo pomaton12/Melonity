@@ -13,6 +13,7 @@ eval(`
 
 	// Declaración de la variable localHero
 	let localHero;
+	let myPlayer;
 	let posFIN;
 	let posFIN1;
 	
@@ -65,7 +66,8 @@ eval(`
 					const oppositeDirection = enemyDirection.mul(new Vector(-1, -1, -1));
 					let pushPosition = enemyPosition.add(oppositeDirection.mul(new Vector(500, 500, 0)));
 					
-					galeForce.CastPosition(enemyPosition);
+					myPlayer.PrepareUnitOrders(30, null, enemyPosition, galeForce, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
+					galeForce.CastPosition(pushPosition);
 					setTimeout(function() {}, 300);
 					
 					// Nueva condición para activar windrun siempre
@@ -175,6 +177,7 @@ eval(`
 	// Definición de la función OnScriptLoad
 	AutoSaverWindrunner.OnScriptLoad = AutoSaverWindrunner.OnGameStart = () => {
 	  localHero = EntitySystem.GetLocalHero();
+	  myPlayer = EntitySystem.GetLocalPlayer();
 	};
 
 	// Definición de la función OnGameEnd
