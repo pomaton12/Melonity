@@ -42,9 +42,17 @@ eval(`
 		    if (galeForce && galeForce.IsExist() && galeForce.CanCast()) {
 				let herolPosition = localHero.GetAbsOrigin();
 				let enemyPosition = enemy.GetAbsOrigin();
-				let enemyDirection = (enemyPosition.sub(herolPosition)).Normalized();
-				let oppositeDirection = enemyDirection.mul(new Vector(-1, -1, -1));
-				let pushPosition = enemyPosition.add(oppositeDirection.mul(new Vector(500, 500, 0)));
+				let enemyDirection = enemyPosition.sub(herolPosition);
+
+				let VisionNPC = localHero.FindFacingNPC(enemy);
+
+				if(VisionNPC){
+					enemyDirection = herolPosition.sub(enemyPosition);
+				} else {
+					enemyDirection = enemyPosition.sub(herolPosition);
+				}
+				
+				let pushPosition = herolPosition.add(oppositeDirection.mul(new Vector(500, 500, 0)));
 				
 				galeForce.CastPosition(pushPosition);
 				setTimeout(function() {}, 300);
