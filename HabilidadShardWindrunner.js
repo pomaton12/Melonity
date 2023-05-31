@@ -66,8 +66,8 @@ eval(`
 					const oppositeDirection = enemyDirection.mul(new Vector(-1, -1, -1));
 					let pushPosition = enemyPosition.add(oppositeDirection.mul(new Vector(500, 500, 0)));
 					
-					myPlayer.PrepareUnitOrders(30, null, enemyPosition, galeForce, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
-					galeForce.CastPosition(pushPosition);
+					myPlayer.PrepareUnitOrders(30, null, pushPosition, galeForce, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
+					galeForce.CastPosition(enemyPosition);
 					setTimeout(function() {}, 300);
 					
 					// Nueva condición para activar windrun siempre
