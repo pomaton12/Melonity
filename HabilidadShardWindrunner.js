@@ -154,7 +154,7 @@ eval(`
 
 		        // Lanzar Gale Force en la dirección opuesta desde la posición del héroe enemigo
 		        let pushPosition = enemyPosition.add(oppositeDirection.mul(new Vector(100, 100, 0)));
-				myPlayer.PrepareUnitOrders(30, null, enemyPosition, galeForce, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
+				myPlayer.PrepareUnitOrders(30, null, enemyPosition, gale_force, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
 				// Agregar condición para evitar lanzar gale force si el enemigo tiene activado bkb
 				if (enemy.HasModifier("modifier_black_king_bar_immune") === false) {
 				  gale_force.CastPosition(pushPosition);
