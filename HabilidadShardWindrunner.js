@@ -47,9 +47,9 @@ eval(`
 					let herolPosition = localHero.GetAbsOrigin();
 					let enemyPosition = enemy.GetAbsOrigin();
 					let enemyDirection = enemyPosition.sub(herolPosition);
-					console.log("enemy = ",enemy);
+					
 					const VisionNPC = localHero.GetTimeToFace(enemy);
-
+					console.log("enemy = ",VisionNPC);
 					if(VisionNPC == localHero){
 						enemyDirection = herolPosition.sub(enemyPosition);
 					} else {
