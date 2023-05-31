@@ -64,10 +64,10 @@ eval(`
 						
 					const enemyPosition = enemy.GetAbsOrigin();
 					const oppositeDirection = enemyDirection.mul(new Vector(-1, -1, -1));
-					let pushPosition = enemyPosition.add(oppositeDirection.mul(new Vector(500, 500, 0)));
+					let pushPosition = enemyPosition.add(oppositeDirection.mul(new Vector(100, 100, 0)));
 					
-					myPlayer.PrepareUnitOrders(30, null, pushPosition, galeForce, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
-					galeForce.CastPosition(enemyPosition);
+					myPlayer.PrepareUnitOrders(30, null, enemyPosition, galeForce, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
+					galeForce.CastPosition(pushPosition);
 					setTimeout(function() {}, 300);
 					
 					// Nueva condición para activar windrun siempre
@@ -153,8 +153,8 @@ eval(`
 		        const oppositeDirection = enemyDirection.mul(new Vector(-1, -1, -1));
 
 		        // Lanzar Gale Force en la dirección opuesta desde la posición del héroe enemigo
-		        let pushPosition = enemyPosition.add(oppositeDirection.mul(new Vector(500, 500, 0)));
-			
+		        let pushPosition = enemyPosition.add(oppositeDirection.mul(new Vector(100, 100, 0)));
+				myPlayer.PrepareUnitOrders(30, null, enemyPosition, galeForce, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
 				// Agregar condición para evitar lanzar gale force si el enemigo tiene activado bkb
 				if (enemy.HasModifier("modifier_black_king_bar_immune") === false) {
 				  gale_force.CastPosition(pushPosition);
