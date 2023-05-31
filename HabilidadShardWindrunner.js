@@ -47,16 +47,16 @@ eval(`
 					let herolPosition = localHero.GetAbsOrigin();
 					let enemyPosition = enemy.GetAbsOrigin();
 					let enemyDirection = enemyPosition.sub(herolPosition);
-					
+					localHero.AttackTarget(enemy);
 					const VisionNPC = localHero.GetTimeToFace(enemy);
 					console.log("enemy = ",VisionNPC);
-					if(VisionNPC == localHero){
-						enemyDirection = herolPosition.sub(enemyPosition);
-					} else {
-						enemyDirection = enemyPosition.sub(herolPosition);
-					}
+					//if(VisionNPC == localHero){
+						// = herolPosition.sub(enemyPosition);
+					//} else {
+						//enemyDirection = enemyPosition.sub(herolPosition);
+					//}
 					
-					let pushPosition = herolPosition.add(oppositeDirection.mul(new Vector(500, 500, 0)));
+					let pushPosition = herolPosition.add(enemyDirection.mul(new Vector(500, 500, 0)));
 					
 					galeForce.CastPosition(pushPosition);
 					setTimeout(function() {}, 300);
