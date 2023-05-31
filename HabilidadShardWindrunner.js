@@ -7,7 +7,7 @@
   \**********************************/
 /***/ (() => {
 
-eval(`
+//eval(`
 	// Definición del objeto AutoSaverWindrunner
 	const AutoSaverWindrunner = {};
 
@@ -48,9 +48,9 @@ eval(`
 					let enemyPosition = enemy.GetAbsOrigin();
 					let enemyDirection = enemyPosition.sub(herolPosition);
 
-					let VisionNPC = localHero.FindFacingNPC(enemy);
+					let VisionNPC = NPC.FindFacingNPC(enemy);
 
-					if(VisionNPC){
+					if(VisionNPC == localHero){
 						enemyDirection = herolPosition.sub(enemyPosition);
 					} else {
 						enemyDirection = enemyPosition.sub(herolPosition);
