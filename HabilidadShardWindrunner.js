@@ -65,7 +65,7 @@ eval(`
 					const oppositeDirection = enemyDirection.mul(new Vector(-1, -1, -1));
 					let pushPosition = enemyPosition.add(oppositeDirection.mul(new Vector(500, 500, 0)));
 					
-					galeForce.CastPosition(enemyPosition,pushPosition);
+					galeForce.CastPosition(enemyPosition);
 					setTimeout(function() {}, 300);
 					
 					// Nueva condición para activar windrun siempre
