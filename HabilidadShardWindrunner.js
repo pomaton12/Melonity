@@ -63,7 +63,7 @@ eval(`
 						
 					const enemyPosition = enemy.GetAbsOrigin();
 					const oppositeDirection = enemyDirection.mul(new Vector(-1, -1, -1));
-					let pushPosition = herolPosition.add(oppositeDirection.mul(new Vector(500, 500, 0)));
+					let pushPosition = enemyPosition.add(oppositeDirection.mul(new Vector(500, 500, 0)));
 					
 					galeForce.CastPosition(pushPosition);
 					setTimeout(function() {}, 300);
