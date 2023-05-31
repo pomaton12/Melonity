@@ -31,7 +31,7 @@ eval(`
 	let bkbEnemies = {};
 
 	AutoSaverWindrunner.OnUpdate = () => {
-          if (localHero && isUiEnabledDogde.GetValue()) {
+      if (localHero && isUiEnabledDogde.GetValue()) {
 	    if (localHero.GetUnitName() !== "npc_dota_hero_windrunner") {
 	      return;
 	    }
@@ -40,12 +40,15 @@ eval(`
 		    // Lanzar "gale force" en la opuesta a la dirección en la que el enemigo está mirando
 		    let galeForce = localHero.GetAbilityByIndex(3);
 		    if (galeForce && galeForce.IsExist() && galeForce.CanCast()) {
-		      let herolPosition = localHero.GetAbsOrigin();
-		      let enemyPosition = enemy.GetAbsOrigin();
-		      let enemyDirection = (enemyPosition.sub(herolPosition)).Normalized();
-		      let oppositeDirection = enemyDirection.mul(new Vector(-1, -1, -1));
-		      let pushPosition = enemyPosition.add(oppositeDirection.mul(new Vector(500, 500, 0)));
-		      galeForce.CastPosition(pushPosition);
+				let herolPosition = localHero.GetAbsOrigin();
+				let enemyPosition = enemy.GetAbsOrigin();
+				let enemyDirection = (enemyPosition.sub(herolPosition)).Normalized();
+				let oppositeDirection = enemyDirection.mul(new Vector(-1, -1, -1));
+				let pushPosition = enemyPosition.add(oppositeDirection.mul(new Vector(500, 500, 0)));
+				
+				galeForce.CastPosition(pushPosition);
+				setTimeout(function() {}, 300);
+
 		    }
 		}
 
@@ -125,11 +128,11 @@ eval(`
 		        // Lanzar Gale Force en la dirección opuesta desde la posición del héroe enemigo
 		        let pushPosition = enemyPosition.add(oppositeDirection.mul(new Vector(500, 500, 0)));
 			
-			// Agregar condición para evitar lanzar gale force si el enemigo tiene activado bkb
-			if (enemy.HasModifier("modifier_black_king_bar_immune") === false) {
-			  gale_force.CastPosition(pushPosition);
-			  setTimeout(function() {}, 300);
-			}
+				// Agregar condición para evitar lanzar gale force si el enemigo tiene activado bkb
+				if (enemy.HasModifier("modifier_black_king_bar_immune") === false) {
+				  gale_force.CastPosition(pushPosition);
+				  setTimeout(function() {}, 300);
+				}
 		      }
 		    }
 		  }
