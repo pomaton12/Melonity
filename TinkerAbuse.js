@@ -23,7 +23,7 @@ eval(`
 	DogdeMatrixToggle.SetImage('panorama/images/spellicons/tinker_defense_matrix_png.vtex_c');
 	
 	let EulSafePosToggle = Menu.AddToggle(path_, 'Eul Safe Pos', true);
-	MissileToggle.SetImage('panorama/images/econ/items/crystal_maiden/euls_scepterdivinity_png.vtex_c');
+	EulSafePosToggle.SetImage('panorama/images/items/cyclone_razor_arcana_alt1_png.vtex_c');
 
 
 	//=============================================================
