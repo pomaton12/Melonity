@@ -13,6 +13,16 @@ eval(`
 	let localHero;
 	let myPlayer;
 	let lastBlinkTime = 0;
+	const silences = [
+		"modifier_orchid_malevolence_debuff",
+		"modifier_bloodthorn_debuff",
+		"modifier_skywrath_mage_ancient_seal",
+		"modifier_drow_ranger_gust_silence",
+		"modifier_death_prophet_silence",
+		"modifier_night_stalker_crippling_fear",
+		"modifier_silencer_global_silence",
+		"modifier_grimstroke_ink_swell_debuff"
+		];
 
 	// options
 	const path_ = ['Heroes', 'Intelligence', 'Tinker', 'Combo'];
@@ -37,6 +47,17 @@ eval(`
 		localHero.GetItem('item_wind_waker', true);
     }
 
+	function isHeroSilenced(hero) {
+	  for (let i = 0; i < silences.length; i++) {
+		if (hero.HasModifier(silences[i])) {
+		  return true;
+		}
+	  }
+
+	  return false;
+	}
+
+
 	function useEulAndBlinkToSafePosition() {
 		const eul = GetCyclone();
 		const blink = GetBlink();
@@ -46,7 +67,7 @@ eval(`
 			return;
 		}
 
-		const isSilencedOrFrozen = localHero.IsSilenced() || localHero.IsRooted();
+		const isSilencedOrFrozen = isHeroSilenced(localHero);
 		const isRearmOnCooldown = rearm.GetCooldown() > 0;
 		const isLowHealth = ((localHero.GetHealth() / localHero.GetMaxHealth()) * 100) < 30;
 
