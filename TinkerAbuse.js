@@ -34,8 +34,14 @@ eval(`
             localHero.GetItem('item_swift_blink', true);
     }
 
+	// Funcion Blink
+	function GetCyclone() {
+        return localHero.GetItem('item_cyclone', true) ||
+		localHero.GetItem('item_wind_waker', true);
+    }
+
 	function useEulAndBlinkToSafePosition() {
-		const eul = localHero.GetItem('item_cyclone', true);
+		const eul = GetCyclone();
 		const blink = GetBlink();
 		const rearm = localHero.GetAbilityByIndex(5);
 
