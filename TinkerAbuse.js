@@ -67,7 +67,7 @@ eval(`
 		}
 	}
 
-	function findSafePosition(localHero: Entity, searchRadius: number, treeRadius: number){
+	function findSafePosition(localHero, searchRadius, treeRadius){
 		const heroPosition = localHero.GetAbsOrigin();
 		const enemyHeroes = localHero.GetHeroesInRadius(searchRadius, Enum.TeamType.TEAM_ENEMY);
 		let maxDistance = 0;
