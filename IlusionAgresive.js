@@ -21,7 +21,7 @@ eval(`
 	let attackHeroToggle = Menu.AddToggle(path_, 'Attack Hero', true);
 	attackHeroToggle.SetImage('panorama/images/spellicons/spectre_haunt_png.vtex_c');
 	let pushLineCreepsToggle = Menu.AddToggle(path_, 'Push Line Creeps', true);
-	pushLineCreepsToggle.SetImage('panorama/images/econ/creeps/lane_creeps/creep_2021_dire/dire_2021_radiant_creeps_png.vtex_c');
+	pushLineCreepsToggle.SetImage('panorama/images/spellicons/action_attackcreep_png.vtex_c');
 
 function getIllusions() {
     if (illusionList.length < 5) {
