@@ -25,6 +25,13 @@ eval(`
 	let EulSafePosToggle = Menu.AddToggle(path_, 'Eul Safe Pos', true);
 	EulSafePosToggle.SetImage('panorama/images/items/cyclone_razor_arcana_alt1_png.vtex_c');
 
+	// Funcion Blink
+	function GetBlink() {
+        return localHero.GetItem('item_blink', true) ||
+            localHero.GetItem('item_overwhelming_blink', true) ||
+            localHero.GetItem('item_arcane_blink', true) ||
+            localHero.GetItem('item_swift_blink', true);
+    }
 
 	//=============================================================
 	// Funcion Principal para Iniciar el CODIGO
@@ -37,7 +44,7 @@ eval(`
 			}
 
 			// Check if Blink Dagger was used
-			const blinkDagger = localHero.GetItemByName("item_blink");
+			const blinkDagger = GetBlink();
 			if (blinkDagger && blinkDagger.IsCooldownReady()) {
 				const currentTime = GameRules.GetGameTime();
 				const lastBlinkTime = localHero.GetLastAbilityCastTime("tinker_blink");
