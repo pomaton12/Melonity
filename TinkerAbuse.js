@@ -12,6 +12,7 @@ eval(`
 	const TinkerLastHit = {};
 	let localHero;
 	let myPlayer;
+	let lastBlinkTime = 0;
 
 	// options
 	const path_ = ['Heroes', 'Intelligence', 'Tinker', 'Combo'];
@@ -47,7 +48,6 @@ eval(`
 			const blinkDagger = GetBlink();
 			if (blinkDagger && blinkDagger.GetCooldown()) {
 				const currentTime = GameRules.GetGameTime();
-				const lastBlinkTime = localHero.GetLastAbilityCastTime(blinkDagger);
 
 				// Check if less than 1 second has passed since Blink Dagger was used
 				if (currentTime - lastBlinkTime <= 1) {
@@ -58,10 +58,11 @@ eval(`
 
 					if (enemies.length > 0) {
 						// Cast Tinker's second ability on the first enemy hero found
-						const missileAbility = localHero.GetAbilityByName("tinker_heat_seeking_missile");
-						if (missileAbility && missileAbility.IsCooldownReady()) {
+						const missileAbility = localHero.GetAbilityByIndex(1);
+						if (missileAbility && missileAbility.IsExist() && missileAbility.CanCast()) {
 							const target = enemies[0];
-							localHero.CastAbilityNoTarget(missileAbility);
+							missileAbility.CastNoTarget();
+							lastBlinkTime = currentTime;
 						}
 					}
 				}
