@@ -7,7 +7,7 @@
   \**********************************/
 /***/ (() => {
 
-eval(`
+//eval(`
 
 	const IllusionsAgresive = {};
 
@@ -19,9 +19,9 @@ eval(`
 
 	let enableToggle = Menu.AddToggle(path_, 'Enable', true);
 	let attackHeroToggle = Menu.AddToggle(path_, 'Attack Hero', true);
-	attackHeroToggle.SetImage('panorama/images/spellicons/phantom_lancer_sunwarrior_doppelwalk_png.vtex_c');
+	attackHeroToggle.SetImage('panorama/images/spellicons/spectre_haunt_png.vtex_c');
 	let pushLineCreepsToggle = Menu.AddToggle(path_, 'Push Line Creeps', true);
-	pushLineCreepsToggle.SetImage('panorama/images/econ/creeps/lane_creeps/creep_2021_radiant/creep_2021_radiant_creeps_png.vtex_c');
+	pushLineCreepsToggle.SetImage('models/creeps/lane_creeps/creep_radiant_ranged/radiant_ranged_mushroom_normal_psd_3a07aa02.vtex_c');
 
 function getIllusions() {
     if (illusionList.length < 5) {
@@ -186,4 +186,3 @@ function getIllusions() {
 /******/ 	
 /******/ })()
 ;
-
