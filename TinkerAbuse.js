@@ -67,11 +67,11 @@ eval(`
 		return;
 	    }
 
-	    const isSilencedOrFrozen = isHeroSilenced(localHero) || localHero.IsSilenced();
+	    const isSilenced = localHero.HasModifier("modifier_silence");
 	    const isRearmOnCooldown = rearm.GetCooldown() > 0;
 	    const isLowHealth = ((localHero.GetHealth() / localHero.GetMaxHealth()) * 100) < 30;
 
-	    if ((isSilencedOrFrozen || isRearmOnCooldown || isLowHealth) && eul.CanCast()) {
+	    if ((isSilenced || isRearmOnCooldown || isLowHealth) && eul.CanCast()) {
 		eul.CastTarget(localHero);
 		const searchRadius = 1200; // Radio de búsqueda alrededor del héroe
 		const treeRadius = 200; // Radio de búsqueda de árboles
