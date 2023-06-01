@@ -37,7 +37,7 @@ eval(`
 	function useEulAndBlinkToSafePosition() {
 		const eul = localHero.GetItem('item_cyclone', true);
 		const blink = GetBlink();
-		const rearm = localHero.GetAbilityByIndex(6);
+		const rearm = localHero.GetAbilityByIndex(5);
 
 		if (!eul || !blink || !rearm) {
 			return;
