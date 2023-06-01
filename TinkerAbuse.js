@@ -14,7 +14,7 @@ eval(`
 	let myPlayer;
 
 	// options
-	const path_ = ['Heroes', 'Strength', 'Tinker'];
+	const path_ = ['Heroes', 'Intelligence', 'Tinker', 'Combo'];
 
 	let MissileToggle = Menu.AddToggle(path_, 'Use missile in Range', true);
 	MissileToggle.SetImage('panorama/images/spellicons/tinker_heat_seeking_missile_png.vtex_c');
