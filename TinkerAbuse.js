@@ -48,10 +48,11 @@ eval(`
 		const isLowHealth = ((localHero.GetHealth() / localHero.GetMaxHealth()) * 100) < 30;
 
 		if ((isSilenced || isRearmOnCooldown || isLowHealth) && eul.CanCast()) {
+			eul.CastTarget(localHero);
 			const searchRadius = 1200; // Radio de búsqueda alrededor del héroe
 			const treeRadius = 200; // Radio de búsqueda de árboles
 			const safePosition = findSafePosition(localHero, searchRadius, treeRadius);
-			eul.CastTarget(localHero);
+			
 			// Espera a que Eul's Scepter termine
 			$.Schedule(eul.GetSpecialValueFor('cyclone_duration'), () => {
 				if (blink.CanCast()) {
