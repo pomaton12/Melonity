@@ -50,7 +50,7 @@ eval(`
 				const currentTime = GameRules.GetGameTime();
 
 				// Check if less than 1 second has passed since Blink Dagger was used
-				if (currentTime - lastBlinkTime <= 1.5) {
+				//if (currentTime - lastBlinkTime <= 1.5) {
 
 					// Cast Tinker's second ability on the first enemy hero found
 					const missileAbility = localHero.GetAbilityByIndex(1);
@@ -59,7 +59,7 @@ eval(`
 						lastBlinkTime = currentTime;
 					}
 
-				}
+				//}
 			}
 		}
 	};
