@@ -59,38 +59,39 @@ eval(`
 
 
 	function useEulAndBlinkToSafePosition() {
-		const eul = GetCyclone();
-		const blink = GetBlink();
-		const rearm = localHero.GetAbilityByIndex(5);
+	    const eul = GetCyclone();
+	    const blink = GetBlink();
+	    const rearm = localHero.GetAbilityByIndex(5);
 
-		if (!eul || !blink || !rearm) {
-			return;
-		}
+	    if (!eul || !blink || !rearm) {
+		return;
+	    }
 
-		const isSilencedOrFrozen = isHeroSilenced(localHero);
-		const isRearmOnCooldown = rearm.GetCooldown() > 0;
-		const isLowHealth = ((localHero.GetHealth() / localHero.GetMaxHealth()) * 100) < 30;
+	    const isSilencedOrFrozen = isHeroSilenced(localHero) || localHero.IsRooted() || localHero.IsSilenced();
+	    const isRearmOnCooldown = rearm.GetCooldown() > 0;
+	    const isLowHealth = ((localHero.GetHealth() / localHero.GetMaxHealth()) * 100) < 30;
 
-		if ((isSilencedOrFrozen || isRearmOnCooldown || isLowHealth) && eul.CanCast()) {
-			eul.CastTarget(localHero);
-			const searchRadius = 1200; // Radio de búsqueda alrededor del héroe
-			const treeRadius = 200; // Radio de búsqueda de árboles
-			const safePosition = findSafePosition(localHero, searchRadius, treeRadius);
-			
-			// Espera a que Eul's Scepter termine
-			$.Schedule(eul.GetSpecialValueFor('cyclone_duration'), () => {
-				if (blink.CanCast()) {
-					blink.CastPosition(safePosition);
-					// Espera a que Blink Dagger termine
-					$.Schedule(blink.GetCastPoint(), () => {
-						if (rearm.CanCast()) {
-							rearm.CastNoTarget();
-						}
-					});
-				}
+	    if ((isSilencedOrFrozen || isRearmOnCooldown || isLowHealth) && eul.CanCast()) {
+		eul.CastTarget(localHero);
+		const searchRadius = 1200; // Radio de búsqueda alrededor del héroe
+		const treeRadius = 200; // Radio de búsqueda de árboles
+		const safePosition = findSafePosition(localHero, searchRadius, treeRadius);
+
+		// Espera a que Eul's Scepter termine
+		$.Schedule(eul.GetSpecialValueFor('cyclone_duration'), () => {
+		    if (blink.CanCast()) {
+			blink.CastPosition(safePosition);
+			// Espera a que Blink Dagger termine
+			$.Schedule(blink.GetCastPoint(), () => {
+			    if (rearm.CanCast()) {
+				rearm.CastNoTarget();
+			    }
 			});
-		}
+		    }
+		});
+	    }
 	}
+
 
 	function findSafePosition(localHero, searchRadius, treeRadius){
 		const heroPosition = localHero.GetAbsOrigin();
