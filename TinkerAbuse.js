@@ -67,7 +67,7 @@ eval(`
 		return;
 	    }
 
-	    const isSilenced = localHero.HasModifier("modifier_silence");
+	    const isSilenced = isHeroSilenced(localHero);
 	    const isRearmOnCooldown = rearm.GetCooldown() > 0;
 	    const isLowHealth = ((localHero.GetHealth() / localHero.GetMaxHealth()) * 100) < 30;
 
@@ -77,15 +77,16 @@ eval(`
 		const treeRadius = 200; // Radio de búsqueda de árboles
 		const safePosition = findSafePosition(localHero, searchRadius, treeRadius);
 
-		// Espera a que Eul's Scepter termine
-		if (blink.CanCast()) {
-			blink.CastPosition(safePosition);
-			// Espera a que Blink Dagger termine
+		if (Engine.OnceAt(2.51)) {
+			if (blink.CanCast()) {
+				blink.CastPosition(safePosition);
+				// Espera a que Blink Dagger termine
 
-			if (rearm.CanCast()) {
-				rearm.CastNoTarget();
+				if (rearm.CanCast()) {
+					//rearm.CastNoTarget();
+				}
+
 			}
-
 		}
 	    }
 	}
