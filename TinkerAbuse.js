@@ -45,9 +45,9 @@ eval(`
 
 			// Check if Blink Dagger was used
 			const blinkDagger = GetBlink();
-			if (blinkDagger && blinkDagger.IsCooldownReady()) {
+			if (blinkDagger && blinkDagger.GetCooldown()) {
 				const currentTime = GameRules.GetGameTime();
-				const lastBlinkTime = localHero.GetLastAbilityCastTime("tinker_blink");
+				const lastBlinkTime = localHero.GetLastAbilityCastTime(blinkDagger);
 
 				// Check if less than 1 second has passed since Blink Dagger was used
 				if (currentTime - lastBlinkTime <= 1) {
