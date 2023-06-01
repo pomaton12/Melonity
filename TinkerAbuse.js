@@ -45,10 +45,10 @@ eval(`
 
 		const isSilenced = localHero.IsSilenced();
 		const isRearmOnCooldown = rearm.GetCooldown() > 0;
-		const isLowHealth = localHero.GetHealthPercent() < 30;
+		const isLowHealth = ((localHero.GetHealth() / localHero.GetMaxHealth()) * 100) < 30;
 
 		if ((isSilenced || isRearmOnCooldown || isLowHealth) && eul.CanCast()) {
-			const searchRadius = 2000; // Radio de búsqueda alrededor del héroe
+			const searchRadius = 1200; // Radio de búsqueda alrededor del héroe
 			const treeRadius = 200; // Radio de búsqueda de árboles
 			const safePosition = findSafePosition(localHero, searchRadius, treeRadius);
 			eul.CastTarget(localHero);
