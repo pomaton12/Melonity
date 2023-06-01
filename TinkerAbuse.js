@@ -78,17 +78,15 @@ eval(`
 		const safePosition = findSafePosition(localHero, searchRadius, treeRadius);
 
 		// Espera a que Eul's Scepter termine
-		$.Schedule(eul.GetSpecialValueFor('cyclone_duration'), () => {
-		    if (blink.CanCast()) {
+		if (blink.CanCast()) {
 			blink.CastPosition(safePosition);
 			// Espera a que Blink Dagger termine
-			$.Schedule(blink.GetCastPoint(), () => {
-			    if (rearm.CanCast()) {
+
+			if (rearm.CanCast()) {
 				rearm.CastNoTarget();
-			    }
-			});
-		    }
-		});
+			}
+
+		}
 	    }
 	}
 
