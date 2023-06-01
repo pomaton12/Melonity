@@ -92,14 +92,15 @@ eval(`
 	    const eul = GetCyclone();
 	    const blink = GetBlink();
 	    const rearm = localHero.GetAbilityByIndex(5);
-
+	    const isLowHealth = ((localHero.GetHealth() / localHero.GetMaxHealth()) * 100) < 30;
+	    
 	    if (!eul || !blink || !rearm) {
 		return;
 	    }
 
-	    const isSilenced = isHeroSilenced(localHero);
+	    const isSilenced = localHero.IsSilenced();
 
-	    if (isSilenced && eul.CanCast()) {
+	    if ((isSilenced || isLowHealth) && eul.CanCast()) {
 		eul.CastTarget(localHero);
 		const searchRadius = 1200; // Radio de búsqueda alrededor del héroe
 		const treeRadius = 200; // Radio de búsqueda de árboles
