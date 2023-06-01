@@ -109,9 +109,8 @@ eval(`
 				return Math.min(minDistance, distance);
 			}, Infinity);
 
-			const isNearTree = GameUI.FindTrees(candidatePosition, treeRadius).length > 0;
-
-			if (distanceToClosestEnemy > maxDistance && isNearTree) {
+	
+			if (distanceToClosestEnemy > maxDistance) {
 				maxDistance = distanceToClosestEnemy;
 				safePosition = candidatePosition;
 			}
