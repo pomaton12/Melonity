@@ -49,7 +49,7 @@ eval(`
 			return;
 		}
 
-		const isSilenced = localHero.IsSilenced();
+		const isSilenced = localHero.IsSilenced() || localHero.IsMuted();
 		const isRearmOnCooldown = rearm.GetCooldown() > 0;
 		const isLowHealth = ((localHero.GetHealth() / localHero.GetMaxHealth()) * 100) < 30;
 
