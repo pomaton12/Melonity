@@ -57,41 +57,6 @@ eval(`
 	  return false;
 	}
 
-
-	function useEulAndBlinkToSafePosition() {
-	    const eul = GetCyclone();
-	    const blink = GetBlink();
-	    const rearm = localHero.GetAbilityByIndex(5);
-
-	    if (!eul || !blink || !rearm) {
-		return;
-	    }
-
-	    const isSilenced = isHeroSilenced(localHero);
-	    const isRearmOnCooldown = rearm.GetCooldown() > 0;
-	    const isLowHealth = ((localHero.GetHealth() / localHero.GetMaxHealth()) * 100) < 30;
-
-	    if ((isSilenced || isRearmOnCooldown || isLowHealth) && eul.CanCast()) {
-		eul.CastTarget(localHero);
-		const searchRadius = 1200; // Radio de búsqueda alrededor del héroe
-		const treeRadius = 200; // Radio de búsqueda de árboles
-		const safePosition = findSafePosition(localHero, searchRadius, treeRadius);
-
-		if (Engine.OnceAt(2.51)) {
-			if (blink.CanCast()) {
-				blink.CastPosition(safePosition);
-				// Espera a que Blink Dagger termine
-
-				if (rearm.CanCast()) {
-					//rearm.CastNoTarget();
-				}
-
-			}
-		}
-	    }
-	}
-
-
 	function findSafePosition(localHero, searchRadius, treeRadius){
 		const heroPosition = localHero.GetAbsOrigin();
 		const enemyHeroes = localHero.GetHeroesInRadius(searchRadius, Enum.TeamType.TEAM_ENEMY);
@@ -117,6 +82,46 @@ eval(`
 
 		return safePosition;
 	}
+
+
+
+
+
+
+	function useEulAndBlinkToSafePosition() {
+	    const eul = GetCyclone();
+	    const blink = GetBlink();
+	    const rearm = localHero.GetAbilityByIndex(5);
+
+	    if (!eul || !blink || !rearm) {
+		return;
+	    }
+
+	    const isSilenced = isHeroSilenced(localHero);
+
+	    if (isSilenced && eul.CanCast()) {
+		eul.CastTarget(localHero);
+		const searchRadius = 1200; // Radio de búsqueda alrededor del héroe
+		const treeRadius = 200; // Radio de búsqueda de árboles
+		const safePosition = findSafePosition(localHero, searchRadius, treeRadius);
+
+		// Espera a que Eul's Scepter termine
+		setTimeout(() => {
+		    if (blink.CanCast()) {
+			blink.CastPosition(safePosition);
+			// Espera a que Blink Dagger termine
+
+			setTimeout(() => {
+			    if (rearm.CanCast()) {
+				rearm.CastNoTarget();
+			    }
+			}, 1000);
+		    }
+		}, 2.5 * 1000); // Espera 2.5 segundos para que el héroe esté en el aire antes de parpadear
+	    }
+	}
+
+
 
 
 
