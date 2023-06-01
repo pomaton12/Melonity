@@ -34,6 +34,68 @@ eval(`
             localHero.GetItem('item_swift_blink', true);
     }
 
+	function useEulAndBlinkToSafePosition() {
+		const eul = localHero.GetItem('item_cyclone', true);
+		const blink = GetBlink();
+		const rearm = localHero.GetAbilityByIndex(3);
+
+		if (!eul || !blink || !rearm) {
+			return;
+		}
+
+		const isSilenced = localHero.IsSilenced();
+		const isRearmOnCooldown = rearm.GetCooldown() > 0;
+		const isLowHealth = localHero.GetHealthPercent() < 30;
+
+		if ((isSilenced || isRearmOnCooldown || isLowHealth) && eul.CanCast()) {
+			const searchRadius = 2000; // Radio de búsqueda alrededor del héroe
+			const treeRadius = 200; // Radio de búsqueda de árboles
+			const safePosition = findSafePosition(localHero, searchRadius, treeRadius);
+			eul.CastTarget(localHero);
+			// Espera a que Eul's Scepter termine
+			$.Schedule(eul.GetSpecialValueFor('cyclone_duration'), () => {
+				if (blink.CanCast()) {
+					blink.CastPosition(safePosition);
+					// Espera a que Blink Dagger termine
+					$.Schedule(blink.GetCastPoint(), () => {
+						if (rearm.CanCast()) {
+							rearm.CastNoTarget();
+						}
+					});
+				}
+			});
+		}
+	}
+
+	function findSafePosition(localHero: Entity, searchRadius: number, treeRadius: number): Vector {
+		const heroPosition = localHero.GetAbsOrigin();
+		const enemyHeroes = localHero.GetHeroesInRadius(searchRadius, Enum.TeamType.TEAM_ENEMY);
+		let maxDistance = 0;
+		let safePosition = heroPosition;
+
+		for (let angle = 0; angle < 360; angle += 10) {
+			const dx = Math.cos(angle * (Math.PI / 180)) * searchRadius;
+			const dy = Math.sin(angle * (Math.PI / 180)) * searchRadius;
+			const candidatePosition = heroPosition.add(new Vector(dx, dy, 0));
+
+			const distanceToClosestEnemy = enemyHeroes.reduce((minDistance, enemy) => {
+				const distance = candidatePosition.Distance(enemy.GetAbsOrigin());
+				return Math.min(minDistance, distance);
+			}, Infinity);
+
+			const isNearTree = GameUI.FindTrees(candidatePosition, treeRadius).length > 0;
+
+			if (distanceToClosestEnemy > maxDistance && isNearTree) {
+				maxDistance = distanceToClosestEnemy;
+				safePosition = candidatePosition;
+			}
+		}
+
+		return safePosition;
+	}
+
+
+
 	//=============================================================
 	// Funcion Principal para Iniciar el CODIGO
 	//=============================================================
@@ -61,6 +123,15 @@ eval(`
 
 			}
 		}
+		
+		
+	    if (localHero && EulSafePosToggle.GetValue()) {
+			useEulAndBlinkToSafePosition();
+		}	
+		
+		
+		
+		
 	};
 
 
