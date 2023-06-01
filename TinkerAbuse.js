@@ -46,7 +46,7 @@ eval(`
 			return;
 		}
 
-		const isSilencedOrFrozen = localHero.HasState(Enum.ModifierState.MODIFIER_STATE_MUTED) || localHero.HasState(Enum.ModifierState.MODIFIER_STATE_FROZEN);
+		const isSilencedOrFrozen = localHero.IsSilenced() || localHero.IsRooted();
 		const isRearmOnCooldown = rearm.GetCooldown() > 0;
 		const isLowHealth = ((localHero.GetHealth() / localHero.GetMaxHealth()) * 100) < 30;
 
