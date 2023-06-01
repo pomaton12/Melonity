@@ -19,10 +19,7 @@ eval(`
 
 	let MissileToggle = Menu.AddToggle(path_, 'Use missile in Range', true);
 	MissileToggle.SetImage('panorama/images/spellicons/tinker_heat_seeking_missile_png.vtex_c');
-	
-	let DogdeMatrixToggle = Menu.AddToggle(path_, 'Dogde Defense Matrix', true);
-	DogdeMatrixToggle.SetImage('panorama/images/spellicons/tinker_defense_matrix_png.vtex_c');
-	
+		
 	let EulSafePosToggle = Menu.AddToggle(path_, 'Eul Safe Pos', true);
 	EulSafePosToggle.SetImage('panorama/images/items/cyclone_razor_arcana_alt1_png.vtex_c');
 
@@ -49,11 +46,11 @@ eval(`
 			return;
 		}
 
-		const isSilenced = localHero.IsSilenced() || localHero.IsMuted();
+		const isSilencedOrFrozen = localHero.HasState(Enum.ModifierState.MODIFIER_STATE_MUTED) || localHero.HasState(Enum.ModifierState.MODIFIER_STATE_FROZEN);
 		const isRearmOnCooldown = rearm.GetCooldown() > 0;
 		const isLowHealth = ((localHero.GetHealth() / localHero.GetMaxHealth()) * 100) < 30;
 
-		if ((isSilenced || isRearmOnCooldown || isLowHealth) && eul.CanCast()) {
+		if ((isSilencedOrFrozen || isRearmOnCooldown || isLowHealth) && eul.CanCast()) {
 			eul.CastTarget(localHero);
 			const searchRadius = 1200; // Radio de búsqueda alrededor del héroe
 			const treeRadius = 200; // Radio de búsqueda de árboles
