@@ -49,8 +49,10 @@ eval(`
 			if (blinkDagger && blinkDagger.GetCooldown()) {
 				const currentTime = GameRules.GetGameTime();
 
-				// Check if less than 1 second has passed since Blink Dagger was used
-				//if (currentTime - lastBlinkTime <= 1.5) {
+				// Find visible enemy heroes within 2000 radius
+                const enemies = EntitySystem.GetHeroesList().filter(hero => {return hero.IsAlive() && hero.IsVisible() && hero.IsEnemy(localHero) && hero.GetRangeTo(localHero) <= 2000;});
+					
+				if (enemies.length > 0) {
 
 					// Cast Tinker's second ability on the first enemy hero found
 					const missileAbility = localHero.GetAbilityByIndex(1);
@@ -58,8 +60,8 @@ eval(`
 						missileAbility.CastNoTarget();
 						lastBlinkTime = currentTime;
 					}
+				}
 
-				//}
 			}
 		}
 	};
