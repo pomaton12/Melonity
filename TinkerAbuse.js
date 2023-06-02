@@ -93,52 +93,42 @@ eval(`
 
 
 	function useEulAndBlinkToSafePosition() {
-	    const eul = GetCyclone();
-	    const blink = GetBlink();
-	    const rearm = localHero.GetAbilityByIndex(5);
-	    const isLowHealth = ((localHero.GetHealth() / localHero.GetMaxHealth()) * 100) < 30;
-	    
-	    if (!eul || !blink || !rearm) {
-		return;
-	    }
+		const eul = GetCyclone();
+		const blink GetBlink();
+		const rearm = localHero.GetAbilityByIndex(5);
+		isLowHealth = ((localHero.GetHealth() / localHero.GetMaxHealth()) * 100) < 30;
 		
+		if (!eul || !blink || !rearm) {
+			return;
+		}
 		
 		const modifiers = localHero.GetModifiers();
-		//for (let i = 0; i < silences.length; i++) {
-		for (let modifier of modifiers) {	
-			//const modifier = localHero.HasModifier(silences[i]);
-			console.log("Nombre = ",modifier.GetName());
-			if (modifier.GetName() === 'modifier_bloodthorn_debuff') {
-				const remainingTime = modifier.GetRemainingTime();
-				const DuringTime = modifier.GetDuration();
-				
-				console.log("Time Rest = ",remainingTime," Time Duration = ",DuringTime);
-				
-				if(0 < (DuringTime - remainingTime)< 3 && eul.CanCast()){
-					eul.CastTarget(localHero);
-					//eul.CastNoTarget();
-					console.log("Lanzar");
-					const searchRadius = 1200; // Radio de búsqueda alrededor del héroe
-					const treeRadius = 200; // Radio de búsqueda de árboles
-					const safePosition = findSafePosition(localHero, searchRadius, treeRadius);
+		const isSilenced = modifiers.some(modifier => silences.includes(modifier.GetName()));
+		
+		if (isSilenced) {
+			const searchRadius = 1200; // Radio de búsqueda alrededor del héroe
+			const treeRadius = 200; // Radio de búsqueda de árboles
+			const safePosition = findSafePosition(localHero, searchRadius, treeRadius);
 
-					// Espera a que Eul's Scepter termine
+			// Presiona rápidamente la tecla asignada en el inventario para lanzar Eul's Scepter
+			Input.ExecuteOrder(localHero, Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_TARGET, null, eul, null, localHero, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY_FLAG, null, null);
+			
+			// Espera a que Eul's Scepter termine
+			setTimeout(() => {
+				if (blink.CanCast()) {
+					blink.CastPosition(safePosition);
+					
+					// Espera a que Blink Dagger termine
 					setTimeout(() => {
-						if (blink.CanCast()) {
-						blink.CastPosition(input.worldposition());
-						// Espera a que Blink Dagger termine
-
-						setTimeout(() => {
-							if (rearm.CanCast()) {
+						if (rearm.CanCast()) {
 							rearm.CastNoTarget();
-							}
-						}, 1000);
 						}
-					}, 2.5 * 1000); // Espera 2.5 segundos para que el héroe esté en el aire antes de parpadear
+					}, 1000);
 				}
-			}
+			}, 2.5 * 1000); // Espera 2.5 segundos para que el héroe esté en el aire antes de parpadear
 		}
 	}
+
 
 
 
