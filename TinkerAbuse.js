@@ -21,7 +21,11 @@ eval(`
 		"modifier_death_prophet_silence",
 		"modifier_night_stalker_crippling_fear",
 		"modifier_silencer_global_silence",
-		"modifier_grimstroke_ink_swell_debuff"
+		"modifier_grimstroke_ink_swell_debuff",
+		"modifier_silencer_last_word",
+		"modifier_riki_smoke_screen",
+		"modifier_disruptor_static_storm",
+		"modifier_techies_blast_off"
 		];
 
 	// options
@@ -97,29 +101,40 @@ eval(`
 	    if (!eul || !blink || !rearm) {
 		return;
 	    }
+		
+		
+		const modifiers = localHero.GetModifiers();
+		for (let i = 0; i < silences.length; i++) {
+			const modifier = localHero.HasModifier(silences[i])
 
-	    const isSilenced = localHero.IsSilenced();
+			if (modifier && eul.CanCast()) {
+				const remainingTime = modifier.GetRemainingTime();
+				const DuringTime = modifier.GetDuration();
+				
+				console.log("Time Rest = ",remainingTime," Time Duration = ",DuringTime);
+				
+				if((DuringTime - remainingTime)< 3 ){
+					eul.CastTarget(localHero);
+					const searchRadius = 1200; // Radio de búsqueda alrededor del héroe
+					const treeRadius = 200; // Radio de búsqueda de árboles
+					const safePosition = findSafePosition(localHero, searchRadius, treeRadius);
 
-	    if ((isSilenced || isLowHealth) && eul.CanCast()) {
-		eul.CastTarget(localHero);
-		const searchRadius = 1200; // Radio de búsqueda alrededor del héroe
-		const treeRadius = 200; // Radio de búsqueda de árboles
-		const safePosition = findSafePosition(localHero, searchRadius, treeRadius);
+					// Espera a que Eul's Scepter termine
+					setTimeout(() => {
+						if (blink.CanCast()) {
+						blink.CastPosition(safePosition);
+						// Espera a que Blink Dagger termine
 
-		// Espera a que Eul's Scepter termine
-		setTimeout(() => {
-		    if (blink.CanCast()) {
-			blink.CastPosition(safePosition);
-			// Espera a que Blink Dagger termine
-
-			setTimeout(() => {
-			    if (rearm.CanCast()) {
-				rearm.CastNoTarget();
-			    }
-			}, 1000);
-		    }
-		}, 2.5 * 1000); // Espera 2.5 segundos para que el héroe esté en el aire antes de parpadear
-	    }
+						setTimeout(() => {
+							if (rearm.CanCast()) {
+							rearm.CastNoTarget();
+							}
+						}, 1000);
+						}
+					}, 2.5 * 1000); // Espera 2.5 segundos para que el héroe esté en el aire antes de parpadear
+				}
+			}
+		}
 	}
 
 
