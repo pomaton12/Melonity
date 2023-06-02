@@ -118,13 +118,13 @@ eval(`
 		//const isEstados = localHero.HasState(Enum.ModifierState.MODIFIER_STATE_SILENCED);
 		
 		if ((isSilenced  || isLowHealth ) && eul.CanCast()) {
-			const searchRadius = 2000; // Radio de búsqueda alrededor del héroe
-			const safePosition = findSafePosition(localHero, searchRadius);
-
-			// Lanza Eul's Scepter en el héroe local utilizando Player.PrepareUnitOrders()
 			myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_TARGET,localHero,null,eul,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 			
+			// Lanza Eul's Scepter en el héroe local utilizando Player.PrepareUnitOrders()
+			
 			if(isLowHealth || nearbyEnemies > 1){
+			const searchRadius = 2000; // Radio de búsqueda alrededor del héroe
+			const safePosition = findSafePosition(localHero, searchRadius);				
 				// Espera a que Eul's Scepter termine
 				setTimeout(() => {
 					if (blink.CanCast()) {
