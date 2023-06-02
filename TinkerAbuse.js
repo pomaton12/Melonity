@@ -117,7 +117,7 @@ eval(`
 		const modifiers = localHero.GetModifiers();
 		const isSilenced = modifiers.some(modifier => silences.includes(modifier.GetName()));
 		
-		if ((isSilenced  || isLowHealth ) && eul.CanCast()) {
+		if ((isSilenced ) && eul.CanCast()) {
 			const searchRadius = 1200; // Radio de búsqueda alrededor del héroe
 			const treeRadius = 200; // Radio de búsqueda de árboles
 			const safePosition = findSafePosition(localHero, searchRadius, treeRadius);
