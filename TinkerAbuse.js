@@ -106,7 +106,7 @@ eval(`
 		const eul = GetCyclone();
 		const blink = GetBlink();
 		const rearm = localHero.GetAbilityByIndex(5);
-		const nearbyEnemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY).length;
+		const nearbyEnemies = localHero.GetHeroesInRadius(2000, Enum.TeamType.TEAM_ENEMY).length;
 		const isLowHealth = ((localHero.GetHealth() / localHero.GetMaxHealth()) * 100) < 25;
 		
 		if (!eul || !blink || !rearm ) {
@@ -124,7 +124,7 @@ eval(`
 			// Lanza Eul's Scepter en el héroe local utilizando Player.PrepareUnitOrders()
 			myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_TARGET,localHero,null,eul,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 			
-			if(isLowHealth || nearbyEnemies > 2){
+			if(isLowHealth || nearbyEnemies > 1){
 				// Espera a que Eul's Scepter termine
 				setTimeout(() => {
 					if (blink.CanCast()) {
