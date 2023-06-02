@@ -114,8 +114,10 @@ eval(`
 				
 				console.log("Time Rest = ",remainingTime," Time Duration = ",DuringTime);
 				
-				if((DuringTime - remainingTime)< 3 && eul.CanCast()){
-					eul.CastTarget(localHero);
+				if(0 < (DuringTime - remainingTime)< 3 && eul.CanCast()){
+					//eul.CastTarget(localHero);
+					eul.CastNoTarget();
+					console.log("Lanzar");
 					const searchRadius = 1200; // Radio de búsqueda alrededor del héroe
 					const treeRadius = 200; // Radio de búsqueda de árboles
 					const safePosition = findSafePosition(localHero, searchRadius, treeRadius);
