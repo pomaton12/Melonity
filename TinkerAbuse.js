@@ -112,7 +112,7 @@ eval(`
 
 			// Lanza Eul's Scepter en el héroe local utilizando Player.PrepareUnitOrders()
 			const order = {
-				OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_CAST_TARGET,
+				OrderType: Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_TARGET,
 				TargetIndex: localHero.entindex(),
 				AbilityIndex: eul.entindex(),
 				Queue: 0
