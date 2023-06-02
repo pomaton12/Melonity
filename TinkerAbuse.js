@@ -22,11 +22,22 @@ eval(`
 		'modifier_night_stalker_crippling_fear',
 		'modifier_silencer_global_silence',
 		'modifier_grimstroke_ink_swell_debuff',
-		'modifier_silencer_last_word',
+		'modifier_silencer_word',
 		'modifier_riki_smoke_screen',
 		'modifier_disruptor_static_storm',
-		'modifier_techies_blast_off'
-		];
+		'modifier_techies_blast_off',
+		'modifier_enigma_malefice',
+		'modifier_bloodseeker_blood_bath_silence',
+		'modifier_dark_willow_bramble_maze_thinker',
+		'modifier_dark_willow_cursed_crown',
+		'modifier_puck_waning_rift_silence',
+		'modifier_faceless_void_time_dilation_slow',
+		'modifier_invoker_cold_snap',
+		'modifier_templar_assassin_trap_meld',
+		'modifier_furion_wrath_of_nature_silence',
+		'modifier_crystal_maiden_frostbite' // Agrega el modificador de silencio de Frostbite de Crystal Maiden
+	];
+
 
 	// options
 	const path_ = ['Heroes', 'Intelligence', 'Tinker', 'Combo'];
@@ -61,9 +72,11 @@ eval(`
 	  return false;
 	}
 
-	function findSafePosition(localHero, searchRadius, treeRadius){
+	function findSafePosition(localHero, searchRadius, treeRadius) {
 		const heroPosition = localHero.GetAbsOrigin();
 		const enemyHeroes = localHero.GetHeroesInRadius(searchRadius, Enum.TeamType.TEAM_ENEMY);
+		const fountain = localHero.GetFountain();
+		const fountainDirection = fountain.GetAbsOrigin().sub(heroPosition).Normalized();
 		let maxDistance = 0;
 		let safePosition = heroPosition;
 
@@ -77,9 +90,13 @@ eval(`
 				return Math.min(minDistance, distance);
 			}, Infinity);
 
-	
-			if (distanceToClosestEnemy > maxDistance) {
-				maxDistance = distanceToClosestEnemy;
+			const directionToCandidate = candidatePosition.sub(heroPosition).Normalized();
+			const directionScore = 1 + fountainDirection.Dot(directionToCandidate);
+
+			const weightedDistance = distanceToClosestEnemy * directionScore;
+
+			if (weightedDistance > maxDistance) {
+				maxDistance = weightedDistance;
 				safePosition = candidatePosition;
 			}
 		}
@@ -90,22 +107,21 @@ eval(`
 
 
 
-
-
 	function useEulAndBlinkToSafePosition() {
 		const eul = GetCyclone();
 		const blink = GetBlink();
 		const rearm = localHero.GetAbilityByIndex(5);
-		const isLowHealth = ((localHero.GetHealth() / localHero.GetMaxHealth()) * 100) < 30;
+		const nearbyEnemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY).length;
+		const isLowHealth = ((localHero.GetHealth() / localHero.GetMaxHealth()) * 100) < 25;
 		
-		if (!eul || !blink || !rearm) {
+		if (!eul || !blink || !rearm ) {
 			return;
 		}
 		
 		const modifiers = localHero.GetModifiers();
 		const isSilenced = modifiers.some(modifier => silences.includes(modifier.GetName()));
 		
-		if (isSilenced) {
+		if ((isSilenced || isLowHealth ) && eul.CanCast()) {
 			const searchRadius = 1200; // Radio de búsqueda alrededor del héroe
 			const treeRadius = 200; // Radio de búsqueda de árboles
 			const safePosition = findSafePosition(localHero, searchRadius, treeRadius);
@@ -113,19 +129,21 @@ eval(`
 			// Lanza Eul's Scepter en el héroe local utilizando Player.PrepareUnitOrders()
 			myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_TARGET,localHero,null,eul,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 			
-			// Espera a que Eul's Scepter termine
-			setTimeout(() => {
-				if (blink.CanCast()) {
-					blink.CastPosition(safePosition);
-					
-					// Espera a que Blink Dagger termine
-					setTimeout(() => {
-						if (rearm.CanCast()) {
-							rearm.CastNoTarget();
-						}
-					}, 1000);
-				}
-			}, 2.6 * 1000); // Espera 2.5 segundos para que el héroe esté en el aire antes de parpadear
+			if(isLowHealth || nearbyEnemies > 2){
+				// Espera a que Eul's Scepter termine
+				setTimeout(() => {
+					if (blink.CanCast()) {
+						blink.CastPosition(safePosition);
+						
+						// Espera a que Blink Dagger termine
+						setTimeout(() => {
+							if (rearm.CanCast()) {
+								rearm.CastNoTarget();
+							}
+						}, 1000);
+					}
+				}, 2.6 * 1000); // Espera 2.5 segundos para que el héroe esté en el aire antes de parpadear
+			}
 		}
 	}
 
