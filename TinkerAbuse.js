@@ -14,10 +14,10 @@ eval(`
 	let myPlayer;
 	let lastBlinkTime = 0;
 	const silences = [
-		'modifier_orchid_malevolence',
-		'modifier_bloodthorn',
+		'modifier_orchid_malevolence_debuff',
+		'modifier_bloodthorn_debuff',
 		'modifier_skywrath_mage_ancient_seal',
-		'modifier_drow_ranger_silence', // Agrega el modificador de silencio de Gust de Drow Ranger aquí
+		'modifier_drowranger_wave_of_silence', // Agrega el modificador de silencio de Gust de Drow Ranger aquí
 		'modifier_death_prophet_silence',
 		'modifier_night_stalker_crippling_fear',
 		'modifier_silencer_global_silence',
@@ -27,8 +27,8 @@ eval(`
 		'modifier_disruptor_static_storm',
 		'modifier_techies_blast_off',
 		'modifier_enigma_malefice',
-		'modifier_bloodseeker_blood_bath_silence', // Agrega el modificador de silencio de Blood Rite de Bloodseeker aquí
-		'modifier_dark_willow_bramble_maze_thinker',
+		'modifier_bloodseeker_blood_bath', // Agrega el modificador de silencio de Blood Rite de Bloodseeker aquí
+		'modifier_dark_willow_bramble_maze',
 		'modifier_dark_willow_cursed_crown',
 		'modifier_puck_silence',
 		'modifier_faceless_void_time_dilation_slow',
@@ -73,7 +73,7 @@ eval(`
 	  return false;
 	}
 
-	function findSafePosition(localHero, searchRadius) {
+	function findSafePosition(localHero, searchRadius, treeRadius){
 		const heroPosition = localHero.GetAbsOrigin();
 		const enemyHeroes = localHero.GetHeroesInRadius(searchRadius, Enum.TeamType.TEAM_ENEMY);
 		let maxDistance = 0;
@@ -89,6 +89,7 @@ eval(`
 				return Math.min(minDistance, distance);
 			}, Infinity);
 
+	
 			if (distanceToClosestEnemy > maxDistance) {
 				maxDistance = distanceToClosestEnemy;
 				safePosition = candidatePosition;
@@ -101,12 +102,11 @@ eval(`
 
 
 
-
 	function useEulAndBlinkToSafePosition() {
 		const eul = GetCyclone();
 		const blink = GetBlink();
 		const rearm = localHero.GetAbilityByIndex(5);
-		const nearbyEnemies = localHero.GetHeroesInRadius(2000, Enum.TeamType.TEAM_ENEMY).length;
+		const nearbyEnemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY).length;
 		const isLowHealth = ((localHero.GetHealth() / localHero.GetMaxHealth()) * 100) < 25;
 		
 		if (!eul || !blink || !rearm ) {
@@ -115,16 +115,16 @@ eval(`
 		
 		const modifiers = localHero.GetModifiers();
 		const isSilenced = modifiers.some(modifier => silences.includes(modifier.GetName()));
-		//const isEstados = localHero.HasState(Enum.ModifierState.MODIFIER_STATE_SILENCED);
 		
-		if ((isSilenced  || isLowHealth ) && eul.CanCast()) {
+		if ((isSilenced || isLowHealth ) && eul.CanCast()) {
+			const searchRadius = 1200; // Radio de búsqueda alrededor del héroe
+			const treeRadius = 200; // Radio de búsqueda de árboles
+			const safePosition = findSafePosition(localHero, searchRadius, treeRadius);
+
+			// Lanza Eul's Scepter en el héroe local utilizando Player.PrepareUnitOrders()
 			myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_TARGET,localHero,null,eul,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 			
-			// Lanza Eul's Scepter en el héroe local utilizando Player.PrepareUnitOrders()
-			
-			if(isLowHealth || nearbyEnemies > 1){
-			const searchRadius = 2000; // Radio de búsqueda alrededor del héroe
-			const safePosition = findSafePosition(localHero, searchRadius);				
+			if(isLowHealth || nearbyEnemies > 2){
 				// Espera a que Eul's Scepter termine
 				setTimeout(() => {
 					if (blink.CanCast()) {
