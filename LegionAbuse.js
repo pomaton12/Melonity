@@ -17,7 +17,7 @@ eval(`
 	const path_ = ['Heroes', 'Strength', 'Legion Commander'];
 
 	let OverwhelmingToggle = Menu.AddToggle(path_, 'Spell in Ulti', true);
-	MissileToggle.SetImage('panorama/images/spellicons/legion_commander/immortal/legion_commander_overwhelming_odds_png.vtex_c');
+	OverwhelmingToggle.SetImage('panorama/images/spellicons/legion_commander/immortal/legion_commander_overwhelming_odds_png.vtex_c');
 		
 
 
