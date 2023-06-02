@@ -107,7 +107,7 @@ eval(`
 		//for (let i = 0; i < silences.length; i++) {
 		for (let modifier of modifiers) {	
 			//const modifier = localHero.HasModifier(silences[i]);
-
+			console.log("Nombre = ",modifier.GetName());
 			if (modifier.GetName() === 'modifier_bloodthorn_debuff') {
 				const remainingTime = modifier.GetRemainingTime();
 				const DuringTime = modifier.GetDuration();
