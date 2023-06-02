@@ -105,7 +105,7 @@ eval(`
 		
 		const modifiers = localHero.GetModifiers();
 		for (let i = 0; i < silences.length; i++) {
-			const modifier = localHero.HasModifier(silences[i])
+			const modifier = localHero.HasModifier(silences[i]);
 
 			if (modifier && eul.CanCast()) {
 				const remainingTime = modifier.GetRemainingTime();
