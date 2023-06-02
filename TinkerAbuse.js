@@ -17,7 +17,7 @@ eval(`
 		'modifier_orchid_malevolence_debuff',
 		'modifier_bloodthorn_debuff',
 		'modifier_skywrath_mage_ancient_seal',
-		'modifier_drow_ranger_gust_silence',
+		'modifier_drow_ranger_silence', // Agrega el modificador de silencio de Gust de Drow Ranger aquí
 		'modifier_death_prophet_silence',
 		'modifier_night_stalker_crippling_fear',
 		'modifier_silencer_global_silence',
@@ -27,16 +27,17 @@ eval(`
 		'modifier_disruptor_static_storm',
 		'modifier_techies_blast_off',
 		'modifier_enigma_malefice',
-		'modifier_bloodseeker_blood_bath_silence',
+		'modifier_bloodseeker_blood_bath_silence', // Agrega el modificador de silencio de Blood Rite de Bloodseeker aquí
 		'modifier_dark_willow_bramble_maze_thinker',
 		'modifier_dark_willow_cursed_crown',
-		'modifier_puck_waning_rift_silence',
+		'modifier_puck_silence',
 		'modifier_faceless_void_time_dilation_slow',
 		'modifier_invoker_cold_snap',
 		'modifier_templar_assassin_trap_meld',
 		'modifier_furion_wrath_of_nature_silence',
-		'modifier_crystal_maiden_frostbite' // Agrega el modificador de silencio de Frostbite de Crystal Maiden
+		'modifier_crystal_maiden_frostbite'
 	];
+
 
 
 	// options
