@@ -48,6 +48,9 @@ eval(`
 		
 	let EulSafePosToggle = Menu.AddToggle(path_, 'Eul Safe Pos', true);
 	EulSafePosToggle.SetImage('panorama/images/items/cyclone_razor_arcana_alt1_png.vtex_c');
+	
+	let BloodstoneToggle = Menu.AddToggle(path_, 'Use item in rearm', true); //item_bloodstone
+	BloodstoneToggle.SetImage('panorama/images/items/bloodstone_png.vtex_c');
 
 	// Funcion Blink
 	function GetBlink() {
@@ -168,6 +171,16 @@ eval(`
 		
 	}
 
+	function useBloodstoneIfEnemiesNearby() {
+		const bloodstone = localHero.GetItem('item_bloodstone', true);
+
+		if (BloodstoneToggle.GetValue()) {
+			const enemyHeroes = localHero.GetHeroesInRadius(700, Enum.TeamType.TEAM_ENEMY);
+			if (enemyHeroes > 0 && bloodstone && bloodstone.CanCast()) {
+				bloodstone.CastNoTarget();
+			}
+		}
+	}
 
 
 
@@ -208,8 +221,13 @@ eval(`
 			useEulAndBlinkToSafePosition();
 		}	
 		
+	    if (localHero && BloodstoneToggle.GetValue()) {
+			useBloodstoneIfEnemiesNearby();
+		}	
 		
-		
+	    if (localHero && BloodstoneToggle.GetValue()) {
+			useBloodstoneIfEnemiesNearby();
+		}		
 		
 	};
 
