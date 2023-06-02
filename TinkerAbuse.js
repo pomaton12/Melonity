@@ -72,11 +72,9 @@ eval(`
 	  return false;
 	}
 
-	function findSafePosition(localHero, searchRadius, treeRadius) {
+	function findSafePosition(localHero, searchRadius, treeRadius){
 		const heroPosition = localHero.GetAbsOrigin();
 		const enemyHeroes = localHero.GetHeroesInRadius(searchRadius, Enum.TeamType.TEAM_ENEMY);
-		const fountain = localHero.GetFountain();
-		const fountainDirection = fountain.GetAbsOrigin().sub(heroPosition).Normalized();
 		let maxDistance = 0;
 		let safePosition = heroPosition;
 
@@ -90,13 +88,9 @@ eval(`
 				return Math.min(minDistance, distance);
 			}, Infinity);
 
-			const directionToCandidate = candidatePosition.sub(heroPosition).Normalized();
-			const directionScore = 1 + fountainDirection.Dot(directionToCandidate);
-
-			const weightedDistance = distanceToClosestEnemy * directionScore;
-
-			if (weightedDistance > maxDistance) {
-				maxDistance = weightedDistance;
+	
+			if (distanceToClosestEnemy > maxDistance) {
+				maxDistance = distanceToClosestEnemy;
 				safePosition = candidatePosition;
 			}
 		}
