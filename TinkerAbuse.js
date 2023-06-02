@@ -117,27 +117,29 @@ eval(`
 		const modifiers = localHero.GetModifiers();
 		const isSilenced = modifiers.some(modifier => silences.includes(modifier.GetName()));
 		
-		if (isSilenced && eul.CanCast()) {
+		if (isSilenced) {
 			const searchRadius = 2000; // Radio de búsqueda alrededor del héroe
 			const treeRadius = 200; // Radio de búsqueda de árboles
-			const safePosition = findSafePosition(localHero, searchRadius, treeRadius);
+			//const safePosition = findSafePosition(localHero, searchRadius, treeRadius);
 
 			// Lanza Eul's Scepter en el héroe local utilizando Player.PrepareUnitOrders()
 			myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_TARGET,localHero,null,eul,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 			
 			// Espera a que Eul's Scepter termine
-			setTimeout(() => {
-				if (blink.CanCast()) {
-					blink.CastPosition(Input.GetWorldCursorPos());
-					
-					// Espera a que Blink Dagger termine
-					setTimeout(() => {
-						if (rearm.CanCast()) {
-							rearm.CastNoTarget();
-						}
-					}, 1000);
-				}
-			}, 2.6 * 1000); // Espera 2.5 segundos para que el héroe esté en el aire antes de parpadear
+			if (eul.CanCast()) {
+				setTimeout(() => {
+					if (blink.CanCast()) {
+						blink.CastPosition(Input.GetWorldCursorPos());
+						
+						// Espera a que Blink Dagger termine
+						setTimeout(() => {
+							if (rearm.CanCast()) {
+								rearm.CastNoTarget();
+							}
+						}, 1000);
+					}
+				}, 2.6 * 1000); // Espera 2.5 segundos para que el héroe esté en el aire antes de parpadear
+			}
 		}
 		
 		if (isLowHealth && eul.CanCast()) {
