@@ -96,7 +96,7 @@ eval(`
 		const eul = GetCyclone();
 		const blink = GetBlink();
 		const rearm = localHero.GetAbilityByIndex(5);
-		isLowHealth = ((localHero.GetHealth() / localHero.GetMaxHealth()) * 100) < 30;
+		const isLowHealth = ((localHero.GetHealth() / localHero.GetMaxHealth()) * 100) < 30;
 		
 		if (!eul || !blink || !rearm) {
 			return;
@@ -110,8 +110,14 @@ eval(`
 			const treeRadius = 200; // Radio de búsqueda de árboles
 			const safePosition = findSafePosition(localHero, searchRadius, treeRadius);
 
-			// Presiona rápidamente la tecla asignada en el inventario para lanzar Eul's Scepter
-			Input.ExecuteOrder(localHero, Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_TARGET, null, eul, null, localHero, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY_FLAG, null, null);
+			// Lanza Eul's Scepter en el héroe local utilizando Player.PrepareUnitOrders()
+			const order = {
+				OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_CAST_TARGET,
+				TargetIndex: localHero.entindex(),
+				AbilityIndex: eul.entindex(),
+				Queue: 0
+			};
+			myPlayer.PrepareUnitOrders(order, Enum.UnitOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
 			
 			// Espera a que Eul's Scepter termine
 			setTimeout(() => {
@@ -128,6 +134,7 @@ eval(`
 			}, 2.5 * 1000); // Espera 2.5 segundos para que el héroe esté en el aire antes de parpadear
 		}
 	}
+
 
 
 
