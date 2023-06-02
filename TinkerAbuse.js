@@ -73,7 +73,7 @@ eval(`
 	  return false;
 	}
 
-	function findSafePosition(localHero, searchRadius, treeRadius){
+	function findSafePosition(localHero, searchRadius){
 		const heroPosition = localHero.GetAbsOrigin();
 		const enemyHeroes = localHero.GetHeroesInRadius(searchRadius, Enum.TeamType.TEAM_ENEMY);
 		let maxDistance = 0;
@@ -115,11 +115,11 @@ eval(`
 		
 		const modifiers = localHero.GetModifiers();
 		const isSilenced = modifiers.some(modifier => silences.includes(modifier.GetName()));
+		const isEstados = localHero.HasState(Enum.ModifierState.MODIFIER_STATE_SILENCED);
 		
-		if ((isSilenced || isLowHealth ) && eul.CanCast()) {
-			const searchRadius = 1200; // Radio de búsqueda alrededor del héroe
-			const treeRadius = 200; // Radio de búsqueda de árboles
-			const safePosition = findSafePosition(localHero, searchRadius, treeRadius);
+		if ((isSilenced || isEstados || isLowHealth ) && eul.CanCast()) {
+			const searchRadius = 2000; // Radio de búsqueda alrededor del héroe
+			const safePosition = findSafePosition(localHero, searchRadius);
 
 			// Lanza Eul's Scepter en el héroe local utilizando Player.PrepareUnitOrders()
 			myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_TARGET,localHero,null,eul,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
