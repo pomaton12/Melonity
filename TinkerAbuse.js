@@ -115,8 +115,8 @@ eval(`
 				console.log("Time Rest = ",remainingTime," Time Duration = ",DuringTime);
 				
 				if(0 < (DuringTime - remainingTime)< 3 && eul.CanCast()){
-					//eul.CastTarget(localHero);
-					eul.CastNoTarget();
+					eul.CastTarget(localHero);
+					//eul.CastNoTarget();
 					console.log("Lanzar");
 					const searchRadius = 1200; // Radio de búsqueda alrededor del héroe
 					const treeRadius = 200; // Radio de búsqueda de árboles
@@ -125,7 +125,7 @@ eval(`
 					// Espera a que Eul's Scepter termine
 					setTimeout(() => {
 						if (blink.CanCast()) {
-						blink.CastPosition(safePosition);
+						blink.CastPosition(input.worldposition());
 						// Espera a que Blink Dagger termine
 
 						setTimeout(() => {
