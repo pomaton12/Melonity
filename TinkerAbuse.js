@@ -115,9 +115,9 @@ eval(`
 		
 		const modifiers = localHero.GetModifiers();
 		const isSilenced = modifiers.some(modifier => silences.includes(modifier.GetName()));
-		const isEstados = localHero.HasState(Enum.ModifierState.MODIFIER_STATE_SILENCED);
+		//const isEstados = localHero.HasState(Enum.ModifierState.MODIFIER_STATE_SILENCED);
 		
-		if ((isSilenced || isEstados || isLowHealth ) && eul.CanCast()) {
+		if ((isSilenced  || isLowHealth ) && eul.CanCast()) {
 			const searchRadius = 2000; // Radio de búsqueda alrededor del héroe
 			const safePosition = findSafePosition(localHero, searchRadius);
 
