@@ -14,8 +14,8 @@ eval(`
 	let myPlayer;
 	let lastBlinkTime = 0;
 	const silences = [
-		'modifier_orchid_malevolence_debuff',
-		'modifier_bloodthorn_debuff',
+		'modifier_orchid_malevolence',
+		'modifier_bloodthorn',
 		'modifier_skywrath_mage_ancient_seal',
 		'modifier_drow_ranger_silence', // Agrega el modificador de silencio de Gust de Drow Ranger aquí
 		'modifier_death_prophet_silence',
@@ -73,7 +73,7 @@ eval(`
 	  return false;
 	}
 
-	function findSafePosition(localHero, searchRadius){
+	function findSafePosition(localHero, searchRadius) {
 		const heroPosition = localHero.GetAbsOrigin();
 		const enemyHeroes = localHero.GetHeroesInRadius(searchRadius, Enum.TeamType.TEAM_ENEMY);
 		let maxDistance = 0;
@@ -89,7 +89,6 @@ eval(`
 				return Math.min(minDistance, distance);
 			}, Infinity);
 
-	
 			if (distanceToClosestEnemy > maxDistance) {
 				maxDistance = distanceToClosestEnemy;
 				safePosition = candidatePosition;
@@ -98,6 +97,7 @@ eval(`
 
 		return safePosition;
 	}
+
 
 
 
