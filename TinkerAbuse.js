@@ -117,7 +117,7 @@ eval(`
 				AbilityIndex: eul,
 				Queue: 0
 			};
-			myPlayer.PrepareUnitOrders(order, Enum.UnitOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
+			myPlayer.PrepareUnitOrders(order,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 			
 			// Espera a que Eul's Scepter termine
 			setTimeout(() => {
