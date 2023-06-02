@@ -94,7 +94,7 @@ eval(`
 
 	function useEulAndBlinkToSafePosition() {
 		const eul = GetCyclone();
-		const blink GetBlink();
+		const blink = GetBlink();
 		const rearm = localHero.GetAbilityByIndex(5);
 		isLowHealth = ((localHero.GetHealth() / localHero.GetMaxHealth()) * 100) < 30;
 		
