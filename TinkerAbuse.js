@@ -125,7 +125,7 @@ eval(`
 						}
 					}, 1000);
 				}
-			}, 2.5 * 1000); // Espera 2.5 segundos para que el héroe esté en el aire antes de parpadear
+			}, 2.6 * 1000); // Espera 2.5 segundos para que el héroe esté en el aire antes de parpadear
 		}
 	}
 
