@@ -14,18 +14,18 @@ eval(`
 	let myPlayer;
 	let lastBlinkTime = 0;
 	const silences = [
-		"modifier_orchid_malevolence_debuff",
-		"modifier_bloodthorn_debuff",
-		"modifier_skywrath_mage_ancient_seal",
-		"modifier_drow_ranger_gust_silence",
-		"modifier_death_prophet_silence",
-		"modifier_night_stalker_crippling_fear",
-		"modifier_silencer_global_silence",
-		"modifier_grimstroke_ink_swell_debuff",
-		"modifier_silencer_last_word",
-		"modifier_riki_smoke_screen",
-		"modifier_disruptor_static_storm",
-		"modifier_techies_blast_off"
+		'modifier_orchid_malevolence_debuff',
+		'modifier_bloodthorn_debuff',
+		'modifier_skywrath_mage_ancient_seal',
+		'modifier_drow_ranger_gust_silence',
+		'modifier_death_prophet_silence',
+		'modifier_night_stalker_crippling_fear',
+		'modifier_silencer_global_silence',
+		'modifier_grimstroke_ink_swell_debuff',
+		'modifier_silencer_last_word',
+		'modifier_riki_smoke_screen',
+		'modifier_disruptor_static_storm',
+		'modifier_techies_blast_off'
 		];
 
 	// options
@@ -104,16 +104,17 @@ eval(`
 		
 		
 		const modifiers = localHero.GetModifiers();
-		for (let i = 0; i < silences.length; i++) {
-			const modifier = localHero.HasModifier(silences[i]);
+		//for (let i = 0; i < silences.length; i++) {
+		for (let modifier of modifiers) {	
+			//const modifier = localHero.HasModifier(silences[i]);
 
-			if (modifier && eul.CanCast()) {
+			if (modifier.GetName() === 'modifier_bloodthorn_debuff') {
 				const remainingTime = modifier.GetRemainingTime();
 				const DuringTime = modifier.GetDuration();
 				
 				console.log("Time Rest = ",remainingTime," Time Duration = ",DuringTime);
 				
-				if((DuringTime - remainingTime)< 3 ){
+				if((DuringTime - remainingTime)< 3 && eul.CanCast()){
 					eul.CastTarget(localHero);
 					const searchRadius = 1200; // Radio de búsqueda alrededor del héroe
 					const treeRadius = 200; // Radio de búsqueda de árboles
