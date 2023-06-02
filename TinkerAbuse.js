@@ -21,21 +21,23 @@ eval(`
 		'modifier_death_prophet_silence',
 		'modifier_night_stalker_crippling_fear',
 		'modifier_silencer_global_silence',
-		'modifier_grimstroke_ink_swell_debuff',
-		'modifier_silencer_word',
+		'modifier_grimstroke_spirit_walk_buff',
+		'modifier_silencer_last_word',
 		'modifier_riki_smoke_screen',
 		'modifier_disruptor_static_storm',
 		'modifier_techies_blast_off',
 		'modifier_enigma_malefice',
-		'modifier_bloodseeker_blood_bath', // Agrega el modificador de silencio de Blood Rite de Bloodseeker aquí
+		'modifier_bloodseeker_blood_bath',
 		'modifier_dark_willow_bramble_maze',
 		'modifier_dark_willow_cursed_crown',
 		'modifier_puck_silence',
 		'modifier_faceless_void_time_dilation_slow',
 		'modifier_invoker_cold_snap',
 		'modifier_templar_assassin_trap_meld',
-		'modifier_furion_wrath_of_nature_silence',
-		'modifier_crystal_maiden_frostbite'
+		'modifier_furion_sprout_entangle',
+		'modifier_crystal_maiden_frostbite',
+		'modifier_earth_spirit_geomagnetic_grip',
+		'modifier_abaddon_frostmourne_debuff_bonus'
 	];
 
 	// options
@@ -115,7 +117,7 @@ eval(`
 		const modifiers = localHero.GetModifiers();
 		const isSilenced = modifiers.some(modifier => silences.includes(modifier.GetName()));
 		
-		if (isSilenced) {
+		if ((isSilenced  || isLowHealth ) && eul.CanCast()) {
 			const searchRadius = 1200; // Radio de búsqueda alrededor del héroe
 			const treeRadius = 200; // Radio de búsqueda de árboles
 			const safePosition = findSafePosition(localHero, searchRadius, treeRadius);
