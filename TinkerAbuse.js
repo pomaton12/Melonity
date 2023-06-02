@@ -111,13 +111,7 @@ eval(`
 			const safePosition = findSafePosition(localHero, searchRadius, treeRadius);
 
 			// Lanza Eul's Scepter en el héroe local utilizando Player.PrepareUnitOrders()
-			const order = {
-				OrderType: Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_TARGET,
-				TargetIndex: localHero,
-				AbilityIndex: eul,
-				Queue: 0
-			};
-			myPlayer.PrepareUnitOrders(order,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+			myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_TARGET,localHero,null,eul,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 			
 			// Espera a que Eul's Scepter termine
 			setTimeout(() => {
