@@ -41,7 +41,7 @@ eval(`
 
 			if(UltimateInCast){
 				const OverwhelmingSpell = localHero.GetAbilityByIndex(0);
-				if(OverwhelmingSpell && OverwhelmingSpell.CanCast()){
+				if(OverwhelmingSpell && OverwhelmingSpell.IsCastable()){
 					//console.log("se casteo ulti");
 					myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_NO_TARGET,null,null,OverwhelmingSpell,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 
