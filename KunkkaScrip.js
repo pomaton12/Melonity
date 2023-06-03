@@ -75,7 +75,7 @@ eval(`
 				const enemyHeroPosition = closestEnemyHero.GetAbsOrigin();
 				const Idealdirection = (enemyHeroPosition.sub(localHeroPosition)).Normalized
 
-				console.log("enemi = ",enemyHeroPosition);
+				console.log("enemi = ",Idealdirection);
 				
 				if (localHeroHealthPercentage < 30) {
 					let IdealPosition = localHeroPosition.add(Idealdirection.mul(new Vector(300, 300, 0)));
