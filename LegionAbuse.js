@@ -62,7 +62,7 @@ eval(`
 			const PressTheAttack = localHero.GetAbilityByIndex(1);		
 			const healthPercentage = (localHero.GetHealth() / localHero.GetMaxHealth()) * 100;
 			
-			if (PressTheAttack && PressTheAttack.IsExist() && PressTheAttack.GetCooldown() === 0 && (healthPercentage <= 30)) {
+			if (PressTheAttack && PressTheAttack.CanCast() && (healthPercentage <= 30)) {
                 myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_TARGET, localHero, null, PressTheAttack, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
             }
 			
