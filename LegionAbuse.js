@@ -17,7 +17,7 @@ eval(`
 	const path_ = ['Heroes', 'Strength', 'Legion Commander'];
 
 	let OverwhelmingToggle = Menu.AddToggle(path_, 'Spell in Ulti', true);
-	OverwhelmingToggle.SetImage('panorama/images/spellicons/legion_commander/immortal/legion_commander_overwhelming_odds_png.vtex_c');
+	MissileToggle.SetImage('panorama/images/spellicons/legion_commander/immortal/legion_commander_overwhelming_odds_png.vtex_c');
 		
 
 
@@ -37,6 +37,7 @@ eval(`
 
 			if(UltimateInCast){
 				if(OverwhelmingSpell && OverwhelmingSpell.CanCast()){
+					console.log("se casteo ulti");
 					myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_NO_TARGET,null,null,OverwhelmingSpell,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 
 				}		
