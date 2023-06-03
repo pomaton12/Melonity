@@ -59,7 +59,7 @@ eval(`
 				return;
 			}
 
-			const PressTheAttackSpell = localHero.GetAbilityByIndex(1);		
+			const PressTheAttack = localHero.GetAbilityByIndex(1);		
 			const healthPercentage = (localHero.GetHealth() / localHero.GetMaxHealth()) * 100;
 			
 			if (PressTheAttack && PressTheAttack.GetCooldown() === 0 && (healthPercentage <= 30)) {
