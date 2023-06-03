@@ -73,14 +73,14 @@ eval(`
 
 			if (closestEnemyHero && TidalWave.CanCast() && !tidalWaveCastAfterUltimate) {
 				const enemyHeroPosition = closestEnemyHero.GetAbsOrigin();
-				const direction = (enemyHeroPosition.sub(localHeroPosition)).Normalized
-				let IdealPosition = 0;
+				const Idealdirection = (enemyHeroPosition.sub(localHeroPosition)).Normalized
+
 				
 				if (localHeroHealthPercentage < 30) {
-					IdealPosition = localHeroPosition.add(direction.mul(new Vector(300, 300, 0)));
+					let IdealPosition = localHeroPosition.add(Idealdirection.mul(new Vector(300, 300, 0)));
 					TidalWave.CastPosition(IdealPosition);
 				} else {
-					IdealPosition = localHeroPosition.add(direction.mul(new Vector(-300, -300, 0)));
+					let IdealPosition = localHeroPosition.add(Idealdirection.mul(new Vector(-300, -300, 0)));
 					TidalWave.CastPosition(IdealPosition);
 				}
 				tidalWaveCastAfterUltimate = true;
