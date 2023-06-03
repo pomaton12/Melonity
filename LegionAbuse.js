@@ -40,16 +40,16 @@ eval(`
 			
 			
 			const UltimateInCast = modifiers.some(modifier => modifier.GetName() === 'modifier_legion_commander_duel');
-			console.log("Modificador = ",UltimateInCast);
+			//console.log("Modificador = ",UltimateInCast);
 
 
-			//if(UltimateInCast){
-				if(OverwhelmingSpell && OverwhelmingSpell.CanCast()){
-					console.log("se casteo ulti");
+			if(UltimateInCast){
+				//if(OverwhelmingSpell && OverwhelmingSpell.CanCast()){
+					//console.log("se casteo ulti");
 					myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_NO_TARGET,null,null,OverwhelmingSpell,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 
-				}		
-			//}			
+				//}		
+			}			
 		}	
 	};
 
