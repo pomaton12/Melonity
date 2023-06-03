@@ -22,7 +22,9 @@ eval(`
 	let OverwhelmingToggle = Menu.AddToggle(path_, 'Spell in Ulti', true);
 	OverwhelmingToggle.SetImage('panorama/images/spellicons/legion_commander/immortal/legion_commander_overwhelming_odds_png.vtex_c');
 		
-
+	let PressTheAttackToggle = Menu.AddToggle(path_, 'Spell Abuse', true);
+	PressTheAttackToggle.SetImage('panorama/images/spellicons/legion_commander/legacy_of_the_fallen_legion/legion_commander_press_the_attack_png.vtex_c');
+		
 
 	//=============================================================
 	// Funcion Principal para Iniciar el CODIGO
@@ -33,21 +35,39 @@ eval(`
 			if (localHero.GetUnitName() !== "npc_dota_hero_legion_commander") {
 				return;
 			}
-			
+			const OverwhelmingSpell = localHero.GetAbilityByIndex(0);
+			const PressTheAttackSpell = localHero.GetAbilityByIndex(1);
 			const modifiers = localHero.GetModifiers();
 			const UltimateInCast = modifiers.some(modifier => modifier.GetName() === 'modifier_legion_commander_duel');
 			//console.log("Modificador = ",UltimateInCast);
 
 
 			if(UltimateInCast){
-				const OverwhelmingSpell = localHero.GetAbilityByIndex(0);
+				
 				if(OverwhelmingSpell && OverwhelmingSpell.GetCooldown() === 0){
-					//console.log("se casteo ulti");
 					myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_NO_TARGET,null,null,OverwhelmingSpell,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+				}
 
-				}		
+				if(PressTheAttackSpell && PressTheAttackSpell.CanCast()){
+					myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_TARGET, localHero,null,PressTheAttackSpell,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+				}				
 			}			
 		}	
+		
+		if (localHero && PressTheAttackToggle.GetValue()) {
+			if (localHero.GetUnitName() !== "npc_dota_hero_legion_commander") {
+				return;
+			}
+
+			const PressTheAttackSpell = localHero.GetAbilityByIndex(1);		
+			const healthPercentage = (localHero.GetHealth() / localHero.GetMaxHealth()) * 100;
+			
+			if (PressTheAttack && PressTheAttack.GetCooldown() === 0 && (healthPercentage <= 30)) {
+                myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_TARGET, localHero, null, PressTheAttack, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+            }
+			
+		}		
+		
 	};
 
 
