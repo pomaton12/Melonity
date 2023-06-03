@@ -34,7 +34,7 @@ eval(`
 			const OverwhelmingSpell = localHero.GetAbilityByIndex(0);
 			const modifiers = localHero.GetModifiers();
 			const UltimateInCast = modifiers.some(modifier => modifier.GetName() === 'modifier_legion_commander_duel');
-
+			console.log("Modificador = ",UltimateInCast);
 			if(UltimateInCast){
 				if(OverwhelmingSpell && OverwhelmingSpell.CanCast()){
 					console.log("se casteo ulti");
