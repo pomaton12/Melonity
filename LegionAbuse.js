@@ -12,6 +12,9 @@ eval(`
 	const LegionAbuse = {};
 	let localHero;
 	let myPlayer;
+	const silences = [
+		'modifier_legion_commander_duel'
+	];
 
 	// options
 	const path_ = ['Heroes', 'Strength', 'Legion Commander'];
@@ -32,7 +35,7 @@ eval(`
 			}
 			
 			const OverwhelmingSpell = localHero.GetAbilityByIndex(0);
-			const modifiers = localHero.GetModifiers
+			const modifiers = localHero.GetModifiers();
 			
 			console.log("Modificador = ",modifiers);
 			
