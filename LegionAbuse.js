@@ -27,7 +27,7 @@ eval(`
 	LegionAbuse.OnUpdate = () => {
 		
 		if (localHero && OverwhelmingToggle.GetValue()) {
-			if (localHero.GetUnitName() !== "npc_dota_legion_commander") {
+			if (localHero.GetUnitName() !== "npc_dota_hero_legion_commander") {
 				return;
 			}
 			
