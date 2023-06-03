@@ -73,7 +73,7 @@ eval(`
 
 			if (closestEnemyHero && TidalWave.CanCast() && !tidalWaveCastAfterUltimate) {
 				const enemyHeroPosition = closestEnemyHero.GetAbsOrigin();
-				const Idealdirection = (enemyHeroPosition.sub(localHeroPosition)).Normalized
+				const Idealdirection = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
 
 				console.log("enemi = ",Idealdirection);
 				
