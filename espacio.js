@@ -64,9 +64,11 @@ eval(`
 		    return;
 		}
 
+		const furionUnits = getFurionUnits();
+
 		if (KeyBindOrder.IsKeyDown()) {
 
-		    const furionUnits = getFurionUnits();
+		    
 		    const target = getClosestEnemyHero(1000);
 			
 		    if (furionUnits) {
