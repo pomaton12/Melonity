@@ -66,7 +66,7 @@ eval(`
 		if (KeyBindOrder.IsKeyDown()) {
 
 		    const furionUnits = getFurionUnits();
-
+		    console.log("unidad",furionUnits);
 		    if (furionUnits) {
 
 			furionUnits.forEach((unit) => {
