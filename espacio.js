@@ -63,7 +63,7 @@ eval(`
 		    return;
 		}
 
-		//if (KeyBindOrder.IsKeyDown()) {
+		if (KeyBindOrder.IsKeyDown()) {
 
 		    const furionUnits = getFurionUnits();
 
@@ -84,7 +84,7 @@ eval(`
 				}
 			    }
 			}
-		   // }
+		    }
 		}
 	    }
 	};
