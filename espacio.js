@@ -35,9 +35,10 @@ eval(`
 		if (KeyBindOrder.IsKeyDown()) {
 
 			const furionUnits = EntitySystem.GetEntitiesList().filter((entity) => {
-				return entity.IsControllableByPlayer(myPlayer.GetPlayerID()) &&
-					entity.GetUnitName().includes("npc_dota_furion_treant");
+				return entity.GetUnitName().includes("npc_dota_furion_treant") &&
+					entity.GetPlayerOwnerID() === myPlayer.GetPlayerID();
 			});
+
 
 			furionUnits.forEach((unit) => {
 				const targetPos = target.GetAbsOrigin();
