@@ -67,23 +67,23 @@ eval(`
 		if (KeyBindOrder.IsKeyDown()) {
 
 		    const furionUnits = getFurionUnits();
-		    
+		    const target = getClosestEnemyHero(1000);
+			
 		    if (furionUnits) {
 
-			furionUnits.forEach((unit) => {
-			    if (unit && unit.IsAlive() && !unit.IsDormant()) {
-				const target = getClosestEnemyHero(1000);
-				const targetPos = target.GetAbsOrigin();
+				furionUnits.forEach((unit) => {
+					if (unit && unit.IsAlive() && !unit.IsDormant()) {
+						
+						const targetPos = target.GetAbsOrigin();
+						const dir = target.GetRotation().GetForward().Normalized();
+						const blockingPos = targetPos.add(dir.mul(new Vector(150, 150, 0)));
 
-				const dir = target.GetRotation().GetForward().Normalized();
-				const blockingPos = targetPos.add(dir.mul(new Vector(150, 150, 0)));
+						if (Engine.OnceAt(0.2)) {
+							myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, blockingPos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, unit, false, true);
+						}
 
-				if (Engine.OnceAt(0.2)) {
-				    myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, blockingPos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, unit, false, true);
-				}
-
-			    }
-			});
+					}
+				});
 
 		    }
 
