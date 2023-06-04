@@ -77,8 +77,11 @@ eval(`
 							if (distanceToTarget < MIN_DISTANCE_TO_BLOCK) {
 								const dir = target.GetRotation().GetForward().Normalized();
 								const blockingPos = targetPos.add(dir.mul(new Vector(150, 150, 0)));
-								myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION,unit,blockingPos,null,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, unit);
-
+								
+								if (Engine.OnceAt(0.2)) {
+									myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION,null,blockingPos,null,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, unit, false, true);
+								}
+								
 							} else {
 								//unit.Attack(target, false);
 							}
