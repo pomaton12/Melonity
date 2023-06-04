@@ -36,7 +36,7 @@ eval(`
 
 			if (KeyBindOrder.IsKeyDown()) {
 
-				const furionUnits = Entity.GetUnitsInRadius(localHero, SearchRadius, Enum.TeamType.TEAM_FRIEND);
+				const furionUnits = localHero.GetUnitsInRadius(500, Enum.TeamType.TEAM_FRIEND);
 				
 
 				if(furionUnits){
