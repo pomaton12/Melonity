@@ -50,7 +50,6 @@ eval(`
 
 	function getFurionUnits() {
 	    const allEntities = EntitySystem.GetEntitiesList();
-	    //console.log("unidad",allEntities);
 	    const furionUnits = allEntities.filter(
 		(unit) => unit.GetOwner() === localHero
 	    );
@@ -64,7 +63,7 @@ eval(`
 		    return;
 		}
 
-		if (Input.IsKeyDown(KeyBindOrder.GetValue())) {
+		if (KeyBindOrder.IsKeyDown()) {
 
 		    const furionUnits = getFurionUnits();
 
@@ -73,17 +72,17 @@ eval(`
 			const target = getClosestEnemyHeroToMousePos(mousePos, 200);
 
 			if (target) {
-			    furionUnits.forEach((unit) => {
+			    for (const unit of furionUnits) {
 				if (unit && unit.IsAlive() && !unit.IsDormant()) {
 				    const targetPos = target.GetAbsOrigin();
 				    const dir = target.GetRotation().GetForward().Normalized();
 				    const blockingPos = targetPos.add(dir.mul(new Vector(150, 150, 0)));
 
-				    //if (Engine.OnceAt(0.2)) {
+				    if (Engine.OnceAt(0.2)) {
 					myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, blockingPos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, unit, false, true);
-				    //}
+				    }
 				}
-			    });
+			    }
 			}
 		    }
 		}
