@@ -69,8 +69,8 @@ eval(`
 		    const furionUnits = getFurionUnits();
 
 		    if (furionUnits) {
-			const mousePos = myPlayer.GetCursorPosition();
-			const target = getClosestEnemyHeroToMousePos(mousePos, 1000);
+			const mousePos = Input.GetWorldCursorPos();
+			const target = getClosestEnemyHeroToMousePos(mousePos, 200);
 
 			if (target) {
 			    furionUnits.forEach((unit) => {
