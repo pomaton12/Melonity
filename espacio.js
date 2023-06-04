@@ -50,6 +50,7 @@ eval(`
 
 	function getFurionUnits() {
 	    const allEntities = EntitySystem.GetEntitiesList();
+	    console.log("unidad",allEntities);
 	    const furionUnits = allEntities.filter(
 		(unit) => unit.GetClassName() === "npc_dota_furion_treant" && unit.GetOwner() === localHero
 	    );
@@ -66,7 +67,7 @@ eval(`
 		if (KeyBindOrder.IsKeyDown()) {
 
 		    const furionUnits = getFurionUnits();
-		    console.log("unidad",furionUnits);
+		    
 		    if (furionUnits) {
 
 			furionUnits.forEach((unit) => {
