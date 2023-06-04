@@ -50,7 +50,7 @@ eval(`
 
 	function getFurionUnits() {
 	    const allEntities = EntitySystem.GetEntitiesList();
-	    console.log("unidad",allEntities);
+	    //console.log("unidad",allEntities);
 	    const furionUnits = allEntities.filter(
 		(unit) => unit.GetOwner() === localHero
 	    );
