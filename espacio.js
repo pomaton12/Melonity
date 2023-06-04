@@ -79,7 +79,7 @@ eval(`
 								const blockingPos = targetPos.Extend(unitPos, MIN_DISTANCE_TO_BLOCK);
 								unit.MoveTo(blockingPos);
 							} else {
-								unit.Attack(target, false);
+								//unit.Attack(target, false);
 							}
 						}
 					});
