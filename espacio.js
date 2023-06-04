@@ -25,33 +25,40 @@ eval(`
 
 	const MIN_DISTANCE_TO_BLOCK = 150;
 
-	function blockEnemyHeroes() {
-	    const enemyHeroes = EntitySystem.GetHeroesList().filter(
-		(hero) => !hero.IsIllusion() && !hero.IsMeepoClone() && !hero.IsSameTeam(localHero) && hero.IsAlive() && !hero.IsIllusion()
-	    );
+function blockEnemyHeroes() {
+    const enemyHeroes = EntitySystem.GetHeroesList().filter(
+        (hero) => !hero.IsIllusion() && !hero.IsMeepoClone() && !hero.IsSameTeam(localHero) && hero.IsAlive() && !hero.IsIllusion()
+    );
 
-	    if (!enemyHeroes || enemyHeroes.length <= 0) {
-		return;
-	    }
+    if (!enemyHeroes || enemyHeroes.length <= 0) {
+        return;
+    }
 
-	    const blockingPositions = enemyHeroes.map((hero) => {
-		const targetPos = hero.GetAbsOrigin();
-		const dir = hero.GetRotation().GetForward().Normalized();
-		return targetPos.add(dir.mul(new Vector(MIN_DISTANCE_TO_BLOCK, MIN_DISTANCE_TO_BLOCK, 0)));
-	    });
+    const blockingPositions = enemyHeroes.map((hero) => {
+        const targetPos = hero.GetAbsOrigin();
+        const dir = hero.GetRotation().GetForward().Normalized();
+        return targetPos.add(dir.mul(new Vector(MIN_DISTANCE_TO_BLOCK, MIN_DISTANCE_TO_BLOCK, 0)));
+    });
 
-	    const furionUnits = getFurionUnits();
+    const furionUnits = getFurionUnits();
 
-	    furionUnits.forEach((unit) => {
-		if (unit && unit.IsAlive() && !unit.IsDormant()) {
-		    blockingPositions.forEach((pos) => {
-		    	//if (Engine.OnceAt(0.2)) {
-				myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, unit, false, true);
-			//}
-		    });
-		}
-	    });
-	}
+    let lastOrderTime = 0;
+
+    furionUnits.forEach((unit) => {
+        if (unit && unit.IsAlive() && !unit.IsDormant()) {
+            blockingPositions.forEach((pos) => {
+                if (localHero.GetAbsOrigin().sub(pos).Length2D() < MIN_DISTANCE_TO_BLOCK) {
+                    const currentTime = GameRules.GetGameTime();
+                    if (currentTime - lastOrderTime > 0.2) {
+                        myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, unit, false, true);
+                        lastOrderTime = currentTime;
+                    }
+                }
+            });
+        }
+    });
+}
+
 
 
 	function getFurionUnits() {
