@@ -28,35 +28,41 @@ eval(`
 	const MIN_DISTANCE_TO_BLOCK = 100; // Distancia mínima para bloquear al enemigo
 
 	FurionTrendAbuse.OnUpdate = () => {
-		if (!localHero || !isUiEnabled.GetValue()) {
-			return;
-		}
+		if (localHero && isUiEnabled.GetValue()) {
 
-		if (KeyBindOrder.IsKeyDown()) {
+			if (localHero.GetUnitName() !== "npc_dota_hero_furion") {
+				return;
+			}
 
-			const furionUnits = EntitySystem.GetEntitiesList().filter((entity) => {
-				return entity.GetClassName().includes("npc_dota_furion_treant") &&
-					entity.GetPlayerOwnerID() === myPlayer.GetPlayerID();
-			});
+			if (KeyBindOrder.IsKeyDown()) {
 
-			console.log("Unidad",furionUnits);
+				const furionUnits = Entity.GetUnitsInRadius(localHero, SearchRadius, Enum.TeamType.TEAM_FRIEND);
+				
 
-			furionUnits.forEach((unit) => {
-				const targetPos = target.GetAbsOrigin();
-				const unitPos = unit.GetAbsOrigin();
-				const distanceToTarget = unitPos.Distance(targetPos);
+				if(furionUnits){
 
-				if (distanceToTarget < MIN_DISTANCE_TO_BLOCK) {
-					const angle = unitPos.AngleBetween(targetPos);
-					const blockingPos = targetPos.Extend(unitPos, MIN_DISTANCE_TO_BLOCK);
-					unit.MoveTo(blockingPos);
-				} else {
-					unit.Attack(target, false);
+					furionUnits.forEach((unit) => {
+						console.log("Unidad",unit);
+						if(unit && unit.IsAlive() && !unit.IsDormant() && localHero.GetOwner(unit)){
+							const targetPos = target.GetAbsOrigin();
+							const unitPos = unit.GetAbsOrigin();
+							const distanceToTarget = unitPos.Distance(targetPos);
+
+							if (distanceToTarget < MIN_DISTANCE_TO_BLOCK) {
+								const angle = unitPos.AngleBetween(targetPos);
+								const blockingPos = targetPos.Extend(unitPos, MIN_DISTANCE_TO_BLOCK);
+								unit.MoveTo(blockingPos);
+							} else {
+								unit.Attack(target, false);
+							}
+						}
+					});
+					
 				}
-			});
+			
+			}
 		
 		}
-		
 		
 		
 	};
