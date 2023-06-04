@@ -45,9 +45,9 @@ eval(`
 	    furionUnits.forEach((unit) => {
 		if (unit && unit.IsAlive() && !unit.IsDormant()) {
 		    blockingPositions.forEach((pos) => {
-		    	if (Engine.OnceAt(0.2)) {
+		    	//if (Engine.OnceAt(0.2)) {
 				myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, unit, false, true);
-			}
+			//}
 		    });
 		}
 	    });
