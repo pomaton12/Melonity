@@ -25,7 +25,7 @@ eval(`
 
 	const MIN_DISTANCE_TO_BLOCK = 150;
 
-	function getClosestEnemyHero(radius) {
+	function blockEnemyHeroes() {
 	    const enemyHeroes = EntitySystem.GetHeroesList().filter(
 		(hero) => !hero.IsIllusion() && !hero.IsMeepoClone() && !hero.IsSameTeam(localHero) && hero.IsAlive() && !hero.IsIllusion()
 	    );
@@ -34,19 +34,23 @@ eval(`
 		return;
 	    }
 
-	    let closestHero = null;
-	    let closestDistance = Number.MAX_VALUE;
+	    const blockingPositions = enemyHeroes.map((hero) => {
+		const targetPos = hero.GetAbsOrigin();
+		const dir = hero.GetRotation().GetForward().Normalized();
+		return targetPos.add(dir.mul(new Vector(MIN_DISTANCE_TO_BLOCK, MIN_DISTANCE_TO_BLOCK, 0)));
+	    });
 
-	    for (const hero of enemyHeroes) {
-		const distance = localHero.GetAbsOrigin().sub(hero.GetAbsOrigin()).Length2D();
-		if (distance < radius && distance < closestDistance) {
-		    closestHero = hero;
-		    closestDistance = distance;
+	    const furionUnits = getFurionUnits();
+
+	    furionUnits.forEach((unit) => {
+		if (unit && unit.IsAlive() && !unit.IsDormant()) {
+		    blockingPositions.forEach((pos) => {
+			myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, unit, false, true);
+		    });
 		}
-	    }
-
-	    return closestHero;
+	    });
 	}
+
 
 	function getFurionUnits() {
 	    const allEntities = EntitySystem.GetEntitiesList();
@@ -68,27 +72,7 @@ eval(`
 
 		if (KeyBindOrder.IsKeyDown()) {
 
-		    
-		    const target = getClosestEnemyHero(1000);
-			
-		    if (furionUnits) {
-
-				furionUnits.forEach((unit) => {
-					if (unit && unit.IsAlive() && !unit.IsDormant()) {
-						
-						const targetPos = target.GetAbsOrigin();
-						const dir = target.GetRotation().GetForward().Normalized();
-						const blockingPos = targetPos.add(dir.mul(new Vector(150, 150, 0)));
-
-						if (Engine.OnceAt(0.2)) {
-							myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, blockingPos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, unit, false, true);
-						}
-
-					}
-				});
-
-		    }
-
+			blockEnemyHeroes();
 		}
 
 	    }
