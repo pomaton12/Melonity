@@ -45,7 +45,7 @@ function blockEnemyHeroes() {
     furionUnits.forEach((unit) => {
         if (unit && unit.IsAlive() && !unit.IsDormant()) {
             blockingPositions.forEach((pos) => {
-                if (localHero.GetAbsOrigin().sub(pos).Length2D() <_DISTANCE_TO_BLOCK) {
+                if (localHero.GetAbsOrigin().sub(pos).Length2D() <MIN_DISTANCE_TO_BLOCK) {
 			setTimeout(() => {
 			    myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT, unit, false, true);
 			    lastOrderTime = GameRules.GetGameTime();
