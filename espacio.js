@@ -64,7 +64,7 @@ eval(`
 		    return;
 		}
 
-		if (Input.IsKeyDown(IsKeyDown.GetValue())) {
+		if (Input.IsKeyDown(KeyBindOrder.GetValue())) {
 
 		    const furionUnits = getFurionUnits();
 
