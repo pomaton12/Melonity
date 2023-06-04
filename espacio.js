@@ -49,10 +49,13 @@ eval(`
 	}
 
 	function getFurionUnits() {
-	    const allUnits = EntitySystem.GetUnitsList();
-	    const furionUnits = allUnits.filter(unit => unit.GetUnitName() === "npc_dota_furion_treant" && unit.GetOwner() === localHero);
+	    const allEntities = EntitySystem.GetEntitiesList();
+	    const furionUnits = allEntities.filter(
+		(unit) => unit.GetUnitName() === "npc_dota_furion_treant" && unit.GetOwner() === localHero
+	    );
 	    return furionUnits;
 	}
+
 
 	FurionTrendAbuse.OnUpdate = () => {
 	    if (localHero && isUiEnabled.GetValue()) {
