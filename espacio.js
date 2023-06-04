@@ -42,22 +42,20 @@ function blockEnemyHeroes() {
 
     const furionUnits = getFurionUnits();
 
-    let lastOrderTime = 0;
-
     furionUnits.forEach((unit) => {
         if (unit && unit.IsAlive() && !unit.IsDormant()) {
             blockingPositions.forEach((pos) => {
-                if (localHero.GetAbsOrigin().sub(pos).Length2D() < MIN_DISTANCE_TO_BLOCK) {
-                    const currentTime = GameRules.GetGameTime();
-                    if (currentTime - lastOrderTime > 0.2) {
-                        myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, unit, false, true);
-                        lastOrderTime = currentTime;
-                    }
+                if (localHero.GetAbsOrigin().sub(pos).Length2D() <_DISTANCE_TO_BLOCK) {
+			setTimeout(() => {
+			    myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT, unit, false, true);
+			    lastOrderTime = GameRules.GetGameTime();
+			}, 200);
                 }
             });
         }
     });
 }
+
 
 
 
