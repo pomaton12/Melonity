@@ -25,7 +25,7 @@ eval(`
 
 	const MIN_DISTANCE_TO_BLOCK = 150;
 
-	function getClosestEnemyHero(radius) {
+	function getClosestEnemyHeroToMousePos(mousePos, radius) {
 	    const enemyHeroes = EntitySystem.GetHeroesList().filter(
 		(hero) => !hero.IsIllusion() && !hero.IsMeepoClone() && !hero.IsSameTeam(localHero) && hero.IsAlive() && !hero.IsIllusion()
 	    );
@@ -38,7 +38,7 @@ eval(`
 	    let closestDistance = Number.MAX_VALUE;
 
 	    for (const hero of enemyHeroes) {
-		const distance = localHero.GetAbsOrigin().sub(hero.GetAbsOrigin()).Length2D();
+		const distance = mousePos.sub(hero.GetAbsOrigin()).Length2D();
 		if (distance < radius && distance < closestDistance) {
 		    closestHero = hero;
 		    closestDistance = distance;
@@ -64,34 +64,30 @@ eval(`
 		    return;
 		}
 
-		
-
 		if (KeyBindOrder.IsKeyDown()) {
 
 		    const furionUnits = getFurionUnits();
-		    			
+
 		    if (furionUnits) {
+			const mousePos = myPlayer.GetCursorPosition();
+			const target = getClosestEnemyHeroToMousePos(mousePos, 1000);
 
-				furionUnits.forEach((unit) => {
-					if (unit && unit.IsAlive() && !unit.IsDormant()) {
-						const target = getClosestEnemyHero(1000);
-						const targetPos = target.GetAbsOrigin();
-						const dir = target.GetRotation().GetForward().Normalized();
-						const blockingPos = targetPos.add(dir.mul(new Vector(150, 150, 0)));
+			if (target) {
+			    furionUnits.forEach((unit) => {
+				if (unit && unit.IsAlive() && !unit.IsDormant()) {
+				    const targetPos = target.GetAbsOrigin();
+				    const dir = target.GetRotation().GetForward().Normalized();
+				    const blockingPos = targetPos.add(dir.mul(new Vector(150, 150, 0)));
 
-						if (Engine.OnceAt(0.1)) {
-							myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, blockingPos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, unit, false, true);
-						}
-
-					}
-				});
-
+				    if (Engine.OnceAt(0.1)) {
+					myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, blockingPos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, unit, false, true);
+				    }
+				}
+			    });
+			}
 		    }
-
 		}
-
 	    }
-
 	};
 
 	FurionTrendAbuse.OnScriptLoad = FurionTrendAbuse.OnGameStart = () => {
