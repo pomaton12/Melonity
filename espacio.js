@@ -25,7 +25,7 @@ eval(`
 	
 	Menu.GetFolder(["Heroes", "Intelligence", "Nature's Prophet","Unit Attack Block"]).SetImage('panorama/images/spellicons/furion_force_of_nature_png.vtex_c');
 
-	const MIN_DISTANCE_TO_BLOCK = 100; // Distancia mínima para bloquear al enemigo
+	const MIN_DISTANCE_TO_BLOCK = 150; // Distancia mínima para bloquear al enemigo
 	
 	
 	function getClosestEnemyHero(radius) {
@@ -69,15 +69,16 @@ eval(`
 					furionUnits.forEach((unit) => {
 						console.log("Unidad",unit);
 						if(unit && unit.IsAlive() && !unit.IsDormant() && localHero.GetOwner(unit)){
-							const target = getClosestEnemyHero(700);
+							const target = getClosestEnemyHero(1000);
 							const targetPos = target.GetAbsOrigin();
 							const unitPos = unit.GetAbsOrigin();
 							const distanceToTarget = unitPos.Distance(targetPos);
 
 							if (distanceToTarget < MIN_DISTANCE_TO_BLOCK) {
-								const angle = unitPos.AngleBetween(targetPos);
-								const blockingPos = targetPos.Extend(unitPos, MIN_DISTANCE_TO_BLOCK);
-								unit.MoveTo(blockingPos);
+								const dir = target.GetRotation().GetForward().Normalized();
+								const blockingPos = targetPos.add(dir.mul(new Vector(150, 150, 0)));
+								myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION,unit,blockingPos,null,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, unit);
+
 							} else {
 								//unit.Attack(target, false);
 							}
