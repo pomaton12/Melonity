@@ -52,7 +52,7 @@ eval(`
 	    const allEntities = EntitySystem.GetEntitiesList();
 	    console.log("unidad",allEntities);
 	    const furionUnits = allEntities.filter(
-		(unit) => unit.GetClassName() === "npc_dota_furion_treant" && unit.GetOwner() === localHero
+		(unit) => unit.GetOwner() === localHero
 	    );
 	    return furionUnits;
 	}
