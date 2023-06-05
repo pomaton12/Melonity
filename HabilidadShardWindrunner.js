@@ -22,8 +22,8 @@ eval(`
 
 	// Creación del toggle isUiEnabled
 	let isUiEnabled = Menu.AddToggle(['Heroes', 'Intelligence', 'Windranger'], 'GaleForce Use in Ulti', true)
-	    .SetImage('panorama/spellicons/windrunner_gale_force_png.vtex_c')
 	    .SetTip('Enable or disable the use of Gale Force during Windranger ultimate ability');
+	    isUiEnabled.SetImage('panorama/spellicons/windrunner_gale_force_png.vtex_c');
 
 	// Creación del toggle isUiEnabledDogde
 	let isUiEnabledDogde = Menu.AddToggle(path_, 'Use to Dogde', true);
