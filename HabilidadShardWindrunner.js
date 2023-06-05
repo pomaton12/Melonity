@@ -23,7 +23,7 @@ eval(`
 	// Creación del toggle isUiEnabled
 	let isUiEnabled = Menu.AddToggle(path_, 'GaleForce Use in Ulti', true)
 	.SetImage('panorama/images/spellicons/windrunner_gale_force_png.vtex_c')
-	.SetTip("The script makes you cast gale force during the ultimate \nto prevent the enemy from attacking or escaping.", 'en');
+	.SetTip('The script allows you to abuse double shots.\nTo work, simply hold down the right mouse button on the unit', 'en');
 
 	// Creación del toggle isUiEnabledDogde
 	let isUiEnabledDogde = Menu.AddToggle(path_, 'Use to Dogde', true);
