@@ -22,8 +22,8 @@ eval(`
 
 	// Creación del toggle isUiEnabled
 	let isUiEnabled = Menu.AddToggle(path_, 'GaleForce Use in Ulti', true);
-	isUiEnabled.SetImage('panorama/images/spellicons/windrunner_gale_force_png.vtex_c');
-	isUiEnabled.SetTip('The script makes you cast gale force, during the ultimate \n to prevent the enemy from attacking or escaping.');
+	isUiEnabled.SetImage('panorama/images/spellicons/windrunner_gale_force_png.vtex_c')
+	.SetTip('The script makes you cast gale force, during the ultimate \n to prevent the enemy from attacking or escaping.');
 
 	// Creación del toggle isUiEnabledDogde
 	let isUiEnabledDogde = Menu.AddToggle(path_, 'Use to Dogde', true);
