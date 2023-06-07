@@ -165,7 +165,7 @@ eval(`
 		if (onScreen) {
 			// Dibuja algo en la posición del héroe en la pantalla
 			Renderer.SetDrawColor(255, 255, 255, 255);
-			Renderer.DrawWorldText(font, textPos.sub(new Vector(Renderer.GetTextSize(font, text)[0] / 2, 0, 0)), text, 0, 0);
+			Renderer.DrawWorldText(font, textPos, text, 0, 0);
 			//Renderer.DrawText(font, x, y-10, text)
 		}
 		
@@ -192,7 +192,7 @@ eval(`
 				
 				DrawRadiusActionParticle(localHero);
 				
-				if (DisplayModeHitEnemy === 0) {
+				if (DisplayModeHitEnemy === 2) {
 					const closestEnemyHero = getClosestEnemyHero(attackRadius);
 
 					if (closestEnemyHero) {
@@ -233,7 +233,7 @@ eval(`
 									myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_STOP, nearest_enemi, PosEnemiNaerest, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);
 								}
 							} else{
-								if (Engine.OnceAt(0.2)) {
+								if (Engine.OnceAt(0.1)) {
 									myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_MOVE, null, PosEnemiNaerest, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);						
 								}
 							}
