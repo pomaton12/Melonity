@@ -159,13 +159,13 @@ eval(`
 	// Agregar el desplazamiento de la barra de vida al vector de posición
 	const pos = heroPosition.add(new Vector(0, 0, offset));
 	const text = "[Auto LastHits]";
-	const font = Renderer.LoadFont("Tahoma", 14, Enum.FontWeight.EXTRABOLD);
+	const font = Renderer.LoadFont('Arial', 13, Enum.FontWeight.BOLD);
 
 	// Convertir las coordenadas del mundo a coordenadas de pantalla
 	let [x, y, visible] = Renderer.WorldToScreen(pos);
 
 	// Dibujar el texto centrado en las coordenadas de pantalla calculadas
-	Renderer.DrawTextCentered(font, x, y-50, text, 1);
+	Renderer.DrawTextCentered(font, x, y-40, text, 1);
 
 		
 		if(createDrawRadius == 0){
