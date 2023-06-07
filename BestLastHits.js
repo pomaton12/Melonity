@@ -219,15 +219,16 @@ eval(`
 					let DistanciaOriWolrd = vect1Pos.Distance(vect2Pos);
 					let nearest_enemi = Input.GetNearestUnitToCursor(Enum.TeamType.TEAM_ENEMY);
 					
-					//if(DistanciaOriWolrd <= RangeNoMove){
-						console.log("unit = ",nearest_enemi);
-					//} else {
-						if (Engine.OnceAt(0.1)) {
-							myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, nearest_enemi, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);
+					if(DistanciaOriWolrd <= RangeNoMove){
+						//console.log("unit = ",nearest_enemi);
+						myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, nearest_enemi, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);
 
+					} else {
+						if (Engine.OnceAt(0.1)) {
+							
 							SendOrderMovePos(Input.GetWorldCursorPos());
 						}
-					//}
+					}
 				}
 
 			} else {
