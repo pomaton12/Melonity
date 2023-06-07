@@ -165,7 +165,7 @@ eval(`
 	let [x, y, visible] = Renderer.WorldToScreen(pos);
 
 	// Dibujar el texto centrado en las coordenadas de pantalla calculadas
-	Renderer.DrawTextCentered(font, x, y+30, text, 1);
+	Renderer.DrawTextCentered(font, x, y-50, text, 1);
 
 		
 		if(createDrawRadius == 0){
