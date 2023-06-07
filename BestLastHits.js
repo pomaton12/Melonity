@@ -161,7 +161,7 @@ eval(`
 		const font = Renderer.LoadFont("Arial", 20, Enum.FontWeight.BOLD);
 		//const color = {255, 255, 255, 255};
 		
-		let x, y = Renderer.WorldToScreen(pos);
+		let [x, y, z] = Renderer.WorldToScreen(pos);
 		
 		Renderer.DrawText(font, x, y, text);
 		console.log("Posicion = ", x," ", y);
