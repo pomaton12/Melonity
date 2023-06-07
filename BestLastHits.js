@@ -1,4 +1,3 @@
-
 /******/ (() => { // webpackBootstrap 
 /******/ 	var __webpack_modules__ = ({
 
@@ -71,46 +70,21 @@ eval(`
 	function SendOrderMovePos(vector) {
 	    myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, vector, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 	}
+		
+	function getAdditionalDamage(localHero) {
+		let additionalDamage = 0;
 
-	function getClosestCreep(creeps, target) {
-	    let closestCreep = null;
-	    for (const creep of creeps) {
-		if (creep.IsCreep() && !creep.IsDormant() && creep.IsAlive()) {
-		    closestCreep = creep;
-		}
-	    }
-	    return closestCreep;
-	}
-	
-	function calculateAttackTravelTime(localHero, target) {
-		const heroPosition = localHero.GetAbsOrigin();
-		const targetPosition = target.GetAbsOrigin();
-		const distance = heroPosition.sub(targetPosition).Length2D();
-		const attackSpeed = 1/localHero.GetAttacksPerSecond();
-		const attackAnimationPoint = localHero.GetAttackAnimationPoint();
-		const attackTime = attackAnimationPoint / attackSpeed;
+		const heroName = localHero.GetUnitName();
 
-		let projectileSpeed = localHero.GetProjectileSpeed();
-		if (projectileSpeed === 0) { // Héroe cuerpo a cuerpo
-			projectileSpeed = Number.MAX_VALUE;
+		if (heroName === "npc_dota_hero_templar_assassin") {
+			const AbilityTA = localHero.GetAbilityByIndex(0);
+			const TypeAbilityTA = AbilityTA.GetDamageType();
+			additionalDamage += AbilityTA.GetDamage();
+			console.log("Daño adicional = ",TypeAbilityTA);
 		}
 
-		const projectileTravelTime = distance / projectileSpeed;
-		return attackTime + projectileTravelTime;
+		return additionalDamage;
 	}
-
-	
-	function moveToTarget(localHero, target) {
-		const heroPosition = localHero.GetAbsOrigin();
-		const targetPosition = target.GetAbsOrigin();
-		const direction = targetPosition.sub(heroPosition).Normalized();
-		const moveDistance = localHero.GetMoveSpeed();
-		const newPosition = heroPosition.add(direction.mul(new Vector(moveDistance, moveDistance, 0)));
-
-		SendOrderMovePos(newPosition);
-	}
-
-
 	
 	function getClosestLowHealthCreep(localHero) {
 		
@@ -136,22 +110,44 @@ eval(`
 		let closestCreepHealth = Number.MAX_VALUE;
 		
 		for (let i = 0; i < laneCreeps.length; i++) {
+			// Creep HP Calc
 			const creep = laneCreeps[i];
-			const HPcreepActual = Math.floor(creep.GetHealth() + creep.GetHealthRegen());
-			const attackTravelTime = calculateAttackTravelTime(localHero, creep);
-			const actualDamage = localHero.GetTrueDamage() + Math.floor((localHero.GetTrueMaximumDamage() - localHero.GetTrueDamage()) / 2); // SUMAR HABILIDADES
-			const HeroDamage = Math.floor(localHero.GetDamageMultiplierVersus(creep) * actualDamage * localHero.GetArmorDamageMultiplier(creep));
-			const HeroDamagefINAL = HeroDamage+attackTravelTime*actualDamage;
-			const futureCreepHealth = HPcreepActual;
+			let CreepArmor = creep.GetPhysicalArmorValue();
 			
-			if(HPcreepActual < 2*actualDamage){
-				//localHero.MoveTo(creep.GetAbsOrigin());
+			//condition exisarmor
+			if (CreepArmor >= 0){
+				CreepArmor = 1+((0.06 * CreepArmor) / (1 + 0.06 * CreepArmor));
+			} else{
+				CreepArmor = 0.94;
 			}
 			
-			console.log("AR = ", actualDamage," AU = ",HeroDamagefINAL," HP = ",HPcreepActual);
-			if (futureCreepHealth <= HeroDamagefINAL && futureCreepHealth < closestCreepHealth) {
+			const distance = localHero.GetAbsOrigin().sub(creep.GetAbsOrigin()).Length2D();
+
+			// Calcular el tiempo de viaje en función de la velocidad de movimiento del héroe
+			const travelTime = distance / localHero.GetMoveSpeed();
+
+			// Obtener el tiempo de ataque del héroe
+			const attackTime = localHero.GetAttackTime();
+
+			// Estimar cuándo el objetivo estará en el rango de ataque del héroe
+			let estimatedAttackTime = travelTime + attackTime;
+						
+			
+			// My Damage
+			let actualDamage = localHero.GetTrueDamage() + getAdditionalDamage(localHero);
+
+			if (localHero.IsRanged()) {
+				const projectileSpeed = localHero.GetProjectileSpeed();
+				const projectileTravelTime = distance / projectileSpeed;
+				actualDamage += Math.floor((localHero.GetTrueMaximumDamage() - localHero.GetTrueDamage()) / 2);
+				estimatedAttackTime += projectileTravelTime;
+			} else {
+				actualDamage += Math.floor((localHero.GetTrueMaximumDamage() - localHero.GetTrueDamage()) / 2);
+			}
+
+			const HPcreepActual = Math.floor((creep.GetHealth() + creep.GetHealthRegen()*estimatedAttackTime)*CreepArmor);
+			if (HPcreepActual <= actualDamage ) {
 				closestCreep = creep;
-				closestCreepHealth = futureCreepHealth;
 			}
 		}
 
@@ -185,49 +181,59 @@ eval(`
 		}
 		
 	}
+	
 
 
 	BestAutoLastHits.OnUpdate = () => {
-		if (!localHero || !enableToggle.GetValue()) {
-			return;
-		}
-		
-		if (Input.IsKeyDown(KeyBindLastHit.GetValue())) {
-			const attackRadius = 500;
-			
-			
-			DrawRadiusActionParticle(localHero);
-			
-			if (DisplayModeHitEnemy === 0) {
-				const closestEnemyHero = getClosestEnemyHero(attackRadius);
+		if (localHero && enableToggle.GetValue()) {
 
-				if (closestEnemyHero) {
-					if (Engine.OnceAt(0.2)) {
-						myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, closestEnemyHero, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);
+		
+			if (Input.IsKeyDown(KeyBindLastHit.GetValue())) {
+				const attackRadius = 500;
+				
+				
+				DrawRadiusActionParticle(localHero);
+				
+				if (DisplayModeHitEnemy === 0) {
+					const closestEnemyHero = getClosestEnemyHero(attackRadius);
+
+					if (closestEnemyHero) {
+						if (Engine.OnceAt(0.2)) {
+							myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, closestEnemyHero, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);
+						}
 					}
 				}
-			}
 
 
-			const closestCreep = getClosestLowHealthCreep(localHero);
-			
-			if (closestCreep) {
+				const closestCreep = getClosestLowHealthCreep(localHero);
 				
-				if (Engine.OnceAt(0.2)) {
-					myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, closestCreep, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);
+				if (closestCreep) {
+					
+					if (Engine.OnceAt(0.1)) {
+						myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, closestCreep, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);
+					}
+				} else {
+					let RangeNoMove = 150;
+					let vect1Pos = localHero.GetAbsOrigin();
+					let vect2Pos = Input.GetWorldCursorPos();
+					let DistanciaOriWolrd = vect1Pos.Distance(vect2Pos);
+					
+					if(DistanciaOriWolrd <= RangeNoMove){
+						
+					} else {
+						if (Engine.OnceAt(0.1)) {
+							SendOrderMovePos(Input.GetWorldCursorPos());
+						}
+					}
 				}
-			} else {
-				if (Engine.OnceAt(0.2)) {
-					SendOrderMovePos(Input.GetWorldCursorPos());
-				}						
-			}
 
-		} else {
-			
-			if (createDrawRadius > 0) {
-				Particle_ID.Destroy();
-				Particle_ID = null;
-				createDrawRadius = 0;
+			} else {
+				
+				if (createDrawRadius > 0) {
+					Particle_ID.Destroy();
+					Particle_ID = null;
+					createDrawRadius = 0;
+				}
 			}
 		}
 	};
