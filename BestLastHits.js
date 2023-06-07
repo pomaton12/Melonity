@@ -71,14 +71,14 @@ eval(`
 		
 	function getAdditionalDamage(localHero) {
 		let additionalDamage = 0;
-
-		const heroName = localHero.GetUnitName();
-
-		if (heroName === "npc_dota_hero_templar_assassin") {
-			const AbilityTA = localHero.GetAbilityByIndex(0);
-			const TypeAbilityTA = AbilityTA.GetDamageType();
-			additionalDamage += AbilityTA.GetDamage();
-			console.log("Daño adicional = ",TypeAbilityTA);
+		
+		let QuillingBlade = localHero.GetItem('item_quelling_blade', true);
+		if (QuillingBlade) {
+			if(localHero.IsRanged()){
+				additionalDamage = 4;
+			} else {
+				additionalDamage = 8;
+			}
 		}
 
 		return additionalDamage;
