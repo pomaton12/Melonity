@@ -221,7 +221,7 @@ eval(`
 					
 					if(DistanciaOriWolrd <= RangeNoMove){
 						//console.log("unit = ",nearest_enemi);
-						if (Engine.OnceAt(0.1)) {
+						if (Engine.OnceAt(0.2)) {
 							myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, nearest_enemi, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);						
 							myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_STOP, nearest_enemi, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);
 						}
