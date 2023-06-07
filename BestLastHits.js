@@ -234,7 +234,7 @@ eval(`
 								}
 							} else{
 								if (Engine.OnceAt(0.2)) {
-									myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, nearest_enemi, PosEnemiNaerest, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);						
+									myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_MOVE, null, PosEnemiNaerest, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);						
 								}
 							}
 						}
