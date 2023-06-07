@@ -156,7 +156,7 @@ eval(`
 		const heroPosition = localHero.GetAbsOrigin();
 		const offset = localHero.GetHealthBarOffset();
 		console.log("Posicion = ", offset);
-		const pos = heroPosition + vector(0, offset, 0);
+		const pos = heroPosition.add(new Vector(0, offset, 0));
 		const text = "[Auto LastHits]";
 		const font = Renderer.LoadFont("Arial", 20, Enum.FontWeight.BOLD);
 		//const color = {255, 255, 255, 255};
