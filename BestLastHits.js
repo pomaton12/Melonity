@@ -154,25 +154,14 @@ eval(`
 
 	function DrawRadiusActionParticle(localHero) {
 		const heroPosition = localHero.GetAbsOrigin();
-		const textOffset = new Vector(0, 0, 370);
-		const textPos = heroPosition.add(textOffset);
-		const text = "[Auto LastHit]";
-		const font = Renderer.LoadFont('Arial', 12, Enum.FontWeight.BOLD);
-		//const healthBarPosition = localHero.GetHealthBarPosition();
-		
-		let [x, y, onScreen] = Renderer.WorldToScreen(heroPosition);
+		const offset = localHero.GetHealthBarOffset();
+		const pos = heroPosition + offset;
+		const text = "[Auto LastHits]";
+		const font = Renderer.LoadFont("Arial", 20, Enum.FontWeight.BOLD);
+		const color = {255 255, 255, 255};
 
-		if (onScreen) {
-			// Dibuja algo en la posición del héroe en la pantalla
-			//Renderer.SetDrawColor(255, 255, 255, 255);
-			//Renderer.DrawText(font, x, y-150, text);
-		}
-		
-		// Obtener la posición de la barra de vida del héroe local
-		var healthBar = localHero.FindChildTraverse("HealthBar");
-		var healthBarX = healthBar.actualxoffset;
-		var healthBarY = healthBar.actualyoffset;
-		Renderer.DrawText(font, healthBarX, healthBarY-20, text);
+		Renderer.DrawText(font, pos.x, pos.y, text, color)
+
 		
 		
 		if(createDrawRadius == 0){
