@@ -163,7 +163,7 @@ eval(`
 		
 		let [x, y, z] = Renderer.WorldToScreen(pos);
 		
-		Renderer.DrawText(font, x-50, y-offset, text);
+		Renderer.DrawText(font, x-50, y, text);
 		console.log("Posicion = ", x," ", y);
 		
 		
