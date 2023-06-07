@@ -3,7 +3,7 @@
 
 /***/ "./src/BestAutoLastHits.ts":
 /*!**********************************!*\
-  !*** ./src/BestAutoLastHits.ts ***!
+  !*** ./src/BestAutoLastHits.ts ***! 
   \**********************************/
 /***/ (() => {
 
