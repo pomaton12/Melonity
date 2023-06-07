@@ -164,10 +164,16 @@ eval(`
 
 		if (onScreen) {
 			// Dibuja algo en la posición del héroe en la pantalla
-			Renderer.SetDrawColor(255, 255, 255, 255);
-			//Renderer.DrawWorldText(font, textPos, text, 0, 0);
-			Renderer.DrawText(font, x, y-150, text);
+			//Renderer.SetDrawColor(255, 255, 255, 255);
+			//Renderer.DrawText(font, x, y-150, text);
 		}
+		
+		// Obtener la posición de la barra de vida del héroe local
+		var healthBar = hero.FindChildTraverse("HealthBar");
+		var healthBarX = healthBar.actualxoffset;
+		var healthBarY = healthBar.actualyoffset;
+		Renderer.DrawText(font, healthBarX, healthBarY-20, text);
+		
 		
 		if(createDrawRadius == 0){
 			if (!Particle_ID) {
