@@ -158,7 +158,7 @@ eval(`
 		const pos = heroPosition + offset;
 		const text = "[Auto LastHits]";
 		const font = Renderer.LoadFont("Arial", 20, Enum.FontWeight.BOLD);
-		const color = {255 255, 255, 255};
+		const color = {255, 255, 255, 255};
 
 		Renderer.DrawText(font, pos.x, pos.y, text, color)
 
