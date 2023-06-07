@@ -158,12 +158,13 @@ eval(`
 		
 		const pos = heroPosition.add(new Vector(0, 0, 0));
 		const text = "[Auto LastHits]";
-		const font = Renderer.LoadFont("Arial", 12, Enum.FontWeight.BOLD);
+		const font = Renderer.LoadFont("Tahoma", 12, Enum.FontWeight.EXTRABOLD);
+
 		//const color = {255, 255, 255, 255};
 		
 		let [x, y, z] = Renderer.WorldToScreen(pos);
 		
-		Renderer.DrawText(font, x-50, y, text);
+		Renderer.DrawTextCentered(font, x, y+30, text, 1);
 		console.log("Posicion = ", x," ", y);
 		
 		
