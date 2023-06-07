@@ -93,7 +93,7 @@ eval(`
 		if (attackRange <= 500 ){
 			attackRadius = 500;
 		} else {
-			attackRadius = attackRange;
+			attackRadius = 750;
 		}
 		
 		if (DisplayModeHitCreep == 0) {
@@ -215,15 +215,27 @@ eval(`
 					let vect1Pos = localHero.GetAbsOrigin();
 					let vect2Pos = Input.GetWorldCursorPos();
 					let DistanciaOriWolrd = vect1Pos.Distance(vect2Pos);
-					let nearest_enemi = Input.GetNearestUnitToCursor(Enum.TeamType.TEAM_ENEMY);
-					let PosEnemiNaerest = nearest_enemi.GetAbsOrigin();
+
 					
 					if(DistanciaOriWolrd <= RangeNoMove){
 						//console.log("unit = ",nearest_enemi);
+						let nearest_enemi = Input.GetNearestUnitToCursor(Enum.TeamType.TEAM_ENEMY);
+						let PosEnemiNaerest = nearest_enemi.GetAbsOrigin();
+						let vect1PosAct = localHero.GetAbsOrigin();
+						let distanteAnimation = vect1PosAct.Distance(PosEnemiNaerest);
+						let attackRangeHero = localHero.GetAttackRange();
+						
 						if (enableToggleAutoAttack.GetValue()) {
-							if (Engine.OnceAt(0.2)) {
-								myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, nearest_enemi, PosEnemiNaerest, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);						
-								myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_STOP, nearest_enemi, PosEnemiNaerest, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);
+							
+							if ( distanteAnimation <= attackRangeHero){
+								if (Engine.OnceAt(0.2)) {
+									myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, nearest_enemi, PosEnemiNaerest, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);						
+									myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_STOP, nearest_enemi, PosEnemiNaerest, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);
+								}
+							} else{
+								if (Engine.OnceAt(0.2)) {
+									myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, nearest_enemi, PosEnemiNaerest, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_PASSED_UNIT_ONLY, localHero, false, true);						
+								}
 							}
 						}
 					} else {
