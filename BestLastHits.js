@@ -153,20 +153,20 @@ eval(`
 	}
 
 	function DrawRadiusActionParticle(localHero) {
-		const heroPosition = localHero.GetAbsOrigin();
-		const offset = localHero.GetHealthBarOffset();
-		
-		const pos = heroPosition.add(new Vector(0, 0, 0));
-		const text = "[Auto LastHits]";
-		const font = Renderer.LoadFont("Tahoma", 12, Enum.FontWeight.EXTRABOLD);
+	const heroPosition = localHero.GetAbsOrigin();
+	const offset = localHero.GetHealthBarOffset();
 
-		//const color = {255, 255, 255, 255};
-		
-		let [x, y, z] = Renderer.WorldToScreen(pos);
-		
-		Renderer.DrawTextCentered(font, x, y+30, text, 1);
-		console.log("Posicion = ", x," ", y);
-		
+	// Agregar el desplazamiento de la barra de vida al vector de posición
+	const pos = heroPosition.add(new Vector(0, 0, offset));
+	const text = "[Auto LastHits]";
+	const font = Renderer.LoadFont("Tahoma", 12, Enum.FontWeight.EXTRABOLD);
+
+	// Convertir las coordenadas del mundo a coordenadas de pantalla
+	let [x, y, z] = Renderer.WorldToScreen(pos);
+
+	// Dibujar el texto centrado en las coordenadas de pantalla calculadas
+	Renderer.DrawTextCentered(font, x, y, text, 1);
+
 		
 		if(createDrawRadius == 0){
 			if (!Particle_ID) {
