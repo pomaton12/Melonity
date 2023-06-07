@@ -155,6 +155,7 @@ eval(`
 	function DrawRadiusActionParticle(localHero) {
 		const heroPosition = localHero.GetAbsOrigin();
 		const offset = localHero.GetHealthBarOffset();
+		console.log("Posicion = ", offset);
 		const pos = heroPosition + offset;
 		const text = "[Auto LastHits]";
 		const font = Renderer.LoadFont("Arial", 20, Enum.FontWeight.BOLD);
