@@ -169,7 +169,7 @@ eval(`
 		}
 		
 		// Obtener la posición de la barra de vida del héroe local
-		var healthBar = hero.FindChildTraverse("HealthBar");
+		var healthBar = localHero.FindChildTraverse("HealthBar");
 		var healthBarX = healthBar.actualxoffset;
 		var healthBarY = healthBar.actualyoffset;
 		Renderer.DrawText(font, healthBarX, healthBarY-20, text);
