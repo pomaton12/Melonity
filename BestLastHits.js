@@ -160,7 +160,7 @@ eval(`
 		const font = Renderer.LoadFont("Arial", 20, Enum.FontWeight.BOLD);
 		const color = {255, 255, 255, 255};
 
-		Renderer.DrawText(font, pos.x, pos.y, text, color)
+		Renderer.DrawText(font, pos.x, pos.y, text, color);
 
 		
 		
