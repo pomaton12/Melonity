@@ -217,7 +217,7 @@ eval(`
 					let vect1Pos = localHero.GetAbsOrigin();
 					let vect2Pos = Input.GetWorldCursorPos();
 					let DistanciaOriWolrd = vect1Pos.Distance(vect2Pos);
-					let nearest_enemi = Input.GetNearestUnitToCursor(null, Enum.TeamType.TEAM_ENEMY);
+					let nearest_enemi = Input.GetNearestUnitToCursor(Enum.TeamType.TEAM_ENEMY);
 					
 					//if(DistanciaOriWolrd <= RangeNoMove){
 						console.log("unit = ",nearest_enemi);
