@@ -165,8 +165,8 @@ eval(`
 		if (onScreen) {
 			// Dibuja algo en la posición del héroe en la pantalla
 			Renderer.SetDrawColor(255, 255, 255, 255);
-			Renderer.DrawWorldText(font, textPos, text, 0, 0);
-			//Renderer.DrawText(font, x, y-10, text)
+			//Renderer.DrawWorldText(font, textPos, text, 0, 0);
+			Renderer.DrawText(font, x, y-150, text);
 		}
 		
 		if(createDrawRadius == 0){
