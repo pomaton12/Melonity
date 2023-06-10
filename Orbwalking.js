@@ -73,9 +73,8 @@ eval(`
 					SafeDistanceUI = Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100);
 					createHUD = createHUD+1;
 				}else {
-					//SafeDistanceUI.OnChange(state =>{	SafeDistanceUI = state.newValue;})
 					SafeDistanceUIval = SafeDistanceUI.GetValue();
-					console.log("Evaluar",SafeDistanceUI.GetValue());
+					//console.log("Evaluar",SafeDistanceUI.GetValue());
 				}
 			} else {
 				if (DisplayMode === 1 && SafeDistanceUI != null && createHUD > 0) {
@@ -114,6 +113,9 @@ eval(`
 							if (5 >= newRange) {
 								newRange = 5;
 							}
+							
+							
+							
 							if (dist >= newRange) {
 								if (!isUiEnabled2.GetValue()) {
 									if (newRange) {
@@ -123,6 +125,7 @@ eval(`
 										} else {
 											if (Engine.OnceAt(attackTime)) {
 												myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, pos1, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+												myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, enemyHeroPosition, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 											}
 										}
 									}
