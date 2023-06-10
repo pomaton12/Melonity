@@ -18,6 +18,7 @@ eval(`
 	let pos1;
 	let timepusepos;
 	let createHUD = 0;	
+	let SafeDistanceUI = null;
 	
 	
 	const path_ = ['Heroes', 'Orbwalking'];
@@ -92,7 +93,11 @@ eval(`
 						const dist = localHeroPosition.Distance(enemyHeroPosition) - 50;
 						const attackSpeed = localHero.GetAttacksPerSecond();
 						const attackTime = 1 / attackSpeed;
-						if (DisplayMode === 0) {
+						if (DisplayMode === 0 && SafeDistanceUI.GetParent() == null) {
+							Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100)
+								.OnChange(state => SafeDistanceUI = state.newValue)
+								.SetValue(SafeDistanceUI);
+							
 							let newRange = attackRange * (SafeDistanceUI / 100);
 							if (5 >= newRange) {
 								newRange = 5;
@@ -117,13 +122,6 @@ eval(`
 										myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, pos1, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 									}
 								}
-							}
-							if (DisplayMode === 0 && SafeDistanceUI.GetParent() == null) {
-								Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100)
-									.OnChange(state => SafeDistanceUI = state.newValue)
-									.SetValue(SafeDistanceUI);
-							} else if (DisplayMode === 1 && SafeDistanceUI.GetParent() != null) {
-								Menu.RemoveOption(SafeDistanceUI);
 							}
 						} else if (DisplayMode === 1) {
 							if (SafeDistanceUI.GetParent() != null) {
