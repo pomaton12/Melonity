@@ -102,7 +102,7 @@ eval(`
 					const enemyHeroPosition = EnemyHero.GetAbsOrigin();
 					const dist = localHeroPosition.Distance(enemyHeroPosition)-50;
 					const attackSpeed = localHero.GetAttacksPerSecond();
-         				const attackTime = 1 / attackSpeed;
+         			const attackTime = 1 / attackSpeed;
 					
 					if (DisplayMode === 0) {					
 						let newRange =  attackRange * (SafeDistanceUI / 100);
@@ -114,7 +114,7 @@ eval(`
 						if (dist >= newRange) {
 
 							if ( !isUiEnabled2.GetValue()) {
-								console.log("dist = ",dist," dist = ",newRange);
+								//console.log("dist = ",dist," dist = ",newRange);
 								if(newRange){
 									pos1 = localHeroPosition.add(new Vector(dist - newRange).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
 
@@ -143,6 +143,8 @@ eval(`
 
 
 					} else if (DisplayMode === 1) {
+						Menu.RemoveOption(SafeDistanceUI);
+						
 						if (attackTime > 0.6 ){
 							timepusepos = attackTime;
 						} else{
