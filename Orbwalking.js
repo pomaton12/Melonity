@@ -72,8 +72,9 @@ eval(`
 					SafeDistanceUI = Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100);
 					createHUD = createHUD+1;
 				}else {
-					SafeDistanceUI.OnChange(state =>{	SafeDistanceUI = state.newValue;}).GetValue();
-					console.log("Evaluar",SafeDistanceUI);
+					//SafeDistanceUI.OnChange(state =>{	SafeDistanceUI = state.newValue;})
+					SafeDistanceUI.GetValue();
+					console.log("Evaluar",SafeDistanceUI.GetValue());
 				}
 			} else {
 				if (DisplayMode === 1 && SafeDistanceUI != null && createHUD > 0) {
