@@ -93,7 +93,7 @@ eval(`
 						const dist = localHeroPosition.Distance(enemyHeroPosition) - 50;
 						const attackSpeed = localHero.GetAttacksPerSecond();
 						const attackTime = 1 / attackSpeed;
-						if (DisplayMode === 0 && SafeDistanceUI.GetParent() == null) {
+						if (DisplayMode === 0 && SafeDistanceUI == null) {
 							Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100)
 								.OnChange(state => SafeDistanceUI = state.newValue)
 								.SetValue(SafeDistanceUI);
@@ -124,7 +124,7 @@ eval(`
 								}
 							}
 						} else if (DisplayMode === 1) {
-							if (SafeDistanceUI.GetParent() != null) {
+							if (SafeDistanceUI != null) {
 								Menu.RemoveOption(SafeDistanceUI);
 							}
 							if (attackTime > 0.6) {
