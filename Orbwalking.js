@@ -30,9 +30,7 @@ eval(`
 	let isUiEnabled2 = Menu.AddToggle(path_, 'Kill Safe Pos', true);
 	
 	let DisplayMode = Menu.AddComboBox(path_, 'Display', ['To Enemy', 'Mouse position'],0)
-	.OnChange(state =>{   	
-	DisplayMode = state.newValue;
-	})
+	.OnChange(state =>{	DisplayMode = state.newValue;})
 	.GetValue();
 	
   
@@ -69,6 +67,19 @@ eval(`
 	//=====================
 	HitRunHeros.OnUpdate = () => {
 		if (localHero && isUiEnabled1.GetValue()) {
+			if (DisplayMode === 0 && SafeDistanceUI == null && createHUD == 0) {
+				createHUD = createHUD+1;
+				SafeDistanceUI = Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100)
+					.OnChange(state =>{	DisplayMode = state.newValue;})
+					.GetValue();
+			} else {
+				if (SafeDistanceUI != null && createHUD > 0) {
+					Menu.RemoveOption(SafeDistanceUI);
+					SafeDistanceUI = null;
+					createHUD = 0;
+				}
+			}
+			
 			if (KeyBindOrbwalk.IsKeyDown()) {
 				const mousePos = Input.GetWorldCursorPos();
 				const enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
@@ -93,12 +104,7 @@ eval(`
 						const dist = localHeroPosition.Distance(enemyHeroPosition) - 50;
 						const attackSpeed = localHero.GetAttacksPerSecond();
 						const attackTime = 1 / attackSpeed;
-						if (DisplayMode === 0 && SafeDistanceUI == null && createHUD == 0) {
-							createHUD = createHUD+1;
-							Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100)
-								.OnChange(state => SafeDistanceUI = state.newValue)
-								.SetValue(SafeDistanceUI);
-							
+						if (DisplayMode === 0 ) {							
 							let newRange = attackRange * (SafeDistanceUI / 100);
 							if (5 >= newRange) {
 								newRange = 5;
@@ -125,10 +131,6 @@ eval(`
 								}
 							}
 						} else if (DisplayMode === 1) {
-							if (SafeDistanceUI != null && createHUD > 0) {
-								Menu.RemoveOption(SafeDistanceUI);
-								createHUD = 0;
-							}
 							if (attackTime > 0.6) {
 								timepusepos = attackTime;
 							} else {
