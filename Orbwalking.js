@@ -67,11 +67,13 @@ eval(`
 	//=====================
 	HitRunHeros.OnUpdate = () => {
 		if (localHero && isUiEnabled1.GetValue()) {
-			if (DisplayMode === 0 && SafeDistanceUI == null && createHUD == 0) {
-				createHUD = createHUD+1;
-				SafeDistanceUI = Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100)
-					.OnChange(state =>{	DisplayMode = state.newValue;})
-					.GetValue();
+			if (DisplayMode === 0) {	
+				if (createHUD == 0) {
+					SafeDistanceUI = Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100);
+					createHUD = createHUD+1;
+				}else {
+					SafeDistanceUI.GetValue();
+				}
 			} else {
 				if (DisplayMode === 1 && SafeDistanceUI != null && createHUD > 0) {
 					Menu.RemoveOption(SafeDistanceUI);
