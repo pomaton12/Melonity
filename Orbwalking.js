@@ -73,6 +73,7 @@ eval(`
 					createHUD = createHUD+1;
 				}else {
 					SafeDistanceUI.GetValue();
+					console.log("Evaluar",SafeDistanceUI);
 				}
 			} else {
 				if (DisplayMode === 1 && SafeDistanceUI != null && createHUD > 0) {
