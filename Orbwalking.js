@@ -19,6 +19,7 @@ eval(`
 	let timepusepos;
 	let createHUD = 0;	
 	let SafeDistanceUI = null;
+	let SafeDistanceUIval = 0;
 	
 	
 	const path_ = ['Heroes', 'Orbwalking'];
@@ -73,7 +74,7 @@ eval(`
 					createHUD = createHUD+1;
 				}else {
 					//SafeDistanceUI.OnChange(state =>{	SafeDistanceUI = state.newValue;})
-					SafeDistanceUI.GetValue();
+					SafeDistanceUIval = SafeDistanceUI.GetValue();
 					console.log("Evaluar",SafeDistanceUI.GetValue());
 				}
 			} else {
@@ -109,7 +110,7 @@ eval(`
 						const attackSpeed = localHero.GetAttacksPerSecond();
 						const attackTime = 1 / attackSpeed;
 						if (DisplayMode === 0 ) {							
-							let newRange = attackRange * (SafeDistanceUI / 100);
+							let newRange = attackRange * (SafeDistanceUIval / 100);
 							if (5 >= newRange) {
 								newRange = 5;
 							}
