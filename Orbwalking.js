@@ -19,9 +19,6 @@ eval(`
 	let timepusepos;
 	let createHUD = 0;	
 	
-	function resetUI() {
-	  GameUI.ReloadUI();
-	}
 	
 	const path_ = ['Heroes', 'Orbwalking'];
 
@@ -37,9 +34,6 @@ eval(`
 	})
 	.GetValue();
 	
-	let SafeDistanceUI = Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100)
-	    .OnChange(state => SafeDistanceUI = state.newValue)
-	    .GetValue();
   
 	Menu.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama/images/hud/reborn/icon_damage_psd.vtex_c');
 
@@ -73,106 +67,95 @@ eval(`
 
 	//=====================
 	HitRunHeros.OnUpdate = () => {
-	if (localHero && isUiEnabled1.GetValue()) {
-		
-		if (KeyBindOrbwalk.IsKeyDown()) {
-			const mousePos = Input.GetWorldCursorPos();
-			const enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
-			
-			enemies.sort((a, b) => {
-				const distA = a.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
-				const distB = b.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
-				return distA - distB;
-			});
-
-			let target = null;
-			for (const enemy of enemies) {
-				const dist = enemy.GetAbsOrigin().Distance(mousePos);
-				if (dist <= 100 || target == null) {
-					target = enemy;
+		if (localHero && isUiEnabled1.GetValue()) {
+			if (KeyBindOrbwalk.IsKeyDown()) {
+				const mousePos = Input.GetWorldCursorPos();
+				const enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
+				enemies.sort((a, b) => {
+					const distA = a.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
+					const distB = b.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
+					return distA - distB;
+				});
+				let target = null;
+				for (const enemy of enemies) {
+					const dist = enemy.GetAbsOrigin().Distance(mousePos);
+					if (dist <= 100 || target == null) {
+						target = enemy;
+					}
 				}
-			}
-			
-			
-			if (Engine.OnceAt(0.2)) {
-				if (target != null) {
-					const localHeroPosition = localHero.GetAbsOrigin();
-					const EnemyHero = target;
-					const attackRange = localHero.GetAttackRange();
-					const enemyHeroPosition = EnemyHero.GetAbsOrigin();
-					const dist = localHeroPosition.Distance(enemyHeroPosition)-50;
-					const attackSpeed = localHero.GetAttacksPerSecond();
-         			const attackTime = 1 / attackSpeed;
-					
-					if (DisplayMode === 0) {					
-						let newRange =  attackRange * (SafeDistanceUI / 100);
-
-						if ( 5 >= newRange ){
-							newRange =  5;
-						}
-
-						if (dist >= newRange) {
-
-							if ( !isUiEnabled2.GetValue()) {
-								//console.log("dist = ",dist," dist = ",newRange);
-								if(newRange){
-									pos1 = localHeroPosition.add(new Vector(dist - newRange).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
-
-									if (parseInt(newRange) == parseInt(dist)){
-										myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, enemyHeroPosition, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);		     
-
-									} else {
-
-										if (Engine.OnceAt(attackTime)) {
-											myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, pos1, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
-										}
-
-									}
-								}	 
+				if (Engine.OnceAt(0.2)) {
+					if (target != null) {
+						const localHeroPosition = localHero.GetAbsOrigin();
+						const EnemyHero = target;
+						const attackRange = localHero.GetAttackRange();
+						const enemyHeroPosition = EnemyHero.GetAbsOrigin();
+						const dist = localHeroPosition.Distance(enemyHeroPosition) - 50;
+						const attackSpeed = localHero.GetAttacksPerSecond();
+						const attackTime = 1 / attackSpeed;
+						if (DisplayMode === 0) {
+							let newRange = attackRange * (SafeDistanceUI / 100);
+							if (5 >= newRange) {
+								newRange = 5;
 							}
-						} else {
-
-							if ( isUiEnabled2.GetValue() ) {
-								pos1 = localHeroPosition.add(new Vector(dist - newRange - 100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
-								if (Engine.OnceAt(attackTime)) {
-									myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, pos1, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+							if (dist >= newRange) {
+								if (!isUiEnabled2.GetValue()) {
+									if (newRange) {
+										pos1 = localHeroPosition.add(new Vector(dist - newRange).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
+										if (parseInt(newRange) == parseInt(dist)) {
+											myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, enemyHeroPosition, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+										} else {
+											if (Engine.OnceAt(attackTime)) {
+												myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, pos1, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+											}
+										}
+									}
+								}
+							} else {
+								if (isUiEnabled2.GetValue()) {
+									pos1 = localHeroPosition.add(new Vector(dist - newRange - 100).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
+									if (Engine.OnceAt(attackTime)) {
+										myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, pos1, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+									}
 								}
 							}
-						}
-					
-
-
-					} else if (DisplayMode === 1) {
-						Menu.RemoveOption(SafeDistanceUI);
-						
-						if (attackTime > 0.6 ){
-							timepusepos = attackTime;
-						} else{
-							timepusepos = 0.6;
-						}
-						const mousePos = Input.GetWorldCursorPos();
-						if (Engine.OnceAt(timepusepos)) {
-							localHero.MoveTo(mousePos);
+							if (DisplayMode === 0 && SafeDistanceUI.GetParent() == null) {
+								Menu.AddSlider(path_, 'Safe Distance (% Attack Range)', 1, 100, 100)
+									.OnChange(state => SafeDistanceUI = state.newValue)
+									.SetValue(SafeDistanceUI);
+							} else if (DisplayMode === 1 && SafeDistanceUI.GetParent() != null) {
+								Menu.RemoveOption(SafeDistanceUI);
+							}
+						} else if (DisplayMode === 1) {
+							if (SafeDistanceUI.GetParent() != null) {
+								Menu.RemoveOption(SafeDistanceUI);
+							}
+							if (attackTime > 0.6) {
+								timepusepos = attackTime;
+							} else {
+								timepusepos = 0.6;
+							}
+							const mouse = Input.GetWorldCursorPos();
+							if (Engine.OnceAt(timepusepos)) {
+								localHero.MoveTo(mousePos);
+							}
 						}
 					}
-			
 				}
-			}	
+			}
 		}
-	}
-};
+	};
 
-HitRunHeros.OnScriptLoad = HitRunHeros.OnGameStart = () => {
-  localHero = EntitySystem.GetLocalHero();
-  myPlayer = EntitySystem.GetLocalPlayer();
-};
+	HitRunHeros.OnScriptLoad = HitRunHeros.OnGameStart = () => {
+	  localHero = EntitySystem.GetLocalHero();
+	  myPlayer = EntitySystem.GetLocalPlayer();
+	};
 
-HitRunHeros.OnGameEnd = () => {
-  localHero = null;
-  myPlayer = null;
-};
+	HitRunHeros.OnGameEnd = () => {
+	  localHero = null;
+	  myPlayer = null;
+	};
 
-RegisterScript(HitRunHeros);
+	RegisterScript(HitRunHeros);
 `);
 
 /***/ })
