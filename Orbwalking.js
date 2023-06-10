@@ -73,7 +73,7 @@ eval(`
 					.OnChange(state =>{	DisplayMode = state.newValue;})
 					.GetValue();
 			} else {
-				if (SafeDistanceUI != null && createHUD > 0) {
+				if (DisplayMode === 1 && SafeDistanceUI != null && createHUD > 0) {
 					Menu.RemoveOption(SafeDistanceUI);
 					SafeDistanceUI = null;
 					createHUD = 0;
