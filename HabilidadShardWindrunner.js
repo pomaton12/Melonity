@@ -143,7 +143,7 @@ eval(`
 						// Obtener los enemigos cercanos
 						let gale_force = localHero.GetAbilityByIndex(3);
 						let enemyPositions = {};
-						if (gale_force && gale_force.IsExist() && gale_force.Can()) {
+						if (gale_force && gale_force.IsExist() && gale_force.CanCast()) {
 							enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 
 							// Iterar sobre los enemigos cercanos
