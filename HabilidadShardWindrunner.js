@@ -28,7 +28,7 @@ eval(`
 	isUiEnabled.SetImage('panorama/images/spellicons/windrunner_gale_force_png.vtex_c');
 
 	let isUiEnabledDogde = Menu.AddToggle(path_, 'Use to Dogde', true);
-	UiEnabledDogde.SetImage('panorama/images/spellicons/windrunner_gale_force_png.vtex_c');
+	isUiEnabledDogde.SetImage('panorama/images/spellicons/windrunner_gale_force_png.vtex_c');
 
 	// Función que se ejecuta en cada actualización del juego
 	AutoSaverWindrunner.OnUpdate = () => {
