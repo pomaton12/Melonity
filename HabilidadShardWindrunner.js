@@ -118,14 +118,14 @@ eval(`
 
 						// Verificar si algún enemigo cercano tiene activado Blade Mail
 						for (let enemy of enemies) {
-							if (enemy.HasModifier("modifier_item_blade_mail_reflect") && enemy.HasModifier("modifier_windrunner_focusfire_damage")) {
+							if (enemy.HasModifier("modifier_item_blade_mail_reflect") && enemy.HasModifier("modifier_windrunner_focusfire")) {
 								let bkb = localHero.GetItem('item_black_king_bar', true);
 								if (bkb && bkb.CanCast()) {
 									bkb.CastNoTarget();
 								}
 							}
 							
-							if (enemy.HasModifier("modifier_black_king_bar_immune") === false && enemy.HasModifier("modifier_windrunner_focusfire_damage")) {
+							if (enemy.HasModifier("modifier_black_king_bar_immune") === false && enemy.HasModifier("modifier_windrunner_focusfire")) {
 								let disperserI = localHero.GetItem('item_disperser', true);
 								let diffusalI = localHero.GetItem('item_diffusal_blade', true);
 								if (disperserI && disperserI.CanCast()) {
@@ -178,7 +178,7 @@ eval(`
 									myPlayer.PrepareUnitOrders(30, null, enemyPosition, gale_force, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
 
 									// Verificar si el enemigo tiene activado BKB antes de lanzar Gale Force
-									if (enemy.HasModifier("modifier_black_king_bar_immune") === false && enemy.HasModifier("modifier_windrunner_focusfire_damage") ) {
+									if (enemy.HasModifier("modifier_black_king_bar_immune") === false && enemy.HasModifier("modifier_windrunner_focusfire") ) {
 										gale_force.CastPosition(pushPosition);
 										setTimeout(function() {}, 300);
 									}
