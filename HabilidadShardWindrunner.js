@@ -178,7 +178,7 @@ eval(`
 									myPlayer.PrepareUnitOrders(30, null, enemyPosition, gale_force, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
 
 									// Verificar si el enemigo tiene activado BKB antes de lanzar Gale Force
-									if (enemy.HasModifier("modifier_black_king_bar_immune") === false && enemy.HasModifier("modifier_windrunner_focusfire") ) {
+									if (enemy.HasModifier("modifier_black_king_bar_immune") === false  ) {
 										gale_force.CastPosition(pushPosition);
 										setTimeout(function() {}, 300);
 									}
