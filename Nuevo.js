@@ -13,7 +13,7 @@ eval(`
 
   // Declaración de la variable localHero
   let localHero;
-  let Ancient = Game.GetGameEntityByIndex(0);
+
 
   // Definición del array path_
   const path_ = ['Heroes', 'Agility', 'Monkey King', 'Use Best Abuse'];
@@ -24,26 +24,6 @@ eval(`
   let KeyBindUseTree = Menu.AddKeyBind(path_, 'Key in Combo', Enum.ButtonCode.KEY_NONE);
   
   
-	function GetFurthestTree(trees) {
-		if (Ancient === null) {
-			return null;
-		}
-
-		let furthest = null;
-		let fDist = 10000;
-
-		for (const tree of trees) {
-			const dist = Ancient.GetAbsOrigin().Distance(tree.GetAbsOrigin());
-
-			if (dist < fDist) {
-				furthest = tree;
-				fDist = dist;
-			}
-		}
-
-		return furthest;
-	}  
-
 
 	// Definición de la función OnUpdate
 	AutoSaveMonkeyKing.OnUpdate = () => {
@@ -58,10 +38,8 @@ eval(`
 				let nCastRange = abilityTD.GetCastRange();
 				
 				let tableNearbyTrees = localHero.GetNearbyTrees( nCastRange );
-				
-				let treeOK = GetFurthestTree(trees);
-				
-				console.log("Arbol = ",treeOK);
+								
+				console.log("Arbol = ",tableNearbyTrees);
 			}
 
         }
