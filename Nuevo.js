@@ -37,7 +37,7 @@ eval(`
 				let abilityPS = localHero.GetAbilityByIndex(2); //monkey_king_primal_spring
 				let nCastRange = abilityTD.GetCastRange();
 				
-				let tableNearbyTrees = Trees.InRadius(localHero.GetAbsOrigin(), nCastRange, true);
+				let tableNearbyTrees = localHero.GetNearbyTrees(nCastRange);
 								
 				console.log("Arbol = ",tableNearbyTrees);
 			}
