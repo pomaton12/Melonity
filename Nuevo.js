@@ -73,23 +73,22 @@ eval(`
 			let FuntainSafePos = HeroFuntainSafePos(myPlayer);
 			
 			if (Engine.OnceAt(0.2)) {
-				let enemyHeroes = localHero.GetHeroesInRadius(5000, Enum.TeamType.TEAM_ENEMY);
+				let enemyHeroes = localHero.GetHeroesInRadius(5000, Enum.TeamType.TEAM_ENEMY);				
+				// Encuentra la posición más segura
+				if (enemyHeroes) {
+					safePosition = findSafePosition(localHero, enemyHeroes);
+				} else {
+					safePosition = FuntainSafePos;
+				}
+				
+				//myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_NO_TARGET,null,safePosition,Ultimate,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+				Ultimate.CastPosition(safePosition);
+				let tpitem = localHero.GetItem('item_tpscroll', true);
+				if (tpitem && tpitem.CanCast()) {
+					//myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_NO_TARGET,null,FuntainSafePos,tpitem,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+					tpitem.CastPosition(FuntainSafePos);
+				}
 			}
-			// Encuentra la posición más segura
-			if (enemyHeroes) {
-				safePosition = findSafePosition(localHero, enemyHeroes);
-			} else {
-				safePosition = FuntainSafePos;
-			}
-			
-			//myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_NO_TARGET,null,safePosition,Ultimate,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
-			Ultimate.CastPosition(safePosition);
-			let tpitem = localHero.GetItem('item_tpscroll', true);
-			if (tpitem && tpitem.CanCast()) {
-				//myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_NO_TARGET,null,FuntainSafePos,tpitem,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
-				tpitem.CastPosition(FuntainSafePos);
-			}
-			
 	    }
 	};
 
