@@ -29,7 +29,7 @@ eval(`
 
 		// Itera sobre todas las posiciones posibles en el radio
 		for (let angle = 0; angle < 360; angle += 1) {
-			for (let radius = 0; radius <= 5000; radius += 100) {
+			for (let radius = 0; radius <= 2500; radius += 100) {
 				
 				const dx = Math.cos(angle * (Math.PI / 180)) * radius;
 				const dy = Math.sin(angle * (Math.PI / 180)) * radius;
@@ -73,7 +73,7 @@ eval(`
 			let FuntainSafePos = HeroFuntainSafePos(myPlayer);
 			
 			if (Engine.OnceAt(0.2)) {
-				let enemyHeroes = localHero.GetHeroesInRadius(5000, Enum.TeamType.TEAM_ENEMY);				
+				let enemyHeroes = localHero.GetHeroesInRadius(2500, Enum.TeamType.TEAM_ENEMY);				
 				// Encuentra la posición más segura
 				if (enemyHeroes) {
 					safePosition = findSafePosition(localHero, enemyHeroes);
@@ -81,8 +81,8 @@ eval(`
 					safePosition = FuntainSafePos;
 				}
 				
-				myPlayer.PrepareUnitOrders( 30,localHero,safePosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
-				setTimeout(function() {}, 300);
+				myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,safePosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+				//setTimeout(function() {}, 300);
 				//Ultimate.CastPosition(safePosition);
 				console.log("safe position",Ultimate.GetName());
 				let tpitem = localHero.GetItem('item_tpscroll', true);
