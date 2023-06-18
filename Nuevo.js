@@ -73,18 +73,22 @@ eval(`
 			
 			if (Engine.OnceAt(0.2)) {
 				let enemyHeroes = localHero.GetHeroesInRadius(2500, Enum.TeamType.TEAM_ENEMY);				
-				// Encuentra la posición más segura 
+				// Encuentra la posición más segura
 				console.log(enemyHeroes);
 				if (enemyHeroes) {
 					safePosition = findSafePosition(localHero, 2500);
 				} else {
-					//safePosition = FuntainSafePos;
-					safePosition = Input.GetWorldCursorPos();
+					safePosition = FuntainSafePos;
+					//safePosition = Input.GetWorldCursorPos();
 				}
 				
 				//myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,safePosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 				//setTimeout(function() {}, 300);
-				SetCameraTargetPosition(safePosition);
+				let minimapPos = DotaCore.GetMinimapWidget().GetAbsPosition(); 
+				let clickPos = minimapPos + safePosition* (DotaCore.GetMinimapWidget().GetWorldSize() / 600);
+
+				Client.SendInput("cursor", Enum.ButtonCode.MOUSE_LEFT, clickPos.x, clickPos.y);
+				
 				Ultimate.CastPosition(safePosition);
 				
 				let tpitem = localHero.GetItem('item_tpscroll', true);
