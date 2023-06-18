@@ -134,8 +134,8 @@ eval(`
 					const dist = localHeroPosition.Distance(enemyHeroPosition) - 50;
 					const attackSpeed = localHero.GetAttacksPerSecond();
 					const attackTime = 1 / attackSpeed;
-					const Idealdirection = (enemyHeroPosition.sub(localHeroPosition)).Normalized;
-					
+					const Idealdirection = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
+					console.log("Prueba error",Idealdirection);
 					let Modifier1 = localHero.HasModifier("modifier_storm_spirit_overload");
 					let Modifier2 = localHero.HasModifier("modifier_storm_spirit_electric_rave");
 
@@ -146,7 +146,6 @@ eval(`
 								// Calcula una nueva posición detrás del enemigo
 								
 								let IdealPosition = localHeroPosition.add(Idealdirection.mul(new Vector(300, 300, 0)));
-
 								myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,IdealPosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 								//myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, enemyHeroPosition, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 							}
