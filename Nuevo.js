@@ -84,7 +84,7 @@ eval(`
 				
 				//myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,safePosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 				//setTimeout(function() {}, 300);
-				Game.SetCameraTargetPosition(safePosition);
+				SetCameraTargetPosition(safePosition);
 				Ultimate.CastPosition(safePosition);
 				
 				let tpitem = localHero.GetItem('item_tpscroll', true);
