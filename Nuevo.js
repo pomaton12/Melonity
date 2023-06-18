@@ -70,7 +70,7 @@ eval(`
 			
 			let Ultimate = localHero.GetAbilityByIndex(3);
 			let safePosition = localHero.GetAbsOrigin();
-			let enemyHeroes = EntitySystem.GetEnemyHeroes();
+			let enemyHeroes = localHero.GetHeroesInRadius(5000, Enum.TeamType.TEAM_ENEMY);
 			let FuntainSafePos = HeroFuntainSafePos(myPlayer);
 
 			// Encuentra la posición más segura
