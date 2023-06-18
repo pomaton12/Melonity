@@ -69,7 +69,7 @@ eval(`
 			}
 			
 			let Ultimate = localHero.GetAbilityByIndex(3);
-			let safePosition == localHero.GetPosition();
+			let safePosition = localHero.GetPosition();
 			let enemyHeroes = EntitySystem.GetEnemyHeroes();
 			let FuntainSafePos = HeroFuntainSafePos(myPlayer);
 
