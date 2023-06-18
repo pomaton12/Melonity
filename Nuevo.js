@@ -73,7 +73,7 @@ eval(`
 			
 			if (Engine.OnceAt(0.2)) {
 				let enemyHeroes = localHero.GetHeroesInRadius(2500, Enum.TeamType.TEAM_ENEMY);				
-				// Encuentra la posición más segura
+				// Encuentra la posición más segura 
 				console.log(enemyHeroes);
 				if (enemyHeroes) {
 					safePosition = findSafePosition(localHero, 2500);
