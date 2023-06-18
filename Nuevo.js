@@ -36,7 +36,7 @@ eval(`
 				};
 
 				// Calcula la distancia mínima a todos los enemigos
-				let minDistance = Math.min(...enemies.map(enemy => distance(position, enemy.GetAbsOrigin())));
+				let minDistance = Math.min(...enemies.map(enemy => position.Distance(enemy.GetAbsOrigin())));
 
 				// Si esta posición es más segura que la posición segura actual, actualízala
 				if (minDistance > maxDistance) {
