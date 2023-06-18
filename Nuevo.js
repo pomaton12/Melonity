@@ -32,7 +32,8 @@ eval(`
 			for (let radius = 0; radius <= 5000; radius += 100) {
 				let position = {
 					x: heroPosition.x + radius * Math.cos(angle * Math.PI / 180),
-					y: heroPosition.y + radius * Math.sin(angle * Math.PI / 180)
+					y: heroPosition.y + radius * Math.sin(angle * Math.PI / 180),
+					z: 0
 				};
 
 				// Calcula la distancia mínima a todos los enemigos
