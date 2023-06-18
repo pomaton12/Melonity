@@ -100,10 +100,10 @@ eval(`
 			if (localHero.GetUnitName() !== "npc_dota_hero_storm_spirit") {
 				return;
 			}
-			
+
 			let Ultimate = localHero.GetAbilityByIndex(5);
 			let safePosition = localHero.GetAbsOrigin();
-			
+
 			if (Engine.OnceAt(0.2)) {
 				const mousePos = Input.GetWorldCursorPos();
 				const enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
@@ -128,14 +128,22 @@ eval(`
 					const dist = localHeroPosition.Distance(enemyHeroPosition) - 50;
 					const attackSpeed = localHero.GetAttacksPerSecond();
 					const attackTime = 1 / attackSpeed;
-					if (Engine.OnceAt(attackTime)) {
-						myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,enemyHeroPosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
-						myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, enemyHeroPosition, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+
+					// Comprueba si el enemigo está atacando o lanzando un hechizo
+					if (EnemyHero.IsAttacking() || EnemyHero.GetActivity() == Enum.GameActivity.DOTA_CAST_ABILITY_1) {
+						if (Engine.OnceAt(attackTime)) {
+							// Calcula una nueva posición detrás del enemigo
+							const direction = enemyHeroPosition.Subtract(localHeroPosition).Normalized();
+							const newPosition = enemyHeroPosition.Add(direction.Multiply(attackRange));
+
+							myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,newPosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+							myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, enemyHeroPosition, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+						}
 					}
-				
 				}
 			}
-	    }
+		}
+
 	};
 
 	StornSpiritAbuse.OnScriptLoad = StornSpiritAbuse.OnGameStart = () => {
