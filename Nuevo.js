@@ -22,27 +22,26 @@ eval(`
 	KeyBindOrderAgresive.SetImage('panorama/images/spellicons/storm_spirit_ball_lightning_orchid_png.vtex_c');
 	KeyBindOrderUltiTP.SetImage('panorama/images/spellicons/storm_spirit/ti8_retro_immortal/storm_spirit_ball_lightning_orchid_retro_png.vtex_c');
 
-	function findSafePosition(hero, enemies) {
-		let safePosition = null;
+	function findSafePosition(localHero, searchRadius){
+		const heroPosition = localHero.GetAbsOrigin();
+		const enemyHeroes = localHero.GetHeroesInRadius(searchRadius, Enum.TeamType.TEAM_ENEMY);
 		let maxDistance = 0;
-		let heroPosition = hero.GetAbsOrigin();
+		let safePosition = heroPosition;
 
-		// Itera sobre todas las posiciones posibles en el radio
-		for (let angle = 0; angle < 360; angle += 1) {
-			for (let radius = 0; radius <= 2500; radius += 100) {
-				
-				const dx = Math.cos(angle * (Math.PI / 180)) * radius;
-				const dy = Math.sin(angle * (Math.PI / 180)) * radius;
-				const candidatePosition = heroPosition.add(new Vector(dx, dy, 0));
+		for (let angle = 0; angle < 360; angle += 10) {
+			const dx = Math.cos(angle * (Math.PI / 180)) * searchRadius;
+			const dy = Math.sin(angle * (Math.PI / 180)) * searchRadius;
+			const candidatePosition = heroPosition.add(new Vector(dx, dy, 0));
 
-				// Calcula la distancia mínima a todos los enemigos
-				let minDistance = Math.min(...enemies.map(enemy => candidatePosition.Distance(enemy.GetAbsOrigin())));
+			const distanceToClosestEnemy = enemyHeroes.reduce((minDistance, enemy) => {
+				const distance = candidatePosition.Distance(enemy.GetAbsOrigin());
+				return Math.min(minDistance, distance);
+			}, Infinity);
 
-				// Si esta posición es más segura que la posición segura actual, actualízala
-				if (minDistance > maxDistance) {
-					maxDistance = minDistance;
-					safePosition = candidatePosition;
-				}
+	
+			if (distanceToClosestEnemy > maxDistance) {
+				maxDistance = distanceToClosestEnemy;
+				safePosition = candidatePosition;
 			}
 		}
 
@@ -75,16 +74,18 @@ eval(`
 			if (Engine.OnceAt(0.2)) {
 				let enemyHeroes = localHero.GetHeroesInRadius(2500, Enum.TeamType.TEAM_ENEMY);				
 				// Encuentra la posición más segura
+				console.log(enemyHeroes);
 				if (enemyHeroes) {
-					safePosition = findSafePosition(localHero, enemyHeroes);
+					safePosition = findSafePosition(localHero, 2500);
 				} else {
-					safePosition = FuntainSafePos;
+					//safePosition = FuntainSafePos;
+					safePosition = Input.GetWorldCursorPos();
 				}
 				
 				//myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,safePosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 				//setTimeout(function() {}, 300);
-				Ultimate.CastPosition(FuntainSafePos);
-				console.log("safe position",Ultimate.GetName());
+				Ultimate.CastPosition(safePosition);
+				
 				let tpitem = localHero.GetItem('item_tpscroll', true);
 				if (tpitem && tpitem.CanCast()) {
 					//myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_NO_TARGET,null,FuntainSafePos,tpitem,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
