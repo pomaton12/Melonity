@@ -1,4 +1,3 @@
-
 /******/ (() => { // webpackBootstrap 
 /******/ 	var __webpack_modules__ = ({
 
@@ -70,7 +69,7 @@ eval(`
 			}
 			
 			let Ultimate = localHero.GetAbilityByIndex(3);
-			let safePosition == GetPosition();
+			let safePosition == localHero.GetPosition();
 			let enemyHeroes = EntitySystem.GetEnemyHeroes();
 			let FuntainSafePos = HeroFuntainSafePos(myPlayer);
 
