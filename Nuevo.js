@@ -100,7 +100,7 @@ eval(`
 				}
 			}
 			
-
+		}
 	};
 
 	StornSpiritAbuse.OnScriptLoad = StornSpiritAbuse.OnGameStart = () => {
