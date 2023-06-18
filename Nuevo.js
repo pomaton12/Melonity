@@ -81,7 +81,7 @@ eval(`
 					safePosition = FuntainSafePos;
 				}
 				
-				myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,localHero,safePosition,Ultimate,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+				myPlayer.PrepareUnitOrders( 30,localHero,safePosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
 				setTimeout(function() {}, 300);
 				//Ultimate.CastPosition(safePosition);
 				console.log("safe position",safePosition);
