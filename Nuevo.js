@@ -99,10 +99,16 @@ eval(`
 		if (localHero && KeyBindOrderAgresive.IsKeyDown()) {
 			if (localHero.GetUnitName() !== "npc_dota_hero_storm_spirit") {
 				return;
-			}
-
-			let Ultimate = localHero.GetAbilityByIndex(5);
+			}			
 			let safePosition = localHero.GetAbsOrigin();
+			
+			// Obtén las otras habilidades y el modificador
+			let Ability1 = localHero.GetAbilityByIndex(0);
+			let Ability2 = localHero.GetAbilityByIndex(1);
+			let Ability3 = localHero.GetAbilityByIndex(2);
+			let Ultimate = localHero.GetAbilityByIndex(5);
+			
+
 
 			if (Engine.OnceAt(0.2)) {
 				const mousePos = Input.GetWorldCursorPos();
@@ -128,16 +134,22 @@ eval(`
 					const dist = localHeroPosition.Distance(enemyHeroPosition) - 50;
 					const attackSpeed = localHero.GetAttacksPerSecond();
 					const attackTime = 1 / attackSpeed;
+					const Idealdirection = (enemyHeroPosition.sub(localHeroPosition)).Normalized
+					
+					let Modifier1 = localHero.HasModifier("modifier_storm_spirit_overload");
+					let Modifier2 = localHero.HasModifier("modifier_storm_spirit_electric_rave");
 
-					// Comprueba si el enemigo está atacando o lanzando un hechizo
-					if (EnemyHero.IsAttacking() || EnemyHero.GetActivity() == Enum.GameActivity.DOTA_CAST_ABILITY_1) {
-						if (Engine.OnceAt(attackTime)) {
-							// Calcula una nueva posición detrás del enemigo
-							const direction = enemyHeroPosition.Subtract(localHeroPosition).Normalized();
-							const newPosition = enemyHeroPosition.Add(direction.Multiply(attackRange));
+					// Comprueba si las otras habilidades están en cooldown o si el modificador está activo
+					if (!Ability1.IsInAbilityPhase() && !Ability2.IsInAbilityPhase() && !Modifier1 && !Modifier2) {
+						if (EnemyHero.IsAttacking() || EnemyHero.GetActivity() == Enum.GameActivity.DOTA_CAST_ABILITY_1) {
+							if (Engine.OnceAt(attackTime)) {
+								// Calcula una nueva posición detrás del enemigo
+								
+								let IdealPosition = localHeroPosition.add(Idealdirection.mul(new Vector(300, 300, 0)));
 
-							myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,newPosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
-							myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, enemyHeroPosition, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+								myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,IdealPosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+								//myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, enemyHeroPosition, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+							}
 						}
 					}
 				}
