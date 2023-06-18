@@ -30,14 +30,13 @@ eval(`
 		// Itera sobre todas las posiciones posibles en el radio
 		for (let angle = 0; angle < 360; angle += 1) {
 			for (let radius = 0; radius <= 5000; radius += 100) {
-				let position = {
-					x: heroPosition.x + radius * Math.cos(angle * Math.PI / 180),
-					y: heroPosition.y + radius * Math.sin(angle * Math.PI / 180),
-					z: 0
-				};
+				
+				const dx = Math.cos(angle * (Math.PI / 180)) * radius;
+				const dy = Math.sin(angle * (Math.PI / 180)) * radius;
+				const candidatePosition = heroPosition.add(new Vector(dx, dy, 0));
 
 				// Calcula la distancia mínima a todos los enemigos
-				let minDistance = Math.min(...enemies.map(enemy => position.Distance(enemy.GetAbsOrigin())));
+				let minDistance = Math.min(...enemies.map(enemy => candidatePosition.Distance(enemy.GetAbsOrigin())));
 
 				// Si esta posición es más segura que la posición segura actual, actualízala
 				if (minDistance > maxDistance) {
