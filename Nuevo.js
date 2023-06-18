@@ -82,6 +82,7 @@ eval(`
 				}
 				
 				myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,localHero,safePosition,Ultimate,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+				setTimeout(function() {}, 300);
 				//Ultimate.CastPosition(safePosition);
 				console.log("safe position",safePosition);
 				let tpitem = localHero.GetItem('item_tpscroll', true);
