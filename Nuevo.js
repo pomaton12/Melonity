@@ -68,7 +68,7 @@ eval(`
 				return;
 			}
 			
-			let Ultimate = localHero.GetAbilityByIndex(3);
+			let Ultimate = localHero.GetAbilityByIndex(5);
 			let safePosition = localHero.GetAbsOrigin();
 			let FuntainSafePos = HeroFuntainSafePos(myPlayer);
 			
