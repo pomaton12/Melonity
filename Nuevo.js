@@ -80,9 +80,7 @@ eval(`
 						if (localHero.GetMana() > SafeManaUI && Ultimate && Ultimate.IsExist() && Ultimate.CanCast()) {
 							if (dist > attackRange) {
 								if (Engine.OnceAt(attackTime)) {
-									// Calcula una nueva posición detrás del enemigo
-									let IdealPosition = localHeroPosition.add(Idealdirection.mul(new Vector(DistanceCastUI, DistanceCastUI, 0)));
-									myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,IdealPosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+									myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,enemyHeroPosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 								}
 							} else{
 								if (!Ability1.IsInAbilityPhase() && !Ability2.IsInAbilityPhase() && !Modifier1 && !Modifier2) {
