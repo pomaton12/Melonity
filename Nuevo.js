@@ -41,7 +41,7 @@ eval(`
 				// Si esta posición es más segura que la posición segura actual, actualízala
 				if (minDistance > maxDistance) {
 					maxDistance = minDistance;
-					safePosition = position;
+					safePosition = candidatePosition;
 				}
 			}
 		}
