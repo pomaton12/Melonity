@@ -81,8 +81,9 @@ eval(`
 					safePosition = FuntainSafePos;
 				}
 				
-				//myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_NO_TARGET,null,safePosition,Ultimate,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
-				Ultimate.CastPosition(safePosition);
+				myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,safePosition,Ultimate,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+				//Ultimate.CastPosition(safePosition);
+				console.log("safePosition");
 				let tpitem = localHero.GetItem('item_tpscroll', true);
 				if (tpitem && tpitem.CanCast()) {
 					//myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_NO_TARGET,null,FuntainSafePos,tpitem,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
