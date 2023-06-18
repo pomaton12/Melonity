@@ -95,6 +95,47 @@ eval(`
 				}
 			}
 	    }
+		
+		if (localHero && KeyBindOrderAgresive.IsKeyDown()) {
+			if (localHero.GetUnitName() !== "npc_dota_hero_storm_spirit") {
+				return;
+			}
+			
+			let Ultimate = localHero.GetAbilityByIndex(5);
+			let safePosition = localHero.GetAbsOrigin();
+			
+			if (Engine.OnceAt(0.2)) {
+				const mousePos = Input.GetWorldCursorPos();
+				const enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
+				enemies.sort((a, b) => {
+					const distA = a.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
+					const distB = b.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
+					return distA - distB;
+				});
+				let target = null;
+				for (const enemy of enemies) {
+					const dist = enemy.GetAbsOrigin().Distance(mousePos);
+					if (dist <= 150 || target == null) {
+						target = enemy;
+					}
+				}
+
+				if (target != null) {
+					const localHeroPosition = localHero.GetAbsOrigin();
+					const EnemyHero = target;
+					const attackRange = localHero.GetAttackRange();
+					const enemyHeroPosition = EnemyHero.GetAbsOrigin();
+					const dist = localHeroPosition.Distance(enemyHeroPosition) - 50;
+					const attackSpeed = localHero.GetAttacksPerSecond();
+					const attackTime = 1 / attackSpeed;
+					if (Engine.OnceAt(attackTime)) {
+						myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,enemyHeroPosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+						myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, enemyHeroPosition, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+					}
+				
+				}
+			}
+	    }
 	};
 
 	StornSpiritAbuse.OnScriptLoad = StornSpiritAbuse.OnGameStart = () => {
