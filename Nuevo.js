@@ -19,13 +19,13 @@ eval(`
 	let KeyBindOrderAgresive = Menu.AddKeyBind(path_, 'Agresive Ulti', Enum.ButtonCode.KEY_NONE);
 	let KeyBindOrderUltiTP = Menu.AddKeyBind(path_, 'Save Tp to base', Enum.ButtonCode.KEY_NONE);
 
-	KeyBindOrderAgresive.SetImage('panorama\images\spellicons\storm_spirit_ball_lightning_orchid_png.vtex_c');
-	KeyBindOrderUltiTP.SetImage('panorama\images\spellicons\storm_spirit\ti8_retro_immortal\storm_spirit_ball_lightning_orchid_retro_png.vtex_c');
+	KeyBindOrderAgresive.SetImage('panorama/images/spellicons/storm_spirit_ball_lightning_orchid_png.vtex_c');
+	KeyBindOrderUltiTP.SetImage('panorama/images/spellicons/storm_spirit/ti8_retro_immortal/storm_spirit_ball_lightning_orchid_retro_png.vtex_c');
 
 	function findSafePosition(hero, enemies) {
 		let safePosition = null;
 		let maxDistance = 0;
-		let heroPosition = hero.GetPosition();
+		let heroPosition = hero.GetAbsOrigin();
 
 		// Itera sobre todas las posiciones posibles en el radio
 		for (let angle = 0; angle < 360; angle += 1) {
@@ -36,7 +36,7 @@ eval(`
 				};
 
 				// Calcula la distancia mínima a todos los enemigos
-				let minDistance = Math.min(...enemies.map(enemy => distance(position, enemy.GetPosition())));
+				let minDistance = Math.min(...enemies.map(enemy => distance(position, enemy.GetAbsOrigin())));
 
 				// Si esta posición es más segura que la posición segura actual, actualízala
 				if (minDistance > maxDistance) {
@@ -69,7 +69,7 @@ eval(`
 			}
 			
 			let Ultimate = localHero.GetAbilityByIndex(3);
-			let safePosition = localHero.GetPosition();
+			let safePosition = localHero.GetAbsOrigin();
 			let enemyHeroes = EntitySystem.GetEnemyHeroes();
 			let FuntainSafePos = HeroFuntainSafePos(myPlayer);
 
