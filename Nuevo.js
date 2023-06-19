@@ -79,7 +79,8 @@ eval(`
 
 						// Añade esta sección en tu bucle principal
 						if (AghanimsScepter || localHero.HasModifier("modifier_item_ultimate_scepter_consumed")) { // Verifica si el héroe tiene el Cetro de Aghanim
-						    let enemiesInVortexRange = localHero.GetHeroesInRadius(425, Enum.TeamType.TEAM_ENEMY);
+						    console.log("Hola mundo = ",localHero.HasModifier("modifier_item_ultimate_scepter_consumed"));
+							let enemiesInVortexRange = localHero.GetHeroesInRadius(425, Enum.TeamType.TEAM_ENEMY);
 							if (enemiesInVortexRange.length > 2 && Ability2 && Ability2.CanCast()) {
 								Ability2.CastTarget(target); // Cast Electric Vortex si hay enemigos en rango
 							}
