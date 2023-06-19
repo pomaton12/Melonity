@@ -68,7 +68,7 @@ eval(`
 						let BkBEnemiPrevention = localHero.GetHeroesInRadius(800, Enum.TeamType.TEAM_ENEMY);
 						if (BkBEnemiPrevention.length >= 3) {
 							let bkb = localHero.GetItem('item_black_king_bar', true);
-							if (bkb && bkb.CanCast()) {
+							if (bkb && bkb.CanCast() && localHero.HasModifier("modifier_black_king_bar_immune") === false) {
 								bkb.CastNoTarget();
 							}
 						}
