@@ -73,6 +73,8 @@ eval(`
 							}
 						}
 						
+						Ability2.CastTarget(target);
+						
 						// Añade esta línea en la sección donde obtienes los items
 						let AghanimsScepter = localHero.GetItem('item_ultimate_scepter', true);
 						let RefresherOrb = localHero.GetItem('item_refresher', true);
