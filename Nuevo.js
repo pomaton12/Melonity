@@ -72,22 +72,7 @@ eval(`
 								bkb.CastNoTarget();
 							}
 						}
-						
-						Ability2.CastTarget(target);
-						
-						// Añade esta línea en la sección donde obtienes los items
-						let AghanimsScepter = localHero.GetItem('item_ultimate_scepter', true);
-						let RefresherOrb = localHero.GetItem('item_refresher', true);
-
-						// Añade esta sección en tu bucle principal
-						if (AghanimsScepter || localHero.HasModifier("modifier_item_ultimate_scepter_consumed")) { // Verifica si el héroe tiene el Cetro de Aghanim
-						    console.log("Hola mundo = ",localHero.HasModifier("modifier_item_ultimate_scepter_consumed"));
-							let enemiesInVortexRange = localHero.GetHeroesInRadius(425, Enum.TeamType.TEAM_ENEMY);
-							if (enemiesInVortexRange.length > 2 && Ability2 && Ability2.CanCast()) {
-								Ability2.CastTarget(target); // Cast Electric Vortex si hay enemigos en rango
-							}
-						}
-						
+												
 						const localHeroPosition = localHero.GetAbsOrigin();
 						const EnemyHero = target;
 						const attackRange = localHero.GetAttackRange();
