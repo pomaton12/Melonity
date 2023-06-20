@@ -40,7 +40,7 @@ eval(`
 		.OnChange((state) => {menu_ItemsList = state.newValue;})
 		.GetValue();
 	
-	let menu_AbilitiesList = Menu.AddPrioritySelect(path_, 'Spells', ['panorama/images/spellicons/storm_spirit_static_remnant_png.vtex_c', 'panorama/images/spellicons/storm_spirit_electric_vortex_png.vtex_c', 'panorama/images/spellicons/storm_spirit_overload_png.vtex_c', 'panorama/images/spellicons/storm_spirit_ball_lightning_png.vtex_c'], [true, true, true, true])
+	let menu_AbilitiesList = Menu.AddMultiSelect(path_, 'Spells', ['panorama/images/spellicons/storm_spirit_static_remnant_png.vtex_c', 'panorama/images/spellicons/storm_spirit_electric_vortex_png.vtex_c', 'panorama/images/spellicons/storm_spirit_overload_png.vtex_c', 'panorama/images/spellicons/storm_spirit_ball_lightning_png.vtex_c'], [true, true, true, true])
 		.OnChange((state) => {menu_AbilitiesList = state.newValue;})
 		.GetValue();
 		
@@ -139,7 +139,7 @@ eval(`
 						}
 						
 						if (menu_AbilitiesList[0]) {
-                            static_remnant = localHero.GetAbilityByIndex(0);
+                            
                             if (static_remnant && static_remnant.IsExist() && static_remnant.CanCast() && !Modifier1) {
                                 if (TargetInRadius(comboTarget, 280, localHero)) {
                                     static_remnant.CastNoTarget();
