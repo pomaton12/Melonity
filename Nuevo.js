@@ -36,11 +36,18 @@ eval(`
 	let isUiEnabled = Menu.AddToggle(path_, 'Enable', true);
 	let KeyBindOrderAgresive = Menu.AddKeyBind(path_, 'Key', Enum.ButtonCode.KEY_NONE);
 	
-	let menu_ItemsList = lib_1.CreateMultiSelect(path_, 'Items', item_Images, true);
-    let menu_AbilitiesList = lib_1.CreateMultiSelect(path_, 'Abilities', abilities, true);
-    let menu_LinkensItems = lib_1.CreatePrioritySelect([...path_, 'Linkens Breaker Settings'], 'Linkens Breaker', linkBreakers, true);
+	let menu_ItemsList = Menu.AddMultiSelect(path_, 'Item', ['panorama/images/items/black_king_bar_png.vtex_c', 'panorama/images/items/orchid_png.vtex_c', 'panorama/images/items/bloodthorn_png.vtex_c'], [true, true, true])
+		.OnChange((state) => {menu_ItemsList = state.newValue;})
+		.GetValue();
 	
-	
+	let menu_AbilitiesList = Menu.AddPrioritySelect(path_, 'Spells', ['panorama/images/spellicons/storm_spirit_static_remnant_png.vtex_c', 'panorama/images/spellicons/storm_spirit_electric_vortex_png.vtex_c', 'panorama/images/spellicons/storm_spirit_overload_png.vtex_c', 'panorama/images/spellicons/storm_spirit_ball_lightning_png.vtex_c'], [true, true, true, true])
+		.OnChange((state) => {menu_AbilitiesList = state.newValue;})
+		.GetValue();
+		
+	let menu_LinkensItems = Menu.AddPrioritySelect([...path_, 'Linkens Breaker Settings'], 'Linkens Breaker', ['panorama/images/items/orchid_png.vtex_c', 'panorama/images/items/bloodthorn_png.vtex_c'], [true, true])
+		.OnChange((state) => {menu_LinkensItems = state.newValue;})
+		.GetValue();
+		
 	let SafeManaUI = Menu.AddSlider(path_Ulti, 'Save Mana', 1, 500, 300)
         .OnChange(state => SafeManaUI = state.newValue)
         .GetValue();
