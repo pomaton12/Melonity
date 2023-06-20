@@ -77,7 +77,7 @@ eval(`
 		return targetE;
 	}
 	
-	function SendOrderMovePos(vector) {
+	function SendOrderMovePos(vector, myHero) {
         myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, vector, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, myHero, false, true);
     }
 	
@@ -107,7 +107,7 @@ eval(`
 				else if (!comboTarget) {
 					comboTarget = null;
 					if (Engine.OnceAt(0.2))
-						SendOrderMovePos(Input.GetWorldCursorPos());
+						SendOrderMovePos(Input.GetWorldCursorPos(), localHero);
 				}
                 
 
