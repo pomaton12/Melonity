@@ -52,7 +52,7 @@ eval(`
 
 	Menu.GetFolder(path_Ulti).SetImage('panorama/images/spellicons/storm_spirit_ball_lightning_orchid_png.vtex_c');
 	
-	function GetNearHeroInRadius(MyHero)
+	function GetNearHeroInRadius(MyHero){
 		const mousePos = Input.GetWorldCursorPos();
 		const enemies = MyHero.GetHeroesInRadius(1200, Enum.TeamType.TEAM_ENEMY);
 		enemies.sort((a, b) => {
