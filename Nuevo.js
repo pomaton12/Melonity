@@ -77,6 +77,10 @@ eval(`
 		return targetE;
 	}
 	
+	function SendOrderMovePos(vector) {
+        myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, vector, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, myHero, false, true);
+    }
+	
 	StornSpiritAbuse.OnUpdate = () => {
 		
 		if (localHero && isUiEnabled.GetValue()) {
@@ -109,7 +113,8 @@ eval(`
 
 				if (Engine.OnceAt(0.2)) {
 
-					if (comboTarget != null) {
+					if (comboTarget && comboTarget.IsExist()) {
+						
 						// Nueva condición para activar BKB si el enemigo tiene activado Blade Mail
 						let BkBEnemiPrevention = localHero.GetHeroesInRadius(800, Enum.TeamType.TEAM_ENEMY);
 						if (BkBEnemiPrevention.length >= 3) {
@@ -154,6 +159,8 @@ eval(`
 						
 					}
 				}
+			} else{
+				comboTarget = null;
 			}
 			
 		}
