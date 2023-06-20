@@ -81,6 +81,17 @@ eval(`
         myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, vector, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, myHero, false, true);
     }
 	
+	function TargetInRadius(target, radius, sourceHero, team = Enum.TeamType.TEAM_ENEMY) {
+        let er = sourceHero.GetHeroesInRadius(radius, team);
+        if (er) {
+            for (let enemy of er) {
+                if (enemy == target)
+                    return true;
+            }
+        }
+        return false;
+    }
+	
 	StornSpiritAbuse.OnUpdate = () => {
 		
 		if (localHero && isUiEnabled.GetValue()) {
@@ -95,8 +106,8 @@ eval(`
 				}
 			
 				// Obtén las otras habilidades y el modificador
-				let Ability1 = localHero.GetAbilityByIndex(0);
-				let Ability2 = localHero.GetAbilityByIndex(1);
+				let static_remnant = localHero.GetAbilityByIndex(0);
+				let electric_vortex = localHero.GetAbilityByIndex(1);
 				let Ability3 = localHero.GetAbilityByIndex(2);
 				let Ultimate = localHero.GetAbilityByIndex(5);
 				
@@ -115,6 +126,9 @@ eval(`
 
 					if (comboTarget && comboTarget.IsExist()) {
 						
+						let Modifier1 = localHero.HasModifier("modifier_storm_spirit_overload");
+						let Modifier2 = localHero.HasModifier("modifier_storm_spirit_electric_rave");
+						
 						// Nueva condición para activar BKB si el enemigo tiene activado Blade Mail
 						let BkBEnemiPrevention = localHero.GetHeroesInRadius(800, Enum.TeamType.TEAM_ENEMY);
 						if (BkBEnemiPrevention.length >= 3) {
@@ -123,6 +137,17 @@ eval(`
 								bkb.CastNoTarget();
 							}
 						}
+						
+						if (menu_AbilitiesList[0]) {
+                            static_remnant = localHero.GetAbilityByIndex(0);
+                            if (static_remnant && static_remnant.IsExist() && static_remnant.CanCast() && !Modifier1) {
+                                if (TargetInRadius(comboTarget, 280, localHero)) {
+                                    static_remnant.CastNoTarget();
+                                }
+							}
+                        }
+						
+						
 												
 						const localHeroPosition = localHero.GetAbsOrigin();
 						const EnemyHero = comboTarget;
@@ -132,31 +157,36 @@ eval(`
 						const attackSpeed = localHero.GetAttacksPerSecond();
 						const attackTime = 1 / attackSpeed;
 						const Idealdirection = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
-						//console.log("Prueba error",Idealdirection);
-						let Modifier1 = localHero.HasModifier("modifier_storm_spirit_overload");
-						let Modifier2 = localHero.HasModifier("modifier_storm_spirit_electric_rave");
 
 						// Comprueba si las otras habilidades están en cooldown o si el modificador está activo
 						if (localHero.GetMana() > SafeManaUI && Ultimate && Ultimate.IsExist() && Ultimate.CanCast()) {
 							if (dist > attackRange) {
 								
-										myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,enemyHeroPosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
-										setTimeout(function() {}, attackTime*1000);
+								myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,enemyHeroPosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+
 							} else{
-							if (!Ability1.IsInAbilityPhase() && !Ability2.IsInAbilityPhase() && !Modifier1 && !Modifier2) {
+							if (!static_remnant.IsInAbilityPhase() && !electric_vortex.IsInAbilityPhase() && !Modifier1 && !Modifier2) {
 									
 									if (EnemyHero.IsAttacking()) {
-											// Calcula una nueva posición detrás del enemigo
-											
-												let IdealPosition = localHeroPosition.add(Idealdirection.mul(new Vector(DistanceCastUI, DistanceCastUI, 0)));
-												myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,IdealPosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
-												myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, enemyHeroPosition, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
-												setTimeout(function() {}, attackTime*1000);
+										// Calcula una nueva posición detrás del enemigo									
+										let IdealPosition = localHeroPosition.add(Idealdirection.mul(new Vector(DistanceCastUI, DistanceCastUI, 0)));
+										myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,IdealPosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 									}
 								}
 							}
 						}
 						
+						let [order, target, pos] = [Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, comboTarget, comboTarget.GetAbsOrigin()];
+						if (comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_ATTACK_IMMUNE) ||
+							comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_INVULNERABLE) ||
+							comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_MAGIC_IMMUNE) ||
+							comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_UNTARGETABLE)) {
+							order = Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION;
+							target = null;
+							pos = Input.GetWorldCursorPos();
+						}
+						myPlayer.PrepareUnitOrders(order, target, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+					
 					}
 				}
 			} else{
