@@ -246,7 +246,7 @@ eval(`
 						
 						if (menu_AbilitiesList[1]) {
                             
-                            if (electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && !Modifier1 !electric_vortex.IsInAbilityPhase()) {
+                            if (electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && !Modifier1 && !electric_vortex.IsInAbilityPhase()) {
 								
 								if (AghanimsScepter || AghanimsPavise) {
 									if (TargetInRadius(comboTarget, 470, localHero)) {
