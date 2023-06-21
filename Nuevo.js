@@ -73,25 +73,7 @@ eval(`
 	Menu.GetFolder([...path_, 'Linkens Breaker Settings']).SetImage('panorama/images/items/sphere_png.vtex_c');
 	
 	
-	function GetImagesPath(name, full) {
-		if (name.startsWith('item_')) {
-			return `panorama/images/items/${name.slice(5)}_png.vtex_c`;
-		}
-		else if (name.startsWith('npc_dota_hero')) {
-			if (full) {
-				return `panorama/images/heroes/${name}_png.vtex_c`;
-			}
-			else {
-				return `panorama/images/heroes/icons/${name}_png.vtex_c`;
-			}
-		}
-		else if (name.startsWith('npc_dota_neutral')) {
-			return `panorama/images/heroes/${name}_png.vtex_c`;
-		}
-		else {
-			return `panorama/images/spellicons/${name}_png.vtex_c`;
-		}
-	}
+
 	
 	function CreatePrioritySelect(path, name, iconsArray, default_value = true) {
 		let icons = [];
