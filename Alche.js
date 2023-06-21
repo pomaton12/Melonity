@@ -7,7 +7,6 @@
   \**********************************/
 /***/ (() => {
 
-eval(`
   // Definición del objeto AutoSaverAlchemist
   const AutoSaverAlchemist = {};
 
@@ -71,7 +70,6 @@ eval(`
 
   // Registro del script
   RegisterScript(AutoSaverAlchemist);
-`);
 
 /***/ })
 
