@@ -252,9 +252,23 @@
 						
 						if (localHero.GetMana() > SafeManaUI && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && menu_AbilitiesList[3]) {
 							if (dist > attackRange ) {	
-								const targetPos = comboTarget.GetAbsOrigin();
-								const dir = comboTarget.GetRotation().GetForward().Normalized();
-								const BestPost = targetPos.add(dir.mul(new Vector(150, 150, 0)));
+
+								const speed = 0;
+								const ultiLevel = Ultimate.GetLevel();
+								
+								if (ultiLevel === 1) {
+									speed = 1400;
+								} else if (ultiLevel === 2) {
+									speed = 1850;
+								} else {
+									speed = 2300;
+								}
+
+								const travel_time = dist / (speed + 1);
+								const castpointTimee = 0.3;
+								const delay = travel_time + castpointTimee;
+								const BestPost = GetPredictedPosition(comboTarget, delay);
+
 								myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,BestPost,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 							}
 						}
@@ -374,6 +388,91 @@
 			
 		}
 	};
+	
+	//Funciones Para precedir pos
+	function GetPredictedPosition(HeroEnemigo, delay) {
+		const pos = HeroEnemigo.GetAbsOrigin();
+		if (CantMove(HeroEnemigo)) {
+			return pos;
+		}
+		if (!HeroEnemigo.IsRunning() || !delay) {
+			return pos;
+		}
+
+		const dir = HeroEnemigo.GetRotation().GetForward().Normalized();
+		const speed = FGetMoveSpeed(HeroEnemigo);
+
+		return pos.Add(dir.Scaled(speed * delay));
+	}
+
+	function CantMove(HeroEnemigo) {
+		if (!HeroEnemigo){
+			return false;
+		}
+
+		if (HeroEnemigo.IsRooted() || GetStunTimeLeft(HeroEnemigo) >= 1){
+			return true;
+		}
+		if (HeroEnemigo.HasModifier("modifier_axe_berserkers_call")){
+			return true;
+		}
+		if (HeroEnemigo.HasModifier("modifier_legion_commander_duel")){
+			return true;
+		}
+
+		return false;
+	}
+
+	function GetStunTimeLeft(HeroEnemigo) {
+		let mod = HeroEnemigo.GetModifier("modifier_stunned");
+		if (!mod){
+			return 0;
+		}
+		return Math.max(Modifier.GetDieTime(mod) - GameRules.GetGameTime(), 0);
+	}
+
+	function FGetMoveSpeed(HeroEnemigo) {
+		let base_speed = HeroEnemigo.GetBaseSpeed();
+		let bonus_speed = HeroEnemigo.GetMoveSpeed() - HeroEnemigo.GetBaseSpeed();
+
+		// when affected by ice wall, assume move speed as 100 for convenience
+		if (HeroEnemigo.HasModifier("modifier_invoker_ice_wall_slow_debuff")){
+			return 100;
+		}
+
+		if (HeroEnemigo.HasModifier("modifier_item_diffusal_blade_slow")){
+			return 100;
+		}
+
+		// when get hexed, move speed = 140/100 + bonus_speed
+		if (GetHexTimeLeft(HeroEnemigo) > 0){
+			return 140 + bonus_speed;
+		}
+
+		return base_speed + bonus_speed;
+	}
+
+	function GetHexTimeLeft(HeroEnemigo) {
+		let mod;
+		let mod1 = HeroEnemigo.GetModifier("modifier_sheepstick_debuff");
+		let mod2 = HeroEnemigo.GetModifier("modifier_lion_voodoo");
+		let mod3 = HeroEnemigo.GetModifier("modifier_shadow_shaman_voodoo");
+
+		if (mod1){
+			mod = mod1;
+		}
+		if (mod2){
+			mod = mod2;
+		}
+		if (mod3){
+			mod = mod3;
+		}
+
+		if (!mod){
+			return 0;
+		}
+		return Math.max(Modifier.GetDieTime(mod) - GameRules.GetGameTime(), 0);
+	}
 
 	StornSpiritAbuse.OnScriptLoad = StornSpiritAbuse.OnGameStart = () => {
 	    localHero = EntitySystem.GetLocalHero();
