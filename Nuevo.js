@@ -261,15 +261,19 @@
 								} else if (ultiLevel === 2) {
 									speedUlti = 1850;
 								} else {
-									speedUlti = 2300;
+									if (ultiLevel === 3){
+										speedUlti = 2300;
+									}
 								}
 
 								const travel_time = dist / (speedUlti + 1);
 								const castpointTimee = 0.3;
 								const delay = travel_time + castpointTimee;
-								const BestPost = GetPredictedPosition(comboTarget, delay);
+								const Post = GetPredictedPosition(comboTarget, delay);
+								const BestPost = Post.add(new Vector(150, 150, 0));
 
-								myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,BestPost,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+								//myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,BestPost,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+								Ultimate.CastPosition(BestPost);
 							}
 						}
 						
