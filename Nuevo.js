@@ -410,7 +410,7 @@
 			return false;
 		}
 
-		if (HeroEnemigo.IsRooted() || GetStunTimeLeft(HeroEnemigo) >= 1){
+		if ( HeroEnemigo.HasState(Enum.ModifierState.MODIFIER_STATE_ROOTED) || GetStunTimeLeft(HeroEnemigo) >= 1){
 			return true;
 		}
 		if (HeroEnemigo.HasModifier("modifier_axe_berserkers_call")){
