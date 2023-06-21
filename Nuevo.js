@@ -96,7 +96,7 @@ eval(`
         return false;
     }
 	
-	CentaurWarrunner_Combo.OnDraw = () => {
+	StornSpiritAbuse.OnDraw = () => {
         if (localHero && isUiEnabled.GetValue()) {
 			if (localHero.GetUnitName() !== "npc_dota_hero_storm_spirit") {
 				return;
