@@ -277,7 +277,7 @@
 									
 									console.log("speed", delay);
 									
-								if (Engine.OnceAt(0.2)){
+								if (Engine.OnceAt(delay)){
 									myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,BestPost,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 									isUltimateCasting = false; // Desbloqueamos el lanzamiento del ultimate
 								}
