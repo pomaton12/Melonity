@@ -29,9 +29,9 @@
     ];
     const abilities = ['storm_spirit_static_remnant', 'storm_spirit_electric_vortex', 'storm_spirit_overload', 'storm_spirit_ball_lightning'];
     const linkBreakers = [
-        'item_psychic_headband', 'item_force_staff', 'item_hurricane_pike', 'item_cyclone', 'item_wind_waker', 'item_paintball',
-        'centaur_double_edge', 'item_dagon_5', 'item_nullifier', 'item_rod_of_atos', 'item_orchid', 'item_bloodthorn', 'item_abyssal_blade',
-        'item_diffusal_blade', 'item_heavens_halberd', 'item_ethereal_blade', 'item_sheepstick'
+        'item_dagon_5', 'item_heavens_halberd', 'item_diffusal_blade', 'item_disperser', 'item_harpoon', 'item_force_staff',
+		'item_cyclone', 'item_rod_of_atos', 'item_abyssal_blade', 'item_orchid', 'item_bloodthorn', 'item_sheepstick',
+		'item_nullifier', 'item_ethereal_blade', 'item_force_boots', 'item_book_of_shadows'
     ];
 	
 	
