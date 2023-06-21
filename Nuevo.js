@@ -50,7 +50,7 @@ eval(`
 		.OnChange((state) => {menu_LinkensItems = state.newValue;})
 		.GetValue();
 		
-	let menu_SearchRadius = Menu.AddSlider(path_Ulti, 'Distance Ulti Cast', 300, 1500, 1000)
+	let menu_SearchRadius = Menu.AddSlider(path_Ulti, 'Distance Ulti Cast', 500, 2000, 1200)
         .OnChange(state => menu_SearchRadius = state.newValue)
         .GetValue();
 		
@@ -191,7 +191,7 @@ eval(`
 						}
 						
 						if (localHero.GetMana() > SafeManaUI && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && menu_AbilitiesList[3]) {
-							if ( dist > attackRange ) {								
+							if (menu_SearchRadius > dist > attackRange ) {								
 								myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,enemyHeroPosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 							}
 						}
