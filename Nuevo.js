@@ -46,7 +46,7 @@ eval(`
 		.OnChange((state) => {menu_AbilitiesList = state.newValue;})
 		.GetValue();
 		
-	let menu_LinkensItems = Menu.AddPrioritySelect([...path_, 'Linkens Breaker Settings'], 'Linkens Breaker', ['panorama/images/items/orchid_png.vtex_c', 'panorama/images/items/bloodthorn_png.vtex_c'], [true, true])
+	let menu_LinkensItems = Menu.AddPrioritySelect([...path_, 'Linkens Breaker Settings'], 'Linkens Breaker', ['panorama/images/items/orchid_png.vtex_c', 'panorama/images/items/bloodthorn_png.vtex_c', 'panorama/images/items/sheepstick_png.vtex_c', 'panorama/images/items/nullifier_png.vtex_c'], [true, true, true, true])
 		.OnChange((state) => {menu_LinkensItems = state.newValue;})
 		.GetValue();
 		
@@ -64,6 +64,10 @@ eval(`
 
 
 	Menu.GetFolder(path_Ulti).SetImage('panorama/images/spellicons/storm_spirit_ball_lightning_orchid_png.vtex_c');
+	Menu.SetImage(['Custom Scripts', 'Heroes'], '~/menu/40x40/heroes.png');
+    Menu.SetImage(['Custom Scripts', 'Heroes', 'Intelligence'], '~/menu/40x40/Intelligence.png');
+    Menu.SetImage(path_, 'panorama/images/heroes/icons/npc_dota_hero_storm_spirit_png.vtex_c');
+	Menu.GetFolder([...path_, 'Linkens Breaker Settings']).SetImage('panorama/images/items/sphere_png.vtex_c');
 		
 	function GetNearHeroInRadius(vector, radius = menu_SearchRadius) {
         let en = enemyList;
@@ -191,6 +195,7 @@ eval(`
 						let AghanimsScepter = localHero.GetItem('item_ultimate_scepter', true);
 						let AghanimsPavise = localHero.HasModifier("modifier_item_ultimate_scepter_consumed");
 						let ShardPavise = localHero.HasModifier("modifier_item_aghanims_shard");
+						let EnemiVortexPull = localHero.HasModifier("modifier_storm_spirit_electric_vortex_pull");
 						
 						// Nueva condición para activar BKB si el enemigo tiene activado Blade Mail
 						let BkBEnemiPrevention = localHero.GetHeroesInRadius(700, Enum.TeamType.TEAM_ENEMY);
@@ -207,6 +212,20 @@ eval(`
 							}
 						}
 						
+						let [linken, mirror] = [comboTarget.GetItem('item_sphere', true), comboTarget.GetItem('item_mirror_shield', false)];
+                        if (linken && linken.CanCast() || mirror && mirror.CanCast()) {
+                            let linkenBrokItems = menu_LinkensItems.GetValue();
+                            for (let brokObj of linkenBrokItems) {
+                                let vi = localHero.GetItem(brokObj, false);
+                                if (vi) {
+                                    if (vi.IsExist() && CustomCanCast(vi)) {
+                                        vi.CastTarget(comboTarget);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+						
 						if (AghanimsScepter || AghanimsPavise) { 
 
 							let enemiesInVortexRange = localHero.GetHeroesInRadius(470, Enum.TeamType.TEAM_ENEMY);
@@ -222,14 +241,14 @@ eval(`
 						
 						if (menu_ItemsList[2] ) { 
 							let RefresherOrb = localHero.GetItem('item_refresher', true);
-							if (RefresherOrb && CustomCanCast(RefresherOrb) && electric_vortex && !electric_vortex.CanCast() && !electric_vortex.IsInAbilityPhase()) { 
+							if (RefresherOrb && CustomCanCast(RefresherOrb) && electric_vortex && !electric_vortex.CanCast() && !EnemiVortexPull) { 
 								RefresherOrb.CastNoTarget();
 							}
 							
 						} else {
 							if ( menu_ItemsList[3]) { 
 								let ex_machina = localHero.GetItem('item_ex_machina', true);
-								if (ex_machina && CustomCanCast(ex_machina) && electric_vortex && !electric_vortex.CanCast() && !electric_vortex.IsInAbilityPhase()) { 
+								if (ex_machina && CustomCanCast(ex_machina) && electric_vortex && !electric_vortex.CanCast() && !EnemiVortexPull) { 
 									ex_machina.CastNoTarget();
 								}
 							}
@@ -246,7 +265,7 @@ eval(`
 						
 						if (menu_AbilitiesList[1]) {
                             
-                            if (electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && !Modifier1 && !electric_vortex.IsInAbilityPhase()) {
+                            if (electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && !Modifier1 && !EnemiVortexPull) {
 								
 								if (AghanimsScepter || AghanimsPavise) {
 									if (TargetInRadius(comboTarget, 470, localHero)) {
