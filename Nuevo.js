@@ -8,6 +8,48 @@
 /***/ (() => {
 
 eval(`
+
+	function GetImagesPath(name, full) {
+		if (name.startsWith('item_')) {
+			return `panorama/images/items/${name.slice(5)}_png.vtex_c`;
+		}
+		else if (name.startsWith('npc_dota_hero')) {
+			if (full) {
+				return `panorama/images/heroes/${name}_png.vtex_c`;
+			}
+			else {
+				return `panorama/images/heroes/icons/${name}_png.vtex_c`;
+			}
+		}
+		else if (name.startsWith('npc_dota_neutral')) {
+			return `panorama/images/heroes/${name}_png.vtex_c`;
+		}
+		else {
+			return `panorama/images/spellicons/${name}_png.vtex_c`;
+		}
+	}
+	
+	function CreatePrioritySelect(path, name, iconsArray, default_value = true) {
+		let icons = [];
+		for (let q of iconsArray) {
+			icons.push(GetImagesPath(q));
+		}
+		let a = Menu.AddPrioritySelect(path, name, icons, default_value);
+
+		return {
+			GetOption: () => {
+				return a;
+			},
+			GetValue: () => {
+				let t = [];
+				for (let e of a.GetValue()) {
+					t.push(iconsArray[e]);
+				}
+				return t;
+			}
+		};
+	}
+
 	const StornSpiritAbuse = {};
 
 	let localHero = null;
@@ -46,9 +88,7 @@ eval(`
 		.OnChange((state) => {menu_AbilitiesList = state.newValue;})
 		.GetValue();
 		
-	let menu_LinkensItems = Menu.AddPrioritySelect([...path_, 'Linkens Breaker Settings'], 'Linkens Breaker', ['panorama/images/items/orchid_png.vtex_c', 'panorama/images/items/bloodthorn_png.vtex_c', 'panorama/images/items/sheepstick_png.vtex_c', 'panorama/images/items/nullifier_png.vtex_c'], [true, true, true, true])
-		.OnChange((state) => {menu_LinkensItems = state.newValue;})
-		.GetValue();
+	let menu_LinkensItems = CreatePrioritySelect([...path_, 'Linkens Breaker Settings'], 'Linkens Breaker', linkBreakers, true);
 		
 	let menu_SearchRadius = Menu.AddSlider(path_Ulti, 'Distance Ulti Cast', 500, 2000, 1200)
         .OnChange(state => menu_SearchRadius = state.newValue)
