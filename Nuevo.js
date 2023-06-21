@@ -88,7 +88,10 @@ eval(`
 		.OnChange((state) => {menu_AbilitiesList = state.newValue;})
 		.GetValue();
 		
-	let menu_LinkensItems = CreatePrioritySelect([...path_, 'Linkens Breaker Settings'], 'Linkens Breaker', linkBreakers, true);
+	//let menu_LinkensItems = CreatePrioritySelect([...path_, 'Linkens Breaker Settings'], 'Linkens Breaker', linkBreakers, true);
+	let menu_LinkensItems = Menu.AddPrioritySelect([...path_, 'Linkens Breaker Settings'], 'Linkens Breaker', ['panorama/images/items/black_king_bar_png.vtex_c','panorama/images/items/bloodstone_png.vtex_c','panorama/images/items/refresher_png.vtex_c','panorama/images/items/ex_machina_png.vtex_c', 'panorama/images/items/orchid_png.vtex_c', 'panorama/images/items/bloodthorn_png.vtex_c'], [true, true, true, true, true, true])
+		.OnChange((state) => {menu_LinkensItems = state.newValue;})
+		.GetValue();
 		
 	let menu_SearchRadius = Menu.AddSlider(path_Ulti, 'Distance Ulti Cast', 500, 2000, 1200)
         .OnChange(state => menu_SearchRadius = state.newValue)
@@ -266,7 +269,7 @@ eval(`
                             }
                         }
 						
-						if (AghanimsScepter || AghanimsPavise) { 
+						if (AghanimsScepter || AghanimsPavise) {
 
 							let enemiesInVortexRange = localHero.GetHeroesInRadius(470, Enum.TeamType.TEAM_ENEMY);
 							if (enemiesInVortexRange.length > 2 && electric_vortex && electric_vortex.CanCast()) {
@@ -380,9 +383,6 @@ eval(`
 	};
 
 	RegisterScript(StornSpiritAbuse);
-
-
-
 
 `);
 
