@@ -402,7 +402,7 @@
 		const dir = HeroEnemigo.GetRotation().GetForward().Normalized();
 		const speed = FGetMoveSpeed(HeroEnemigo);
 
-		return pos.Add(dir.Scaled(speed * delay));
+		return pos.add(dir.Scaled(speed * delay));
 	}
 
 	function CantMove(HeroEnemigo) {
