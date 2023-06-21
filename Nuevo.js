@@ -7,8 +7,6 @@
   \**********************************/
 /***/ (() => {
 
-eval(`
-
 	const StornSpiritAbuse = {};
 
 	let localHero = null;
@@ -93,7 +91,26 @@ eval(`
 		}
 	}
 	
+	function CreatePrioritySelect(path, name, iconsArray, default_value = true) {
+		let icons = [];
+		for (let q of iconsArray) {
+			icons.push(GetImagesPath(q));
+		}
+		let a = Menu.AddPrioritySelect(path, name, icons, default_value);
 
+		return {
+			GetOption: () => {
+				return a;
+			},
+			GetValue: () => {
+				let t = [];
+				for (let e of a.GetValue()) {
+					t.push(iconsArray[e]);
+				}
+				return t;
+			}
+		};
+	}
 	
 		
 	function GetNearHeroInRadius(vector, radius = menu_SearchRadius) {
@@ -367,8 +384,6 @@ eval(`
 	};
 
 	RegisterScript(StornSpiritAbuse);
-
-`);
 
 /***/ })
 
