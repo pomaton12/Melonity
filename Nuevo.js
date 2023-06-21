@@ -268,13 +268,15 @@
 										speedUlti = 2300;
 									}
 								}
-								//console.log("speed", speedUlti);
+								
 								const travel_time = dist / (speedUlti + 1);
 								const castpointTimee = 0.3;
 								const delay = travel_time + castpointTimee;
 								const Post = GetPredictedPosition(comboTarget, delay);
 								const BestPost = Post.add(new Vector(50, 50, 0));
-
+									
+									console.log("speed", delay);
+									
 								if (Engine.OnceAt(0.2)){
 									myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,BestPost,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 									isUltimateCasting = false; // Desbloqueamos el lanzamiento del ultimate
