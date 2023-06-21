@@ -38,18 +38,14 @@
 	let isUiEnabled = Menu.AddToggle(path_, 'Enable', true);
 	let KeyBindOrderAgresive = Menu.AddKeyBind(path_, 'Key', Enum.ButtonCode.KEY_NONE);
 	
-	let menu_ItemsList = Menu.AddMultiSelect(path_, 'Item', ['panorama/images/items/black_king_bar_png.vtex_c','panorama/images/items/bloodstone_png.vtex_c','panorama/images/items/refresher_png.vtex_c','panorama/images/items/ex_machina_png.vtex_c', 'panorama/images/items/orchid_png.vtex_c', 'panorama/images/items/bloodthorn_png.vtex_c'], [true, true, true, true, true, true])
-		.OnChange((state) => {menu_ItemsList = state.newValue;})
-		.GetValue();
+	let menu_ItemsList = CreateMultiSelect(path_, 'Items', item_Images, true);
 	
 	let menu_AbilitiesList = Menu.AddMultiSelect(path_, 'Spells', ['panorama/images/spellicons/storm_spirit_static_remnant_png.vtex_c', 'panorama/images/spellicons/storm_spirit_electric_vortex_png.vtex_c', 'panorama/images/spellicons/storm_spirit_overload_png.vtex_c', 'panorama/images/spellicons/storm_spirit_ball_lightning_png.vtex_c'], [true, true, true, true])
 		.OnChange((state) => {menu_AbilitiesList = state.newValue;})
 		.GetValue();
-		
+				
 	let menu_LinkensItems = CreatePrioritySelect([...path_, 'Linkens Breaker Settings'], 'Linkens Breaker', linkBreakers, true);
-	//let menu_LinkensItems = Menu.AddPrioritySelect([...path_, 'Linkens Breaker Settings'], 'Linkens Breaker', ['panorama/images/items/black_king_bar_png.vtex_c','panorama/images/items/bloodstone_png.vtex_c','panorama/images/items/refresher_png.vtex_c','panorama/images/items/ex_machina_png.vtex_c', 'panorama/images/items/orchid_png.vtex_c', 'panorama/images/items/bloodthorn_png.vtex_c'], [true, true, true, true, true, true])
-		//.OnChange((state) => {menu_LinkensItems = state.newValue;})
-		//.GetValue();
+
 		
 	let menu_SearchRadius = Menu.AddSlider(path_Ulti, 'Distance Ulti Cast', 500, 2000, 1200)
         .OnChange(state => menu_SearchRadius = state.newValue)
@@ -89,6 +85,32 @@
 		else {
 			return `panorama/images/spellicons/${name}_png.vtex_c`;
 		}
+	}
+	
+	function CreateMultiSelect(path, name, iconsArray, default_value = true) {
+		let icons = [];
+		for (let q of iconsArray) {
+			icons.push(GetImagesPath(q));
+		}
+		let a = Menu.AddMultiSelect(path, name, icons, default_value);
+
+		return {
+			GetOption: () => {
+				return a;
+			},
+			IsEnabled: (name) => {
+				let n = name;
+				if (typeof name === 'object') {
+					if (name.GetEntityName()) {
+						n = name.GetEntityName();
+					}
+					if (name.GetName()) {
+						n = name.GetName();
+					}
+				}
+				return a.GetValue()[iconsArray.indexOf(n)];
+			}
+		};
 	}
 	
 	function CreatePrioritySelect(path, name, iconsArray, default_value = true) {
@@ -239,7 +261,12 @@
 						let AghanimsScepter = localHero.GetItem('item_ultimate_scepter', true);
 						let AghanimsPavise = localHero.HasModifier("modifier_item_ultimate_scepter_consumed");
 						let ShardPavise = localHero.HasModifier("modifier_item_aghanims_shard");
-						let EnemiVortexPull = localHero.HasModifier("modifier_storm_spirit_electric_vortex_pull");
+						let EnemiVortexPull = comboTarget.HasModifier("modifier_storm_spirit_electric_vortex_pull");
+						
+						let Stunned = comboTarget.HasModifier("modifier_stunned");
+						let InmuneMagic = comboTarget.HasModifier("magic_immune");
+						let Hexxed = comboTarget.HasModifier("modifier_hexxed");
+						let Silenced = comboTarget.HasModifier("modifier_silence");
 						
 						// Nueva condición para activar BKB si el enemigo tiene activado Blade Mail
 						let BkBEnemiPrevention = localHero.GetHeroesInRadius(700, Enum.TeamType.TEAM_ENEMY);
@@ -275,7 +302,7 @@
 								const Post = GetPredictedPosition(comboTarget, delay);
 								const BestPost = Post.add(new Vector(50, 50, 0));
 									
-									console.log("speed", delay);
+									//console.log("speed", delay);
 									
 								if (Engine.OnceAt(delay)){
 									myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,BestPost,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
@@ -303,22 +330,26 @@
 							let enemiesInVortexRange = localHero.GetHeroesInRadius(470, Enum.TeamType.TEAM_ENEMY);
 							if (enemiesInVortexRange.length > 2 && electric_vortex && electric_vortex.CanCast()) {
 								electric_vortex.CastNoTarget();
-								
-								let bloodstone = localHero.GetItem('item_bloodstone', true);
-								if(menu_ItemsList[1] && bloodstone && bloodstone.CanCast()){
-									bloodstone.CastNoTarget();
-								}
 							}
 						}
 						
-						if (menu_ItemsList[2] ) { 
+						
+						if (menu_ItemsList.IsEnabled('item_sheepstick') ) { 
+							let Sheepstick = localHero.GetItem('item_sheepstick', true);
+							if (Sheepstick && CustomCanCast(Sheepstick) && !EnemiVortexPull  && !Stunned && !InmuneMagic && !Hexxed) { 
+								Sheepstick.CastTarget(comboTarget);
+							}
+						}
+							
+																		
+						if (menu_ItemsList.IsEnabled('item_refresher') ) { 
 							let RefresherOrb = localHero.GetItem('item_refresher', true);
 							if (RefresherOrb && CustomCanCast(RefresherOrb) && electric_vortex && !electric_vortex.CanCast() && !EnemiVortexPull) { 
 								RefresherOrb.CastNoTarget();
 							}
 							
 						} else {
-							if ( menu_ItemsList[3]) { 
+							if ( menu_ItemsList.IsEnabled('item_ex_machina') ) { 
 								let ex_machina = localHero.GetItem('item_ex_machina', true);
 								if (ex_machina && CustomCanCast(ex_machina) && electric_vortex && !electric_vortex.CanCast() && !EnemiVortexPull) { 
 									ex_machina.CastNoTarget();
@@ -337,7 +368,7 @@
 						
 						if (menu_AbilitiesList[1]) {
                             
-                            if (electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && !Modifier1 && !EnemiVortexPull) {
+                            if (electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && !Modifier1 && !EnemiVortexPull && !Stunned && !InmuneMagic && !Hexxed) {
 								
 								if (AghanimsScepter || AghanimsPavise) {
 									if (TargetInRadius(comboTarget, 470, localHero)) {
