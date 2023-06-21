@@ -253,18 +253,18 @@
 						if (localHero.GetMana() > SafeManaUI && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && menu_AbilitiesList[3]) {
 							if (dist > attackRange ) {	
 
-								const speed = 0;
+								let speedUlti = 0;
 								const ultiLevel = Ultimate.GetLevel();
 								
 								if (ultiLevel === 1) {
-									speed = 1400;
+									speedUlti = 1400;
 								} else if (ultiLevel === 2) {
-									speed = 1850;
+									speedUlti = 1850;
 								} else {
-									speed = 2300;
+									speedUlti = 2300;
 								}
 
-								const travel_time = dist / (speed + 1);
+								const travel_time = dist / (speedUlti + 1);
 								const castpointTimee = 0.3;
 								const delay = travel_time + castpointTimee;
 								const BestPost = GetPredictedPosition(comboTarget, delay);
