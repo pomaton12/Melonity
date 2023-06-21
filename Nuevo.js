@@ -251,8 +251,11 @@
 						}
 						
 						if (localHero.GetMana() > SafeManaUI && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && menu_AbilitiesList[3]) {
-							if (dist > attackRange ) {								
-								myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,enemyHeroPosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+							if (dist > attackRange ) {	
+								const targetPos = comboTarget.GetAbsOrigin();
+								const dir = comboTarget.GetRotation().GetForward().Normalized();
+								const BestPost = targetPos.add(dir.mul(new Vector(150, 150, 0)));
+								myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,BestPost,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 							}
 						}
 						
