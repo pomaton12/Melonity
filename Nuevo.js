@@ -250,8 +250,11 @@
 							}
 						}
 						
+						let isUltimateCasting = false; // Variable de bloqueo
+
 						if (localHero.GetMana() > SafeManaUI && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && menu_AbilitiesList[3]) {
 							if (dist > attackRange ) {	
+								isUltimateCasting = true; // Bloqueamos el lanzamiento del ultimate
 
 								let speedUlti = 0;
 								const ultiLevel = Ultimate.GetLevel();
@@ -265,7 +268,7 @@
 										speedUlti = 2300;
 									}
 								}
-								console.log("speed", speedUlti);
+								//console.log("speed", speedUlti);
 								const travel_time = dist / (speedUlti + 1);
 								const castpointTimee = 0.3;
 								const delay = travel_time + castpointTimee;
@@ -275,7 +278,9 @@
 								//myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,BestPost,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 								
 								Ultimate.CastPosition(BestPost);
-								setTimeout(function() {}, 300);
+								setTimeout(function() {
+									isUltimateCasting = false; // Desbloqueamos el lanzamiento del ultimate
+								}, 200);
 							}
 						}
 						
