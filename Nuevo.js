@@ -38,7 +38,7 @@ eval(`
 	let isUiEnabled = Menu.AddToggle(path_, 'Enable', true);
 	let KeyBindOrderAgresive = Menu.AddKeyBind(path_, 'Key', Enum.ButtonCode.KEY_NONE);
 	
-	let menu_ItemsList = Menu.AddMultiSelect(path_, 'Item', ['panorama/images/items/black_king_bar_png.vtex_c', 'panorama/images/items/orchid_png.vtex_c', 'panorama/images/items/bloodthorn_png.vtex_c'], [true, true, true])
+	let menu_ItemsList = Menu.AddMultiSelect(path_, 'Item', ['panorama/images/items/black_king_bar_png.vtex_c','panorama/images/items/bloodstone_png.vtex_c','panorama/images/items/refresher_png.vtex_c','panorama/images/items/ex_machina_png.vtex_c', 'panorama/images/items/orchid_png.vtex_c', 'panorama/images/items/bloodthorn_png.vtex_c'], [true, true, true, true, true, true])
 		.OnChange((state) => {menu_ItemsList = state.newValue;})
 		.GetValue();
 	
@@ -94,6 +94,17 @@ eval(`
             }
         }
         return false;
+    }
+	
+	function CustomCanCast(item) {
+        let owner = item.GetOwner(), hasModf = owner.HasState(Enum.ModifierState.MODIFIER_STATE_MUTED)
+            || owner.HasState(Enum.ModifierState.MODIFIER_STATE_STUNNED)
+            || owner.HasState(Enum.ModifierState.MODIFIER_STATE_HEXED)
+            || owner.HasState(Enum.ModifierState.MODIFIER_STATE_INVULNERABLE)
+            || owner.HasState(Enum.ModifierState.MODIFIER_STATE_FROZEN)
+            || owner.HasState(Enum.ModifierState.MODIFIER_STATE_FEARED)
+            || owner.HasState(Enum.ModifierState.MODIFIER_STATE_TAUNTED);
+        return item && !hasModf && owner.GetMana() >= item.GetManaCost() && item.IsCastable(owner.GetMana());
     }
 	
 	StornSpiritAbuse.OnDraw = () => {
@@ -191,7 +202,7 @@ eval(`
 						}
 						
 						if (localHero.GetMana() > SafeManaUI && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && menu_AbilitiesList[3]) {
-							if (menu_SearchRadius > dist > attackRange ) {								
+							if (dist > attackRange ) {								
 								myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,enemyHeroPosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 							}
 						}
@@ -200,11 +211,29 @@ eval(`
 
 							let enemiesInVortexRange = localHero.GetHeroesInRadius(470, Enum.TeamType.TEAM_ENEMY);
 							if (enemiesInVortexRange.length > 2 && electric_vortex && electric_vortex.CanCast()) {
-								electric_vortex.CastNoTarget(); // Cast Electric Vortex si hay enemigos en rango
+								electric_vortex.CastNoTarget();
+								
+								let bloodstone = localHero.GetItem('item_bloodstone', true);
+								if(menu_ItemsList[1] && bloodstone && bloodstone.CanCast()){
+									bloodstone.CastNoTarget();
+								}
 							}
 						}
 						
-
+						if (menu_ItemsList[2] ) { 
+							let RefresherOrb = localHero.GetItem('item_refresher', true);
+							if (RefresherOrb && CustomCanCast(RefresherOrb) && electric_vortex && !electric_vortex.CanCast()) { 
+								RefresherOrb.CastNoTarget();
+							}
+							
+						} else {
+							if ( menu_ItemsList[3]) { 
+								let ex_machina = localHero.GetItem('item_ex_machina', true);
+								if (ex_machina && CustomCanCast(ex_machina) && electric_vortex && !electric_vortex.CanCast()) { 
+									ex_machina.CastNoTarget();
+								}
+							}
+						}
 						
 						if (menu_AbilitiesList[0]) {
                             
@@ -222,14 +251,10 @@ eval(`
 								if (AghanimsScepter || AghanimsPavise) {
 									if (TargetInRadius(comboTarget, 470, localHero)) {
 										electric_vortex.CastNoTarget();
-									} else{									
-										SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
 									}
 								}else {
 									if (TargetInRadius(comboTarget, 295, localHero)) {
 										electric_vortex.CastTarget(comboTarget);
-									} else{									
-										SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
 									}
 								}
 							}
