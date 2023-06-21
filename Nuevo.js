@@ -222,14 +222,14 @@ eval(`
 						
 						if (menu_ItemsList[2] ) { 
 							let RefresherOrb = localHero.GetItem('item_refresher', true);
-							if (RefresherOrb && CustomCanCast(RefresherOrb) && electric_vortex && !electric_vortex.CanCast()) { 
+							if (RefresherOrb && CustomCanCast(RefresherOrb) && electric_vortex && !electric_vortex.CanCast() && !electric_vortex.IsInAbilityPhase()) { 
 								RefresherOrb.CastNoTarget();
 							}
 							
 						} else {
 							if ( menu_ItemsList[3]) { 
 								let ex_machina = localHero.GetItem('item_ex_machina', true);
-								if (ex_machina && CustomCanCast(ex_machina) && electric_vortex && !electric_vortex.CanCast()) { 
+								if (ex_machina && CustomCanCast(ex_machina) && electric_vortex && !electric_vortex.CanCast() && !electric_vortex.IsInAbilityPhase()) { 
 									ex_machina.CastNoTarget();
 								}
 							}
@@ -246,7 +246,7 @@ eval(`
 						
 						if (menu_AbilitiesList[1]) {
                             
-                            if (electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && !Modifier1 ) {
+                            if (electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && !Modifier1 !electric_vortex.IsInAbilityPhase()) {
 								
 								if (AghanimsScepter || AghanimsPavise) {
 									if (TargetInRadius(comboTarget, 470, localHero)) {
@@ -278,7 +278,9 @@ eval(`
 
 							if (!static_remnant.IsInAbilityPhase() && !electric_vortex.IsInAbilityPhase() && !Modifier1 && !Modifier2) {
 								
-								if (comboTarget.IsAttacking()) {
+								let EnemiPrevention = localHero.GetHeroesInRadius(480, Enum.TeamType.TEAM_ENEMY);
+
+								if (comboTarget.IsAttacking() || EnemiPrevention.length >= 3) {
 									// Calcula una nueva posición detrás del enemigo									
 									let IdealPosition = localHeroPosition.add(Idealdirection.mul(new Vector(DistanceCastUI, DistanceCastUI, 0)));
 									myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,IdealPosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
