@@ -10,9 +10,11 @@
 eval(`
 	const StornSpiritAbuse = {};
 
-	let localHero;
-	let myPlayer;
-	let comboTarget;
+	let localHero = null;
+	let myPlayer = null;
+	let comboTarget = null;
+	let particle = null;
+	let enemyList = [];
 
 	const path_ = ["Custom Scripts","Heroes", "Intelligence", "Storm Spirit"];
 	const path_Ulti = ["Custom Scripts","Heroes", "Intelligence", "Storm Spirit","Agresive Best Ulti"];
@@ -48,6 +50,10 @@ eval(`
 		.OnChange((state) => {menu_LinkensItems = state.newValue;})
 		.GetValue();
 		
+	let menu_SearchRadius = Menu.AddSlider(path_Ulti, 'Distance Ulti Cast', 300, 1500, 1000)
+        .OnChange(state => menu_SearchRadius = state.newValue)
+        .GetValue();
+		
 	let SafeManaUI = Menu.AddSlider(path_Ulti, 'Save Mana', 1, 500, 300)
         .OnChange(state => SafeManaUI = state.newValue)
         .GetValue();
@@ -58,24 +64,22 @@ eval(`
 
 
 	Menu.GetFolder(path_Ulti).SetImage('panorama/images/spellicons/storm_spirit_ball_lightning_orchid_png.vtex_c');
-	
-	function GetNearHeroInRadius(MyHero){
-		const mousePos = Input.GetWorldCursorPos();
-		const enemies = MyHero.GetHeroesInRadius(1200, Enum.TeamType.TEAM_ENEMY);
-		enemies.sort((a, b) => {
-			const distA = a.GetAbsOrigin().Distance(MyHero.GetAbsOrigin());
-			const distB = b.GetAbsOrigin().Distance(MyHero.GetAbsOrigin());
-			return distA - distB;
-		});
-		let targetE = null;
-		for (const enemy of enemies) {
-			const dist = enemy.GetAbsOrigin().Distance(mousePos);
-			if (dist <= 150 || targetE == null) {
-				targetE = enemy;
-			}
-		}
-		return targetE;
-	}
+		
+	function GetNearHeroInRadius(vector, radius = menu_SearchRadius) {
+        let en = enemyList;
+        if (en.length == 0)
+            return undefined;
+        let accessHero = Array(enemyList.length);
+        en.forEach((object) => {
+            if (object.GetAbsOrigin().Distance(vector) <= radius) {
+                accessHero.push([object, object.GetAbsOrigin().Distance(vector)]);
+            }
+        });
+        accessHero.sort((a, b) => {
+            return (a[1] - b[1]);
+        });
+        return accessHero[0] ? accessHero[0][0] : undefined;
+    }
 	
 	function SendOrderMovePos(vector, myHero) {
         myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, vector, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, myHero, false, true);
@@ -92,12 +96,52 @@ eval(`
         return false;
     }
 	
+	CentaurWarrunner_Combo.OnDraw = () => {
+        if (localHero && isUiEnabled.GetValue()) {
+			if (localHero.GetUnitName() !== "npc_dota_hero_storm_spirit") {
+				return;
+			}
+			
+            if (comboTarget) {
+                if (!particle) {
+                    particle = Particle.Create('particles/ui_mouseactions/range_finder_tower_aoe.vpcf', Enum.ParticleAttachment.PATTACH_INVALID, comboTarget);
+                    particle.SetControl(2, EntitySystem.GetLocalHero().GetAbsOrigin());
+                    particle.SetControl(6, new Vector(1, 0, 0));
+                    particle.SetControl(7, comboTarget.GetAbsOrigin());
+                }
+                else {
+                    particle.SetControl(2, EntitySystem.GetLocalHero().GetAbsOrigin());
+                    particle.SetControl(7, comboTarget.GetAbsOrigin());
+                }
+            }
+            else {
+                if (particle) {
+                    particle.Destroy();
+                    particle = null;
+                }
+            }
+        }
+    };
+	
 	StornSpiritAbuse.OnUpdate = () => {
 		
 		if (localHero && isUiEnabled.GetValue()) {
 			if (localHero.GetUnitName() !== "npc_dota_hero_storm_spirit") {
 				return;
-			}				
+			}
+
+			if (enemyList.length < 5) {
+                enemyList = [];
+                let heroes = EntitySystem.GetHeroesList();
+                if (heroes) {
+                    for (let hero of heroes) {
+                        if (hero && !hero.IsIllusion() && !hero.IsMeepoClone() && hero.IsHero() && hero.IsAlive() &&
+                            !hero.IsDormant() && !hero.IsSameTeam(localHero)) {
+                            enemyList.push(hero);
+                        }
+                    }
+                }
+            }
 					
 			if (KeyBindOrderAgresive.IsKeyDown()) {
 				
@@ -111,7 +155,7 @@ eval(`
 				let overload = localHero.GetAbilityByIndex(2);
 				let Ultimate = localHero.GetAbilityByIndex(5);
 				
-				let target = GetNearHeroInRadius(localHero);
+				let target = GetNearHeroInRadius(Input.GetWorldCursorPos());
 
 				if (!comboTarget && target && target.IsExist())
 					comboTarget = target;
@@ -241,6 +285,7 @@ eval(`
 	StornSpiritAbuse.OnScriptLoad = StornSpiritAbuse.OnGameStart = () => {
 	    localHero = EntitySystem.GetLocalHero();
 	    myPlayer = EntitySystem.GetLocalPlayer();
+		enemyList = [];
 	};
 
 	StornSpiritAbuse.OnGameEnd = () => {
