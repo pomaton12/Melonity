@@ -273,7 +273,9 @@
 								const BestPost = Post.add(new Vector(50, 50, 0));
 
 								//myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,BestPost,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+								
 								Ultimate.CastPosition(BestPost);
+								setTimeout(function() {}, 300);
 							}
 						}
 						
