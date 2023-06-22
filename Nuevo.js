@@ -55,11 +55,16 @@
         .OnChange(state => SafeManaUI = state.newValue)
 		.SetImage('panorama/images/events/aghanim/blessing_icons/blessing_mana_boost_icon_dormant_png.vtex_c')
         .GetValue();
-		
+	
+	
+
+	
 	let DistanceCastUI = Menu.AddSlider(path_Ulti, 'Save Range in combo', 1, 350, 300)
 		.OnChange(state => DistanceCastUI = state.newValue)
 		.SetImage('panorama/images/events/aghanim/blessing_icons/blessing_movement_speed_icon_dormant_png.vtex_c')
 		.GetValue();
+	
+	let myOption = Menu.AddOption(path_, 'My Option', 'Texto personalizado');
 		
 	let UiEnabledRemnant = Menu.AddToggle(path_Remnant, 'Enable', true);
 	
