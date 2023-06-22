@@ -321,11 +321,11 @@
 								bkb.CastNoTarget();
 							}
 						}
-						
+						 //CastDistanceulTI > dist
 						let isUltimateCasting = false; // Variable de bloqueo
 
 						if (localHero.GetMana() > SafeManaUI && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && menu_AbilitiesList[3]) {
-							if (dist > attackRange && CastDistanceulTI > dist ) {	
+							if (dist > attackRange ) {	
 								isUltimateCasting = true; // Bloqueamos el lanzamiento del ultimate
 
 								let speedUlti = 0;
