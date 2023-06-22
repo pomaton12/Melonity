@@ -298,7 +298,7 @@
 						const attackRange = localHero.GetAttackRange();
 						const enemyHeroPosition = comboTarget.GetAbsOrigin();
 						const dist = localHeroPosition.Distance(enemyHeroPosition);
-						const dist2 = enemyHeroPosition.sub(localHeroPosition).Length2D()
+						const dist2 = enemyHeroPosition.sub(localHeroPosition).Length()
 						
 						let Modifier1 = localHero.HasModifier("modifier_storm_spirit_overload");
 						let Modifier2 = localHero.HasModifier("modifier_storm_spirit_electric_rave");
