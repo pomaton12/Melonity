@@ -65,7 +65,7 @@
 		.GetValue();
 	
 	let CastDistanceulTI = Menu.AddSlider(path_UltiCast, 'Ulti Max Cast distance', 500, 5000, 1200)
-		.OnChange(state => SafeManaUI = state.newValue)
+		.OnChange(state => CastDistanceulTI = state.newValue)
 		.SetImage('panorama/images/control_icons/gear_small_png.vtex_c')
 		.GetValue();
 	
