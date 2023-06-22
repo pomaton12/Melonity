@@ -20,11 +20,11 @@
 	
 	 const item_Images = [
         'item_soul_ring', 'item_armlet', 'item_mjollnir', 'item_blink', 'item_abyssal_blade', 'item_fallen_sky',
-        'item_glimmer_cape', 'item_manta', 'item_illusionsts_cape', 'item_demonicon', 'item_sheepstick', 'item_orchid',
+        'item_glimmer_cape', 'item_manta', 'item_refresher', 'item_disperser', 'item_sheepstick', 'item_orchid',
         'item_bloodthorn', 'item_nullifier', 'item_rod_of_atos', 'item_gungir', 'item_diffusal_blade', 'item_bullwhip',
         'item_ethereal_blade', 'item_dagon_5', 'item_heavens_halberd', 'item_veil_of_discord', 'item_urn_of_shadows', 'item_spirit_vessel',
         'item_medallion_of_courage', 'item_solar_crest', 'item_pipe', 'item_hood_of_defiance', 'item_eternal_shroud', 'item_lotus_orb',
-        'item_black_king_bar', 'item_minotaur_horn', 'item_essence_ring', 'item_blade_mail', 'item_shivas_guard', 'item_crimson_guard',
+        'item_black_king_bar', 'item_harpoon', 'item_essence_ring', 'item_blade_mail', 'item_shivas_guard', 'item_crimson_guard',
         'item_ancient_janggo', 'item_ex_machina', 'item_mask_of_madness'
     ];
     const abilities = ['storm_spirit_static_remnant', 'storm_spirit_electric_vortex', 'storm_spirit_overload', 'storm_spirit_ball_lightning'];
@@ -267,6 +267,7 @@
 						let InmuneMagic = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_MAGIC_IMMUNE);
 						let Hexxed = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_HEXED);
 						let Silenced = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_SILENCED);
+						let Ethereo = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_ATTACK_IMMUNE);
 						
 						// Nueva condición para activar BKB si el enemigo tiene activado Blade Mail
 						let BkBEnemiPrevention = localHero.GetHeroesInRadius(700, Enum.TeamType.TEAM_ENEMY);
@@ -340,8 +341,36 @@
 								Sheepstick.CastTarget(comboTarget);
 							}
 						}
-							
-																		
+						
+						if (menu_ItemsList.IsEnabled('item_nullifier') ) { 
+							let Nullifier = localHero.GetItem('item_nullifier', true);
+							if (Nullifier && CustomCanCast(Nullifier) && Ethereo) { 
+								Nullifier.CastTarget(comboTarget);
+							}
+						}
+						
+						if (menu_ItemsList.IsEnabled('item_orchid') ) { 
+							let Orchid = localHero.GetItem('item_orchid', true);
+							if (Orchid && CustomCanCast(Orchid) && !EnemiVortexPull  && !Stunned && !InmuneMagic && !Hexxed  && !Silenced) { 
+								Orchid.CastTarget(comboTarget);
+							}
+						} else {
+							if (menu_ItemsList.IsEnabled('item_bloodthorn') ) { 
+								let Bloodthorn = localHero.GetItem('item_bloodthorn', true);
+								if (Bloodthorn && CustomCanCast(Bloodthorn) && !EnemiVortexPull  && !Stunned && !InmuneMagic && !Hexxed && !Silenced) { 
+									Bloodthorn.CastTarget(comboTarget);
+								}
+							}
+						}	
+
+						if (menu_ItemsList.IsEnabled('item_shivas_guard') ) { 
+							let Shivas = localHero.GetItem('item_shivas_guard', true);
+							if (Shivas && CustomCanCast(Shivas) && !InmuneMagic && !Hexxed ) { 
+								Shivas.CastNoTarget();
+							}
+						}
+						
+																									
 						if (menu_ItemsList.IsEnabled('item_refresher') ) { 
 							let RefresherOrb = localHero.GetItem('item_refresher', true);
 							if (RefresherOrb && CustomCanCast(RefresherOrb) && electric_vortex && !electric_vortex.CanCast() && !EnemiVortexPull) { 
@@ -368,7 +397,7 @@
 						
 						if (menu_AbilitiesList[1]) {
                             
-                            if (electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && !Modifier1 && !EnemiVortexPull && !Stunned && !InmuneMagic && !Hexxed) {
+                            if (electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && !EnemiVortexPull && !Stunned && !InmuneMagic && !Hexxed) {
 								
 								if (AghanimsScepter || AghanimsPavise) {
 									if (TargetInRadius(comboTarget, 470, localHero)) {
