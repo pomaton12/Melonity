@@ -436,6 +436,8 @@
                             if (static_remnant && static_remnant.IsExist() && static_remnant.CanCast() && !Modifier1) {
                                 if (TargetInRadius(comboTarget, 280, localHero)) {
                                     static_remnant.CastNoTarget();
+									myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, comboTarget, comboTarget.GetAbsOrigin(), null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);																		
+
                                 }
 							}
                         }
@@ -448,11 +450,14 @@
 									if (AghanimsScepter || AghanimsPavise) {
 										if (TargetInRadius(comboTarget, 470, localHero)) {
 											electric_vortex.CastNoTarget();
+											myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, comboTarget, comboTarget.GetAbsOrigin(), null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);																		
 											CastVortex = true;
 										}
 									}else {
 										if (TargetInRadius(comboTarget, 300, localHero)) {
 											electric_vortex.CastTarget(comboTarget);
+											myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, comboTarget, comboTarget.GetAbsOrigin(), null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);																		
+
 											CastVortex = true;
 										} else {
 											if (!comboTarget.IsRunning()) {
