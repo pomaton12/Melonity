@@ -369,12 +369,13 @@
                                 }
                             }
                         }
-						
+						let CastVortex = false;
 						if (AghanimsScepter || AghanimsPavise) {
 
 							let enemiesInVortexRange = localHero.GetHeroesInRadius(470, Enum.TeamType.TEAM_ENEMY);
 							if (enemiesInVortexRange.length > 2 && electric_vortex && electric_vortex.CanCast()) {
 								electric_vortex.CastNoTarget();
+								CastVortex = true;
 							}
 						}
 						
@@ -441,23 +442,31 @@
 						
 						if (menu_AbilitiesList[1]) {
                             
-                            if (electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && !EnemiVortexPull && !Stunned && !InmuneMagic && !Hexxed) {
+                            if (electric_vortex && electric_vortex.IsExist() && !EnemiVortexPull && !Stunned && !InmuneMagic && !Hexxed) {
 								
-								if (AghanimsScepter || AghanimsPavise) {
-									if (TargetInRadius(comboTarget, 470, localHero)) {
-										electric_vortex.CastNoTarget();
-									}
-								}else {
-									if (TargetInRadius(comboTarget, 300, localHero)) {
-										electric_vortex.CastTarget(comboTarget);
-									} else {
-										if (!comboTarget.IsRunning()) {
-											SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
+								if (electric_vortex.CanCast()) {
+									if (AghanimsScepter || AghanimsPavise) {
+										if (TargetInRadius(comboTarget, 470, localHero)) {
+											electric_vortex.CastNoTarget();
+											CastVortex = true;
+										}
+									}else {
+										if (TargetInRadius(comboTarget, 300, localHero)) {
+											electric_vortex.CastTarget(comboTarget);
+											CastVortex = true;
+										} else {
+											if (!comboTarget.IsRunning()) {
+												SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
+											}
 										}
 									}
+								} else {
+									CastVortex = true;
 								}
 							}
-                        }
+                        } else {
+							CastVortex = true;
+						}
 						
 						if (menu_AbilitiesList[2]) {
                             
@@ -498,24 +507,23 @@
 							pos = Input.GetWorldCursorPos();
 						}
 						
-						
-						if (OrbUiEnabled.GetValue()) {
-							//console.log("AttackRange ",attackRange," Dist1 ",dist," Dist ",dist2);
-							if(dist >= 250 && attackRange > dist) {
-								if (Engine.OnceAt(attackTime)) {
-									SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
-									myPlayer.PrepareUnitOrders(order, target, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);																		
-									
+						if (CastVortex) {
+							if (OrbUiEnabled.GetValue()) {
+								//console.log("AttackRange ",attackRange," Dist1 ",dist," Dist ",dist2);
+								if(dist >= 250 && attackRange > dist) {
+									if (Engine.OnceAt(attackTime)) {
+										SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
+										myPlayer.PrepareUnitOrders(order, target, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);																		
+										
+									}
+																	
+								} else {
+									myPlayer.PrepareUnitOrders(order, target, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+
 								}
-								
-								
 							} else {
 								myPlayer.PrepareUnitOrders(order, target, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
-
 							}
-						} else {
-							myPlayer.PrepareUnitOrders(order, target, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
-
 						}
 					}
 				}
