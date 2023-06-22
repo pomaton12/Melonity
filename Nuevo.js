@@ -17,16 +17,17 @@
 
 	const path_ = ["Custom Scripts","Heroes", "Intelligence", "Storm Spirit"];
 	const path_Ulti = ["Custom Scripts","Heroes", "Intelligence", "Storm Spirit","Agresive Best Ulti"];
+	const path_Remnant = ["Custom Scripts","Heroes", "Intelligence", "Storm Spirit","Auto Remnant in Attack"];
 	
-	 const item_Images = [
-        'item_soul_ring', 'item_armlet', 'item_mjollnir', 'item_blink', 'item_abyssal_blade', 'item_fallen_sky',
-        'item_glimmer_cape', 'item_manta', 'item_refresher', 'item_disperser', 'item_sheepstick', 'item_orchid',
-        'item_bloodthorn', 'item_nullifier', 'item_rod_of_atos', 'item_gungir', 'item_diffusal_blade', 'item_bullwhip',
-        'item_ethereal_blade', 'item_dagon_5', 'item_heavens_halberd', 'item_veil_of_discord', 'item_urn_of_shadows', 'item_spirit_vessel',
-        'item_medallion_of_courage', 'item_solar_crest', 'item_pipe', 'item_hood_of_defiance', 'item_eternal_shroud', 'item_lotus_orb',
-        'item_black_king_bar', 'item_harpoon', 'item_essence_ring', 'item_blade_mail', 'item_shivas_guard', 'item_crimson_guard',
-        'item_ancient_janggo', 'item_ex_machina', 'item_mask_of_madness'
-    ];
+	const item_Images = [
+	'item_soul_ring', 'item_armlet', 'item_mjollnir', 'item_blink', 'item_abyssal_blade', 'item_fallen_sky',
+	'item_glimmer_cape', 'item_manta', 'item_refresher', 'item_disperser', 'item_sheepstick', 'item_orchid',
+	'item_bloodthorn', 'item_nullifier', 'item_rod_of_atos', 'item_gungir', 'item_diffusal_blade', 'item_bullwhip',
+	'item_ethereal_blade', 'item_dagon_5', 'item_heavens_halberd', 'item_veil_of_discord', 'item_urn_of_shadows', 'item_spirit_vessel',
+	'item_medallion_of_courage', 'item_solar_crest', 'item_pipe', 'item_hood_of_defiance', 'item_eternal_shroud', 'item_lotus_orb',
+	'item_black_king_bar', 'item_harpoon', 'item_essence_ring', 'item_blade_mail', 'item_shivas_guard', 'item_crimson_guard',
+	'item_ancient_janggo', 'item_ex_machina', 'item_mask_of_madness'
+	];
     const abilities = ['storm_spirit_static_remnant', 'storm_spirit_electric_vortex', 'storm_spirit_overload', 'storm_spirit_ball_lightning'];
     const linkBreakers = [
         'item_dagon_5', 'item_heavens_halberd', 'item_diffusal_blade', 'item_disperser', 'item_harpoon', 'item_force_staff',
@@ -58,7 +59,14 @@
 	let DistanceCastUI = Menu.AddSlider(path_Ulti, 'Save Range in combo', 1, 350, 300)
 		.OnChange(state => DistanceCastUI = state.newValue)
 		.GetValue();
-
+		
+	let UiEnabledRemnant = Menu.AddToggle(path_Remnant, 'Enable', true);
+	
+	let TimeAutoUI = Menu.AddSlider(path_Remnant, 'Work with minute', 1, 50, 15)
+        .OnChange(state => TimeAutoUI = state.newValue)
+        .GetValue();
+		
+		
 
 	Menu.GetFolder(path_Ulti).SetImage('panorama/images/spellicons/storm_spirit_ball_lightning_orchid_png.vtex_c');
 	Menu.SetImage(['Custom Scripts', 'Heroes'], '~/menu/40x40/heroes.png');
@@ -379,7 +387,7 @@
 						} 
 						
 						if ( menu_ItemsList.IsEnabled('item_ex_machina') ) { 
-							let ex_machina = localHero.GetItem('item_ex_machina', true);
+							let ex_machina = localHero.GetItem('item_ex_machina', false);
 							if (ex_machina && CustomCanCast(ex_machina) && electric_vortex && !electric_vortex.CanCast() && !EnemiVortexPull) { 
 								ex_machina.CastNoTarget();
 							}
@@ -455,6 +463,23 @@
 				}
 			} else{
 				comboTarget = null;
+			}
+			
+			if (UiEnabledRemnant.GetValue()) {
+
+				if (menu_AbilitiesList[0]) {
+					
+					if (GameRules.GetGameTime() / 60 >= TimeAutoUI && localHero.IsAttacking()) {
+						let Modifier1 = localHero.HasModifier("modifier_storm_spirit_overload");
+						let static_remnant = localHero.GetAbilityByIndex(0);
+						if (static_remnant && static_remnant.IsExist() && static_remnant.CanCast() && !Modifier1) {
+						
+							static_remnant.CastNoTarget();
+							
+						}
+					}
+				}
+				
 			}
 			
 		}
