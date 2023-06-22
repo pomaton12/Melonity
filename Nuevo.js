@@ -51,22 +51,22 @@
 
 	let OrbUiEnabled = Menu.AddToggle(path_, 'OrbWalk Combo', true);
 	
-	let myOption = Menu.AddLabel(path_Ulti, 'Ultimate in Combo Settings');
-		myOption.SetImage('materials/vgui/dashboard/dash_button_settings_down_psd_a3885d5f.vtex_c');
+	let myOption = Menu.AddLabel(path_Ulti, 'Ulti Combo Settings');
+		myOption.SetImage('panorama/images/control_icons/gear_small_png.vtex_c');
 	
 	let SafeManaUI = Menu.AddSlider(path_Ulti, 'Save Mana', 1, 500, 300)
         .OnChange(state => SafeManaUI = state.newValue)
-		.SetImage('panorama/images/events/aghanim/blessing_icons/blessing_mana_boost_icon_dormant_png.vtex_c')
+		.SetImage('panorama/images/status_icons/ability_manacost_icon_psd.vtex_c')
         .GetValue();
 		
 	let DistanceCastUI = Menu.AddSlider(path_Ulti, 'Save Range in combo', 1, 350, 300)
 		.OnChange(state => DistanceCastUI = state.newValue)
-		.SetImage('panorama/images/events/aghanim/blessing_icons/blessing_movement_speed_icon_dormant_png.vtex_c')
+		.SetImage('panorama/images/emoticons/teamfancontent/season_4/8261882/emoticon1_png.vtex_c')
 		.GetValue();
 	
 	let CastDistanceulTI = Menu.AddSlider(path_UltiCast, 'Ulti Max Cast distance', 500, 5000, 1200)
 		.OnChange(state => SafeManaUI = state.newValue)
-		.SetImage('panorama/images/events/aghanim/blessing_icons/blessing_mana_boost_icon_dormant_png.vtex_c')
+		.SetImage('panorama/images/control_icons/gear_small_png.vtex_c')
 		.GetValue();
 	
 	
@@ -78,22 +78,26 @@
         .OnChange(state => TimeAutoUI = state.newValue)
 		.SetImage('panorama/images/status_icons/clock_small_psd.vtex_c')
         .GetValue();
-	
-	//panorama/images/events/aghanim/blessing_icons/blessing_movement_speed_icon_dormant_png.vtex_c
-	//panorama/images/events/aghanim/blessing_icons/blessing_mana_boost_icon_dormant_png.vtex_c
-	//panorama/images/status_icons/clock_small_psd.vtex_c
-	//materials/vgui/dashboard/dash_button_settings_down_psd_a3885d5f.vtex_c
-	//panorama/images/spellicons/action_lockenemyhero_png.vtex_c
+		
+	//panorama/images/spellicons/storm_spirit/ti8_retro_immortal/storm_spirit_ball_lightning_orchid_retro_png.vtex_c
+	//panorama/images/emoticons/teamfancontent/season_4/8261882/emoticon1_png.vtex_c
+	//panorama/images/status_icons/ability_manacost_icon_psd.vtex_c MANA
+	//panorama/images/hud/icon_kill_png.vtex_c   HIT RUN
+	//panorama/images/hud/reborn/ult_ready_psd.vtex_c             ON
+	//panorama/images/hud/reborn/ult_cooldown_psd.vtex_c        OFF
+	//panorama/images/hud/reborn/minimap_gemdrop_psd.vtex_c    linken
+	//panorama/images/status_icons/clock_small_psd.vtex_c   clock
+	//panorama/images/control_icons/gear_small_png.vtex_c  setting
 	//panorama/images/spellicons/storm_spirit_static_remnant_png.vtex_c
-	//panorama/images/compendium/international2019/prestigerewards/attack_fx_png.vtex_c
+
 	Menu.GetFolder(path_Ulti).SetImage('panorama/images/spellicons/storm_spirit_ball_lightning_orchid_png.vtex_c');
-	Menu.GetFolder(path_UltiCast).SetImage('panorama/images/compendium/international2019/prestigerewards/attack_fx_png.vtex_c');
+	Menu.GetFolder(path_UltiCast).SetImage('panorama/images/spellicons/storm_spirit/ti8_retro_immortal/storm_spirit_ball_lightning_orchid_retro_png.vtex_c');
 	Menu.GetFolder(path_Remnant).SetImage('panorama/images/spellicons/storm_spirit_static_remnant_png.vtex_c');
 	Menu.SetImage(['Custom Scripts', 'Heroes'], '~/menu/40x40/heroes.png');
     Menu.SetImage(['Custom Scripts', 'Heroes', 'Intelligence'], '~/menu/40x40/Intelligence.png');
     Menu.SetImage(path_, 'panorama/images/heroes/icons/npc_dota_hero_storm_spirit_png.vtex_c');
-	Menu.GetFolder([...path_, 'Linkens Breaker Settings']).SetImage('panorama/images/items/sphere_png.vtex_c');
-	OrbUiEnabled.SetImage('panorama/images/spellicons/action_lockenemyhero_png.vtex_c');
+	Menu.GetFolder([...path_, 'Linkens Breaker Settings']).SetImage('panorama/images/hud/reborn/minimap_gemdrop_psd.vtex_c');
+	OrbUiEnabled.SetImage('panorama/images/hud/icon_kill_png.vtex_c');
 	
 	function GetImagesPath(name, full) {
 		if (name.startsWith('item_')) {
