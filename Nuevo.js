@@ -73,7 +73,7 @@
 	
 		
 	let UiEnabledRemnant = Menu.AddToggle(path_Remnant, 'Enable', true);
-	
+		
 	let TimeAutoUI = Menu.AddSlider(path_Remnant, 'Work with minute...', 1, 50, 15)
         .OnChange(state => TimeAutoUI = state.newValue)
 		.SetImage('panorama/images/status_icons/clock_small_psd.vtex_c')
@@ -239,6 +239,7 @@
 	StornSpiritAbuse.OnUpdate = () => {
 		
 		if (localHero && isUiEnabled.GetValue()) {
+			UiEnabledRemnant.SetImage('panorama/images/hud/reborn/ult_ready_psd.vtex_c');
 			if (localHero.GetUnitName() !== "npc_dota_hero_storm_spirit") {
 				return;
 			}
@@ -514,6 +515,8 @@
 				
 			}
 			
+		} else {
+			UiEnabledRemnant.SetImage('panorama/images/hud/reborn/ult_cooldown_psd.vtex_c');
 		}
 	};
 	
