@@ -451,7 +451,7 @@
 									if (TargetInRadius(comboTarget, 300, localHero)) {
 										electric_vortex.CastTarget(comboTarget);
 									} else {
-										SendOrderMovePos(Input.GetWorldCursorPos(), localHero);
+										SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
 									}
 								}
 							}
