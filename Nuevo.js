@@ -297,7 +297,7 @@
 						const localHeroPosition = localHero.GetAbsOrigin();
 						const attackRange = localHero.GetAttackRange();
 						const enemyHeroPosition = comboTarget.GetAbsOrigin();
-						const dist = localHeroPosition.Distance(enemyHeroPosition);
+						const dist = localHeroPosition.Distance(enemyHeroPosition)-58;
 						const dist2 = enemyHeroPosition.sub(localHeroPosition).Length()
 						
 						let Modifier1 = localHero.HasModifier("modifier_storm_spirit_overload");
