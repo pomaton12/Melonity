@@ -52,7 +52,7 @@
 	let OrbUiEnabled = Menu.AddToggle(path_, 'OrbWalk Combo', true);
 	
 	let myOption = Menu.AddLabel(path_Ulti, 'Ultimate in Combo Settings');
-	myOption..SetImage('materials/vgui/dashboard/dash_button_settings_down_psd_a3885d5f.vtex_c')
+		myOption.SetImage('materials/vgui/dashboard/dash_button_settings_down_psd_a3885d5f.vtex_c');
 	
 	let SafeManaUI = Menu.AddSlider(path_Ulti, 'Save Mana', 1, 500, 300)
         .OnChange(state => SafeManaUI = state.newValue)
