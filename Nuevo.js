@@ -263,10 +263,10 @@
 						let ShardPavise = localHero.HasModifier("modifier_item_aghanims_shard");
 						let EnemiVortexPull = comboTarget.HasModifier("modifier_storm_spirit_electric_vortex_pull");
 						
-						let Stunned = comboTarget.HasModifier("modifier_stunned");
-						let InmuneMagic = comboTarget.HasModifier("magic_immune");
-						let Hexxed = comboTarget.HasModifier("modifier_hexxed");
-						let Silenced = comboTarget.HasModifier("modifier_silence");
+						let Stunned = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_STUNNED);
+						let InmuneMagic = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_MAGIC_IMMUNE);
+						let Hexxed = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_HEXED);
+						let Silenced = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_SILENCED);
 						
 						// Nueva condición para activar BKB si el enemigo tiene activado Blade Mail
 						let BkBEnemiPrevention = localHero.GetHeroesInRadius(700, Enum.TeamType.TEAM_ENEMY);
