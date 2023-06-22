@@ -495,11 +495,10 @@
 						
 						
 						if (OrbUiEnabled.GetValue()) {
-							console.log("AttackRange",attackRange);
+							console.log("AttackRange ",attackRange," Distance ",dist);
 							if(dist >= 250 && attackRange > dist) {
 								if (Engine.OnceAt(attackTime)){
-									myPlayer.PrepareUnitOrders(order, target, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
-								
+									myPlayer.PrepareUnitOrders(order, target, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);								
 									SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
 								}
 								
