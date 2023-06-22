@@ -475,6 +475,8 @@
 								} else {
 									CastVortex = true;
 								}
+							} else{
+								CastVortex = true;
 							}
                         } else {
 							CastVortex = true;
