@@ -237,9 +237,19 @@
     };
 	
 	StornSpiritAbuse.OnUpdate = () => {
+		if (isUiEnabled.GetValue()) {
+			isUiEnabled.SetImage('panorama/images/hud/reborn/ult_ready_psd.vtex_c');
+		} else{
+			isUiEnabled.SetImage('panorama/images/hud/reborn/ult_cooldown_psd.vtex_c');
+		}	
+		if (UiEnabledRemnant.GetValue()) {
+			UiEnabledRemnant.SetImage('panorama/images/hud/reborn/ult_ready_psd.vtex_c');
+		} else{
+			UiEnabledRemnant.SetImage('panorama/images/hud/reborn/ult_cooldown_psd.vtex_c');
+		}		
 		
 		if (localHero && isUiEnabled.GetValue()) {
-			UiEnabledRemnant.SetImage('panorama/images/hud/reborn/ult_ready_psd.vtex_c');
+			
 			if (localHero.GetUnitName() !== "npc_dota_hero_storm_spirit") {
 				return;
 			}
@@ -515,8 +525,6 @@
 				
 			}
 			
-		} else {
-			UiEnabledRemnant.SetImage('panorama/images/hud/reborn/ult_cooldown_psd.vtex_c');
 		}
 	};
 	
