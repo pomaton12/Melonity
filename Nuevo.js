@@ -298,6 +298,7 @@
 						const attackRange = localHero.GetAttackRange();
 						const enemyHeroPosition = comboTarget.GetAbsOrigin();
 						const dist = localHeroPosition.Distance(enemyHeroPosition);
+						const dist2 = enemyHeroPosition.sub(localHeroPosition).Length2D()
 						
 						let Modifier1 = localHero.HasModifier("modifier_storm_spirit_overload");
 						let Modifier2 = localHero.HasModifier("modifier_storm_spirit_electric_rave");
@@ -495,7 +496,7 @@
 						
 						
 						if (OrbUiEnabled.GetValue()) {
-							console.log("AttackRange ",attackRange," Distance ",dist);
+							console.log("AttackRange ",attackRange," Dist1 ",dist," Dist ",dist2);
 							if(dist >= 250 && attackRange > dist) {
 								if (Engine.OnceAt(attackTime)){
 									myPlayer.PrepareUnitOrders(order, target, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);								
