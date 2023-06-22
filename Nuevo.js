@@ -500,9 +500,11 @@
 							if(dist >= 300 && attackRange > dist) {
 
 								SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
-								setTimeout(function() {}, attackTime*1000);
-								myPlayer.PrepareUnitOrders(order, target, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);																	
+								setTimeout(function() {
+									myPlayer.PrepareUnitOrders(order, target, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);																	
 
+								}, attackTime*1000);
+								
 								
 							} else {
 								myPlayer.PrepareUnitOrders(order, target, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
