@@ -448,8 +448,10 @@
 										electric_vortex.CastNoTarget();
 									}
 								}else {
-									if (TargetInRadius(comboTarget, 295, localHero)) {
+									if (TargetInRadius(comboTarget, 300, localHero)) {
 										electric_vortex.CastTarget(comboTarget);
+									} else {
+										SendOrderMovePos(Input.GetWorldCursorPos(), localHero);
 									}
 								}
 							}
@@ -497,7 +499,7 @@
 						
 						if (OrbUiEnabled.GetValue()) {
 							//console.log("AttackRange ",attackRange," Dist1 ",dist," Dist ",dist2);
-							if(dist >= 300 && attackRange > dist) {
+							if(dist >= 250 && attackRange > dist) {
 								if (Engine.OnceAt(attackTime)) {
 									SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
 									myPlayer.PrepareUnitOrders(order, target, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);																		
