@@ -17,7 +17,9 @@
 
 	const path_ = ["Custom Scripts","Heroes", "Intelligence", "Storm Spirit"];
 	const path_Ulti = ["Custom Scripts","Heroes", "Intelligence", "Storm Spirit","Agresive Best Ulti"];
+	const path_UltiCast = ["Custom Scripts","Heroes", "Intelligence", "Storm Spirit","Ulti CastDistance"];	
 	const path_Remnant = ["Custom Scripts","Heroes", "Intelligence", "Storm Spirit","Auto Remnant in Attack"];
+
 	
 	const item_Images = [
 	'item_soul_ring', 'item_armlet', 'item_mjollnir', 'item_blink', 'item_abyssal_blade', 'item_fallen_sky',
@@ -47,33 +49,40 @@
 				
 	let menu_LinkensItems = CreatePrioritySelect([...path_, 'Linkens Breaker Settings'], 'Linkens Breaker', linkBreakers, true);
 
-		
-	let menu_SearchRadius = Menu.AddSlider(path_Ulti, 'Distance Ulti Cast', 500, 2000, 1200)
-        .OnChange(state => menu_SearchRadius = state.newValue)
-        .GetValue();
+	let OrbUiEnabled = Menu.AddToggle(path_, 'OrbWalk Combo', true);
 		
 	let SafeManaUI = Menu.AddSlider(path_Ulti, 'Save Mana', 1, 500, 300)
         .OnChange(state => SafeManaUI = state.newValue)
+		.SetImage('panorama/images/events/aghanim/blessing_icons/blessing_mana_boost_icon_dormant_png.vtex_c')
         .GetValue();
 		
 	let DistanceCastUI = Menu.AddSlider(path_Ulti, 'Save Range in combo', 1, 350, 300)
 		.OnChange(state => DistanceCastUI = state.newValue)
+		.SetImage('panorama/images/events/aghanim/blessing_icons/blessing_movement_speed_icon_dormant_png.vtex_c')
 		.GetValue();
 		
 	let UiEnabledRemnant = Menu.AddToggle(path_Remnant, 'Enable', true);
 	
 	let TimeAutoUI = Menu.AddSlider(path_Remnant, 'Work with minute', 1, 50, 15)
         .OnChange(state => TimeAutoUI = state.newValue)
+		.SetImage('panorama/images/status_icons/clock_small_psd.vtex_c')
         .GetValue();
-		
-		
-
+	
+	//panorama/images/events/aghanim/blessing_icons/blessing_movement_speed_icon_dormant_png.vtex_c
+	//panorama/images/events/aghanim/blessing_icons/blessing_mana_boost_icon_dormant_png.vtex_c
+	//panorama/images/status_icons/clock_small_psd.vtex_c
+	//materials/vgui/dashboard/dash_button_settings_down_psd_a3885d5f.vtex_c
+	//panorama/images/spellicons/action_lockenemyhero_png.vtex_c
+	//panorama/images/spellicons/storm_spirit_static_remnant_png.vtex_c
+	//panorama/images/compendium/international2019/prestigerewards/attack_fx_png.vtex_c
 	Menu.GetFolder(path_Ulti).SetImage('panorama/images/spellicons/storm_spirit_ball_lightning_orchid_png.vtex_c');
+	Menu.GetFolder(path_UltiCast).SetImage('panorama/images/compendium/international2019/prestigerewards/attack_fx_png.vtex_c');
+	Menu.GetFolder(path_Remnant).SetImage('panorama/images/spellicons/storm_spirit_static_remnant_png.vtex_c');
 	Menu.SetImage(['Custom Scripts', 'Heroes'], '~/menu/40x40/heroes.png');
     Menu.SetImage(['Custom Scripts', 'Heroes', 'Intelligence'], '~/menu/40x40/Intelligence.png');
     Menu.SetImage(path_, 'panorama/images/heroes/icons/npc_dota_hero_storm_spirit_png.vtex_c');
 	Menu.GetFolder([...path_, 'Linkens Breaker Settings']).SetImage('panorama/images/items/sphere_png.vtex_c');
-	
+	OrbUiEnabled.SetImage('panorama/images/spellicons/action_lockenemyhero_png.vtex_c');
 	
 	function GetImagesPath(name, full) {
 		if (name.startsWith('item_')) {
@@ -143,7 +152,7 @@
 	}
 	
 		
-	function GetNearHeroInRadius(vector, radius = menu_SearchRadius) {
+	function GetNearHeroInRadius(vector, radius = 1200) {
         let en = enemyList;
         if (en.length == 0)
             return undefined;
@@ -457,8 +466,16 @@
 							target = null;
 							pos = Input.GetWorldCursorPos();
 						}
+						
 						myPlayer.PrepareUnitOrders(order, target, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
-					
+						
+						if (OrbUiEnabled.GetValue()) {
+							if (Engine.OnceAt(0.2)){
+								if(dist >= 250) {
+									SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
+								}
+							}
+						}
 					}
 				}
 			} else{
