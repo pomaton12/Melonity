@@ -321,11 +321,11 @@
 								bkb.CastNoTarget();
 							}
 						}
-						 //CastDistanceulTI > dist
+						 //
 						let isUltimateCasting = false; // Variable de bloqueo
 
 						if (localHero.GetMana() > SafeManaUI && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && menu_AbilitiesList[3]) {
-							if (dist > attackRange ) {	
+							if (CastDistanceulTI > dist && dist > attackRange ) {	
 								isUltimateCasting = true; // Bloqueamos el lanzamiento del ultimate
 
 								let speedUlti = 0;
@@ -499,8 +499,8 @@
 							console.log("AttackRange ",attackRange," Dist1 ",dist," Dist ",dist2);
 							if(dist >= 250 && attackRange > dist) {
 								if (Engine.OnceAt(attackTime)){
-									myPlayer.PrepareUnitOrders(order, target, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);								
 									SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
+									myPlayer.PrepareUnitOrders(order, target, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);																	
 								}
 								
 							} else {
