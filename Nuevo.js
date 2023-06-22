@@ -354,15 +354,15 @@
 							if (Orchid && CustomCanCast(Orchid) && !EnemiVortexPull  && !Stunned && !InmuneMagic && !Hexxed  && !Silenced) { 
 								Orchid.CastTarget(comboTarget);
 							}
-						} else {
-							if (menu_ItemsList.IsEnabled('item_bloodthorn') ) { 
-								let Bloodthorn = localHero.GetItem('item_bloodthorn', true);
-								if (Bloodthorn && CustomCanCast(Bloodthorn) && !EnemiVortexPull  && !Stunned && !InmuneMagic && !Hexxed && !Silenced) { 
-									Bloodthorn.CastTarget(comboTarget);
-								}
+						} 
+						
+						if (menu_ItemsList.IsEnabled('item_bloodthorn') ) { 
+							let Bloodthorn = localHero.GetItem('item_bloodthorn', true);
+							if (Bloodthorn && CustomCanCast(Bloodthorn) && !EnemiVortexPull  && !Stunned && !InmuneMagic && !Hexxed && !Silenced) { 
+								Bloodthorn.CastTarget(comboTarget);
 							}
-						}	
-
+						}
+							
 						if (menu_ItemsList.IsEnabled('item_shivas_guard') ) { 
 							let Shivas = localHero.GetItem('item_shivas_guard', true);
 							if (Shivas && CustomCanCast(Shivas) && !InmuneMagic && !Hexxed ) { 
@@ -370,21 +370,21 @@
 							}
 						}
 						
-																									
 						if (menu_ItemsList.IsEnabled('item_refresher') ) { 
 							let RefresherOrb = localHero.GetItem('item_refresher', true);
 							if (RefresherOrb && CustomCanCast(RefresherOrb) && electric_vortex && !electric_vortex.CanCast() && !EnemiVortexPull) { 
 								RefresherOrb.CastNoTarget();
 							}
 							
-						} else {
-							if ( menu_ItemsList.IsEnabled('item_ex_machina') ) { 
-								let ex_machina = localHero.GetItem('item_ex_machina', true);
-								if (ex_machina && CustomCanCast(ex_machina) && electric_vortex && !electric_vortex.CanCast() && !EnemiVortexPull) { 
-									ex_machina.CastNoTarget();
-								}
+						} 
+						
+						if ( menu_ItemsList.IsEnabled('item_ex_machina') ) { 
+							let ex_machina = localHero.GetItem('item_ex_machina', true);
+							if (ex_machina && CustomCanCast(ex_machina) && electric_vortex && !electric_vortex.CanCast() && !EnemiVortexPull) { 
+								ex_machina.CastNoTarget();
 							}
 						}
+
 						
 						if (menu_AbilitiesList[0]) {
                             
