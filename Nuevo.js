@@ -64,7 +64,7 @@
 		.SetImage('panorama/images/events/aghanim/blessing_icons/blessing_movement_speed_icon_dormant_png.vtex_c')
 		.GetValue();
 	
-	let myOption = Menu.AddOption(path_, 'My Option', 'Texto personalizado');
+	let myOption = Menu.AddLabel(path_Ulti, 'Texto personalizado');
 		
 	let UiEnabledRemnant = Menu.AddToggle(path_Remnant, 'Enable', true);
 	
