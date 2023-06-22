@@ -493,14 +493,21 @@
 							pos = Input.GetWorldCursorPos();
 						}
 						
-						myPlayer.PrepareUnitOrders(order, target, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 						
 						if (OrbUiEnabled.GetValue()) {
-							if (Engine.OnceAt(0.2)){
-								if(dist >= 250) {
+							
+							if(dist >= 250) {
+								if (Engine.OnceAt(attackTime)){
+									myPlayer.PrepareUnitOrders(order, target, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 									SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
 								}
+							} else {
+								myPlayer.PrepareUnitOrders(order, target, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+
 							}
+						} else {
+							myPlayer.PrepareUnitOrders(order, target, pos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+
 						}
 					}
 				}
