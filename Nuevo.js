@@ -50,25 +50,31 @@
 	let menu_LinkensItems = CreatePrioritySelect([...path_, 'Linkens Breaker Settings'], 'Linkens Breaker', linkBreakers, true);
 
 	let OrbUiEnabled = Menu.AddToggle(path_, 'OrbWalk Combo', true);
-		
+	
+	let myOption = Menu.AddLabel(path_Ulti, 'Ultimate in Combo Settings');
+	myOption..SetImage('materials/vgui/dashboard/dash_button_settings_down_psd_a3885d5f.vtex_c')
+	
 	let SafeManaUI = Menu.AddSlider(path_Ulti, 'Save Mana', 1, 500, 300)
         .OnChange(state => SafeManaUI = state.newValue)
 		.SetImage('panorama/images/events/aghanim/blessing_icons/blessing_mana_boost_icon_dormant_png.vtex_c')
         .GetValue();
-	
-	
-
-	
+		
 	let DistanceCastUI = Menu.AddSlider(path_Ulti, 'Save Range in combo', 1, 350, 300)
 		.OnChange(state => DistanceCastUI = state.newValue)
 		.SetImage('panorama/images/events/aghanim/blessing_icons/blessing_movement_speed_icon_dormant_png.vtex_c')
 		.GetValue();
 	
-	let myOption = Menu.AddLabel(path_Ulti, 'Texto personalizado');
+	let CastDistanceulTI = Menu.AddSlider(path_UltiCast, 'Ulti Max Cast distance', 500, 5000, 1200)
+		.OnChange(state => SafeManaUI = state.newValue)
+		.SetImage('panorama/images/events/aghanim/blessing_icons/blessing_mana_boost_icon_dormant_png.vtex_c')
+		.GetValue();
+	
+	
+	
 		
 	let UiEnabledRemnant = Menu.AddToggle(path_Remnant, 'Enable', true);
 	
-	let TimeAutoUI = Menu.AddSlider(path_Remnant, 'Work with minute', 1, 50, 15)
+	let TimeAutoUI = Menu.AddSlider(path_Remnant, 'Work with minute...', 1, 50, 15)
         .OnChange(state => TimeAutoUI = state.newValue)
 		.SetImage('panorama/images/status_icons/clock_small_psd.vtex_c')
         .GetValue();
