@@ -366,7 +366,7 @@
 							}
 						}
 						
-						console.log("Saltando ", UltimateSkyModifier);
+						
 						
 						let [linken, mirror] = [comboTarget.GetItem('item_sphere', true), comboTarget.GetItem('item_mirror_shield', false)];
                         if (linken && linken.CanCast() || mirror && mirror.CanCast()) {
@@ -524,6 +524,8 @@
 								CastVortex = true;
 							}
 						}
+						
+						console.log("Hex ", Hexxed);
 						
 						if (menu_AbilitiesList[2]) {
                             
