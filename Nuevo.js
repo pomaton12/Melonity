@@ -301,10 +301,8 @@
 				if (Engine.OnceAt(0.2)) {
 					
 					let MyModBkb = localHero.HasModifier("modifier_black_king_bar_immune");
-					let EnemiModBM = comboTarget.HasModifier('modifier_item_blade_mail_reflect');
-					let EnemiModLotus = comboTarget.HasModifier("modifier_item_lotus_orb_active");
 					
-					if (comboTarget && EnemiModBM && !MyModBkb) {
+					if (comboTarget && comboTarget.HasModifier('modifier_item_blade_mail_reflect') && !MyModBkb) {
 						let bkbItemMy = localHero.GetItem('item_black_king_bar', true);
 						if(menu_ItemsList.IsEnabled('item_black_king_bar') && bkbItemMy && CustomCanCast(bkbItemMy)){
 							bkbItemMy.CastNoTarget();
@@ -314,7 +312,7 @@
 						}
                     }
 					
-					if (comboTarget && EnemiModLotus && !MyModBkb) {
+					if (comboTarget && comboTarget.HasModifier("modifier_item_lotus_orb_active") && !MyModBkb) {
 						let bkbItemMy = localHero.GetItem('item_black_king_bar', true);
 						if(menu_ItemsList.IsEnabled('item_black_king_bar') && bkbItemMy && CustomCanCast(bkbItemMy)){
 							bkbItemMy.CastNoTarget();
