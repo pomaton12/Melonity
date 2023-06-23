@@ -28,7 +28,7 @@
 	'item_ethereal_blade', 'item_dagon_5', 'item_heavens_halberd', 'item_veil_of_discord', 'item_urn_of_shadows', 'item_spirit_vessel',
 	'item_medallion_of_courage', 'item_solar_crest', 'item_pipe', 'item_hood_of_defiance', 'item_eternal_shroud', 'item_lotus_orb',
 	'item_black_king_bar', 'item_harpoon', 'item_essence_ring', 'item_blade_mail', 'item_shivas_guard', 'item_crimson_guard',
-	'item_ancient_janggo', 'item_ex_machina', 'item_mask_of_madness'
+	'item_ancient_janggo', 'item_ex_machina', 'item_revenants_brooch', 'item_bloodstone'
 	];
     const abilities = ['storm_spirit_static_remnant', 'storm_spirit_electric_vortex', 'storm_spirit_overload', 'storm_spirit_ball_lightning'];
     const linkBreakers = [
@@ -404,8 +404,8 @@
 						if (menu_ItemsList.IsEnabled('item_bloodthorn') ) { 
 							let Bloodthorn = localHero.GetItem('item_bloodthorn', true);
 							if (Bloodthorn && CustomCanCast(Bloodthorn) && !EnemiVortexPull  && !Stunned && !InmuneMagic && !Hexxed && !Silenced) { 
-								if (TargetInRadius(comboTarget, 900, localHero)) {
-									Bloodthorn.CastTarget(comboTarget);
+								if (TargetInRadius(comboTarget, 480, localHero)) {
+									myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_NO_TARGET,null,null,Bloodthorn,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 								}
 							}
 						}
@@ -444,6 +444,27 @@
 								}
 							}
 						}
+						
+						
+						if (menu_ItemsList.IsEnabled('item_revenants_brooch') ) { 
+							let Revenants = localHero.GetItem('item_revenants_brooch', true);
+							if (Revenants && CustomCanCast(Revenants) && !InmuneMagic && !Hexxed ) { 
+								if (TargetInRadius(comboTarget, 480, localHero)) {
+									Revenants.CastNoTarget();
+								}
+							}
+						}	
+
+						
+						if (menu_ItemsList.IsEnabled('item_bloodstone') ) { 
+							let Bloodstone = localHero.GetItem('item_bloodstone', true);
+							if (Bloodstone && CustomCanCast(Revenants) && !InmuneMagic && !Hexxed ) { 
+								if (TargetInRadius(comboTarget, 480, localHero)) {
+									Bloodstone.CastNoTarget();
+								}
+							}
+						}						
+						
 						
 						if (menu_ItemsList.IsEnabled('item_refresher') ) { 
 							let RefresherOrb = localHero.GetItem('item_refresher', true);
