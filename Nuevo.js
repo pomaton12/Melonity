@@ -395,7 +395,7 @@
 							}
 						} else{
 							CastHex = true;
-						{
+						}
 						
 						if (menu_ItemsList.IsEnabled('item_nullifier') ) { 
 							let Nullifier = localHero.GetItem('item_nullifier', true);
