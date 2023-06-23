@@ -167,7 +167,7 @@
 	}
 	
 		
-	function GetNearHeroInRadius(vector, radius = 500) {
+	function GetNearHeroInRadius(vector, radius = 1000) {
         let en = enemyList;
         if (en.length == 0)
             return undefined;
@@ -442,9 +442,9 @@
 						
 						if (menu_AbilitiesList[1]) {
                             
-                            if (electric_vortex && electric_vortex.IsExist() && !EnemiVortexPull && !Stunned && !InmuneMagic && !Hexxed ){
+                            if (electric_vortex && electric_vortex.IsExist() && !EnemiVortexPull && !Stunned && !InmuneMagic ){
 								
-								if (electric_vortex.CanCast()) {
+								if (electric_vortex.CanCast() && !Hexxed) {
 									if (AghanimsScepter || AghanimsPavise) {
 										if (TargetInRadius(comboTarget, 470, localHero)) {
 											electric_vortex.CastNoTarget();
