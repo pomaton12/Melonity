@@ -383,6 +383,25 @@
 							}
 						}
 						
+						if (menu_ItemsList.IsEnabled('item_orchid') ) { 
+							let Orchid = localHero.GetItem('item_orchid', true);
+							if (Orchid && CustomCanCast(Orchid) && !EnemiVortexPull  && !Stunned && !InmuneMagic && !Hexxed  && !Silenced) { 
+								Orchid.CastTarget(comboTarget);
+							}
+						} 					} else{
+							CastHex = true;
+						}
+						
+
+						
+						if (menu_ItemsList.IsEnabled('item_bloodthorn') ) { 
+							let Bloodthorn = localHero.GetItem('item_bloodthorn', true);
+							if (Bloodthorn && CustomCanCast(Bloodthorn) && !EnemiVortexPull  && !Stunned && !InmuneMagic && !Hexxed && !Silenced) { 
+								Bloodthorn.CastTarget(comboTarget);
+							}
+						}
+						
+						
 						let CastHex = false;
 						if (menu_ItemsList.IsEnabled('item_sheepstick') ) { 
 							let Sheepstick = localHero.GetItem('item_sheepstick', true);
@@ -393,30 +412,13 @@
 							} else{
 								CastHex = true;
 							}
-						} else{
-							CastHex = true;
-						}
-						
-						if (menu_ItemsList.IsEnabled('item_nullifier') ) { 
+							if (menu_ItemsList.IsEnabled('item_nullifier') ) { 
 							let Nullifier = localHero.GetItem('item_nullifier', true);
 							if (Nullifier && CustomCanCast(Nullifier) && Ethereo) { 
 								Nullifier.CastTarget(comboTarget);
 							}
 						}
-						
-						if (menu_ItemsList.IsEnabled('item_orchid') ) { 
-							let Orchid = localHero.GetItem('item_orchid', true);
-							if (Orchid && CustomCanCast(Orchid) && !EnemiVortexPull  && !Stunned && !InmuneMagic && !Hexxed  && !Silenced) { 
-								Orchid.CastTarget(comboTarget);
-							}
-						} 
-						
-						if (menu_ItemsList.IsEnabled('item_bloodthorn') ) { 
-							let Bloodthorn = localHero.GetItem('item_bloodthorn', true);
-							if (Bloodthorn && CustomCanCast(Bloodthorn) && !EnemiVortexPull  && !Stunned && !InmuneMagic && !Hexxed && !Silenced) { 
-								Bloodthorn.CastTarget(comboTarget);
-							}
-						}
+					
 							
 						if (menu_ItemsList.IsEnabled('item_shivas_guard') ) { 
 							let Shivas = localHero.GetItem('item_shivas_guard', true);
