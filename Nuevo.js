@@ -167,7 +167,7 @@
 	}
 	
 		
-	function GetNearHeroInRadius(vector, radius = 1200) {
+	function GetNearHeroInRadius(vector, radius = 500) {
         let en = enemyList;
         if (en.length == 0)
             return undefined;
@@ -309,7 +309,7 @@
 						
 						let Stunned = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_STUNNED);
 						let InmuneMagic = comboTarget.HasModifier("modifier_black_king_bar_immune"); 
-						let Hexxed = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_HEXED);
+						let Hexxed = comboTarget.HasModifier("modifier_sheepstick_debuff"); 
 						let Silenced = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_SILENCED);
 						let Ethereo = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_ATTACK_IMMUNE);
 						
@@ -442,7 +442,7 @@
 						
 						if (menu_AbilitiesList[1]) {
                             
-                            if (electric_vortex && electric_vortex.IsExist() && !EnemiVortexPull && !Stunned && !InmuneMagic && !Hexxed) {
+                            if (electric_vortex && electric_vortex.IsExist() && !EnemiVortexPull && !Stunned && !InmuneMagic && !comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_HEXED) ){
 								
 								if (electric_vortex.CanCast()) {
 									if (AghanimsScepter || AghanimsPavise) {
