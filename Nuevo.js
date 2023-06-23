@@ -451,13 +451,19 @@
 							}
 						}
 						
-						if (menu_ItemsList.IsEnabled('item_sheepstick') ) { 
+						let CastHex = false;
+						if (menu_ItemsList.IsEnabled('item_sheepstick') ) {
 							let Sheepstick = localHero.GetItem('item_sheepstick', true);
 							if (Sheepstick && CustomCanCast(Sheepstick) && !EnemiVortexPull  && !Stunned && !InmuneMagic && !Hexxed && !UltimateSkyModifier) {
 								if (TargetInRadius(comboTarget, 600, localHero)) {
 									Sheepstick.CastTarget(comboTarget);
+									CastHex = true;
 								}
+							} else{
+								CastHex = true;
 							}
+						} else {
+							CastHex = true;
 						}
 						
 						
@@ -548,7 +554,7 @@
 
 						if (menu_AbilitiesList[1]) {
 							
-							if (electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && !EnemiVortexPull && !Stunned && !InmuneMagic && !Hexxed && !UltimateSkyModifier){
+							if (CastHex && !Hexxed && electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && !EnemiVortexPull && !Stunned && !InmuneMagic && !UltimateSkyModifier){
 								
 								if (AghanimsScepter || AghanimsPavise) {
 									if (TargetInRadius(comboTarget, 470, localHero)) {
