@@ -444,7 +444,8 @@
 						
 						if (menu_ItemsList.IsEnabled('item_revenants_brooch') ) { 
 							let Revenants = localHero.GetItem('item_revenants_brooch', true);
-							if (Revenants && CustomCanCast(Revenants) && !InmuneMagic ) { 
+							let RevenantsMod = localHero.HasModifier("modifier_item_revenants_brooch_counter");
+							if (Revenants && CustomCanCast(Revenants) && !InmuneMagic && !RevenantsMod) { 
 								if (TargetInRadius(comboTarget, 480, localHero)) {
 									Revenants.CastNoTarget();
 								}
