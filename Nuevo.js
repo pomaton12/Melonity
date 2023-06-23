@@ -319,7 +319,7 @@
 						let InmuneMagic = comboTarget.HasModifier("modifier_black_king_bar_immune"); 
 						let Hexxed = comboTarget.HasModifier("modifier_sheepstick_debuff"); 
 						let Silenced = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_SILENCED);
-						let Ethereo = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_ATTACK_IMMUNE);
+						let Ethereo = localHero.HasState(Enum.ModifierState.MODIFIER_STATE_ATTACK_IMMUNE);
 						
 						let UltimateSkyModifier = comboTarget.HasModifier("storm_spirit_ball_lightning"); 
 						
