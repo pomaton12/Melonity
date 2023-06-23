@@ -51,8 +51,9 @@
 
 	let OrbUiEnabled = Menu.AddToggle(path_, 'OrbWalk Combo', true);
 	
-	let myOption = Menu.AddLabel(path_Ulti, 'Ulti Combo Settings');
-		myOption.SetImage('panorama/images/control_icons/gear_small_png.vtex_c');
+	//let myOption = Menu.AddLabel(path_Ulti, 'Ulti Combo Settings');
+	let BestUltiEnable = Menu.AddToggle(path_Ulti, 'Enable', false);
+
 	
 	let SafeManaUI = Menu.AddSlider(path_Ulti, 'Save Mana', 1, 500, 300)
         .OnChange(state => SafeManaUI = state.newValue)
@@ -247,6 +248,12 @@
 		} else{
 			UiEnabledRemnant.SetImage('panorama/images/hud/reborn/ult_cooldown_psd.vtex_c');
 		}		
+		if (BestUltiEnable.GetValue()) {
+			BestUltiEnable.SetImage('panorama/images/hud/reborn/ult_ready_psd.vtex_c');
+		} else{
+			BestUltiEnable.SetImage('panorama/images/hud/reborn/ult_cooldown_psd.vtex_c');
+		}			
+		
 		
 		if (localHero && isUiEnabled.GetValue()) {
 			
@@ -325,7 +332,7 @@
 						 //
 						let isUltimateCasting = false; // Variable de bloqueo
 
-						if (localHero.GetMana() > SafeManaUI && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && menu_AbilitiesList[3]) {
+						if (localHero.GetMana() > 300 && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && menu_AbilitiesList[3]) {
 							if (CastDistanceulTI > dist && dist > attackRange ) {	
 								isUltimateCasting = true; // Bloqueamos el lanzamiento del ultimate
 
@@ -498,19 +505,20 @@
 						const Idealdirection = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
 
 						// Comprueba si las otras habilidades están en cooldown o si el modificador está activo
-						if (localHero.GetMana() > SafeManaUI && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && menu_AbilitiesList[3]) {
+						if(BestUltiEnable.GetValue()){
+							if (localHero.GetMana() > SafeManaUI && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && menu_AbilitiesList[3]) {
 
-							if (!static_remnant.IsInAbilityPhase() && !electric_vortex.IsInAbilityPhase() && !Modifier1 && !Modifier2) {
-								
-								let EnemiPrevention = localHero.GetHeroesInRadius(480, Enum.TeamType.TEAM_ENEMY);
+								if (!static_remnant.IsInAbilityPhase() && !electric_vortex.IsInAbilityPhase() && !Modifier1 && !Modifier2) {
+									
+									let EnemiPrevention = localHero.GetHeroesInRadius(480, Enum.TeamType.TEAM_ENEMY);
 
-								if (comboTarget.IsAttacking() || EnemiPrevention.length >= 3) {
-									// Calcula una nueva posición detrás del enemigo									
-									let IdealPosition = localHeroPosition.add(Idealdirection.mul(new Vector(DistanceCastUI, DistanceCastUI, 0)));
-									myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,IdealPosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+									if (comboTarget.IsAttacking() || EnemiPrevention.length >= 3) {
+										// Calcula una nueva posición detrás del enemigo									
+										let IdealPosition = localHeroPosition.add(Idealdirection.mul(new Vector(DistanceCastUI, DistanceCastUI, 0)));
+										myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,IdealPosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+									}
 								}
 							}
-
 						}
 						
 						let [order, target, pos] = [Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, comboTarget, comboTarget.GetAbsOrigin()];
