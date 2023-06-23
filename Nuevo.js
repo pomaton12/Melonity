@@ -299,9 +299,33 @@
                 
 
 				if (Engine.OnceAt(0.2)) {
+					
+					let MyModBkb = localHero.HasModifier("modifier_black_king_bar_immune");
+					let EnemiModBM = comboTarget.HasModifier('modifier_item_blade_mail_reflect');
+					let EnemiModLotus = comboTarget.HasModifier("modifier_item_lotus_orb_active");
+					
+					if (comboTarget && EnemiModBM && !MyModBkb) {
+						let bkbItemMy = localHero.GetItem('item_black_king_bar', true);
+						if(menu_ItemsList.IsEnabled('item_black_king_bar') && bkbItemMy && CustomCanCast(bkbItemMy)){
+							bkbItemMy.CastNoTarget();
+						} else{
+							SendOrderMovePos(Input.GetWorldCursorPos(), localHero);
+							return;
+						}
+                    }
+					
+					if (comboTarget && EnemiModLotus && !MyModBkb) {
+						let bkbItemMy = localHero.GetItem('item_black_king_bar', true);
+						if(menu_ItemsList.IsEnabled('item_black_king_bar') && bkbItemMy && CustomCanCast(bkbItemMy)){
+							bkbItemMy.CastNoTarget();
+						} else{
+							myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, comboTarget, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);	
+							return;
+						}
+                    }
 
 					if (comboTarget && comboTarget.IsExist()) {
-												
+																		
 						const localHeroPosition = localHero.GetAbsOrigin();
 						const attackRange = localHero.GetAttackRange();
 						const enemyHeroPosition = comboTarget.GetAbsOrigin();
@@ -322,15 +346,30 @@
 						let Ethereo = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_ATTACK_IMMUNE);
 						
 						let UltimateSkyModifier = localHero.HasModifier("modifier_storm_spirit_ball_lightning"); 
+						let MyHeroModBkb = localHero.HasModifier("modifier_black_king_bar_immune");
+						let MyHeroModLotus = localHero.HasModifier("modifier_item_lotus_orb_active");
 						
 						// Nueva condición para activar BKB si el enemigo tiene activado Blade Mail
 						let BkBEnemiPrevention = localHero.GetHeroesInRadius(700, Enum.TeamType.TEAM_ENEMY);
-						if (BkBEnemiPrevention.length >= 3) {
-							let bkb = localHero.GetItem('item_black_king_bar', true);
-							if (bkb && bkb.CanCast() && localHero.HasModifier("modifier_black_king_bar_immune") === false) {
-								bkb.CastNoTarget();
+						
+						if (menu_ItemsList.IsEnabled('item_black_king_bar') ) {
+							if (BkBEnemiPrevention.length >= 3) {
+								let bkb = localHero.GetItem('item_black_king_bar', true);
+								if (bkb && CustomCanCast(bkb) && !MyHeroModBkb && !MyHeroModLotus) {
+									bkb.CastNoTarget();
+								}
 							}
 						}
+						
+						if (menu_ItemsList.IsEnabled('item_lotus_orb') ) {
+							if (BkBEnemiPrevention.length >= 3) {
+								let Lotus = localHero.GetItem('item_lotus_orb', true);
+								if (Lotus && CustomCanCast(Lotus) && !MyHeroModBkb  && !MyHeroModLotus) {
+									Lotus.CastTarget(localHero);
+								}
+							}
+						}						
+						
 						 //
 						let isUltimateCasting = false; // Variable de bloqueo
 
@@ -417,7 +456,7 @@
 						if (menu_ItemsList.IsEnabled('item_sheepstick') ) { 
 							let Sheepstick = localHero.GetItem('item_sheepstick', true);
 							if (Sheepstick && CustomCanCast(Sheepstick) && !EnemiVortexPull  && !Stunned && !InmuneMagic && !Hexxed && !UltimateSkyModifier) {
-								if (TargetInRadius(comboTarget, 500, localHero)) {
+								if (TargetInRadius(comboTarget, 600, localHero)) {
 									Sheepstick.CastTarget(comboTarget);
 								}
 							}
@@ -450,9 +489,29 @@
 									Revenants.CastNoTarget();
 								}
 							}
-						}	
+						}
 
+						item_mjollnir
+						if (menu_ItemsList.IsEnabled('item_mjollnir') ) { 
+							let Mjollnir = localHero.GetItem('item_mjollnir', true);
+							if (Mjollnir && CustomCanCast(Mjollnir) && !InmuneMagic ) { 
+								if (TargetInRadius(comboTarget, 500, localHero)) {
+									Mjollnir.CastTarget(comboTarget);
+								}
+							}
+						}						
 						
+
+						if (menu_ItemsList.IsEnabled('item_bullwhip') ) { 
+							let Bullwhip = localHero.GetItem('item_bullwhip', true);
+							if (Bullwhip && CustomCanCast(Bullwhip) && !InmuneMagic && comboTarget.IsRunning()) { 
+								if (TargetInRadius(comboTarget, 850, localHero)) {
+									Bullwhip.CastTarget(comboTarget);
+								}
+							}
+						}
+						
+							
 						if (menu_ItemsList.IsEnabled('item_bloodstone') ) { 
 							let Bloodstone = localHero.GetItem('item_bloodstone', true);
 							if (Bloodstone && CustomCanCast(Bloodstone) && !InmuneMagic && !Hexxed ) { 
