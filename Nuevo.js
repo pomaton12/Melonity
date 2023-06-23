@@ -572,30 +572,59 @@
                         }
 						
 						console.log("Vyce = ", SheepstickHexx);
-						if (menu_AbilitiesList[1]) {
-							
-							if (CastHex && !Hexxed && electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && SheepstickHexx && !SheepstickHexx.CanCast() && !EnemiVortexPull && !Stunned && !InmuneMagic && !UltimateSkyModifier){
+						if (SheepstickHexx === null) {
+							if (menu_AbilitiesList[1]) {
 								
-								if (AghanimsScepter || AghanimsPavise) {
-									if (TargetInRadius(comboTarget, 470, localHero)) {
-										electric_vortex.CastNoTarget();
-										CastVortex = true;
-									}
-								}else {
-									if (TargetInRadius(comboTarget, 300, localHero)) {
-										electric_vortex.CastTarget(comboTarget);
-										CastVortex = true;
-									} else {
-										if (!comboTarget.IsRunning()) {
-											SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
+								if (CastHex && !Hexxed && electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && !EnemiVortexPull && !Stunned && !InmuneMagic && !UltimateSkyModifier){
+									
+									if (AghanimsScepter || AghanimsPavise) {
+										if (TargetInRadius(comboTarget, 470, localHero)) {
+											electric_vortex.CastNoTarget();
+											CastVortex = true;
+										}
+									}else {
+										if (TargetInRadius(comboTarget, 300, localHero)) {
+											electric_vortex.CastTarget(comboTarget);
+											CastVortex = true;
+										} else {
+											if (!comboTarget.IsRunning()) {
+												SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
+											}
 										}
 									}
+								} else{
+									CastVortex = true;
 								}
-							} else{
+							} else {
 								CastVortex = true;
 							}
-						} else {
-							CastVortex = true;
+							
+						else
+							if (menu_AbilitiesList[1]) {
+								
+								if (CastHex && !Hexxed && electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && SheepstickHexx && !SheepstickHexx.CanCast() && !EnemiVortexPull && !Stunned && !InmuneMagic && !UltimateSkyModifier){
+									
+									if (AghanimsScepter || AghanimsPavise) {
+										if (TargetInRadius(comboTarget, 470, localHero)) {
+											electric_vortex.CastNoTarget();
+											CastVortex = true;
+										}
+									}else {
+										if (TargetInRadius(comboTarget, 300, localHero)) {
+											electric_vortex.CastTarget(comboTarget);
+											CastVortex = true;
+										} else {
+											if (!comboTarget.IsRunning()) {
+												SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
+											}
+										}
+									}
+								} else{
+									CastVortex = true;
+								}
+							} else {
+								CastVortex = true;
+							}
 						}
 
 						
