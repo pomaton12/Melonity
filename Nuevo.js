@@ -317,7 +317,7 @@
 						
 						let Stunned = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_STUNNED);
 						let InmuneMagic = comboTarget.HasModifier("modifier_black_king_bar_immune"); 
-						let Hexxed = comboTarget.HasModifier("modifier_sheepstick_debuff"); 
+						let Hexxed = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_HEXED);
 						let Silenced = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_SILENCED);
 						let Ethereo = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_ATTACK_IMMUNE);
 						
