@@ -507,7 +507,7 @@
 
 						if (menu_ItemsList.IsEnabled('item_bullwhip') ) { 
 							let Bullwhip = localHero.GetItem('item_bullwhip', false);
-							if (Bullwhip && CustomCanCast(Bullwhip) && !InmuneMagic && comboTarget.IsRunning() && !Hexxed && !EnemiVortexPull) { 
+							if (Bullwhip && CustomCanCast(Bullwhip) && !InmuneMagic && comboTarget.IsRunning() && !Hexxed && !EnemiVortexPull && electric_vortex && !electric_vortex.CanCast()) { 
 								if (TargetInRadius(comboTarget, 850, localHero)) {
 									Bullwhip.CastTarget(comboTarget);
 								}
@@ -517,7 +517,7 @@
 						//'item_diffusal_blade', 'item_disperser'
 						if (menu_ItemsList.IsEnabled('item_diffusal_blade') ) { 
 							let Diffusal = localHero.GetItem('item_diffusal_blade', true);
-							if (Diffusal && CustomCanCast(Diffusal) && !InmuneMagic && comboTarget.IsRunning() && !Hexxed && !EnemiVortexPull) { 
+							if (Diffusal && CustomCanCast(Diffusal) && !InmuneMagic && comboTarget.IsRunning() && !Hexxed && !EnemiVortexPull && electric_vortex && !electric_vortex.CanCast()) { 
 								if (TargetInRadius(comboTarget, 600, localHero)) {
 									Diffusal.CastTarget(comboTarget);
 								}
@@ -526,7 +526,7 @@
 						
 						if (menu_ItemsList.IsEnabled('item_disperser') ) { 
 							let Disperser = localHero.GetItem('item_disperser', true);
-							if (Disperser && CustomCanCast(Disperser) && !InmuneMagic && comboTarget.IsRunning() && !Hexxed && !EnemiVortexPull) { 
+							if (Disperser && CustomCanCast(Disperser) && !InmuneMagic && comboTarget.IsRunning() && !Hexxed && !EnemiVortexPull && electric_vortex && !electric_vortex.CanCast()) { 
 								if (TargetInRadius(comboTarget, 600, localHero)) {
 									Disperser.CastTarget(comboTarget);
 								}
