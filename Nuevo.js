@@ -321,6 +321,8 @@
 						let Silenced = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_SILENCED);
 						let Ethereo = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_ATTACK_IMMUNE);
 						
+						let UltimateSkyModifier = comboTarget.HasModifier("storm_spirit_ball_lightning"); 
+						
 						// Nueva condición para activar BKB si el enemigo tiene activado Blade Mail
 						let BkBEnemiPrevention = localHero.GetHeroesInRadius(700, Enum.TeamType.TEAM_ENEMY);
 						if (BkBEnemiPrevention.length >= 3) {
@@ -363,6 +365,8 @@
 								}
 							}
 						}
+						
+						console.log("Saltando ", UltimateSkyModifier);
 						
 						let [linken, mirror] = [comboTarget.GetItem('item_sphere', true), comboTarget.GetItem('item_mirror_shield', false)];
                         if (linken && linken.CanCast() || mirror && mirror.CanCast()) {
@@ -448,7 +452,7 @@
 						
 						if (menu_ItemsList.IsEnabled('item_revenants_brooch') ) { 
 							let Revenants = localHero.GetItem('item_revenants_brooch', true);
-							if (Revenants && CustomCanCast(Revenants) && !InmuneMagic && !Hexxed ) { 
+							if (Revenants && CustomCanCast(Revenants) && !InmuneMagic ) { 
 								if (TargetInRadius(comboTarget, 480, localHero)) {
 									Revenants.CastNoTarget();
 								}
