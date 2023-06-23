@@ -445,27 +445,24 @@
 						
 						if (menu_AbilitiesList[1]) {
                             
-                            if (electric_vortex && electric_vortex.IsExist() && !EnemiVortexPull && !Stunned && !InmuneMagic ){
+                            if (electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && !EnemiVortexPull && !Stunned && !InmuneMagic && !Hexxed){
 								
-								if (electric_vortex.CanCast() && !Hexxed) {
-									if (AghanimsScepter || AghanimsPavise) {
-										if (TargetInRadius(comboTarget, 470, localHero)) {
-											electric_vortex.CastNoTarget();
-											CastVortex = true;
-										}
-									}else {
-										if (TargetInRadius(comboTarget, 300, localHero)) {
-											electric_vortex.CastTarget(comboTarget);
-											CastVortex = true;
-										} else {
-											if (!comboTarget.IsRunning()) {
-												SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
-											}
+								if (AghanimsScepter || AghanimsPavise) {
+									if (TargetInRadius(comboTarget, 470, localHero)) {
+										electric_vortex.CastNoTarget();
+										CastVortex = true;
+									}
+								}else {
+									if (TargetInRadius(comboTarget, 300, localHero)) {
+										electric_vortex.CastTarget(comboTarget);
+										CastVortex = true;
+									} else {
+										if (!comboTarget.IsRunning()) {
+											SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
 										}
 									}
-								} else {
-									CastVortex = true;
 								}
+
 							} else{
 								CastVortex = true;
 							}
