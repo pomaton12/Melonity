@@ -414,21 +414,13 @@
 							}
 						}
 						
-						
-						let CastHex = false;
 						if (menu_ItemsList.IsEnabled('item_sheepstick') ) { 
 							let Sheepstick = localHero.GetItem('item_sheepstick', true);
 							if (Sheepstick && CustomCanCast(Sheepstick) && !EnemiVortexPull  && !Stunned && !InmuneMagic && !Hexxed && !UltimateSkyModifier) {
 								if (TargetInRadius(comboTarget, 500, localHero)) {
 									Sheepstick.CastTarget(comboTarget);
-									CastHex = true;
 								}
-								
-							} else{
-								CastHex = true;
 							}
-						} else {
-							CastHex = true;
 						}
 						
 						
@@ -496,34 +488,33 @@
 							}
                         }
 						
-						if(CastHex){
-							if (menu_AbilitiesList[1]) {
+
+						if (menu_AbilitiesList[1]) {
+							
+							if (electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && !EnemiVortexPull && !Stunned && !InmuneMagic && !Hexxed && !UltimateSkyModifier){
 								
-								if (electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && !EnemiVortexPull && !Stunned && !InmuneMagic && !Hexxed && !UltimateSkyModifier){
-									
-									if (AghanimsScepter || AghanimsPavise) {
-										if (TargetInRadius(comboTarget, 470, localHero)) {
-											electric_vortex.CastNoTarget();
-											CastVortex = true;
-										}
-									}else {
-										if (TargetInRadius(comboTarget, 300, localHero)) {
-											electric_vortex.CastTarget(comboTarget);
-											CastVortex = true;
-										} else {
-											if (!comboTarget.IsRunning()) {
-												SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
-											}
+								if (AghanimsScepter || AghanimsPavise) {
+									if (TargetInRadius(comboTarget, 470, localHero)) {
+										electric_vortex.CastNoTarget();
+										CastVortex = true;
+									}
+								}else {
+									if (TargetInRadius(comboTarget, 300, localHero)) {
+										electric_vortex.CastTarget(comboTarget);
+										CastVortex = true;
+									} else {
+										if (!comboTarget.IsRunning()) {
+											SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
 										}
 									}
-
-								} else{
-									CastVortex = true;
 								}
-							} else {
+							} else{
 								CastVortex = true;
 							}
+						} else {
+							CastVortex = true;
 						}
+
 						
 						console.log("Hex ", Hexxed);
 						
