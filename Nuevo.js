@@ -388,7 +388,7 @@
 						if (AghanimsScepter || AghanimsPavise) {
 
 							let enemiesInVortexRange = localHero.GetHeroesInRadius(470, Enum.TeamType.TEAM_ENEMY);
-							if (enemiesInVortexRange.length > 2 && electric_vortex && electric_vortex.CanCast()) {
+							if (enemiesInVortexRange.length > 2 && electric_vortex && electric_vortex.CanCast() && !UltimateSkyModifier) {
 								electric_vortex.CastNoTarget();
 								CastVortex = true;
 							}
@@ -418,7 +418,7 @@
 						let CastHex = false;
 						if (menu_ItemsList.IsEnabled('item_sheepstick') ) { 
 							let Sheepstick = localHero.GetItem('item_sheepstick', true);
-							if (Sheepstick && CustomCanCast(Sheepstick) && !EnemiVortexPull  && !Stunned && !InmuneMagic && !Hexxed) {
+							if (Sheepstick && CustomCanCast(Sheepstick) && !EnemiVortexPull  && !Stunned && !InmuneMagic && !Hexxed && !UltimateSkyModifier) {
 								if (TargetInRadius(comboTarget, 500, localHero)) {
 									Sheepstick.CastTarget(comboTarget);
 									CastHex = true;
@@ -499,7 +499,7 @@
 						if(CastHex){
 							if (menu_AbilitiesList[1]) {
 								
-								if (electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && !EnemiVortexPull && !Stunned && !InmuneMagic && !Hexxed){
+								if (electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && !EnemiVortexPull && !Stunned && !InmuneMagic && !Hexxed && !UltimateSkyModifier){
 									
 									if (AghanimsScepter || AghanimsPavise) {
 										if (TargetInRadius(comboTarget, 470, localHero)) {
