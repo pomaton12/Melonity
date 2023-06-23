@@ -404,8 +404,8 @@
 						if (menu_ItemsList.IsEnabled('item_bloodthorn') ) { 
 							let Bloodthorn = localHero.GetItem('item_bloodthorn', true);
 							if (Bloodthorn && CustomCanCast(Bloodthorn) && !EnemiVortexPull  && !Stunned && !InmuneMagic && !Hexxed && !Silenced) { 
-								if (TargetInRadius(comboTarget, 480, localHero)) {
-									myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_NO_TARGET,null,null,Bloodthorn,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+								if (TargetInRadius(comboTarget, 900, localHero)) {
+									Bloodthorn.CastTarget(comboTarget);								
 								}
 							}
 						}
@@ -458,9 +458,10 @@
 						
 						if (menu_ItemsList.IsEnabled('item_bloodstone') ) { 
 							let Bloodstone = localHero.GetItem('item_bloodstone', true);
-							if (Bloodstone && CustomCanCast(Revenants) && !InmuneMagic && !Hexxed ) { 
+							if (Bloodstone && CustomCanCast(Bloodstone) && !InmuneMagic && !Hexxed ) { 
 								if (TargetInRadius(comboTarget, 480, localHero)) {
-									Bloodstone.CastNoTarget();
+									myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_NO_TARGET,null,null,Bloodstone,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+
 								}
 							}
 						}						
