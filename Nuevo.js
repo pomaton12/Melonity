@@ -388,8 +388,6 @@
 							if (Orchid && CustomCanCast(Orchid) && !EnemiVortexPull  && !Stunned && !InmuneMagic && !Hexxed  && !Silenced) { 
 								Orchid.CastTarget(comboTarget);
 							}
-						} 					} else{
-							CastHex = true;
 						}
 						
 
@@ -412,7 +410,12 @@
 							} else{
 								CastHex = true;
 							}
-							if (menu_ItemsList.IsEnabled('item_nullifier') ) { 
+						} else {
+							CastHex = true;
+						}
+						
+						
+						if (menu_ItemsList.IsEnabled('item_nullifier') ) { 
 							let Nullifier = localHero.GetItem('item_nullifier', true);
 							if (Nullifier && CustomCanCast(Nullifier) && Ethereo) { 
 								Nullifier.CastTarget(comboTarget);
