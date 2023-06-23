@@ -294,6 +294,21 @@
 				if (Engine.OnceAt(0.2)) {
 
 					if (comboTarget && comboTarget.IsExist()) {
+						
+						let [linken, mirror] = [comboTarget.GetItem('item_sphere', true), comboTarget.GetItem('item_mirror_shield', false)];
+                        if (linken && linken.CanCast() || mirror && mirror.CanCast()) {
+                            let linkenBrokItems = menu_LinkensItems.GetValue();
+                            for (let brokObj of linkenBrokItems) {
+                                let vi = localHero.GetItem(brokObj, false);
+                                if (vi) {
+                                    if (vi.IsExist() && CustomCanCast(vi)) {
+                                        vi.CastTarget(comboTarget);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+						
 						const localHeroPosition = localHero.GetAbsOrigin();
 						const attackRange = localHero.GetAttackRange();
 						const enemyHeroPosition = comboTarget.GetAbsOrigin();
@@ -356,19 +371,7 @@
 							}
 						}
 						
-						let [linken, mirror] = [comboTarget.GetItem('item_sphere', true), comboTarget.GetItem('item_mirror_shield', false)];
-                        if (linken && linken.CanCast() || mirror && mirror.CanCast()) {
-                            let linkenBrokItems = menu_LinkensItems.GetValue();
-                            for (let brokObj of linkenBrokItems) {
-                                let vi = localHero.GetItem(brokObj, false);
-                                if (vi) {
-                                    if (vi.IsExist() && CustomCanCast(vi)) {
-                                        vi.CastTarget(comboTarget);
-                                        break;
-                                    }
-                                }
-                            }
-                        }
+
 						let CastVortex = false;
 						if (AghanimsScepter || AghanimsPavise) {
 
