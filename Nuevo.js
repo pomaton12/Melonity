@@ -319,9 +319,9 @@
 						let InmuneMagic = comboTarget.HasModifier("modifier_black_king_bar_immune"); 
 						let Hexxed = comboTarget.HasModifier("modifier_sheepstick_debuff"); 
 						let Silenced = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_SILENCED);
-						let Ethereo = localHero.HasState(Enum.ModifierState.MODIFIER_STATE_ATTACK_IMMUNE);
+						let Ethereo = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_ATTACK_IMMUNE);
 						
-						let UltimateSkyModifier = comboTarget.HasModifier("storm_spirit_ball_lightning"); 
+						let UltimateSkyModifier = localHero.HasModifier("storm_spirit_ball_lightning"); 
 						
 						// Nueva condición para activar BKB si el enemigo tiene activado Blade Mail
 						let BkBEnemiPrevention = localHero.GetHeroesInRadius(700, Enum.TeamType.TEAM_ENEMY);
