@@ -500,7 +500,7 @@
 						
 
 						if (menu_ItemsList.IsEnabled('item_bullwhip') ) { 
-							let Bullwhip = localHero.GetItem('item_bullwhip', true);
+							let Bullwhip = localHero.GetItem('item_bullwhip', false);
 							if (Bullwhip && CustomCanCast(Bullwhip) && !InmuneMagic && comboTarget.IsRunning()) { 
 								if (TargetInRadius(comboTarget, 850, localHero)) {
 									Bullwhip.CastTarget(comboTarget);
