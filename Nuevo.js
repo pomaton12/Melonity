@@ -571,7 +571,7 @@
 							}
                         }
 						
-						console.log("Vyce = ", SheepstickHexx);
+						//console.log("Vyce = ", SheepstickHexx);
 						if (SheepstickHexx === null) {
 							if (menu_AbilitiesList[1]) {
 								
