@@ -491,7 +491,6 @@
 							}
 						}
 
-						item_mjollnir
 						if (menu_ItemsList.IsEnabled('item_mjollnir') ) { 
 							let Mjollnir = localHero.GetItem('item_mjollnir', true);
 							if (Mjollnir && CustomCanCast(Mjollnir) && !InmuneMagic ) { 
