@@ -599,7 +599,7 @@
 								CastVortex = true;
 							}
 							
-						else
+						} else {
 							if (menu_AbilitiesList[1]) {
 								
 								if (CastHex && !Hexxed && electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && SheepstickHexx && !SheepstickHexx.CanCast() && !EnemiVortexPull && !Stunned && !InmuneMagic && !UltimateSkyModifier){
