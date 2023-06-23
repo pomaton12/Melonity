@@ -285,6 +285,7 @@
 				let electric_vortex = localHero.GetAbilityByIndex(1);
 				let overload = localHero.GetAbilityByIndex(2);
 				let Ultimate = localHero.GetAbilityByIndex(5);
+				let SheepstickHexx = localHero.GetItem('item_sheepstick', true);
 				
 				let target = GetNearHeroInRadius(Input.GetWorldCursorPos());
 
@@ -329,7 +330,7 @@
 						const enemyHeroPosition = comboTarget.GetAbsOrigin();
 						const dist = localHeroPosition.Distance(enemyHeroPosition)-58;
 						const dist2 = enemyHeroPosition.sub(localHeroPosition).Length()
-						
+												
 						let Modifier1 = localHero.HasModifier("modifier_storm_spirit_overload");
 						let Modifier2 = localHero.HasModifier("modifier_storm_spirit_electric_rave");
 						let AghanimsScepter = localHero.GetItem('item_ultimate_scepter', true);
@@ -573,7 +574,7 @@
 
 						if (menu_AbilitiesList[1]) {
 							
-							if (CastHex && !Hexxed && electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && !EnemiVortexPull && !Stunned && !InmuneMagic && !UltimateSkyModifier){
+							if (CastHex && !Hexxed && electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && SheepstickHexx && !SheepstickHexx.CanCast() && !EnemiVortexPull && !Stunned && !InmuneMagic && !UltimateSkyModifier){
 								
 								if (AghanimsScepter || AghanimsPavise) {
 									if (TargetInRadius(comboTarget, 470, localHero)) {
