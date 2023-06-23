@@ -375,9 +375,6 @@
 							let enemiesInVortexRange = localHero.GetHeroesInRadius(470, Enum.TeamType.TEAM_ENEMY);
 							if (enemiesInVortexRange.length > 2 && electric_vortex && electric_vortex.CanCast()) {
 								electric_vortex.CastNoTarget();
-								setTimeout(function() {
-								myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, comboTarget, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);																		
-								}, 50);
 								CastVortex = true;
 							}
 						}
@@ -439,9 +436,6 @@
                             if (static_remnant && static_remnant.IsExist() && static_remnant.CanCast() && !Modifier1) {
                                 if (TargetInRadius(comboTarget, 280, localHero)) {
                                     static_remnant.CastNoTarget();
-									setTimeout(function() {
-									myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, comboTarget, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);																		
-									}, 50);
                                 }
 							}
                         }
@@ -454,17 +448,11 @@
 									if (AghanimsScepter || AghanimsPavise) {
 										if (TargetInRadius(comboTarget, 470, localHero)) {
 											electric_vortex.CastNoTarget();
-											setTimeout(function() {
-											myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, comboTarget, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);																		
-											}, 50);
 											CastVortex = true;
 										}
 									}else {
 										if (TargetInRadius(comboTarget, 300, localHero)) {
 											electric_vortex.CastTarget(comboTarget);
-											setTimeout(function() {
-											myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, comboTarget, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);																		
-											}, 50);
 											CastVortex = true;
 										} else {
 											if (!comboTarget.IsRunning()) {
