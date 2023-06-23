@@ -321,7 +321,7 @@
 						let Silenced = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_SILENCED);
 						let Ethereo = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_ATTACK_IMMUNE);
 						
-						let UltimateSkyModifier = localHero.HasModifier("storm_spirit_ball_lightning"); 
+						let UltimateSkyModifier = localHero.HasModifier("modifier_storm_spirit_ball_lightning"); 
 						
 						// Nueva condición para activar BKB si el enemigo tiene activado Blade Mail
 						let BkBEnemiPrevention = localHero.GetHeroesInRadius(700, Enum.TeamType.TEAM_ENEMY);
