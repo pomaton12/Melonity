@@ -304,7 +304,7 @@
 					
 					if (comboTarget && comboTarget.HasModifier('modifier_item_blade_mail_reflect') && !MyModBkb) {
 						let bkbItemMy = localHero.GetItem('item_black_king_bar', true);
-						if(menu_ItemsList.IsEnabled('item_black_king_bar') && bkbItemMy && CustomCanCast(bkbItemMy)){
+						if(menu_ItemsList.IsEnabled('item_black_king_bar') && bkbItemMy && CustomCanCast(bkbItemMy) && TargetInRadius(comboTarget, 1000, localHero)){
 							bkbItemMy.CastNoTarget();
 						} else{
 							SendOrderMovePos(Input.GetWorldCursorPos(), localHero);
@@ -314,7 +314,7 @@
 					
 					if (comboTarget && comboTarget.HasModifier("modifier_item_lotus_orb_active") && !MyModBkb) {
 						let bkbItemMy = localHero.GetItem('item_black_king_bar', true);
-						if(menu_ItemsList.IsEnabled('item_black_king_bar') && bkbItemMy && CustomCanCast(bkbItemMy)){
+						if(menu_ItemsList.IsEnabled('item_black_king_bar') && bkbItemMy && CustomCanCast(bkbItemMy) && TargetInRadius(comboTarget, 1000, localHero)){
 							bkbItemMy.CastNoTarget();
 						} else{
 							myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, comboTarget, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);	
@@ -493,7 +493,7 @@
 							let Mjollnir = localHero.GetItem('item_mjollnir', true);
 							if (Mjollnir && CustomCanCast(Mjollnir) && !InmuneMagic ) { 
 								if (TargetInRadius(comboTarget, 500, localHero)) {
-									Mjollnir.CastTarget(comboTarget);
+									Mjollnir.CastTarget(localHero);
 								}
 							}
 						}						
@@ -573,7 +573,7 @@
 						}
 
 						
-						console.log("Hex ", Hexxed);
+						//console.log("Hex ", Hexxed);
 						
 						if (menu_AbilitiesList[2]) {
                             
