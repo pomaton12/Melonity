@@ -775,8 +775,9 @@
 					Renderer.DrawText(font, x, y + 10, "Costo de Maná: " + y, 1);
 					
 					Renderer.SetDrawColor(255, 255, 255, 255);
-					let img = Renderer.LoadImage("panorama/images/hud/icon_kill_png.vtex_c");
-					Renderer.DrawImage(img, x, y);
+					let imageHandle = Renderer.LoadImage("panorama/images/hud/icon_kill_png.vtex_c");
+					let imageSize = Renderer.GetImageSize(imageHandle);
+					Renderer.DrawImage(imageHandle, x, y, imageSize[0], imageSize[1]);
 					
 
 				}
