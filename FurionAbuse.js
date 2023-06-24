@@ -8,7 +8,7 @@
 /***/ (() => {
 
 	// Definición del objeto AutoSaverAlchemist
-	 let AutoSaverAlchemist = {};
+	const AutoSaverAlchemist = {};
 
 	// Declaración de la variable localHero
 	let localHero;
