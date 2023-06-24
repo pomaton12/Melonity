@@ -582,7 +582,7 @@
 									
 									if (AghanimsScepter || AghanimsPavise) {
 										if (TargetInRadius(comboTarget, 475, localHero)) {
-											let enemyHeroes = localHero.GetHeroesInRadius(650, Enum.TeamType.TEAM_ENEMY);
+											let enemyHeroes = comboTarget.GetHeroesInRadius(650, Enum.TeamType.TEAM_ENEMY);
 											let posbesttt = BestPosition(enemyHeroes, 475);
 											if(posbesttt){
 												Ultimate.CastPosition(posbesttt);
