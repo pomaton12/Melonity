@@ -82,25 +82,18 @@ AutoSaverAlchemist.OnUpdate = () => {
   }
 };
 
-AutoSaverAlchemist.OnScriptLoad = () => {
-  const localHero = EntitySystem.GetLocalHero();
-  if (localHero && localHero.GetUnitName() === "npc_dota_hero_alchemist") {
-    isUiEnabled.SetValue(true);
-  }
-};
+  // Definición de la función OnScriptLoad
+  AutoSaverAlchemist.OnScriptLoad = AutoSaverAlchemist.OnGameStart = () => {
+      localHero = EntitySystem.GetLocalHero();
+  };
 
-AutoSaverAlchemist.OnGameStart = () => {
-  isUiEnabled.SetValue(true);
-};
+  // Definición de la función OnGameEnd
+  AutoSaverAlchemist.OnGameEnd = () => {
+      localHero = null;
+  };
 
-AutoSaverAlchemist.OnGameEnd = () => {
-  isUiEnabled.SetValue(false);
-  panelX = Math.floor(Renderer.GetScreenSize()[0] / 2) - Math.floor(PANEL_WIDTH / 2);
-  panelY = Math.floor(Renderer.GetScreenSize()[1] / 2) - Math.floor(PANEL_HEIGHT / 2);
-  isDragging = false;
-};
-
-RegisterScript(AutoSaverAlchemist);
+  // Registro del script
+  RegisterScript(AutoSaverAlchemist);
 
 /***/ })
 
