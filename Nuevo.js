@@ -51,8 +51,10 @@
 
 	let OrbUiEnabled = Menu.AddToggle(path_, 'OrbWalk Combo', true);
 	
-	//let myOption = Menu.AddLabel(path_Ulti, 'Ulti Combo Settings');
 	let BestUltiEnable = Menu.AddToggle(path_Ulti, 'Enable', false);
+	
+	//let myOption = Menu.AddLabel(path_Ulti, 'Ulti Combo Settings');
+	let BestPostCastUI = Menu.AddKeyBind(path_, 'Best Post Ulti', Enum.ButtonCode.KEY_NONE).SetImage('panorama/images/spellicons/storm_spirit_electric_vortex_png.vtex_c');;
 
 	
 	let SafeManaUI = Menu.AddSlider(path_Ulti, 'Save Mana', 1, 500, 300)
@@ -711,6 +713,19 @@
 				
 			}
 			
+			if (BestPostCastUI.IsKeyDown()) {
+				let UltiAbil = localHero.GetAbilityByIndex(5);
+				let VortexAbil = localHero.GetAbilityByIndex(1);
+
+				let RP_radius = 450;
+				let blink_radius = 2500;
+				let enemyHeroes = localHero.GetHeroesInRadius(blink_radius, Enum.TeamType.TEAM_ENEMY);
+				let pos = BestPosition(enemyHeroes, RP_radius);
+				if(pos){
+					UltiAbil.CastPosition(pos) ;
+				}
+			}
+			
 		}
 	};
 	
@@ -797,6 +812,37 @@
 			return 0;
 		}
 		return Math.max(mod.GetDieTime() - GameRules.GetGameTime(), 0);
+	}
+	// radius Rdio de Casteo
+	function BestPosition(EnemiInRadius, radius) {
+		if (!EnemiInRadius || EnemiInRadius.length <= 0) return null;
+		let enemyNum = EnemiInRadius.length;
+
+		if (enemyNum == 1) return EnemiInRadius[0].GetAbsOrigin();
+
+		let maxNum = 1;
+		let bestPos = EnemiInRadius[0].GetAbsOrigin();
+		for (let i = 0; i < enemyNum - 1; i++) {
+			for (let j = i + 1; j < enemyNum; j++) {
+				let pos1 = EnemiInRadius[i].GetAbsOrigin();
+				let pos2 = EnemiInRadius[j].GetAbsOrigin();
+				let mid = pos1.__add(pos2).__mul(0.5);
+
+				let heroesNum = 0;
+				for (let k = 0; k < enemyNum; k++) {
+					if (NPC.IsPositionInRange(EnemiInRadius[k], mid, radius, 0)) {
+						heroesNum++;
+					}
+				}
+
+				if (heroesNum > maxNum) {
+					maxNum = heroesNum;
+					bestPos = mid;
+				}
+			}
+		}
+
+		return bestPos;
 	}
 
 	StornSpiritAbuse.OnScriptLoad = StornSpiritAbuse.OnGameStart = () => {
