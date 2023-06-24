@@ -29,10 +29,10 @@ AutoSaverAlchemist.OnUpdate = () => {
   if (!localHero || localHero.GetUnitName() !== "npc_dota_hero_alchemist") {
     return;
   }
-
+	const mouseP = Input.GetWorldCursorPos();
   const mousePos = Input.GetCursorPos();
   const heroPos = localHero.GetAbsOrigin();
-  const distance = heroPos.Distance(mousePos);
+  const distance = heroPos.Distance(mouseP);
 
   const manaCost = Math.floor(25 + (0.075 * localHero.GetMaxMana()) + (0.01 * localHero.GetMaxMana() * Math.floor(distance / 100)));
   const damage = 100;
