@@ -30,7 +30,7 @@ AutoSaverAlchemist.OnUpdate = () => {
     return;
   }
 
-  const mousePos = Input.ScreenXY();
+  const mousePos = Input.GetCursorPos();
   const heroPos = localHero.GetAbsOrigin();
   const distance = heroPos.Distance(mousePos);
 
@@ -60,7 +60,7 @@ AutoSaverAlchemist.OnUpdate = () => {
 AutoSaverAlchemist.OnMousePress = (key) => {
   if (key === Enum.ButtonCode.MOUSE_RIGHT && Input.IsCursorInRect(panelX, panelY, PANEL_WIDTH, PANEL_HEIGHT)) {
     isDragging = true;
-    const mousePos = Input.ScreenXY();
+    const mousePos = Input.GetCursorPos();
     dragOffsetX = mousePos[0] - panelX;
     dragOffsetY = mousePos[1] - panelY;
   }
@@ -74,7 +74,7 @@ AutoSaverAlchemist.OnMouseRelease = (key) => {
 
 AutoSaverAlchemist.OnMouseMove = () => {
   if (isDragging) {
-    const mousePos = Input.ScreenXY();
+    const mousePos = Input.GetCursorPos();
     panelX = mousePos[0] - dragOffsetX;
     panelY = mousePos[1] - dragOffsetY;
     panelX = Math.max(panelX, 0);
