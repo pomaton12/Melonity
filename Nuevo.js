@@ -782,7 +782,7 @@
 					
 					Renderer.SetDrawColor(255, 255, 255, 255);
 					Renderer.DrawText(font, x, y, "Daño: " + x, 1);
-					Renderer.DrawText(font, x+20, y + 10,damage, 1);
+					Renderer.DrawText(font, x+20, y + 10,""+damage, 1);
 					
 					Renderer.SetDrawColor(255, 255, 255, 255);
 					let imageHandle = Renderer.LoadImage("panorama/images/hud/icon_kill_png.vtex_c");
