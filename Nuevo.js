@@ -429,7 +429,7 @@
 						if (AghanimsScepter || AghanimsPavise) {
 
 							let enemiesInVortexRange = localHero.GetHeroesInRadius(470, Enum.TeamType.TEAM_ENEMY);
-							if (enemiesInVortexRange.length > 2 && electric_vortex && electric_vortex.CanCast() && !UltimateSkyModifier) {
+							if (enemiesInVortexRange.length > 1 && electric_vortex && electric_vortex.CanCast() && !UltimateSkyModifier) {
 								electric_vortex.CastNoTarget();
 								CastVortex = true;
 							}
@@ -584,11 +584,15 @@
 										if (TargetInRadius(comboTarget, 475, localHero)) {
 											let enemyHeroes = comboTarget.GetHeroesInRadius(650, Enum.TeamType.TEAM_ENEMY);
 											let posbesttt = BestPosition(enemyHeroes, 475);
-											if(posbesttt){
+											if(posbesttt && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && localHero.GetMana() > 500 && enemyHeroes.length > 1 ){
 												Ultimate.CastPosition(posbesttt);
+												//electric_vortex.CastNoTarget();
+												//CastVortex = true;												
+											}else{
 												electric_vortex.CastNoTarget();
-												CastVortex = true;												
+												CastVortex = true;	
 											}
+											
 										}else {
 											if (!comboTarget.IsRunning()) {
 												SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
@@ -621,10 +625,13 @@
 										if (TargetInRadius(comboTarget, 475, localHero)) {
 											let enemyHeroes = localHero.GetHeroesInRadius(650, Enum.TeamType.TEAM_ENEMY);
 											let posbesttt = BestPosition(enemyHeroes, 475);
-											if(posbesttt){
+											if(posbesttt && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && localHero.GetMana() > 500 && enemyHeroes.length > 1 ){
 												Ultimate.CastPosition(posbesttt);
+												//electric_vortex.CastNoTarget();
+												//CastVortex = true;												
+											}else{
 												electric_vortex.CastNoTarget();
-												CastVortex = true;												
+												CastVortex = true;	
 											}
 											
 										} else {
@@ -678,7 +685,7 @@
 
 									if (comboTarget.IsAttacking() || EnemiPrevention.length >= 3) {
 										// Calcula una nueva posición detrás del enemigo	
-										if (GameRules.GetGameTime() - lastUltimateTime >= 2) {
+										if (GameRules.GetGameTime() - lastUltimateTime >= 2.5) {
 											let IdealPosition = localHeroPosition.add(Idealdirection.mul(new Vector(DistanceCastUI, DistanceCastUI, 0)));
 											myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,IdealPosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 											lastUltimateTime = GameRules.GetGameTime();
