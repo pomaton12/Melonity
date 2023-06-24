@@ -768,11 +768,15 @@
 				const [x, y, visible] = Renderer.WorldToScreen(mousePos);
 				if (visible) {
 					Renderer.SetDrawColor(0, 0, 0, 150);  
-					Renderer.DrawFilledRect(x, y, 65, 25, 5);
+					Renderer.DrawFilledRect(x, y, 65, 28, 5);
 					
-					Renderer.SetDrawColor(0, 0, 0, 255);
-					Renderer.DrawTextOutlined(font, x, y, "Daño: " + x, 1);
-					Renderer.DrawTextOutlined(font, x, y + 10, "Costo de Maná: " + y, 1);
+					Renderer.SetDrawColor(255, 255, 255, 255);
+					Renderer.DrawText(font, x, y, "Daño: " + x, 1);
+					Renderer.DrawText(font, x, y + 10, "Costo de Maná: " + y, 1);
+					
+					Renderer.SetDrawColor(255, 255, 255, 255).
+					let img = Renderer.LoadImage("panorama/images/hud/icon_kill_png.vtex_c");
+					Renderer.DrawImage(img, x, y);
 					
 
 				}
