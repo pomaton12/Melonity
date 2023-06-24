@@ -26,7 +26,7 @@ AutoSaverAlchemist.OnUpdate = () => {
     if (localHero && isUiEnabled.GetValue()) {
 		if (localHero.GetUnitName() !== "npc_dota_hero_alchemist")
 			return;
-		
+		console.log("Hola mundo");
         // Obtener la posición del mouse
         const mousePos = Input.GetWorldCursorPos();
         const heroPos = localHero.GetAbsOrigin();
