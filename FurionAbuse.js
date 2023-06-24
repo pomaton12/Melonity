@@ -67,8 +67,8 @@ AutoSaverAlchemist.OnUpdate = () => {
   Renderer.DrawFilledRect(panelX + 6, panelY + 4, PANEL_WIDTH - 12, 8, 4);
 
   Renderer.SetDrawColor(255, 255, 255, 255);
-	DrawTextWithOutline(font, x, y, "" + manaCost, [53, 153, 220, 255], [0, 0, 0, 255], 1);
-  DrawTextWithOutline(font, x + 5, y + 12, "" + damage, [255, 255, 255, 255], [0, 0, 0, 255], 1);
+	//DrawTextWithOutline(font, x, y, "" + manaCost, [53, 153, 220, 255], [0, 0, 0, 255], 1);
+  //DrawTextWithOutline(font, x + 5, y + 12, "" + damage, [255, 255, 255, 255], [0, 0, 0, 255], 1);
 
   let imageHandle = Renderer.LoadImage("panorama/images/hud/icon_kill_png.vtex_c");
   Renderer.DrawImage(imageHandle, panelX + 7, panelY + 14, 12, 12);
