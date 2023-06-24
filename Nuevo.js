@@ -763,7 +763,7 @@
 
 				// Calcular el daño por distancia recorrida
 				const damage = Math.floor((8 + (4 * localHero.GetAbilityByIndex(5).GetLevel())) * Math.floor(distance / 100));
-				const font = Renderer.LoadFont("Tahoma", 9, Enum.FontWeight.EXTRABOLD);
+				const font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
 				// Mostrar los resultados en la pantalla
 				
 				let Ledsize = Renderer.GetScreenSize();
@@ -775,18 +775,18 @@
 					Renderer.DrawFilledRect(x, y, 65, 28, 4);
 
 					Renderer.SetDrawColor(0, 0, 0, 255);  
-					Renderer.DrawFilledRect(x+5, y+3, 65-5, 12, 4);					
+					Renderer.DrawFilledRect(x+5, y+3, 65-10, 9, 4);					
 					
 					Renderer.SetDrawColor(0, 137, 255, 255);  
-					Renderer.DrawFilledRect(x+6, y+4, 65-6, 11, 4);
+					Renderer.DrawFilledRect(x+6, y+4, 65-11, 8, 4);
 					
 					Renderer.SetDrawColor(255, 255, 255, 255);
-					Renderer.DrawText(font, x, y, ""+manaCost, 1);
-					Renderer.DrawText(font, x+20, y + 20,""+damage, 1);
+					Renderer.DrawText(font, x+30, y+4, ""+manaCost, 1);
+					Renderer.DrawText(font, x+40, y + 15,""+damage, 1);
 					
 					Renderer.SetDrawColor(255, 255, 255, 255);
 					let imageHandle = Renderer.LoadImage("panorama/images/hud/icon_kill_png.vtex_c");
-					Renderer.DrawImage(imageHandle, x+5, y+10, 18, 18);
+					Renderer.DrawImage(imageHandle, x+5, y+10, 12, 12);
 					
 
 				//}
