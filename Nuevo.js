@@ -830,7 +830,7 @@
 
 				let heroesNum = 0;
 				for (let k = 0; k < enemyNum; k++) {
-					if (NPC.IsPositionInRange(EnemiInRadius[k], mid, radius, 0)) {
+					if (EnemiInRadius[k].IsPositionInRange( mid, radius, 0)) {
 						heroesNum++;
 					}
 				}
