@@ -581,10 +581,16 @@
 								if (CastHex && !Hexxed && electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && !EnemiVortexPull && !Stunned && !InmuneMagic && !UltimateSkyModifier){
 									
 									if (AghanimsScepter || AghanimsPavise) {
-										if (TargetInRadius(comboTarget, 470, localHero)) {
+										if (TargetInRadius(comboTarget, 475, localHero)) {
+											
 											electric_vortex.CastNoTarget();
 											CastVortex = true;
+										}else {
+											if (!comboTarget.IsRunning()) {
+												SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
+											}
 										}
+											
 									}else {
 										if (TargetInRadius(comboTarget, 300, localHero)) {
 											electric_vortex.CastTarget(comboTarget);
@@ -609,9 +615,20 @@
 									
 									if (AghanimsScepter || AghanimsPavise) {
 										if (TargetInRadius(comboTarget, 470, localHero)) {
-											electric_vortex.CastNoTarget();
-											CastVortex = true;
-										}
+											let enemyHeroes = localHero.GetHeroesInRadius(600, Enum.TeamType.TEAM_ENEMY);
+											let posbesttt = BestPosition(enemyHeroes, 470);
+											if(posbesttt){
+												UltiAbil.CastPosition(posbesttt);
+												electric_vortex.CastNoTarget();
+												CastVortex = true;												
+											}
+											
+										} else {
+											if (!comboTarget.IsRunning()) {
+												SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
+											}
+										}										
+										
 									}else {
 										if (TargetInRadius(comboTarget, 300, localHero)) {
 											electric_vortex.CastTarget(comboTarget);
