@@ -35,7 +35,7 @@ AutoSaverAlchemist.OnUpdate = () => {
   if (localHero && isUiEnabled.GetValue()) {
     if (localHero.GetUnitName() !== "npc_dota_hero_alchemist")
       return;
-    console.log("Hola mundo");
+
     // Obtener la posición del mouse
     const mousePos = Input.GetWorldCursorPos();
     const heroPos = localHero.GetAbsOrigin();
@@ -48,7 +48,7 @@ AutoSaverAlchemist.OnUpdate = () => {
     //const damage = Math.floor((8 + (4 * localHero.GetAbilityByIndex(5).GetLevel())) * Math.floor(distance / 100));
     const damage = 100;
     const font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
-
+	const [x, y, visible] = Renderer.WorldToScreen(mousePos);
     // Dibujar el panel
     Renderer.SetDrawColor(0, 0, 0, 150);  
     Renderer.DrawFilledRect(panelX, panelY, panelWidth, panelHeight, 4);
@@ -71,11 +71,11 @@ AutoSaverAlchemist.OnUpdate = () => {
     if (Input.IsKeyDown(Enum.ButtonCode.KEY_LCONTROL) && Input.IsKeyDown(Enum.ButtonCode.MOUSE_LEFT) && Input.IsCursorInRect(panelX, panelY, panelWidth, panelHeight)) {
       if (!isDragging) {
         isDragging = true;
-        dragOffsetX = mousePos[0] - panelX;
-        dragOffsetY = mousePos[1] - panelY;
+        dragOffsetX = x- panelX;
+        dragOffsetY = y - panelY;
       } else {
-        panelX = mousePos[0] - dragOffsetX;
-        panelY = mousePos[1] - dragOffsetY;
+        panelX = x - dragOffsetX;
+        panelY = y - dragOffsetY;
       }
     } else {
       isDragging = false;
