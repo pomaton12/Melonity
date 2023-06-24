@@ -765,23 +765,12 @@
 				const damage = (8 + (4 * localHero.GetAbilityByIndex(5).GetLevel())) * Math.floor(distance / 100);
 
 				// Mostrar los resultados en la pantalla
-				const panel = $.CreatePanel("Panel", $.GetContextPanel(), "");
-				panel.style.opacity = "0.8";
-				panel.style.width = "200px";
-				panel.style.height = "50px";
-				panel.style.background = "#000";
-				panel.style.color = "#FFF";
-				panel.style.fontSize = "20px";
-				panel.style.padding = "10px";
-				panel.style.position = "25% 25% 0";
-				panel.style.zIndex = "9999";
-				panel.style.overflow = "scroll";
-				GameUI.CustomUIConfig().SetPanelEvent(panel, "onactivate", function() {
-				  panel.DeleteAsync(0);
-				});
-				$.Msg("Distance: " + Math.floor(distance));
-				$.Msg("Mana Cost: " + manaCost);
-				$.Msg("Damage: " + damage);
+				const [x, y, visible] = Renderer.WorldToScreen(mousePos);
+				if (visible) {
+					Renderer.SetDrawColor(255, 255, 255, 255);
+					Renderer.DrawText(Morphling.font, x, y, "Daño: " + damage, 1);
+					Renderer.DrawText(Morphling.font, x, y + 20, "Costo de Maná: " + manaCost, 1);
+				}
 
 			}
 			
