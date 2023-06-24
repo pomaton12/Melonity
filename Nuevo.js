@@ -775,18 +775,18 @@
 					Renderer.DrawFilledRect(x, y, 65, 28, 4);
 
 					Renderer.SetDrawColor(0, 0, 0, 255);  
-					Renderer.DrawFilledRect(x+5, y+3, 65-10, 9, 4);					
+					Renderer.DrawFilledRect(x+5, y+3, 65-11, 9, 4);					
 					
-					Renderer.SetDrawColor(0, 137, 255, 255);  
-					Renderer.DrawFilledRect(x+6, y+4, 65-11, 8, 4);
+					Renderer.SetDrawColor(53, 153, 220, 255);  
+					Renderer.DrawFilledRect(x+6, y+4, 65-12, 8, 4);
 					
 					Renderer.SetDrawColor(255, 255, 255, 255);
-					Renderer.DrawText(font, x+30, y+4, ""+manaCost, 1);
-					Renderer.DrawText(font, x+40, y + 15,""+damage, 1);
+					Renderer.DrawText(font, x+25, y+4, ""+manaCost, 1);
+					Renderer.DrawText(font, x+30, y + 16,""+damage, 1);
 					
 					Renderer.SetDrawColor(255, 255, 255, 255);
 					let imageHandle = Renderer.LoadImage("panorama/images/hud/icon_kill_png.vtex_c");
-					Renderer.DrawImage(imageHandle, x+5, y+10, 12, 12);
+					Renderer.DrawImage(imageHandle, x+7, y+14, 12, 12);
 					
 
 				//}
