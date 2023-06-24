@@ -10,14 +10,14 @@
 	// Definición del objeto AutoSaverAlchemist
 	const AutoSaverAlchemist = {};
 	
-	let isDragging = false;
-	let dragOffsetX = 0;
-	let dragOffsetY = 0;
+let isDragging = false;
+let dragOffsetX = 0;
+let dragOffsetY = 0;
 
-	const panelWidth = 65;
-	const panelHeight = 28;
-	let panelX = 0;
-	let panelY = 0;
+const panelWidth = 65;
+const panelHeight = 28;
+let panelX = Math.floor(Renderer.GetScreenSize()[0] / 2) - Math.floor(panelWidth / 2);
+let panelY = Math.floor(Renderer.GetScreenSize()[1] / 2) - Math.floor(panelHeight / 2);
 
 	// Declaración de la variable localHero
 	let localHero;
@@ -77,6 +77,8 @@ AutoSaverAlchemist.OnUpdate = () => {
         panelX = mousePos[0] - dragOffsetX;
         panelY = mousePos[1] - dragOffsetY;
       }
+    } else if (!isDragging && Input.IsKeyDown(Enum.ButtonCode.MOUSE_LEFT) && Input.IsKeyDown(Enum.ButtonCode.KEY_LCONTROL)) {
+      // No hacer nada si se hace clic en el panel mientras se mantiene presionada la tecla Control
     } else {
       isDragging = false;
     }
