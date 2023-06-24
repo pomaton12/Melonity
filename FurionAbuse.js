@@ -57,7 +57,7 @@ AutoSaverAlchemist.OnUpdate = () => {
   Renderer.DrawImage(imageHandle, panelX + 7, panelY + 14, 12, 12);
 
   // Detectar si se mantiene presionada la tecla Control
-  if (Input.IsKeyDownEnum(Enum.ButtonCode.KEY_LCONTROL) || Input.IsKeyDownEnum(Enum.ButtonCode.KEY_RCONTROL)) {
+  if (Input.IsKeyDown(Enum.ButtonCode.KEY_LCONTROL) ) {
     if (Input.IsKeyDown(Enum.ButtonCode.MOUSE_LEFT) && Input.IsCursorInRect(panelX, panelY, PANEL_WIDTH, PANEL_HEIGHT)) {
       isDragging = true;
       const mousePos = Input.GetCursorPos();
