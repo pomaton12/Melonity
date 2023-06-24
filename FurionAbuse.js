@@ -57,7 +57,7 @@
 			Renderer.DrawFilledRect(x+6, y+4, 65-12, 8, 4);
 
 			Renderer.SetDrawColor(255, 255, 255, 255);
-			Renderer.DrawText(font,+25, y+4, ""+manaCost, 1);
+			Renderer.DrawText(font,x+25, y+4, ""+manaCost, 1);
 			Renderer.DrawText(font, x+30, y + 16,""+damage, 1);
 
 			Renderer.SetDrawColor(255, 255, 255, 255);
