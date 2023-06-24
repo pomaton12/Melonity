@@ -759,10 +759,10 @@
 				const distance = heroPos.Distance(mousePos);
 
 				// Calcular el costo de maná por distancia recorrida
-				const manaCost = 25 + (0.075 * localHero.GetMaxMana()) + (0.01 * localHero.GetMaxMana() * Math.floor(distance / 100));
+				const manaCost =  Math.floor(25 + (0.075 * localHero.GetMaxMana()) + (0.01 * localHero.GetMaxMana() * Math.floor(distance / 100)));
 
 				// Calcular el daño por distancia recorrida
-				const damage = (8 + (4 * localHero.GetAbilityByIndex(5).GetLevel())) * Math.floor(distance / 100);
+				const damage = Math.floor(8 + (4 * localHero.GetAbilityByIndex(5).GetLevel())) * Math.floor(distance / 100));
 				const font = Renderer.LoadFont("Tahoma", 8, Enum.FontWeight.EXTRABOLD);
 				// Mostrar los resultados en la pantalla
 				
@@ -782,7 +782,7 @@
 					
 					Renderer.SetDrawColor(255, 255, 255, 255);
 					Renderer.DrawText(font, x, y, "Daño: " + x, 1);
-					Renderer.DrawText(font, x, y + 10, "Costo de Maná: " + y, 1);
+					Renderer.DrawText(font, x+20, y + 10,damage, 1);
 					
 					Renderer.SetDrawColor(255, 255, 255, 255);
 					let imageHandle = Renderer.LoadImage("panorama/images/hud/icon_kill_png.vtex_c");
