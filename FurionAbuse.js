@@ -21,21 +21,7 @@ const path_ = ['Heroes', 'Strength', 'Alchemist'];
 let isUiEnabled = Menu.AddToggle(path_, 'Prueba Panel', true);
 
 
-function DrawTextWithOutline(font: Renderer.Font, x: number, y: number, text: string, color: Renderer.RGBA, outlineColor: Renderer.RGBA, outlineSize: number) {
-  // Dibujar el borde
-  for (let offsetX = -outlineSize; offsetX <= outlineSize; offsetX++) {
-    for (let offsetY = -outlineSize; offsetY <= outlineSize; offsetY++) {
-      if (offsetX !== 0 || offsetY !== 0) {
-        Renderer.SetDrawColor(outlineColor[0], outlineColor[1], outlineColor[2], outlineColor[3]);
-        Renderer.DrawText(font, x + offsetX, y + offsetY, text, 1);
-      }
-    }
-  }
 
-  // Dibujar el texto
-  Renderer.SetDrawColor(color[0], color[1], color[2], color[3]);
-  Renderer.DrawText(font, x, y, text, 1);
-}
 
 AutoSaverAlchemist.OnUpdate = () => {
   if (!isUiEnabled.GetValue()) {
@@ -67,8 +53,8 @@ AutoSaverAlchemist.OnUpdate = () => {
   Renderer.DrawFilledRect(panelX + 6, panelY + 4, PANEL_WIDTH - 12, 8, 4);
 
   Renderer.SetDrawColor(255, 255, 255, 255);
-	//DrawTextWithOutline(font, x, y, "" + manaCost, [53, 153, 220, 255], [0, 0, 0, 255], 1);
-  //DrawTextWithOutline(font, x + 5, y + 12, "" + damage, [255, 255, 255, 255], [0, 0, 0, 255], 1);
+  Renderer.DrawText(font, x, y, "" + manaCost, 1);
+  Renderer.DrawText(font, x + 5, y + 12, "" + damage, 1);
 
   let imageHandle = Renderer.LoadImage("panorama/images/hud/icon_kill_png.vtex_c");
   Renderer.DrawImage(imageHandle, panelX + 7, panelY + 14, 12, 12);
