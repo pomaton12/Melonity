@@ -15,27 +15,18 @@ let localHero;
 let variable1 = 0;
 
 // Definición del array path_
-const path_ = ['Heroes', 'Strength', 'Alchemist', 'Evader'];
+const path_ = ['Heroes', 'Strength', 'Alchemist'];
 
 // Creación del toggle isUiEnabled
-let isUiEnabled = Menu.AddToggle(path_, 'Evader conconcoction', true)
-    .OnChange(state => {
-        isUiEnabled = state.newValue;
-    })
-    .SetNameLocale('ru', 'Автододж бутылки')
-    .GetValue();
+let isUiEnabled = Menu.AddToggle(path_, 'Prueba Panel', true);
 
-// Creación del multiselect itemSelection
-let itemSelection = Menu.AddMultiSelect(path_, 'Item selection', ['panorama/images/items/black_king_bar_png.vtex_c', 'panorama/images/items/manta_png.vtex_c'], [true, true])
-    .OnChange((state) => {
-        itemSelection = state.newValue;
-    })
-    .SetNameLocale('ru', 'Выбор предмета')
-    .GetValue();
 
 // Definición de la función OnUpdate
 AutoSaverAlchemist.OnUpdate = () => {
-    if (localHero && isUiEnabled) {
+    if (localHero && isUiEnabled.GetValue()) {
+		if (localHero.GetUnitName() !== "npc_dota_hero_alchemist")
+			return;
+		
         // Obtener la posición del mouse
         const mousePos = Input.GetWorldCursorPos();
         const heroPos = localHero.GetAbsOrigin();
