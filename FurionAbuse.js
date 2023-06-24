@@ -43,7 +43,7 @@ AutoSaverAlchemist.OnUpdate = () => {
   const damage = 100;
   
   const valorPix  = Math.floor((manaActual * 53) / manaMax);
-
+	console.log(valorPix);
   const font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
   const [x, y] = [panelX + 25, panelY + 4];
 
