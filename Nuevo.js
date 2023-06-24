@@ -763,12 +763,12 @@
 
 				// Calcular el daño por distancia recorrida
 				const damage = (8 + (4 * localHero.GetAbilityByIndex(5).GetLevel())) * Math.floor(distance / 100);
-				const font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
+				const font = Renderer.LoadFont("Tahoma", 8, Enum.FontWeight.EXTRABOLD);
 				// Mostrar los resultados en la pantalla
 				const [x, y, visible] = Renderer.WorldToScreen(mousePos);
 				if (visible) {
-					Renderer.SetDrawColor(255, 0, 0, 255);  
-					Renderer.DrawFilledRect(x, y, 100, 40, 20);
+					Renderer.SetDrawColor(0, 0, 0, 80);  
+					Renderer.DrawFilledRect(x, y, 60, 20, 2);
 					
 					Renderer.SetDrawColor(255, 255, 255, 255);
 					Renderer.DrawText(font, x, y, "Daño: " + x, 1);
