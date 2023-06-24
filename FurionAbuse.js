@@ -55,24 +55,19 @@ AutoSaverAlchemist.OnUpdate = () => {
 
   let imageHandle = Renderer.LoadImage("panorama/images/hud/icon_kill_png.vtex_c");
   Renderer.DrawImage(imageHandle, panelX + 7, panelY + 14, 12, 12);
-};
 
-AutoSaverAlchemist.OnMousePress = (key) => {
-  if (key === Enum.ButtonCode.MOUSE_RIGHT && Input.IsCursorInRect(panelX, panelY, PANEL_WIDTH, PANEL_HEIGHT)) {
-    isDragging = true;
-    const mousePos = Input.GetCursorPos();
-    dragOffsetX = mousePos[0] - panelX;
-    dragOffsetY = mousePos[1] - panelY;
-  }
-};
-
-AutoSaverAlchemist.OnMouseRelease = (key) => {
-  if (key === Enum.ButtonCode.MOUSE_RIGHT) {
+  // Detectar si se mantiene presionada la tecla Control
+  if (Input.IsKeyDownEnum(Enum.ButtonCode.KEY_LCONTROL) || Input.IsKeyDownEnum(Enum.ButtonCode.KEY_RCONTROL)) {
+    if (Input.IsKeyDown(Enum.ButtonCode.MOUSE_LEFT) && Input.IsCursorInRect(panelX, panelY, PANEL_WIDTH, PANEL_HEIGHT)) {
+      isDragging = true;
+      const mousePos = Input.GetCursorPos();
+      dragOffsetX = mousePos[0] - panelX;
+      dragOffsetY = mousePos[1] - panelY;
+    }
+  } else {
     isDragging = false;
   }
-};
 
-AutoSaverAlchemist.OnMouseMove = () => {
   if (isDragging) {
     const mousePos = Input.GetCursorPos();
     panelX = mousePos[0] - dragOffsetX;
