@@ -77,8 +77,6 @@ AutoSaverAlchemist.OnUpdate = () => {
         panelX = mousePos[0] - dragOffsetX;
         panelY = mousePos[1] - dragOffsetY;
       }
-    } else if (!isDragging && Input.IsKeyDown(Enum.ButtonCode.MOUSE_LEFT) && Input.IsKeyDown(Enum.ButtonCode.KEY_LCONTROL)) {
-      // No hacer nada si se hace clic en el panel mientras se mantiene presionada la tecla Control
     } else {
       isDragging = false;
     }
