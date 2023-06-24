@@ -582,9 +582,13 @@
 									
 									if (AghanimsScepter || AghanimsPavise) {
 										if (TargetInRadius(comboTarget, 475, localHero)) {
-											
-											electric_vortex.CastNoTarget();
-											CastVortex = true;
+											let enemyHeroes = localHero.GetHeroesInRadius(650, Enum.TeamType.TEAM_ENEMY);
+											let posbesttt = BestPosition(enemyHeroes, 475);
+											if(posbesttt){
+												Ultimate.CastPosition(posbesttt);
+												electric_vortex.CastNoTarget();
+												CastVortex = true;												
+											}
 										}else {
 											if (!comboTarget.IsRunning()) {
 												SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
@@ -614,11 +618,11 @@
 								if (CastHex && !Hexxed && electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && SheepstickHexx && !SheepstickHexx.CanCast() && !EnemiVortexPull && !Stunned && !InmuneMagic && !UltimateSkyModifier){
 									
 									if (AghanimsScepter || AghanimsPavise) {
-										if (TargetInRadius(comboTarget, 470, localHero)) {
-											let enemyHeroes = localHero.GetHeroesInRadius(600, Enum.TeamType.TEAM_ENEMY);
-											let posbesttt = BestPosition(enemyHeroes, 470);
+										if (TargetInRadius(comboTarget, 475, localHero)) {
+											let enemyHeroes = localHero.GetHeroesInRadius(650, Enum.TeamType.TEAM_ENEMY);
+											let posbesttt = BestPosition(enemyHeroes, 475);
 											if(posbesttt){
-												UltiAbil.CastPosition(posbesttt);
+												Ultimate.CastPosition(posbesttt);
 												electric_vortex.CastNoTarget();
 												CastVortex = true;												
 											}
