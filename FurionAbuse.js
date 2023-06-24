@@ -38,7 +38,11 @@ AutoSaverAlchemist.OnUpdate = () => {
   const distance = heroPos.Distance(mouseP);
 
   const manaCost = Math.floor(25 + (0.075 * localHero.GetMaxMana()) + (0.01 * localHero.GetMaxMana() * Math.floor(distance / 100)));
+  const manaMax = localHero.GetMaxMana();
+  const manaActual = localHero.GetMana()- manaCost;
   const damage = 100;
+  
+  const valorPix  = Math.floor((manaActual * 53) / manaMax);
 
   const font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
   const [x, y] = [panelX + 25, panelY + 4];
@@ -50,7 +54,7 @@ AutoSaverAlchemist.OnUpdate = () => {
   Renderer.DrawFilledRect(panelX + 5, panelY + 3, PANEL_WIDTH - 11, 9, 4);
 
   Renderer.SetDrawColor(53, 153, 220, 255);
-  Renderer.DrawFilledRect(panelX + 6, panelY + 4, PANEL_WIDTH - 12, 8, 4);
+  Renderer.DrawFilledRect(panelX + 6, panelY + 4,panelX + 6 +valorPix, 8, 4);
 
   Renderer.SetDrawColor(255, 255, 255, 255);
   Renderer.DrawText(font, x, y, "" + manaCost, 1);
