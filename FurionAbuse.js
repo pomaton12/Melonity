@@ -67,26 +67,18 @@ AutoSaverAlchemist.OnUpdate = () => {
     let imageHandle = Renderer.LoadImage("panorama/images/hud/icon_kill_png.vtex_c");
     Renderer.DrawImage(imageHandle, panelX + 7, panelY + 14, 12, 12);
 
-    // Agregar evento de clic al panel
-    if (Input.IsKeyDown(Enum.ButtonCode.KEY_LCONTROL) && Input.IsCursorInRect(panelX, panelY, panelWidth, panelHeight)) {
-      if (!isDragging && Input.IsKeyDown(Enum.ButtonCode.MOUSE_LEFT)) {
+    // Agregar evento de clic y arrastre al panel
+    if (Input.IsKeyDown(Enum.ButtonCode.KEY_LCONTROL) && Input.IsKeyDown(Enum.ButtonCode.MOUSE_LEFT) && Input.IsCursorInRect(panelX, panelY, panelWidth, panelHeight)) {
+      if (!isDragging) {
         isDragging = true;
         dragOffsetX = mousePos[0] - panelX;
         dragOffsetY = mousePos[1] - panelY;
+      } else {
+        panelX = mousePos[0] - dragOffsetX;
+        panelY = mousePos[1] - dragOffsetY;
       }
     } else {
       isDragging = false;
-      if (Input.IsKeyDown(Enum.ButtonCode.MOUSE_LEFT)) {
-        // Si el panel no está siendo arrastrado, el evento de clic lo ocultará
-        Renderer.SetDrawColor(0, 0, 0, 0);
-        Renderer.DrawFilledRect(panelX, panelY, panelWidth, panelHeight, 4);
-      }
-    }
-
-    // Actualizar la posición del panel si está siendo arrastrado
-    if (isDragging) {
-      panelX = mousePos[0] - dragOffsetX;
-      panelY = mousePos[1] - dragOffsetY;
     }
   }
 };
