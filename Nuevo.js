@@ -51,11 +51,12 @@
 	let menu_LinkensItems = CreatePrioritySelect([...path_, 'Linkens Breaker Settings'], 'Linkens Breaker', linkBreakers, true);
 
 	let OrbUiEnabled = Menu.AddToggle(path_, 'OrbWalk Combo', true);
+	let BestPostCastUI = Menu.AddToggle(path_, 'Calculator', false).SetImage('panorama/images/spellicons/storm_spirit_ball_lightning.vtex_c');;
+	
 	
 	let BestUltiEnable = Menu.AddToggle(path_Ulti, 'Enable', false);
 	
 	//let myOption = Menu.AddLabel(path_Ulti, 'Ulti Combo Settings');
-	let BestPostCastUI = Menu.AddKeyBind(path_, 'Best Post Ulti', Enum.ButtonCode.KEY_NONE).SetImage('panorama/images/spellicons/storm_spirit_electric_vortex_png.vtex_c');;
 
 	
 	let SafeManaUI = Menu.AddSlider(path_Ulti, 'Save Mana', 1, 500, 300)
@@ -585,7 +586,7 @@
 											let enemyHeroes = comboTarget.GetHeroesInRadius(650, Enum.TeamType.TEAM_ENEMY);
 											let posbesttt = BestPosition(enemyHeroes, 475);
 											if(posbesttt && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && localHero.GetMana() > 500 && enemyHeroes.length > 1 ){
-												if (Engine.OnceAt(0.3)){
+												if (Engine.OnceAt(0.2)){
 													Ultimate.CastPosition(posbesttt);
 												}
 												//electric_vortex.CastNoTarget();
@@ -628,7 +629,7 @@
 											let enemyHeroes = localHero.GetHeroesInRadius(650, Enum.TeamType.TEAM_ENEMY);
 											let posbesttt = BestPosition(enemyHeroes, 475);
 											if(posbesttt && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && localHero.GetMana() > 500 && enemyHeroes.length > 1 ){
-												if (Engine.OnceAt(0.3)){
+												if (Engine.OnceAt(0.2)){
 													Ultimate.CastPosition(posbesttt);
 												}
 												//electric_vortex.CastNoTarget();
@@ -750,17 +751,38 @@
 				
 			}
 			
-			if (BestPostCastUI.IsKeyDown()) {
-				let UltiAbil = localHero.GetAbilityByIndex(5);
-				let VortexAbil = localHero.GetAbilityByIndex(1);
+			if (BestPostCastUI.GetValue()) {
 
-				let RP_radius = 450;
-				let blink_radius = 2500;
-				let enemyHeroes = localHero.GetHeroesInRadius(blink_radius, Enum.TeamType.TEAM_ENEMY);
-				let pos = BestPosition(enemyHeroes, RP_radius);
-				if(pos){
-					UltiAbil.CastPosition(pos) ;
-				}
+				// Obtener la posición del mouse
+				const mousePos = Input.GetWorldCursorPos();
+				const heroPos = localHero.GetAbsOrigin();
+				const distance = heroPos.Distance(mousePos);
+
+				// Calcular el costo de maná por distancia recorrida
+				const manaCost = 25 + (0.075 * localHero.GetMaxMana()) + (0.01 * localHero.GetMaxMana() * Math.floor(distance / 100));
+
+				// Calcular el daño por distancia recorrida
+				const damage = (8 + (4 * localHero.GetAbilityByIndex(5).GetLevel())) * Math.floor(distance / 100);
+
+				// Mostrar los resultados en la pantalla
+				const panel = $.CreatePanel("Panel", $.GetContextPanel(), "");
+				panel.style.opacity = "0.8";
+				panel.style.width = "200px";
+				panel.style.height = "50px";
+				panel.style.background = "#000";
+				panel.style.color = "#FFF";
+				panel.style.fontSize = "20px";
+				panel.style.padding = "10px";
+				panel.style.position = "25% 25% 0";
+				panel.style.zIndex = "9999";
+				panel.style.overflow = "scroll";
+				GameUI.CustomUIConfig().SetPanelEvent(panel, "onactivate", function() {
+				  panel.DeleteAsync(0);
+				});
+				$.Msg("Distance: " + Math.floor(distance));
+				$.Msg("Mana Cost: " + manaCost);
+				$.Msg("Damage: " + damage);
+
 			}
 			
 		}
