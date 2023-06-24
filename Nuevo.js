@@ -776,8 +776,7 @@
 					
 					Renderer.SetDrawColor(255, 255, 255, 255);
 					let imageHandle = Renderer.LoadImage("panorama/images/hud/icon_kill_png.vtex_c");
-					let imageSize = Renderer.GetImageSize(imageHandle);
-					Renderer.DrawImage(imageHandle, x, y, imageSize[0], imageSize[1]);
+					Renderer.DrawImage(imageHandle, x, y, 10, 10);
 					
 
 				}
