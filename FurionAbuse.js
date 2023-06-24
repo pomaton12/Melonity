@@ -76,29 +76,6 @@
 		localHero = null;
 	};
 
-	// Agrega un controlador de eventos para el evento OnMouseDown en el panel
-	let panelPosition = [x, y];
-	let isDragging = false;
-	panel.SetPanelEvent("onmousedown", () => {
-		if (Input.IsKeyDown(Enum.ButtonCode.KEY_CTRL)) {
-			isDragging = true;
-		}
-	});
-
-	// Agrega un controlador de eventos para el evento OnMouseUp en el panel
-	panel.SetPanelEvent("onmouseup", () => {
-		isDragging = false;
-	});
-
-	// Agrega un controlador de eventos para el evento OnMouseMove en el panel
-	panel.SetPanelEvent("onmousemove", (event) => {
-		if (isDragging) {
-			const deltaX = event.offsetX - panelPosition[0];
-			const deltaY = event.offsetY - panelPosition[1];
-			panelPosition = [event.offsetX, event.offsetY];
-			panel.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-		}
-	});
 
 	// Registro del script
 	RegisterScript(AutoSaverAlchemist);
