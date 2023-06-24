@@ -57,7 +57,7 @@ AutoSaverAlchemist.OnUpdate = () => {
   Renderer.DrawFilledRect(panelX + 6, panelY + 4,panelX + 6 +valorPix, 8, 4);
 
   Renderer.SetDrawColor(255, 255, 255, 255);
-  Renderer.DrawText(font, x, y, "" + manaCost, 1);
+  Renderer.DrawText(font, x, y, "" + manaActual, 1);
   Renderer.DrawText(font, x + 5, y + 12, "" + damage, 1);
 
   let imageHandle = Renderer.LoadImage("panorama/images/hud/icon_kill_png.vtex_c");
