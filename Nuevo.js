@@ -657,7 +657,7 @@
 									if (comboTarget.IsAttacking() || EnemiPrevention.length >= 3) {
 										// Calcula una nueva posición detrás del enemigo	
 										let currentTime = GameRules.GetGameTime();
-										if (currentTime - lastUltimateTime >= 1.5) {
+										if (currentTime - lastUltimateTime >= 2) {
 											let IdealPosition = localHeroPosition.add(Idealdirection.mul(new Vector(DistanceCastUI, DistanceCastUI, 0)));
 											myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,IdealPosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 										}
