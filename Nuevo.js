@@ -646,6 +646,7 @@
 						const Idealdirection = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
 
 						// Comprueba si las otras habilidades están en cooldown o si el modificador está activo
+						let lastUltimateTime = 0;
 						if(BestUltiEnable.GetValue()){
 							if (localHero.GetMana() > SafeManaUI && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && menu_AbilitiesList[3]) {
 
@@ -654,9 +655,12 @@
 									let EnemiPrevention = localHero.GetHeroesInRadius(480, Enum.TeamType.TEAM_ENEMY);
 
 									if (comboTarget.IsAttacking() || EnemiPrevention.length >= 3) {
-										// Calcula una nueva posición detrás del enemigo									
-										let IdealPosition = localHeroPosition.add(Idealdirection.mul(new Vector(DistanceCastUI, DistanceCastUI, 0)));
-										myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,IdealPosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+										// Calcula una nueva posición detrás del enemigo	
+										let currentTime = GameRules.GetGameTime();
+										if (currentTime - lastUltimateTime >= 1.5) {
+											let IdealPosition = localHeroPosition.add(Idealdirection.mul(new Vector(DistanceCastUI, DistanceCastUI, 0)));
+											myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,IdealPosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+										}
 									}
 								}
 							}
