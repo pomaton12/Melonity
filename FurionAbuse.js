@@ -9,6 +9,15 @@
 
 	// Definición del objeto AutoSaverAlchemist
 	const AutoSaverAlchemist = {};
+	
+	let isDragging = false;
+	let dragOffsetX = 0;
+	let dragOffsetY = 0;
+
+	const panelWidth = 65;
+	const panelHeight = 28;
+	let panelX = 0;
+	let panelY = 0;
 
 	// Declaración de la variable localHero
 	let localHero;
@@ -23,47 +32,57 @@
 
 	// Definición de la función OnUpdate
 	AutoSaverAlchemist.OnUpdate = () => {
-		if (localHero && isUiEnabled.GetValue()) {
-			if (localHero.GetUnitName() !== "npc_dota_hero_alchemist")
-				return;
-			console.log("Hola mundo");
-			// Obtener la posición del mouse
-			const mousePos = Input.GetWorldCursorPos();
-			const heroPos = localHero.GetAbsOrigin();
-			const distance = heroPos.Distance(mousePos);
+	  if (localHero && isUiEnabled.GetValue()) {
+		if (localHero.GetUnitName() !== "npc_dota_hero_alchemist")
+		  return;
+		console.log("Hola mundo");
+		// Obtener la posición del mouse
+		const mousePos = Input.GetWorldCursorPos();
+		const heroPos = localHero.GetAbsOrigin();
+		const distance = heroPos.Distance(mousePos);
 
-			// Calcular el costo de maná por distancia recorrida
-			const manaCost =  Math.floor(25 + (0.075 * localHero.GetMaxMana()) + (0.01 * localHero.GetMaxMana() * Math.floor(distance / 100)));
+		// Calcular el costo de maná por distancia recorrida
+		const manaCost = Math.floor(25 + (0.075 * localHero.GetMaxMana()) + (0.01 * localHero.GetMaxMana() * Math.floor(distance / 100)));
 
-			// Calcular el daño por distancia recorrida
-			//const damage = Math.floor((8 + (4 * localHero.GetAbilityByIndex(5).GetLevel())) * Math.floor(distance / 100));
-			const damage =100;
-			const font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
-			// Mostrar los resultados en la pantalla
+		// Calcular el daño por distancia recorrida
+		//const damage = Math.floor((8 + (4 * localHero.GetAbilityByIndex(5).GetLevel())) * Math.floor(distance / 100));
+		const damage = 100;
+		const font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
 
+		// Dibujar el panel
+		Renderer.SetDrawColor(0, 0, 0, 150);  
+		Renderer.DrawFilledRect(panelX, panelY, panelWidth, panelHeight, 4);
 
-			//Panel a mover si se presionar CTRL + click  en el panel   y arrastrar a cualquier parte y soltar en su nueva posicion
-			let Ledsize = Renderer.GetScreenSize();
-			let x = Ledsize[0]/2;
-			let y = Ledsize[1]/2;
+		Renderer.SetDrawColor(0, 0, 0, 255);  
+		Renderer.DrawFilledRect(panelX + 5, panelY + 3, panelWidth - 11, 9, 4);                    
 
-			Renderer.SetDrawColor(0, 0, 0, 150);  
-			Renderer.DrawFilledRect(x, y, 65, 28, 4);
+		Renderer.SetDrawColor(53, 153, 220, 255);  
+		Renderer.DrawFilledRect(panelX + 6, panelY + 4, panelWidth - 12, 8, 4);
 
-			Renderer.SetDrawColor(0, 0, 0, 255);  
-			Renderer.DrawFilledRect(x+5, y+3, 65-11, 9, 4);                    
+		Renderer.SetDrawColor(255, 255, 255, 255);
+		Renderer.DrawText(font, panelX + 25, panelY + 4, "" + manaCost, 1);
+		Renderer.DrawText(font, panelX + 30, panelY + 16, "" + damage, 1);
 
-			Renderer.SetDrawColor(53, 153, 220,255);  
-			Renderer.DrawFilledRect(x+6, y+4, 65-12, 8, 4);
+		Renderer.SetDrawColor(255, 255, 255, 255);
+		let imageHandle = Renderer.LoadImage("panorama/images/hud/icon_kill_png.vtex_c");
+		Renderer.DrawImage(imageHandle, panelX + 7, panelY + 14, 12, 12);
 
-			Renderer.SetDrawColor(255, 255, 255, 255);
-			Renderer.DrawText(font,x+25, y+4, ""+manaCost, 1);
-			Renderer.DrawText(font, x+30, y + 16,""+damage, 1);
-
-			Renderer.SetDrawColor(255, 255, 255, 255);
-			let imageHandle = Renderer.LoadImage("panorama/images/hud/icon_kill_png.vtex_c");
-			Renderer.DrawImage(imageHandle, x+7, y+14, 12, 12);
+		// Agregar evento de clic al panel
+		if (Input.IsKeyDown(Enum.ButtonCode.KEY_LCONTROL) && Input.IsCursorInRect(panelX, panelY, panelWidth, panelHeight)) {
+		  if (Input.IsKeyDown(Enum.ButtonCode.MOUSE_LEFT)) {
+			if (!isDragging) {
+			  isDragging = true;
+			  dragOffsetX = mousePos[0] - panelX;
+			  dragOffsetY = mousePos[1] - panelY;
+			} else {
+			  panelX = mousePos[0] - dragOffsetX;
+			  panelY = mousePos[1] - dragOffsetY;
+			}
+		  } else {
+			isDragging = false;
+		  }
 		}
+	  }
 	};
 
 	// Definición de la OnScriptLoad
