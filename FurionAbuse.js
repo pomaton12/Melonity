@@ -37,9 +37,9 @@ AutoSaverAlchemist.OnUpdate = () => {
   const heroPos = localHero.GetAbsOrigin();
   const distance = heroPos.Distance(mouseP);
 
-  const manaCost = Math.floor(25 + (0.075 * localHero.GetMaxMana()) + (0.01 * localHero.GetMaxMana() * Math.floor(distance / 100)));
+  const manaCost = Math.floor(25+(0.075 * localHero.GetMaxMana()) + (0.01 * localHero.GetMaxMana() * Math.floor(distance / 100)));
   const manaMax = localHero.GetMaxMana();
-  const manaActual = localHero.GetMana()- manaCost;
+  const manaActual = Math.floor(localHero.GetMana()- manaCost);
   const damage = 100;
   
   const valorPix  = Math.floor((manaActual * 53) / manaMax);
