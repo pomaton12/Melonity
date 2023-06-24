@@ -765,8 +765,12 @@
 				const damage = (8 + (4 * localHero.GetAbilityByIndex(5).GetLevel())) * Math.floor(distance / 100);
 				const font = Renderer.LoadFont("Tahoma", 8, Enum.FontWeight.EXTRABOLD);
 				// Mostrar los resultados en la pantalla
-				const [x, y, visible] = Renderer.WorldToScreen(mousePos);
-				if (visible) {
+				
+				let Ledsize = Renderer.GetScreenSize();
+				let x = Ledsize[0]/2;
+				let y = Ledsize[1]/2;
+				//const [x, y, visible] = Renderer.WorldToScreen(mousePos);
+				//if (visible) {
 					Renderer.SetDrawColor(0, 0, 0, 150);  
 					Renderer.DrawFilledRect(x, y, 65, 28, 5);
 					
@@ -779,7 +783,7 @@
 					Renderer.DrawImage(imageHandle, x, y, 10, 10);
 					
 
-				}
+				//}
 
 			}
 			
