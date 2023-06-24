@@ -54,7 +54,7 @@ AutoSaverAlchemist.OnUpdate = () => {
   Renderer.DrawFilledRect(panelX + 5, panelY + 3, PANEL_WIDTH - 11, 9, 4);
 
   Renderer.SetDrawColor(53, 153, 220, 255);
-  Renderer.DrawFilledRect(panelX + 6, panelY + 4,panelX + 6 +valorPix, 8, 4);
+  Renderer.DrawFilledRect(panelX + 6, panelY + 4,valorPix, 8, 4);
 
   Renderer.SetDrawColor(255, 255, 255, 255);
   Renderer.DrawText(font, x, y, "" + manaActual, 1);
