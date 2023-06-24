@@ -767,8 +767,12 @@
 				// Mostrar los resultados en la pantalla
 				const [x, y, visible] = Renderer.WorldToScreen(mousePos);
 				if (visible) {
-					Renderer.SetDrawColor(0, 0, 0, 80);  
-					Renderer.DrawFilledRect(x, y, 60, 20, 2);
+					Renderer.SetDrawColor(0, 0, 0, 150);  
+					Renderer.DrawFilledRect(x, y, 65, 30, 5);
+					
+					Renderer.SetDrawColor(0, 0, 0, 255);
+					Renderer.DrawText(font, x, y, "Daño: " + x, 1);
+					Renderer.DrawText(font, x, y + 10, "Costo de Maná: " + y, 1);
 					
 					Renderer.SetDrawColor(255, 255, 255, 255);
 					Renderer.DrawText(font, x, y, "Daño: " + x, 1);
