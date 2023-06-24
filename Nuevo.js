@@ -763,13 +763,13 @@
 
 				// Calcular el daño por distancia recorrida
 				const damage = (8 + (4 * localHero.GetAbilityByIndex(5).GetLevel())) * Math.floor(distance / 100);
-
+				const font = Renderer.LoadFont("Tahoma", 30, Enum.FontWeight.EXTRABOLD);
 				// Mostrar los resultados en la pantalla
 				const [x, y, visible] = Renderer.WorldToScreen(mousePos);
 				if (visible) {
 					Renderer.SetDrawColor(255, 255, 255, 255);
-					Renderer.DrawText(Morphling.font, x, y, "Daño: " + damage, 1);
-					Renderer.DrawText(Morphling.font, x, y + 20, "Costo de Maná: " + manaCost, 1);
+					Renderer.DrawText(font, x, y, "Daño: " + damage, 1);
+					Renderer.DrawText(font, x, y + 20, "Costo de Maná: " + manaCost, 1);
 				}
 
 			}
