@@ -768,7 +768,7 @@
 				const [x, y, visible] = Renderer.WorldToScreen(mousePos);
 				if (visible) {
 					Renderer.SetDrawColor(255, 0, 0, 255);  
-					Renderer.DrawFilledRect(x, y, x+100, y+40, 20);
+					Renderer.DrawFilledRect(x, y, 100, 40, 20);
 					
 					Renderer.SetDrawColor(255, 255, 255, 255);
 					Renderer.DrawText(font, x, y, "Daño: " + x, 1);
