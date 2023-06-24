@@ -1,871 +1,645 @@
-/******/ (() => { // webpackBootstrap 
-/******/ 	var __webpack_modules__ = ({
+-- Utility.lua (Version 1.0)
+-- Author: Eroica
+-- Release Date: 2017/5/8
 
-/***/ "./src/StornSpiritAbuse.ts":
-/*!**********************************!*\
-  !*** ./src/StornSpiritAbuse.ts ***!
-  \**********************************/
-/***/ (() => {
+local Utility = {}
 
-	const StornSpiritAbuse = {};
+Utility.AncientCreepNameList = {
+    "npc_dota_neutral_black_drake",
+    "npc_dota_neutral_black_dragon",
+    "npc_dota_neutral_blue_dragonspawn_sorcerer",
+    "npc_dota_neutral_blue_dragonspawn_overseer",
+    "npc_dota_neutral_granite_golem",
+    "npc_dota_neutral_elder_jungle_stalker",
+    "npc_dota_neutral_prowler_acolyte",
+    "npc_dota_neutral_prowler_shaman",
+    "npc_dota_neutral_rock_golem",
+    "npc_dota_neutral_small_thunder_lizard",
+    "npc_dota_neutral_jungle_stalker",
+    "npc_dota_neutral_big_thunder_lizard",
+    "npc_dota_roshan"
+}
 
-	let localHero = null;
-	let myPlayer = null;
-	let comboTarget = null;
-	let particle = null;
-	let enemyList = [];
+Utility.IsAxeOrLegion = {}
+Utility.IsAxeOrLegion["npc_dota_hero_legion_commander"] = true
+Utility.IsAxeOrLegion["npc_dota_hero_axe"] = true
 
-	const path_ = ["Custom Scripts","Heroes", "Intelligence", "Storm Spirit"];
-	const path_Ulti = ["Custom Scripts","Heroes", "Intelligence", "Storm Spirit","Agresive Best Ulti"];
-	const path_UltiCast = ["Custom Scripts","Heroes", "Intelligence", "Storm Spirit","Ulti CastDistance"];	
-	const path_Remnant = ["Custom Scripts","Heroes", "Intelligence", "Storm Spirit","Auto Remnant in Attack"];
+Utility.PhysicalCoreHeroes = {}
+Utility.PhysicalCoreHeroes["npc_dota_hero_abaddon"]            = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_alchemist"]          = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_antimage"]           = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_arc_warden"]         = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_bloodseeker"]        = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_broodmother"]        = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_chaos_knight"]       = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_clinkz"]             = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_dragon_knight"]      = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_drow_ranger"]        = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_faceless_void"]      = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_furion"]             = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_gyrocopter"]         = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_huskar"]             = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_invoker"]            = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_juggernaut"]         = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_kunkka"]             = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_legion_commander"]   = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_life_stealer"]       = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_lina"]               = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_lone_druid"]         = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_luna"]               = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_lycan"]              = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_medusa"]             = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_mirana"]             = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_morphling"]          = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_nevermore"]          = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_night_stalker"]      = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_obsidian_destroyer"] = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_phantom_assassin"]   = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_phantom_lancer"]     = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_queenofpain"]        = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_razor"]              = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_riki"]               = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_silencer"]           = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_slardar"]            = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_slark"]              = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_sniper"]             = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_spectre"]            = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_storm_spirit"]       = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_sven"]               = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_templar_assassin"]   = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_terrorblade"]        = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_tiny"]               = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_troll_warlord"]      = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_ursa"]               = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_viper"]              = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_weaver"]             = true
+Utility.PhysicalCoreHeroes["npc_dota_hero_windrunner"]         = true
 
-	
-	const item_Images = [
-	'item_soul_ring', 'item_armlet', 'item_mjollnir', 'item_blink', 'item_abyssal_blade', 'item_fallen_sky',
-	'item_glimmer_cape', 'item_manta', 'item_refresher', 'item_disperser', 'item_sheepstick', 'item_orchid',
-	'item_bloodthorn', 'item_nullifier', 'item_rod_of_atos', 'item_gungir', 'item_diffusal_blade', 'item_bullwhip',
-	'item_ethereal_blade', 'item_dagon_5', 'item_heavens_halberd', 'item_veil_of_discord', 'item_urn_of_shadows', 'item_spirit_vessel',
-	'item_medallion_of_courage', 'item_solar_crest', 'item_pipe', 'item_hood_of_defiance', 'item_eternal_shroud', 'item_lotus_orb',
-	'item_black_king_bar', 'item_harpoon', 'item_essence_ring', 'item_blade_mail', 'item_shivas_guard', 'item_crimson_guard',
-	'item_ancient_janggo', 'item_ex_machina', 'item_revenants_brooch', 'item_bloodstone'
-	];
-    const abilities = ['storm_spirit_static_remnant', 'storm_spirit_electric_vortex', 'storm_spirit_overload', 'storm_spirit_ball_lightning'];
-    const linkBreakers = [
-        'item_dagon_5', 'item_heavens_halberd', 'item_diffusal_blade', 'item_disperser', 'item_harpoon', 'item_force_staff',
-		'item_cyclone', 'item_rod_of_atos', 'item_abyssal_blade', 'item_orchid', 'item_bloodthorn', 'item_sheepstick',
-		'item_nullifier', 'item_ethereal_blade', 'item_force_boots', 'item_book_of_shadows'
-    ];
-	
-	
-	let isUiEnabled = Menu.AddToggle(path_, 'Enable', true);
-	let KeyBindOrderAgresive = Menu.AddKeyBind(path_, 'Key', Enum.ButtonCode.KEY_NONE);
-	
-	let menu_ItemsList = CreateMultiSelect(path_, 'Items', item_Images, true);
-	
-	let menu_AbilitiesList = Menu.AddMultiSelect(path_, 'Spells', ['panorama/images/spellicons/storm_spirit_static_remnant_png.vtex_c', 'panorama/images/spellicons/storm_spirit_electric_vortex_png.vtex_c', 'panorama/images/spellicons/storm_spirit_overload_png.vtex_c', 'panorama/images/spellicons/storm_spirit_ball_lightning_png.vtex_c'], [true, true, true, true])
-		.OnChange((state) => {menu_AbilitiesList = state.newValue;})
-		.GetValue();
-				
-	let menu_LinkensItems = CreatePrioritySelect([...path_, 'Linkens Breaker Settings'], 'Linkens Breaker', linkBreakers, true);
+-- return best position to cast certain spells
+-- eg. axe's call, void's chrono, enigma's black hole
+-- input  : unitsAround, radius
+-- return : positon (a vector)
+function Utility.BestPosition(unitsAround, radius)
+    if not unitsAround or #unitsAround <= 0 then return nil end
+    local enemyNum = #unitsAround
 
-	let OrbUiEnabled = Menu.AddToggle(path_, 'OrbWalk Combo', true);
-	
-	let BestUltiEnable = Menu.AddToggle(path_Ulti, 'Enable', false);
-	
-	//let myOption = Menu.AddLabel(path_Ulti, 'Ulti Combo Settings');
-	let BestPostCastUI = Menu.AddKeyBind(path_, 'Best Post Ulti', Enum.ButtonCode.KEY_NONE).SetImage('panorama/images/spellicons/storm_spirit_electric_vortex_png.vtex_c');;
+	if enemyNum == 1 then return Entity.GetAbsOrigin(unitsAround[1]) end
 
-	
-	let SafeManaUI = Menu.AddSlider(path_Ulti, 'Save Mana', 1, 500, 300)
-        .OnChange(state => SafeManaUI = state.newValue)
-		.SetImage('panorama/images/status_icons/ability_manacost_icon_psd.vtex_c')
-        .GetValue();
-		
-	let DistanceCastUI = Menu.AddSlider(path_Ulti, 'Save Range in combo', 1, 350, 300)
-		.OnChange(state => DistanceCastUI = state.newValue)
-		.SetImage('panorama/images/emoticons/teamfancontent/season_4/8261882/emoticon1_png.vtex_c')
-		.GetValue();
-	
-	let CastDistanceulTI = Menu.AddSlider(path_UltiCast, 'Ulti Max Cast distance', 500, 5000, 1200)
-		.OnChange(state => CastDistanceulTI = state.newValue)
-		.SetImage('panorama/images/control_icons/gear_small_png.vtex_c')
-		.GetValue();
-	
-	
-	
-		
-	let UiEnabledRemnant = Menu.AddToggle(path_Remnant, 'Enable', true);
-		
-	let TimeAutoUI = Menu.AddSlider(path_Remnant, 'Work with minute...', 1, 50, 15)
-        .OnChange(state => TimeAutoUI = state.newValue)
-		.SetImage('panorama/images/status_icons/clock_small_psd.vtex_c')
-        .GetValue();
-		
-	//panorama/images/spellicons/storm_spirit/ti8_retro_immortal/storm_spirit_ball_lightning_orchid_retro_png.vtex_c
-	//panorama/images/emoticons/teamfancontent/season_4/8261882/emoticon1_png.vtex_c
-	//panorama/images/status_icons/ability_manacost_icon_psd.vtex_c MANA
-	//panorama/images/hud/icon_kill_png.vtex_c   HIT RUN
-	//panorama/images/hud/reborn/ult_ready_psd.vtex_c             ON
-	//panorama/images/hud/reborn/ult_cooldown_psd.vtex_c        OFF
-	//panorama/images/hud/reborn/minimap_gemdrop_psd.vtex_c    linken
-	//panorama/images/status_icons/clock_small_psd.vtex_c   clock
-	//panorama/images/control_icons/gear_small_png.vtex_c  setting
-	//panorama/images/spellicons/storm_spirit_static_remnant_png.vtex_c
+	-- find all mid points of every two enemy heroes,
+	-- then find out the best position among these.
+	-- O(n^3) complexity
+	local maxNum = 1
+	local bestPos = Entity.GetAbsOrigin(unitsAround[1])
+	for i = 1, enemyNum-1 do
+		for j = i+1, enemyNum do
+			if unitsAround[i] and unitsAround[j] then
+				local pos1 = Entity.GetAbsOrigin(unitsAround[i])
+				local pos2 = Entity.GetAbsOrigin(unitsAround[j])
+				local mid = pos1.add(pos2).Scaled(0.5);
 
-	Menu.GetFolder(path_Ulti).SetImage('panorama/images/spellicons/storm_spirit_ball_lightning_orchid_png.vtex_c');
-	Menu.GetFolder(path_UltiCast).SetImage('panorama/images/spellicons/storm_spirit/ti8_retro_immortal/storm_spirit_ball_lightning_orchid_retro_png.vtex_c');
-	Menu.GetFolder(path_Remnant).SetImage('panorama/images/spellicons/storm_spirit_static_remnant_png.vtex_c');
-	Menu.SetImage(['Custom Scripts', 'Heroes'], '~/menu/40x40/heroes.png');
-    Menu.SetImage(['Custom Scripts', 'Heroes', 'Intelligence'], '~/menu/40x40/Intelligence.png');
-    Menu.SetImage(path_, 'panorama/images/heroes/icons/npc_dota_hero_storm_spirit_png.vtex_c');
-	Menu.GetFolder([...path_, 'Linkens Breaker Settings']).SetImage('panorama/images/hud/reborn/minimap_gemdrop_psd.vtex_c');
-	OrbUiEnabled.SetImage('panorama/images/hud/icon_kill_png.vtex_c');
-	
-	function GetImagesPath(name, full) {
-		if (name.startsWith('item_')) {
-			return `panorama/images/items/${name.slice(5)}_png.vtex_c`;
-		}
-		else if (name.startsWith('npc_dota_hero')) {
-			if (full) {
-				return `panorama/images/heroes/${name}_png.vtex_c`;
-			}
-			else {
-				return `panorama/images/heroes/icons/${name}_png.vtex_c`;
-			}
-		}
-		else if (name.startsWith('npc_dota_neutral')) {
-			return `panorama/images/heroes/${name}_png.vtex_c`;
-		}
-		else {
-			return `panorama/images/spellicons/${name}_png.vtex_c`;
-		}
-	}
-	
-	function CreateMultiSelect(path, name, iconsArray, default_value = true) {
-		let icons = [];
-		for (let q of iconsArray) {
-			icons.push(GetImagesPath(q));
-		}
-		let a = Menu.AddMultiSelect(path, name, icons, default_value);
+				local heroesNum = 0
+				for k = 1, enemyNum do
+					if NPC.IsPositionInRange(unitsAround[k], mid, radius, 0) then
+						heroesNum = heroesNum + 1
+					end
+				end
 
-		return {
-			GetOption: () => {
-				return a;
-			},
-			IsEnabled: (name) => {
-				let n = name;
-				if (typeof name === 'object') {
-					if (name.GetEntityName()) {
-						n = name.GetEntityName();
-					}
-					if (name.GetName()) {
-						n = name.GetName();
-					}
-				}
-				return a.GetValue()[iconsArray.indexOf(n)];
-			}
-		};
-	}
-	
-	function CreatePrioritySelect(path, name, iconsArray, default_value = true) {
-		let icons = [];
-		for (let q of iconsArray) {
-			icons.push(GetImagesPath(q));
-		}
-		let a = Menu.AddPrioritySelect(path, name, icons, default_value);
+				if heroesNum > maxNum then
+					maxNum = heroesNum
+					bestPos = mid
+				end
 
-		return {
-			GetOption: () => {
-				return a;
-			},
-			GetValue: () => {
-				let t = [];
-				for (let e of a.GetValue()) {
-					t.push(iconsArray[e]);
-				}
-				return t;
-			}
-		};
-	}
-	
-		
-	function GetNearHeroInRadius(vector, radius = 1000) {
-        let en = enemyList;
-        if (en.length == 0)
-            return undefined;
-        let accessHero = Array(enemyList.length);
-        en.forEach((object) => {
-            if (object.GetAbsOrigin().Distance(vector) <= radius) {
-                accessHero.push([object, object.GetAbsOrigin().Distance(vector)]);
-            }
-        });
-        accessHero.sort((a, b) => {
-            return (a[1] - b[1]);
-        });
-        return accessHero[0] ? accessHero[0][0] : undefined;
-    }
-	
-	function SendOrderMovePos(vector, myHero) {
-        myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, vector, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, myHero, false, true);
-    }
-	
-	function TargetInRadius(target, radius, sourceHero, team = Enum.TeamType.TEAM_ENEMY) {
-        let er = sourceHero.GetHeroesInRadius(radius, team);
-        if (er) {
-            for (let enemy of er) {
-                if (enemy == target)
-                    return true;
-            }
-        }
-        return false;
-    }
-	
-	function CustomCanCast(item) {
-        let owner = item.GetOwner(), hasModf = owner.HasState(Enum.ModifierState.MODIFIER_STATE_MUTED)
-            || owner.HasState(Enum.ModifierState.MODIFIER_STATE_STUNNED)
-            || owner.HasState(Enum.ModifierState.MODIFIER_STATE_HEXED)
-            || owner.HasState(Enum.ModifierState.MODIFIER_STATE_INVULNERABLE)
-            || owner.HasState(Enum.ModifierState.MODIFIER_STATE_FROZEN)
-            || owner.HasState(Enum.ModifierState.MODIFIER_STATE_FEARED)
-            || owner.HasState(Enum.ModifierState.MODIFIER_STATE_TAUNTED);
-        return item && !hasModf && owner.GetMana() >= item.GetManaCost() && item.IsCastable(owner.GetMana());
-    }
-	
-	StornSpiritAbuse.OnDraw = () => {
-        if (localHero && isUiEnabled.GetValue()) {
-			if (localHero.GetUnitName() !== "npc_dota_hero_storm_spirit") {
-				return;
-			}
-			
-            if (comboTarget) {
-                if (!particle) {
-                    particle = Particle.Create('particles/ui_mouseactions/range_finder_tower_aoe.vpcf', Enum.ParticleAttachment.PATTACH_INVALID, comboTarget);
-                    particle.SetControl(2, EntitySystem.GetLocalHero().GetAbsOrigin());
-                    particle.SetControl(6, new Vector(1, 0, 0));
-                    particle.SetControl(7, comboTarget.GetAbsOrigin());
-                }
-                else {
-                    particle.SetControl(2, EntitySystem.GetLocalHero().GetAbsOrigin());
-                    particle.SetControl(7, comboTarget.GetAbsOrigin());
-                }
-            }
-            else {
-                if (particle) {
-                    particle.Destroy();
-                    particle = null;
-                }
-            }
-        }
-    };
-	
-	StornSpiritAbuse.OnUpdate = () => {
-		if (isUiEnabled.GetValue()) {
-			isUiEnabled.SetImage('panorama/images/hud/reborn/ult_ready_psd.vtex_c');
-		} else{
-			isUiEnabled.SetImage('panorama/images/hud/reborn/ult_cooldown_psd.vtex_c');
-		}	
-		if (UiEnabledRemnant.GetValue()) {
-			UiEnabledRemnant.SetImage('panorama/images/hud/reborn/ult_ready_psd.vtex_c');
-		} else{
-			UiEnabledRemnant.SetImage('panorama/images/hud/reborn/ult_cooldown_psd.vtex_c');
-		}		
-		if (BestUltiEnable.GetValue()) {
-			BestUltiEnable.SetImage('panorama/images/hud/reborn/ult_ready_psd.vtex_c');
-		} else{
-			BestUltiEnable.SetImage('panorama/images/hud/reborn/ult_cooldown_psd.vtex_c');
-		}			
-		
-		
-		if (localHero && isUiEnabled.GetValue()) {
-			
-			if (localHero.GetUnitName() !== "npc_dota_hero_storm_spirit") {
-				return;
-			}
+			end
+		end
+	end
 
-			if (enemyList.length < 5) {
-                enemyList = [];
-                let heroes = EntitySystem.GetHeroesList();
-                if (heroes) {
-                    for (let hero of heroes) {
-                        if (hero && !hero.IsIllusion() && !hero.IsMeepoClone() && hero.IsHero() && hero.IsAlive() &&
-                            !hero.IsDormant() && !hero.IsSameTeam(localHero)) {
-                            enemyList.push(hero);
-                        }
-                    }
-                }
-            }
-					
-			if (KeyBindOrderAgresive.IsKeyDown()) {
-				
-				if (comboTarget && !comboTarget.IsAlive()){
-						comboTarget = null;
-				}
-			
-				// Obtén las otras habilidades y el modificador
-				let static_remnant = localHero.GetAbilityByIndex(0);
-				let electric_vortex = localHero.GetAbilityByIndex(1);
-				let overload = localHero.GetAbilityByIndex(2);
-				let Ultimate = localHero.GetAbilityByIndex(5);
-				let SheepstickHexx = localHero.GetItem('item_sheepstick', true);
-				
-				let target = GetNearHeroInRadius(Input.GetWorldCursorPos());
+	return bestPos
+end
 
-				if (!comboTarget && target && target.IsExist())
-					comboTarget = target;
-				else if (!comboTarget) {
-					comboTarget = null;
-					if (Engine.OnceAt(0.2)){
-						SendOrderMovePos(Input.GetWorldCursorPos(), localHero);
-					}
-				}
-                
+-- return predicted position
+function Utility.GetPredictedPosition(npc, delay)
+    local pos = Entity.GetAbsOrigin(npc)
+    if Utility.CantMove(npc) then return pos end
+    if not NPC.IsRunning(npc) or not delay then return pos end
 
-				if (Engine.OnceAt(0.2)) {
-					
-					let MyModBkb = localHero.HasModifier("modifier_black_king_bar_immune");
-					
-					if (comboTarget && comboTarget.HasModifier('modifier_item_blade_mail_reflect') && !MyModBkb) {
-						let bkbItemMy = localHero.GetItem('item_black_king_bar', true);
-						if(menu_ItemsList.IsEnabled('item_black_king_bar') && bkbItemMy && CustomCanCast(bkbItemMy) && TargetInRadius(comboTarget, 1000, localHero)){
-							bkbItemMy.CastNoTarget();
-						} else{
-							SendOrderMovePos(Input.GetWorldCursorPos(), localHero);
-							return;
-						}
-                    }
-					
-					if (comboTarget && comboTarget.HasModifier("modifier_item_lotus_orb_active") && !MyModBkb) {
-						let bkbItemMy = localHero.GetItem('item_black_king_bar', true);
-						if(menu_ItemsList.IsEnabled('item_black_king_bar') && bkbItemMy && CustomCanCast(bkbItemMy) && TargetInRadius(comboTarget, 1000, localHero)){
-							bkbItemMy.CastNoTarget();
-						} else{
-							myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, comboTarget, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);	
-							return;
-						}
-                    }
+    local dir = Entity.GetRotation(npc):GetForward():Normalized()
+    local speed = Utility.GetMoveSpeed(npc)
 
-					if (comboTarget && comboTarget.IsExist()) {
-																		
-						const localHeroPosition = localHero.GetAbsOrigin();
-						const attackRange = localHero.GetAttackRange();
-						const enemyHeroPosition = comboTarget.GetAbsOrigin();
-						const dist = localHeroPosition.Distance(enemyHeroPosition)-58;
-						const dist2 = enemyHeroPosition.sub(localHeroPosition).Length()
-												
-						let Modifier1 = localHero.HasModifier("modifier_storm_spirit_overload");
-						let Modifier2 = localHero.HasModifier("modifier_storm_spirit_electric_rave");
-						let AghanimsScepter = localHero.GetItem('item_ultimate_scepter', true);
-						let AghanimsPavise = localHero.HasModifier("modifier_item_ultimate_scepter_consumed");
-						let ShardPavise = localHero.HasModifier("modifier_item_aghanims_shard");
-						let EnemiVortexPull = comboTarget.HasModifier("modifier_storm_spirit_electric_vortex_pull");
-						
-						let Stunned = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_STUNNED);
-						let InmuneMagic = comboTarget.HasModifier("modifier_black_king_bar_immune"); 
-						let Hexxed = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_HEXED);
-						let Silenced = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_SILENCED);
-						let Ethereo = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_ATTACK_IMMUNE);
-						
-						let UltimateSkyModifier = localHero.HasModifier("modifier_storm_spirit_ball_lightning"); 
-						let MyHeroModBkb = localHero.HasModifier("modifier_black_king_bar_immune");
-						let MyHeroModLotus = localHero.HasModifier("modifier_item_lotus_orb_active");
-						
-						// Nueva condición para activar BKB si el enemigo tiene activado Blade Mail
-						let BkBEnemiPrevention = localHero.GetHeroesInRadius(700, Enum.TeamType.TEAM_ENEMY);
-						
-						if (menu_ItemsList.IsEnabled('item_black_king_bar') ) {
-							if (BkBEnemiPrevention.length >= 3) {
-								let bkb = localHero.GetItem('item_black_king_bar', true);
-								if (bkb && CustomCanCast(bkb) && !MyHeroModBkb && !MyHeroModLotus) {
-									bkb.CastNoTarget();
-								}
-							}
-						}
-						
-						if (menu_ItemsList.IsEnabled('item_lotus_orb') ) {
-							if (BkBEnemiPrevention.length >= 3) {
-								let Lotus = localHero.GetItem('item_lotus_orb', true);
-								if (Lotus && CustomCanCast(Lotus) && !MyHeroModBkb  && !MyHeroModLotus) {
-									Lotus.CastTarget(localHero);
-								}
-							}
-						}						
-						
-						 //
-						let isUltimateCasting = false; // Variable de bloqueo
+    return pos + dir:Scaled(speed * delay)
+end
 
-						if (localHero.GetMana() > 300 && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && menu_AbilitiesList[3]) {
-							if (CastDistanceulTI > dist && dist > attackRange ) {	
-								isUltimateCasting = true; // Bloqueamos el lanzamiento del ultimate
+function Utility.GetMoveSpeed(npc)
+    local base_speed = NPC.GetBaseSpeed(npc)
+    local bonus_speed = NPC.GetMoveSpeed(npc) - NPC.GetBaseSpeed(npc)
 
-								let speedUlti = 0;
-								const ultiLevel = Ultimate.GetLevel();
-								
-								if (ultiLevel === 1) {
-									speedUlti = 1400;
-								} else if (ultiLevel === 2) {
-									speedUlti = 1850;
-								} else {
-									if (ultiLevel === 3){
-										speedUlti = 2300;
-									}
-								}
-								
-								const travel_time = dist / (speedUlti + 1);
-								const castpointTimee = 0.3;
-								const delay = travel_time + castpointTimee;
-								const Post = GetPredictedPosition(comboTarget, delay);
-								const BestPost = Post.add(new Vector(50, 50, 0));
-									
-									//console.log("speed", delay);
-									
-								if (Engine.OnceAt(delay)){
-									myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,BestPost,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
-									isUltimateCasting = false; // Desbloqueamos el lanzamiento del ultimate
-								}
-							}
-						}
-						
-						
-						
-						let [linken, mirror] = [comboTarget.GetItem('item_sphere', true), comboTarget.GetItem('item_mirror_shield', false)];
-                        if (linken && linken.CanCast() || mirror && mirror.CanCast()) {
-                            let linkenBrokItems = menu_LinkensItems.GetValue();
-                            for (let brokObj of linkenBrokItems) {
-                                let vi = localHero.GetItem(brokObj, false);
-                                if (vi) {
-                                    if (vi.IsExist() && CustomCanCast(vi)) {
-                                        vi.CastTarget(comboTarget);
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-						
-						
+    -- when affected by ice wall, assume move speed as 100 for convenience
+    if NPC.HasModifier(npc, "modifier_invoker_ice_wall_slow_debuff") then return 100 end
 
-						let CastVortex = false;
-						if (AghanimsScepter || AghanimsPavise) {
+    if NPC.HasModifier(npc, "modifier_item_diffusal_blade_slow") then return 100 end
 
-							let enemiesInVortexRange = localHero.GetHeroesInRadius(470, Enum.TeamType.TEAM_ENEMY);
-							if (enemiesInVortexRange.length > 2 && electric_vortex && electric_vortex.CanCast() && !UltimateSkyModifier) {
-								electric_vortex.CastNoTarget();
-								CastVortex = true;
-							}
-						}
-						
-						if (menu_ItemsList.IsEnabled('item_orchid') ) { 
-							let Orchid = localHero.GetItem('item_orchid', true);
-							if (Orchid && CustomCanCast(Orchid) && !EnemiVortexPull  && !Stunned && !InmuneMagic && !Hexxed  && !Silenced) { 
-								if (TargetInRadius(comboTarget, 900, localHero)) {
-									Orchid.CastTarget(comboTarget);
-								}
-							}
-						}
-						
+    -- when get hexed,  move speed = 140/100 + bonus_speed
+    if Utility.GetHexTimeLeft(npc) > 0 then return 140 + bonus_speed end
 
-						
-						if (menu_ItemsList.IsEnabled('item_bloodthorn') ) { 
-							let Bloodthorn = localHero.GetItem('item_bloodthorn', true);
-							if (Bloodthorn && CustomCanCast(Bloodthorn) && !EnemiVortexPull  && !Stunned && !InmuneMagic && !Hexxed && !Silenced) { 
-								if (TargetInRadius(comboTarget, 900, localHero)) {
-									Bloodthorn.CastTarget(comboTarget);								
-								}
-							}
-						}
-						
-						let CastHex = false;
-						if (menu_ItemsList.IsEnabled('item_sheepstick') ) {
-							let Sheepstick = localHero.GetItem('item_sheepstick', true);
-							if (Sheepstick && CustomCanCast(Sheepstick) && !EnemiVortexPull  && !Stunned && !InmuneMagic && !Hexxed && !UltimateSkyModifier) {
-								if (TargetInRadius(comboTarget, 600, localHero)) {
-									Sheepstick.CastTarget(comboTarget);
-									CastHex = true;
-								}
-							} else{
-								CastHex = true;
-							}
-						} else {
-							CastHex = true;
-						}
-						
-						
-						if (menu_ItemsList.IsEnabled('item_nullifier') ) { 
-							let Nullifier = localHero.GetItem('item_nullifier', true);
-							if (Nullifier && CustomCanCast(Nullifier) && Ethereo) { 
-								Nullifier.CastTarget(comboTarget);
-							}
-						}
-					
-							
-						if (menu_ItemsList.IsEnabled('item_shivas_guard') ) { 
-							let Shivas = localHero.GetItem('item_shivas_guard', true);
-							if (Shivas && CustomCanCast(Shivas) && !InmuneMagic && !Hexxed ) { 
-								if (TargetInRadius(comboTarget, 500, localHero)) {
-									Shivas.CastNoTarget();
-								}
-							}
-						}
-						
-						
-						if (menu_ItemsList.IsEnabled('item_revenants_brooch') ) { 
-							let Revenants = localHero.GetItem('item_revenants_brooch', true);
-							let RevenantsMod = localHero.HasModifier("modifier_item_revenants_brooch_counter");
-							if (Revenants && CustomCanCast(Revenants) && !InmuneMagic && !RevenantsMod) { 
-								if (TargetInRadius(comboTarget, 480, localHero)) {
-									Revenants.CastNoTarget();
-								}
-							}
-						}
+    return base_speed + bonus_speed
+end
 
-						if (menu_ItemsList.IsEnabled('item_mjollnir') ) { 
-							let Mjollnir = localHero.GetItem('item_mjollnir', true);
-							if (Mjollnir && CustomCanCast(Mjollnir) && !InmuneMagic ) { 
-								if (TargetInRadius(comboTarget, 500, localHero)) {
-									Mjollnir.CastTarget(localHero);
-								}
-							}
-						}						
-						
+-- return true if is protected by lotus orb or AM's aghs
+function Utility.IsLotusProtected(npc)
+	if NPC.HasModifier(npc, "modifier_item_lotus_orb_active") then return true end
+    if NPC.HasModifier(npc, "modifier_antimage_counterspell") then return true end
 
-						if (menu_ItemsList.IsEnabled('item_bullwhip') ) { 
-							let Bullwhip = localHero.GetItem('item_bullwhip', false);
-							if (Bullwhip && CustomCanCast(Bullwhip) && !InmuneMagic && comboTarget.IsRunning() && !Hexxed && !EnemiVortexPull && electric_vortex && !electric_vortex.CanCast()) { 
-								if (TargetInRadius(comboTarget, 850, localHero)) {
-									Bullwhip.CastTarget(comboTarget);
-								}
-							}
-						}
-						
-						//'item_diffusal_blade', 'item_disperser'
-						if (menu_ItemsList.IsEnabled('item_diffusal_blade') ) { 
-							let Diffusal = localHero.GetItem('item_diffusal_blade', true);
-							if (Diffusal && CustomCanCast(Diffusal) && !InmuneMagic && comboTarget.IsRunning() && !Hexxed && !EnemiVortexPull && electric_vortex && !electric_vortex.CanCast()) { 
-								if (TargetInRadius(comboTarget, 600, localHero)) {
-									Diffusal.CastTarget(comboTarget);
-								}
-							}
-						}
-						
-						if (menu_ItemsList.IsEnabled('item_disperser') ) { 
-							let Disperser = localHero.GetItem('item_disperser', true);
-							if (Disperser && CustomCanCast(Disperser) && !InmuneMagic && comboTarget.IsRunning() && !Hexxed && !EnemiVortexPull && electric_vortex && !electric_vortex.CanCast()) { 
-								if (TargetInRadius(comboTarget, 600, localHero)) {
-									Disperser.CastTarget(comboTarget);
-								}
-							}
-						}
-						
-							
-						if (menu_ItemsList.IsEnabled('item_bloodstone') ) { 
-							let Bloodstone = localHero.GetItem('item_bloodstone', true);
-							if (Bloodstone && CustomCanCast(Bloodstone) && !InmuneMagic && !Hexxed ) { 
-								if (TargetInRadius(comboTarget, 480, localHero)) {
-									myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_NO_TARGET,null,null,Bloodstone,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+	return false
+end
 
-								}
-							}
-						}						
-						
-						
-						if (menu_ItemsList.IsEnabled('item_refresher') ) { 
-							let RefresherOrb = localHero.GetItem('item_refresher', true);
-							if (RefresherOrb && CustomCanCast(RefresherOrb) && electric_vortex && !electric_vortex.CanCast() && !EnemiVortexPull) { 
-								RefresherOrb.CastNoTarget();
-							}
-							
-						} 
-						
-						if ( menu_ItemsList.IsEnabled('item_ex_machina') ) { 
-							let ex_machina = localHero.GetItem('item_ex_machina', false);
-							if (ex_machina && CustomCanCast(ex_machina) && electric_vortex && !electric_vortex.CanCast() && !EnemiVortexPull) { 
-								ex_machina.CastNoTarget();
-							}
-						}
+-- return true if protected by Aeon Disk
+function Utility.IsDiskProtected(npc)
+    local disk = NPC.GetItem(npc, "item_aeon_disk", true)
+    if disk and (Ability.GetCooldown(disk) <= 0.5 or Ability.SecondsSinceLastUse(disk) <= 0.5) then
+        return true
+    end
 
-						
-						if (menu_AbilitiesList[0]) {
-                            
-                            if (static_remnant && static_remnant.IsExist() && static_remnant.CanCast() && !Modifier1) {
-                                if (TargetInRadius(comboTarget, 280, localHero)) {
-                                    static_remnant.CastNoTarget();
-                                }
-							}
-                        }
-						
-						//console.log("Vyce = ", SheepstickHexx);
-						if (SheepstickHexx === null) {
-							if (menu_AbilitiesList[1]) {
-								
-								if (CastHex && !Hexxed && electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && !EnemiVortexPull && !Stunned && !InmuneMagic && !UltimateSkyModifier){
-									
-									if (AghanimsScepter || AghanimsPavise) {
-										if (TargetInRadius(comboTarget, 470, localHero)) {
-											electric_vortex.CastNoTarget();
-											CastVortex = true;
-										}
-									}else {
-										if (TargetInRadius(comboTarget, 300, localHero)) {
-											electric_vortex.CastTarget(comboTarget);
-											CastVortex = true;
-										} else {
-											if (!comboTarget.IsRunning()) {
-												SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
-											}
-										}
-									}
-								} else{
-									CastVortex = true;
-								}
-							} else {
-								CastVortex = true;
-							}
-							
-						} else {
-							if (menu_AbilitiesList[1]) {
-								
-								if (CastHex && !Hexxed && electric_vortex && electric_vortex.IsExist() && electric_vortex.CanCast() && SheepstickHexx && !SheepstickHexx.CanCast() && !EnemiVortexPull && !Stunned && !InmuneMagic && !UltimateSkyModifier){
-									
-									if (AghanimsScepter || AghanimsPavise) {
-										if (TargetInRadius(comboTarget, 470, localHero)) {
-											electric_vortex.CastNoTarget();
-											CastVortex = true;
-										}
-									}else {
-										if (TargetInRadius(comboTarget, 300, localHero)) {
-											electric_vortex.CastTarget(comboTarget);
-											CastVortex = true;
-										} else {
-											if (!comboTarget.IsRunning()) {
-												SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
-											}
-										}
-									}
-								} else{
-									CastVortex = true;
-								}
-							} else {
-								CastVortex = true;
-							}
-						}
+    if NPC.HasModifier(npc, "modifier_item_aeon_disk_buff") then
+        return true
+    end
 
-						
-						//console.log("Hex ", Hexxed);
-						
-						if (menu_AbilitiesList[2]) {
-                            
-                            if (overload && overload.IsExist() && overload.CanCast() && !Modifier1 && ShardPavise ) {
-                                if (TargetInRadius(comboTarget, 470, localHero)) {
-                                    overload.CastNoTarget();
-                                }
-							}
-                        }
-												
-						const attackSpeed = localHero.GetAttacksPerSecond();
-						const attackTime = 1 / attackSpeed;
-						const Idealdirection = (enemyHeroPosition.sub(localHeroPosition)).Normalized();
+    return false
+end
 
-						// Comprueba si las otras habilidades están en cooldown o si el modificador está activo
-						if(BestUltiEnable.GetValue()){
-							if (localHero.GetMana() > SafeManaUI && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && menu_AbilitiesList[3]) {
+function Utility.IsLinkensProtected(npc)
+    if NPC.HasModifier(npc, "modifier_antimage_counterspell") then
+        return true
+    end
 
-								if (!static_remnant.IsInAbilityPhase() && !electric_vortex.IsInAbilityPhase() && !Modifier1 && !Modifier2) {
-									
-									let EnemiPrevention = localHero.GetHeroesInRadius(480, Enum.TeamType.TEAM_ENEMY);
+    return NPC.IsLinkensProtected(npc)
+end
 
-									if (comboTarget.IsAttacking() || EnemiPrevention.length >= 3) {
-										// Calcula una nueva posición detrás del enemigo									
-										let IdealPosition = localHeroPosition.add(Idealdirection.mul(new Vector(DistanceCastUI, DistanceCastUI, 0)));
-										myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,IdealPosition,Ultimate, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
-									}
-								}
-							}
-						}
-						
-						let [order, target, pos] = [Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, comboTarget, comboTarget.GetAbsOrigin()];
-						if (comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_ATTACK_IMMUNE) ||
-							comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_INVULNERABLE) ||
-							comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_MAGIC_IMMUNE) ||
-							comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_UNTARGETABLE)) {
-							order = Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION;
-							target = null;
-							pos = Input.GetWorldCursorPos();
-						}
-						
-						if (CastVortex) {
-							if (OrbUiEnabled.GetValue()) {
-								//console.log("AttackRange ",attackRange," Dist1 ",dist," Dist ",dist2);
-								if(dist >= 250 && attackRange > dist) {
-									if (Engine.OnceAt(attackTime)) {
-										SendOrderMovePos(comboTarget.GetAbsOrigin(), localHero);
-										myPlayer.PrepareUnitOrders(order, target, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);																		
-										
-									}
-																	
-								} else {
-									myPlayer.PrepareUnitOrders(order, target, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+-- return true if this npc is disabled, return false otherwise
+function Utility.IsDisabled(npc)
+	if not Entity.IsAlive(npc) then return true end
+	if NPC.IsStunned(npc) then return true end
+	if NPC.HasState(npc, Enum.ModifierState.MODIFIER_STATE_HEXED) then return true end
 
-								}
-							} else {
-								myPlayer.PrepareUnitOrders(order, target, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
-							}
-						}
-					}
-				}
-			} else{
-				comboTarget = null;
-			}
-			
-			if (UiEnabledRemnant.GetValue()) {
+    return false
+end
 
-				if (menu_AbilitiesList[0]) {
-					
-					if (GameRules.GetGameTime() / 60 >= TimeAutoUI && localHero.IsAttacking()) {
-						let Modifier1 = localHero.HasModifier("modifier_storm_spirit_overload");
-						let static_remnant = localHero.GetAbilityByIndex(0);
-						if (static_remnant && static_remnant.IsExist() && static_remnant.CanCast() && !Modifier1) {
-						
-							static_remnant.CastNoTarget();
-							
-						}
-					}
-				}
-				
-			}
-			
-			if (BestPostCastUI.IsKeyDown()) {
-				let UltiAbil = localHero.GetAbilityByIndex(5);
-				let VortexAbil = localHero.GetAbilityByIndex(1);
+-- return true if can cast spell on this npc, return false otherwise
+function Utility.CanCastSpellOn(npc)
+	if Entity.IsDormant(npc) or not Entity.IsAlive(npc) then return false end
+	if NPC.IsStructure(npc) then return false end
+	if NPC.HasState(npc, Enum.ModifierState.MODIFIER_STATE_MAGIC_IMMUNE) then return false end
+	if NPC.HasState(npc, Enum.ModifierState.MODIFIER_STATE_INVULNERABLE) then return false end
 
-				let RP_radius = 450;
-				let blink_radius = 2500;
-				let enemyHeroes = localHero.GetHeroesInRadius(blink_radius, Enum.TeamType.TEAM_ENEMY);
-				let pos = BestPosition(enemyHeroes, RP_radius);
-				if(pos){
-					UltiAbil.CastPosition(pos) ;
-				}
-			}
-			
-		}
-	};
-	
-	//Funciones Para precedir pos
-	function GetPredictedPosition(HeroEnemigo, delay) {
-		const pos = HeroEnemigo.GetAbsOrigin();
-		if (CantMove(HeroEnemigo)) {
-			return pos;
-		}
-		if (!HeroEnemigo.IsRunning() || !delay) {
-			return pos;
-		}
+	return true
+end
 
-		const dir = HeroEnemigo.GetRotation().GetForward().Normalized();
-		const speed = FGetMoveSpeed(HeroEnemigo);
+-- check if it is safe to cast spell or item on enemy
+-- in case enemy has blademail or lotus.
+-- Caster will take double damage if target has both lotus and blademail
+function Utility.IsSafeToCast(myHero, enemy, magic_damage)
+    if not myHero or not enemy or not magic_damage then return true end
+    if magic_damage <= 0 then return true end
 
-		return pos.add(dir.Scaled(speed * delay));
-	}
+    local counter = 0
+    if NPC.HasModifier(enemy, "modifier_item_lotus_orb_active") then counter = counter + 1 end
+    if NPC.HasModifier(enemy, "modifier_item_blade_mail_reflect") then counter = counter + 1 end
+    if NPC.HasModifier(enemy, "modifier_antimage_counterspell")
+        or NPC.HasModifier(enemy, "modifier_antimage_counterspell_passive") then counter = counter + 1 end
 
-	function CantMove(HeroEnemigo) {
-		if (!HeroEnemigo){
-			return false;
-		}
+    local reflect_damage = counter * magic_damage * NPC.GetMagicalArmorDamageMultiplier(myHero)
+    return Entity.GetHealth(myHero) > reflect_damage
+end
 
-		if ( HeroEnemigo.HasState(Enum.ModifierState.MODIFIER_STATE_ROOTED) || GetStunTimeLeft(HeroEnemigo) >= 1){
-			return true;
-		}
-		if (HeroEnemigo.HasModifier("modifier_axe_berserkers_call")){
-			return true;
-		}
-		if (HeroEnemigo.HasModifier("modifier_legion_commander_duel")){
-			return true;
-		}
+-- situations that ally need to be saved
+function Utility.NeedToBeSaved(npc)
+	if not npc or NPC.IsIllusion(npc) or not Entity.IsAlive(npc) then return false end
 
-		return false;
-	}
+	if NPC.IsStunned(npc) or NPC.IsSilenced(npc) then return true end
+	if NPC.HasState(npc, Enum.ModifierState.MODIFIER_STATE_ROOTED) then return true end
+	if NPC.HasState(npc, Enum.ModifierState.MODIFIER_STATE_DISARMED) then return true end
+	if NPC.HasState(npc, Enum.ModifierState.MODIFIER_STATE_HEXED) then return true end
+	if NPC.HasState(npc, Enum.ModifierState.MODIFIER_STATE_PASSIVES_DISABLED) then return true end
+	if NPC.HasState(npc, Enum.ModifierState.MODIFIER_STATE_BLIND) then return true end
 
-	function GetStunTimeLeft(HeroEnemigo) {
-		let mod = HeroEnemigo.GetModifier("modifier_stunned");
-		if (!mod){
-			return 0;
-		}
-		return Math.max(mod.GetDieTime() - GameRules.GetGameTime(), 0);
-	}
+	if Entity.GetHealth(npc) <= 0.2 * Entity.GetMaxHealth(npc) then return true end
 
-	function FGetMoveSpeed(HeroEnemigo) {
-		let base_speed = HeroEnemigo.GetBaseSpeed();
-		let bonus_speed = HeroEnemigo.GetMoveSpeed() - HeroEnemigo.GetBaseSpeed();
+	return false
+end
 
-		// when affected by ice wall, assume move speed as 100 for convenience
-		if (HeroEnemigo.HasModifier("modifier_invoker_ice_wall_slow_debuff")){
-			return 100;
-		}
+-- pop all defensive items
+function Utility.PopDefensiveItems(myHero)
+	if not myHero then return end
 
-		if (HeroEnemigo.HasModifier("modifier_item_diffusal_blade_slow")){
-			return 100;
-		}
+    -- blade mail
+    if NPC.HasItem(myHero, "item_blade_mail", true) then
+    	local item = NPC.GetItem(myHero, "item_blade_mail", true)
+    	if Ability.IsCastable(item, NPC.GetMana(myHero)) then
+    		Ability.CastNoTarget(item)
+    	end
+    end
 
-		// when get hexed, move speed = 140/100 + bonus_speed
-		if (GetHexTimeLeft(HeroEnemigo) > 0){
-			return 140 + bonus_speed;
-		}
+    -- buckler
+    if NPC.HasItem(myHero, "item_buckler", true) then
+    	local item = NPC.GetItem(myHero, "item_buckler", true)
+    	if Ability.IsCastable(item, NPC.GetMana(myHero)) then
+    		Ability.CastNoTarget(item)
+    	end
+    end
 
-		return base_speed + bonus_speed;
-	}
+    -- hood of defiance
+    if NPC.HasItem(myHero, "item_hood_of_defiance", true) then
+    	local item = NPC.GetItem(myHero, "item_hood_of_defiance", true)
+    	if Ability.IsCastable(item, NPC.GetMana(myHero)) then
+    		Ability.CastNoTarget(item)
+    	end
+    end
 
-	function GetHexTimeLeft(HeroEnemigo) {
-		let mod;
-		let mod1 = HeroEnemigo.GetModifier("modifier_sheepstick_debuff");
-		let mod2 = HeroEnemigo.GetModifier("modifier_lion_voodoo");
-		let mod3 = HeroEnemigo.GetModifier("modifier_shadow_shaman_voodoo");
+    -- pipe of insight
+    if NPC.HasItem(myHero, "item_pipe", true) then
+    	local item = NPC.GetItem(myHero, "item_pipe", true)
+    	if Ability.IsCastable(item, NPC.GetMana(myHero)) then
+    		Ability.CastNoTarget(item)
+    	end
+    end
 
-		if (mod1){
-			mod = mod1;
-		}
-		if (mod2){
-			mod = mod2;
-		}
-		if (mod3){
-			mod = mod3;
-		}
+    -- crimson guard
+    if NPC.HasItem(myHero, "item_crimson_guard", true) then
+    	local item = NPC.GetItem(myHero, "item_crimson_guard", true)
+    	if Ability.IsCastable(item, NPC.GetMana(myHero)) then
+    		Ability.CastNoTarget(item)
+    	end
+    end
 
-		if (!mod){
-			return 0;
-		}
-		return Math.max(mod.GetDieTime() - GameRules.GetGameTime(), 0);
-	}
-	// radius Rdio de Casteo
-	function BestPosition(EnemiInRadius, radius) {
-		if (!EnemiInRadius || EnemiInRadius.length <= 0) return null;
-		let enemyNum = EnemiInRadius.length;
+    -- shiva's guard
+    if NPC.HasItem(myHero, "item_shivas_guard", true) then
+    	local item = NPC.GetItem(myHero, "item_shivas_guard", true)
+    	if Ability.IsCastable(item, NPC.GetMana(myHero)) then
+    		Ability.CastNoTarget(item)
+    	end
+    end
 
-		if (enemyNum == 1) return EnemiInRadius[0].GetAbsOrigin();
+    -- lotus orb
+    if NPC.HasItem(myHero, "item_lotus_orb", true) then
+    	local item = NPC.GetItem(myHero, "item_lotus_orb", true)
+    	if Ability.IsCastable(item, NPC.GetMana(myHero)) then
+    		Ability.CastTarget(item, myHero)
+    	end
+    end
 
-		let maxNum = 1;
-		let bestPos = EnemiInRadius[0].GetAbsOrigin();
-		for (let i = 0; i < enemyNum - 1; i++) {
-			for (let j = i + 1; j < enemyNum; j++) {
-				let pos1 = EnemiInRadius[i].GetAbsOrigin();
-				let pos2 = EnemiInRadius[j].GetAbsOrigin();
-				let mid = pos1.__add(pos2).__mul(0.5);
+    -- mjollnir
+    if NPC.HasItem(myHero, "item_mjollnir", true) then
+    	local item = NPC.GetItem(myHero, "item_mjollnir", true)
+    	if Ability.IsCastable(item, NPC.GetMana(myHero)) then
+    		Ability.CastTarget(item, myHero)
+    	end
+    end
 
-				let heroesNum = 0;
-				for (let k = 0; k < enemyNum; k++) {
-					if (NPC.IsPositionInRange(EnemiInRadius[k], mid, radius, 0)) {
-						heroesNum++;
-					}
-				}
+end
 
-				if (heroesNum > maxNum) {
-					maxNum = heroesNum;
-					bestPos = mid;
-				}
-			}
-		}
+function Utility.IsAncientCreep(npc)
+    if not npc then return false end
 
-		return bestPos;
-	}
+    for i, name in ipairs(Utility.AncientCreepNameList) do
+        if name and NPC.GetUnitName(npc) == name then return true end
+    end
 
-	StornSpiritAbuse.OnScriptLoad = StornSpiritAbuse.OnGameStart = () => {
-	    localHero = EntitySystem.GetLocalHero();
-	    myPlayer = EntitySystem.GetLocalPlayer();
-		enemyList = [];
-	};
+    return false
+end
 
-	StornSpiritAbuse.OnGameEnd = () => {
-	    localHero = null;
-	    myPlayer = null;
-	};
+function Utility.CantMove(npc)
+    if not npc then return false end
 
-	RegisterScript(StornSpiritAbuse);
+    if NPC.IsRooted(npc) or Utility.GetStunTimeLeft(npc) >= 1 then return true end
+    if NPC.HasModifier(npc, "modifier_axe_berserkers_call") then return true end
+    if NPC.HasModifier(npc, "modifier_legion_commander_duel") then return true end
 
-/***/ })
+    return false
+end
 
-/******/ 	});
-/************************************************************************/
-/******/ 	
-/******/ 	// startup
-/******/ 	var __webpack_exports__ = {};
-/******/ 	__webpack_modules__["./src/StornSpiritAbuse.ts"]();
-/******/ 	
-/******/ })()
-;
+-- Reference: https://dota2.gamepedia.com/Stun
+-- black items on the list seems are not included in "modifier_stunned"
+Utility.StunModifiers = {
+    "modifier_stunned",
+    "modifier_bashed",
+    "modifier_bane_fiends_grip",
+    "modifier_rattletrap_hookshot",
+    "modifier_winter_wyvern_winters_curse_aura",
+    "modifier_necrolyte_reapers_scythe"
+}
+
+-- Reference: https://dota2.gamepedia.com/Sleep
+Utility.SleepModifiers = {
+    "modifier_bane_nightmare",
+    "modifier_elder_titan_echo_stomp",
+    "modifier_naga_siren_song_of_the_siren"
+}
+
+-- Reference: https://dota2.gamepedia.com/Root
+Utility.RootModifiers = {
+    "modifier_crystal_maiden_frostbite",
+    "modifier_dark_troll_warlord_ensnare",
+    "modifier_ember_spirit_searing_chains",
+    "modifier_meepo_earthbind",
+    "modifier_naga_siren_ensnare",
+    "modifier_oracle_fortunes_end_purge",
+    "modifier_rod_of_atos_debuff",
+    "modifier_lone_druid_spirit_bear_entangle_effect",
+    "modifier_techies_stasis_trap_stunned",
+    "modifier_treant_natures_guise_root",
+    "modifier_treant_overgrowth",
+    "modifier_abyssal_underlord_pit_of_malice_ensare"
+}
+
+-- Reference: https://dota2.gamepedia.com/Taunt
+Utility.TauntModifiers = {
+    "modifier_axe_berserkers_call",
+    "modifier_legion_commander_duel",
+    "modifier_winter_wyvern_winters_curse"
+}
+
+-- only able to get stun modifier. no specific modifier for root or hex.
+function Utility.GetStunTimeLeft(npc)
+    local mod = NPC.GetModifier(npc, "modifier_stunned")
+    if not mod then return 0 end
+    return math.max(Modifier.GetDieTime(mod) - GameRules.GetGameTime(), 0)
+end
+
+-- time left to be fixed in a position (stunned, sleeped, rooted, or taunted)
+function Utility.GetFixTimeLeft(npc)
+    for i, val in ipairs(Utility.StunModifiers) do
+        local mod = NPC.GetModifier(npc, val)
+        if mod then return math.max(Modifier.GetDieTime(mod) - GameRules.GetGameTime(), 0) end
+    end
+
+    for i, val in ipairs(Utility.SleepModifiers) do
+        local mod = NPC.GetModifier(npc, val)
+        if mod then return math.max(Modifier.GetDieTime(mod) - GameRules.GetGameTime(), 0) end
+    end
+
+    for i, val in ipairs(Utility.RootModifiers) do
+        local mod = NPC.GetModifier(npc, val)
+        if mod then return math.max(Modifier.GetDieTime(mod) - GameRules.GetGameTime(), 0) end
+    end
+
+    for i, val in ipairs(Utility.TauntModifiers) do
+        local mod = NPC.GetModifier(npc, val)
+        if mod then return math.max(Modifier.GetDieTime(mod) - GameRules.GetGameTime(), 0) end
+    end
+
+    return 0
+end
+
+-- hex only has three types: sheepstick, lion's hex, shadow shaman's hex
+function Utility.GetHexTimeLeft(npc)
+    local mod
+    local mod1 = NPC.GetModifier(npc, "modifier_sheepstick_debuff")
+    local mod2 = NPC.GetModifier(npc, "modifier_lion_voodoo")
+    local mod3 = NPC.GetModifier(npc, "modifier_shadow_shaman_voodoo")
+
+    if mod1 then mod = mod1 end
+    if mod2 then mod = mod2 end
+    if mod3 then mod = mod3 end
+
+    if not mod then return 0 end
+    return math.max(Modifier.GetDieTime(mod) - GameRules.GetGameTime(), 0)
+end
+
+-- return false for conditions that are not suitable to cast spell (like TPing, being invisible)
+-- return true otherwise
+function Utility.IsSuitableToCastSpell(myHero)
+    if NPC.IsSilenced(myHero) or NPC.IsStunned(myHero) or not Entity.IsAlive(myHero) then return false end
+    if NPC.HasState(myHero, Enum.ModifierState.MODIFIER_STATE_INVISIBLE) then return false end
+    if NPC.HasModifier(myHero, "modifier_teleporting") then return false end
+    if NPC.IsChannellingAbility(myHero) then return false end
+
+    return true
+end
+
+function Utility.IsSuitableToUseItem(myHero)
+    if NPC.IsStunned(myHero) or not Entity.IsAlive(myHero) then return false end
+    if NPC.HasState(myHero, Enum.ModifierState.MODIFIER_STATE_INVISIBLE) then return false end
+    if NPC.HasModifier(myHero, "modifier_teleporting") then return false end
+    if NPC.IsChannellingAbility(myHero) then return false end
+
+    return true
+end
+
+-- return true if: (1) channeling ability; (2) TPing
+function Utility.IsChannellingAbility(npc)
+    if NPC.HasModifier(npc, "modifier_teleporting") then return true end
+    if NPC.IsChannellingAbility(npc) then return true end
+
+    return false
+end
+
+function Utility.IsAffectedByDoT(npc)
+    if not npc then return false end
+
+    if NPC.HasModifier(npc, "modifier_item_radiance_debuff") then return true end
+    if NPC.HasModifier(npc, "modifier_item_urn_damage") then return true end
+    if NPC.HasModifier(npc, "modifier_alchemist_acid_spray") then return true end
+    if NPC.HasModifier(npc, "modifier_cold_feet") then return true end
+    if NPC.HasModifier(npc, "modifier_ice_blast") then return true end
+    if NPC.HasModifier(npc, "modifier_axe_battle_hunger") then return true end
+    if NPC.HasModifier(npc, "modifier_bane_fiends_grip") then return true end
+    if NPC.HasModifier(npc, "modifier_batrider_firefly") then return true end
+    if NPC.HasModifier(npc, "modifier_rattletrap_battery_assault") then return true end
+    if NPC.HasModifier(npc, "modifier_crystal_maiden_frostbite") then return true end
+    if NPC.HasModifier(npc, "modifier_crystal_maiden_freezing_field") then return true end
+    if NPC.HasModifier(npc, "modifier_dazzle_poison_touch") then return true end
+    if NPC.HasModifier(npc, "modifier_disruptor_static_storm") then return true end
+    if NPC.HasModifier(npc, "modifier_disruptor_thunder_strike") then return true end
+    if NPC.HasModifier(npc, "modifier_doom_bringer_doom") then return true end
+    if NPC.HasModifier(npc, "modifier_doom_bringer_scorched_earth_effect") then return true end
+    if NPC.HasModifier(npc, "modifier_dragon_knight_corrosive_breath_dot") then return true end
+    if NPC.HasModifier(npc, "modifier_earth_spirit_magnetize") then return true end
+    if NPC.HasModifier(npc, "modifier_ember_spirit_flame_guard") then return true end
+    if NPC.HasModifier(npc, "modifier_enigma_malefice") then return true end
+    if NPC.HasModifier(npc, "modifier_brewmaster_fire_permanent_immolation") then return true end
+    if NPC.HasModifier(npc, "modifier_gyrocopter_rocket_barrage") then return true end
+    if NPC.HasModifier(npc, "modifier_huskar_burning_spear_debuff") then return true end
+    if NPC.HasModifier(npc, "modifier_invoker_ice_wall_slow_debuff") then return true end
+    if NPC.HasModifier(npc, "modifier_invoker_chaos_meteor_burn") then return true end
+    if NPC.HasModifier(npc, "modifier_jakiro_dual_breath_burn") then return true end
+    if NPC.HasModifier(npc, "modifier_jakiro_macropyre") then return true end
+    if NPC.HasModifier(npc, "modifier_juggernaut_blade_fury") then return true end
+    if NPC.HasModifier(npc, "modifier_leshrac_diabolic_edict") then return true end
+    if NPC.HasModifier(npc, "modifier_leshrac_pulse_nova") then return true end
+    if NPC.HasModifier(npc, "modifier_ogre_magi_ignite") then return true end
+    if NPC.HasModifier(npc, "modifier_phoenix_fire_spirit_burn") then return true end
+    if NPC.HasModifier(npc, "modifier_phoenix_icarus_dive_burn") then return true end
+    if NPC.HasModifier(npc, "modifier_phoenix_sun_debuff") then return true end
+    if NPC.HasModifier(npc, "modifier_pudge_rot") then return true end
+    if NPC.HasModifier(npc, "modifier_pugna_life_drain") then return true end
+    if NPC.HasModifier(npc, "modifier_queenofpain_shadow_strike") then return true end
+    if NPC.HasModifier(npc, "modifier_razor_eye_of_the_storm") then return true end
+    if NPC.HasModifier(npc, "modifier_sandking_sand_storm") then return true end
+    if NPC.HasModifier(npc, "modifier_silencer_curse_of_the_silent") then return true end
+    if NPC.HasModifier(npc, "modifier_sniper_shrapnel_slow") then return true end
+    if NPC.HasModifier(npc, "modifier_shredder_chakram_debuff") then return true end
+    if NPC.HasModifier(npc, "modifier_treant_leech_seed") then return true end
+    if NPC.HasModifier(npc, "modifier_abyssal_underlord_firestorm_burn") then return true end
+    if NPC.HasModifier(npc, "modifier_venomancer_venomous_gale") then return true end
+    if NPC.HasModifier(npc, "modifier_venomancer_poison_nova") then return true end
+    if NPC.HasModifier(npc, "modifier_viper_viper_strike") then return true end
+    if NPC.HasModifier(npc, "modifier_warlock_shadow_word") then return true end
+    if NPC.HasModifier(npc, "modifier_warlock_golem_permanent_immolation_debuff") then return true end
+    if NPC.HasModifier(npc, "modifier_maledict") then return true end
+
+    return false
+end
+
+-- standard APIs have fixed this issue
+function Utility.GetCastRange(myHero, ability)
+    return Ability.GetCastRange(ability)
+    -- if not myHero or not ability then return 0 end
+    --
+    -- local range = Ability.GetCastRange(ability)
+    --
+    -- if NPC.HasItem(myHero, "item_aether_lens", true) then
+    --     range = range + 250
+    -- end
+    --
+    -- for i = 0, 24 do
+    --     local ability = NPC.GetAbilityByIndex(myHero, i)
+    --     if ability and Ability.GetLevel(ability) > 0 then
+    --         local bonus_name = Ability.GetName(ability)
+    --         if string.find(bonus_name, "special_bonus_cast_range") then
+    --             local diff = tonumber(string.match(bonus_name, "[0-9]+"))
+    --             range = range + diff
+    --         end
+    --     end
+    -- end
+    --
+    -- return range
+end
+
+function Utility.GetRealDamage(myHero, enemy, damage)
+    local spell_amplifier = 1
+
+    if NPC.HasModifier(enemy, "modifier_item_veil_of_discord_debuff") then
+        spell_amplifier = spell_amplifier + 0.18
+    end
+
+    if NPC.HasItem(myHero, "item_kaya", true) then
+        spell_amplifier = spell_amplifier + 0.08
+    end
+
+    if NPC.HasItem(myHero, "item_bloodstone", true) then
+        spell_amplifier = spell_amplifier + 0.08
+    end
+
+    if NPC.HasItem(myHero, "item_nether_shawl", false) then
+        spell_amplifier = spell_amplifier + 0.08
+    end
+
+    if NPC.HasItem(myHero, "item_timeless_relic", false) then
+        spell_amplifier = spell_amplifier + 0.15
+    end
+
+    if NPC.HasItem(myHero, "item_yasha_and_kaya", true) then
+        spell_amplifier = spell_amplifier + 0.16
+    end
+
+    if NPC.HasItem(myHero, "item_kaya_and_sange", true) then
+        spell_amplifier = spell_amplifier + 0.16
+    end
+
+    if NPC.HasItem(myHero, "item_trident", false) then
+        spell_amplifier = spell_amplifier + 0.30
+    end
+
+    local rubick_arcane_supremacy = NPC.GetAbility(myHero, "rubick_arcane_supremacy")
+    if rubick_arcane_supremacy then
+        spell_amplifier = spell_amplifier + 0.1 + 0.04 * Ability.GetLevel(rubick_arcane_supremacy)
+    end
+
+    real_damage = damage * NPC.GetMagicalArmorDamageMultiplier(enemy) * spell_amplifier
+    return real_damage
+end
+
+function Utility.GetSafeDirection(myHero)
+    local mid = Vector()
+    local pos = Entity.GetAbsOrigin(myHero)
+
+    for i = 1, Heroes.Count() do
+        local enemy = Heroes.Get(i)
+        if enemy and not Entity.IsSameTeam(myHero, enemy) then
+            mid = mid + Entity.GetAbsOrigin(enemy)
+        end
+	end
+
+    mid:Set(mid:GetX()/Heroes.Count(), mid:GetY()/Heroes.Count(), mid:GetZ()/Heroes.Count())
+    return (pos + pos - mid):Normalized()
+end
+
+function Utility.IsKillable(npc)
+
+    -- Abaddon's ultimate
+    if NPC.HasModifier(npc, "modifier_abaddon_borrowed_time") then return false end
+
+    -- Dazzle's save
+    if NPC.HasModifier(npc, "modifier_dazzle_shallow_grave") then return false end
+
+    -- Oracle's save
+    if NPC.HasModifier(npc, "modifier_oracle_false_promise") then return false end
+
+    -- WW's ultimate
+    if NPC.HasModifier(npc, "modifier_winter_wyvern_winters_curse") then return false end
+    if NPC.HasModifier(npc, "modifier_winter_wyvern_winters_curse_aura") then return false end
+
+    return true
+end
+
+-- Get true physical damage
+function Utility.GetTrueDamage(myHero)
+
+    local damage = NPC.GetTrueDamage(myHero)
+
+    if NPC.HasItem(myHero, "item_diffusal_blade", true) then
+        damage = damage + 40 * 0.8
+    end
+
+    return damage
+end
+
+function Utility.GetHeroIndicesOrderedByLevel()
+
+    local levels = {}
+    for i = 1, Heroes.Count() do
+        local npc = Heroes.Get(i)
+        table.insert(levels, {i, NPC.GetCurrentLevel(npc)})
+    end
+
+    table.sort(levels, function (a, b) return a[2] > b[2] end)
+
+    local indices = {}
+    for k,v in ipairs(levels) do
+       indices[k] = v[1]
+    end
+
+    return indices
+end
+
+function Utility.GetHeroIndicesOrderedByDistance()
+
+    local myHero = Heroes.GetLocal()
+    local pos1 = Entity.GetAbsOrigin(myHero)
+
+    local distances = {}
+    for i = 1, Heroes.Count() do
+        local npc = Heroes.Get(i)
+        local pos2 = Entity.GetAbsOrigin(npc)
+        table.insert(distances, {i, (pos1 - pos2):Length()})
+    end
+
+    table.sort(distances, function (a, b) return a[2] < b[2] end)
+
+    local indices = {}
+    for k,v in ipairs(distances) do
+       indices[k] = v[1]
+    end
+
+    return indices
+end
+
+return Utility
