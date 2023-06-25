@@ -52,7 +52,7 @@
 	// Definición de la función OnUpdate
 	MouseBoostAbuse.OnUpdate = () => {
 	  if (myHero && isUiEnabled.GetValue()) {
-		if (Input.IsKeyDown(Enum.ButtonCode.MOUSE_RIGHT)) {
+		if (Input.IsKeyDown(Enum.ButtonCode.MOUSE_RIGHT) && !Input.IsCursorOnMinimap()) {
 		  if (!mouseBoostInterval) {
 			startMouseBoost(myHero, myPlayer);
 		  }
