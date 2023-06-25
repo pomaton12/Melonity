@@ -385,7 +385,7 @@
 						 //
 						let isUltimateCasting = false; // Variable de bloqueo
 
-						if (localHero.GetMana() > 300 && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && menu_AbilitiesList[3]) {
+						if (localHero.GetMana() > 400 && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && menu_AbilitiesList[3]) {
 							if (CastDistanceulTI > dist && dist > attackRange ) {	
 								isUltimateCasting = true; // Bloqueamos el lanzamiento del ultimate
 
@@ -594,7 +594,7 @@
 										if (TargetInRadius(comboTarget, 475, localHero)) {
 											let enemyHeroes = comboTarget.GetHeroesInRadius(650, Enum.TeamType.TEAM_ENEMY);
 											let posbesttt = BestPosition(enemyHeroes, 475);
-											if(posbesttt && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && localHero.GetMana() > 500 && enemyHeroes.length > 1 ){
+											if(posbesttt && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && localHero.GetMana() > 600 && enemyHeroes.length > 1 ){
 												if (Engine.OnceAt(0.2)){
 													Ultimate.CastPosition(posbesttt);
 												}
@@ -637,7 +637,7 @@
 										if (TargetInRadius(comboTarget, 475, localHero)) {
 											let enemyHeroes = localHero.GetHeroesInRadius(650, Enum.TeamType.TEAM_ENEMY);
 											let posbesttt = BestPosition(enemyHeroes, 475);
-											if(posbesttt && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && localHero.GetMana() > 500 && enemyHeroes.length > 1 ){
+											if(posbesttt && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && localHero.GetMana() > 600 && enemyHeroes.length > 1 ){
 												if (Engine.OnceAt(0.2)){
 													Ultimate.CastPosition(posbesttt);
 												}
@@ -691,7 +691,7 @@
 						// Comprueba si las otras habilidades están en cooldown o si el modificador está activo
 						
 						if(BestUltiEnable.GetValue()){
-							if (localHero.GetMana() > SafeManaUI && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && menu_AbilitiesList[3]) {
+							if (localHero.GetMana() > 600 && Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && menu_AbilitiesList[3]) {
 
 								if (!static_remnant.IsInAbilityPhase() && !electric_vortex.IsInAbilityPhase() && !Modifier1 && !Modifier2) {
 									
