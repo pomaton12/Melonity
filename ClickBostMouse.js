@@ -28,22 +28,32 @@
 
 	// Declaración de la variable mouseBoostInterval
 	let mouseBoostInterval = null;
-
+	let exOrders = [Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_MOVE];
+    let accessOrders = [Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_DIRECTION, Enum.UnitOrder.DOTA_UNIT_ORDER_PICKUP_ITEM, Enum.UnitOrder.DOTA_UNIT_ORDER_PICKUP_RUNE];
+  
 	// Definición de la función startMouseBoost
 	function startMouseBoost(myHero, myPlayer) {
-	  mouseBoostInterval = setInterval(() => {
-		if (!Input.IsKeyDown(Enum.ButtonCode.MOUSE_RIGHT)) {
+	  mouseBoostInterval = setInterval((OnOrders) => {
+		  
+		if (!Input.IsKeyDown(Enum.ButtonCode.MOUSE_RIGHT) || exOrders.includes(OnOrders.order)) {
 		  clearInterval(mouseBoostInterval);
 		  mouseBoostInterval = null;
 		  return;
+		} else {
+			
+			
+			// Realizar el clic derecho aquí
+			myPlayer.PrepareUnitOrdersStructed({
+			  orderIssuer: Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY,
+			  orderType: Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION,
+			  position: Input.GetWorldCursorPos(),
+			  entity: myHero
+			});
 		}
-		// Realizar el clic derecho aquí
-		myPlayer.PrepareUnitOrdersStructed({
-		  orderIssuer: Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY,
-		  orderType: Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION,
-		  position: Input.GetWorldCursorPos(),
-		  entity: myHero
-		});
+		
+
+		
+		
 	  }, 50);
 	}
 
