@@ -33,7 +33,7 @@
 		}
 		// Realizar el clic derecho aquí
 		myPlayer.PrepareUnitOrdersStructed({
-		  orderIssuer: event.orderIssuer,
+		  orderIssuer: Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY,
 		  orderType: Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION,
 		  position: Input.GetWorldCursorPos(),
 		  entity: myHero
