@@ -11,7 +11,8 @@
 	const MouseBoostAbuse = {};
 
 	// Declaración de la variable localHero
-	let localHero;
+	let myHero = null;
+    let myPlayer = null;
 
 	// Definición del array path_
 	const path_ = ["Custom Scripts","Utility"];
@@ -23,7 +24,7 @@
 	let mouseBoostInterval = null;
 
 	// Definición de la función startMouseBoost
-	function startMouseBoost() {
+	function startMouseBoost(myHero, myPlayer) {
 	  mouseBoostInterval = setInterval(() => {
 		if (!Input.IsKeyDown(Enum.ButtonCode.MOUSE_RIGHT)) {
 		  clearInterval(mouseBoostInterval);
@@ -53,7 +54,7 @@
 	  if (localHero && isUiEnabled.GetValue()) {
 		if (Input.IsKeyDown(Enum.ButtonCode.MOUSE_RIGHT)) {
 		  if (!mouseBoostInterval) {
-			startMouseBoost();
+			startMouseBoost(myHero, myPlayer);
 		  }
 		} else {
 		  stopMouseBoost();
@@ -63,12 +64,14 @@
 
 	// Definición de la función OnScriptLoad
 	MouseBoostAbuse.OnScriptLoad = MouseBoostAbuse.OnGameStart = () => {
-	  localHero = EntitySystem.GetLocalHero();
+	  myHero = EntitySystem.GetLocalHero();
+	  myPlayer = EntitySystem.GetLocalPlayer();
 	};
 
 	// Definición de la función OnGameEnd
 	MouseBoostAbuse.OnGameEnd = () => {
-	  localHero = null;
+	  	let myHero = null;
+		let myPlayer = null;
 	};
 
 	// Registro del script
