@@ -38,7 +38,6 @@
 				if (mouseBoostInterval) {
 					clearInterval(mouseBoostInterval);
 					mouseBoostInterval = null;
-					return;
 				}
 			} else {
 				mouseBoostInterval = setInterval((OnOrders) => {
