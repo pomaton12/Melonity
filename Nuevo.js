@@ -785,10 +785,10 @@
 				Renderer.SetDrawColor(0, 0, 0, 150);
 				Renderer.DrawFilledRect(panelX, panelY, PANEL_WIDTH, PANEL_HEIGHT, 4);
 
-				Renderer.SetDrawColor(0, 0, 0, 255);
+				Renderer.SetDrawColor(26, 37, 75, 255);
 				Renderer.DrawFilledRect(panelX + 5, panelY + 3, PANEL_WIDTH - 11, 9, 4);
 
-				Renderer.SetDrawColor(53, 153, 220, 255);
+				Renderer.SetDrawColor(79, 113, 226, 255);
 				Renderer.DrawFilledRect(panelX + 6, panelY + 4,valorPix, 8, 4);
 
 				Renderer.SetDrawColor(255, 255, 255, 255);
