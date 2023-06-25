@@ -32,41 +32,38 @@
     let accessOrders = [Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_DIRECTION, Enum.UnitOrder.DOTA_UNIT_ORDER_PICKUP_ITEM, Enum.UnitOrder.DOTA_UNIT_ORDER_PICKUP_RUNE];
   
 	// Definición de la función startMouseBoost
-	function startMouseBoost(myHero, myPlayer) {
-	  mouseBoostInterval = setInterval((OnOrders) => {
-		  
-		//if (!Input.IsKeyDown(Enum.ButtonCode.MOUSE_RIGHT) || exOrders.includes(OnOrders.order)) {
-		if (exOrders.includes(OnOrders.order)) {
-			if(mouseBoostInterval){
-			  clearInterval(mouseBoostInterval);
-			  mouseBoostInterval = null;
-			  return;
+	MouseBoostAbuse.OnPrepareUnitOrders = (event) => {
+		if (myHero && isUiEnabled.GetValue()) {
+			if (exOrders.includes(event.order)) {
+				if (mouseBoostInterval) {
+					clearInterval(mouseBoostInterval);
+					mouseBoostInterval = null;
+					return;
+				}
+			} else {
+				mouseBoostInterval = setInterval((OnOrders) => {
+				  
+					//if (!Input.IsKeyDown(Enum.ButtonCode.MOUSE_RIGHT) || exOrders.includes(OnOrders.order)) {
+					if (!Input.IsKeyDown(Enum.ButtonCode.MOUSE_RIGHT)) {
+						  clearInterval(mouseBoostInterval);
+						  mouseBoostInterval = null;
+						  return;
+					}
+						
+					if (Input.IsKeyDown(Enum.ButtonCode.MOUSE_RIGHT) &&  !CheckOnPanorama(panorama.items) && !CheckOnPanorama(panorama.neutrals)  && !Input.IsCursorOnMinimap() && !Engine.IsShopOpen() && !Engine.IsMenuOpen()) {	
+						// Realizar el clic derecho aquí
+						myPlayer.PrepareUnitOrdersStructed({
+						  orderIssuer: Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY,
+						  orderType: Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION,
+						  position: Input.GetWorldCursorPos(),
+						  entity: myHero
+						});
+					}
+				}, 50);
 			}
-		} else {
-			
-			
-			// Realizar el clic derecho aquí
-			myPlayer.PrepareUnitOrdersStructed({
-			  orderIssuer: Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY,
-			  orderType: Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION,
-			  position: Input.GetWorldCursorPos(),
-			  entity: myHero
-			});
 		}
-		
-
-		
-		
-	  }, 50);
 	}
 
-	// Definición de la función stopMouseBoost
-	function stopMouseBoost() {
-	  if (mouseBoostInterval) {
-		clearInterval(mouseBoostInterval);
-		mouseBoostInterval = null;
-	  }
-	}
 	function CheckOnPanorama(panoramaPanel) {
         if (!panoramaPanel) {
             return;
@@ -87,13 +84,6 @@
 				'center_with_stats', 'center_block',
 				'inventory_composition_layer_container'])
 			};
-			if (Input.IsKeyDown(Enum.ButtonCode.MOUSE_RIGHT) &&  !CheckOnPanorama(panorama.items) && !CheckOnPanorama(panorama.neutrals)  && !Input.IsCursorOnMinimap() && !Engine.IsShopOpen() && !Engine.IsMenuOpen()) {
-				if (!mouseBoostInterval) {
-					startMouseBoost(myHero, myPlayer);
-				}
-			} else {
-				stopMouseBoost();
-			}
 		}
 	};
 
