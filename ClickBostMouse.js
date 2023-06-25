@@ -19,61 +19,61 @@
 	// Creación del toggle isUiEnabled
 	let isUiEnabled = Menu.AddToggle(path_, 'Mouse Boost Repeat', true);
 
+	// Declaración de la variable mouseBoostInterval
+	let mouseBoostInterval = null;
 
 	// Definición de la función startMouseBoost
 	function startMouseBoost() {
-		mouseBoostInterval = setInterval(() => {
-			if (!Input.IsKeyDown(Enum.ButtonCode.MOUSE_RIGHT)) {
-				clearInterval(mouseBoostInterval);
-				mouseBoostInterval = null;
-				return;
-			}
-			// Realizar el clic derecho aquí
-			myPlayer.PrepareUnitOrdersStructed({
-				orderIssuer: event.orderIssuer,
-				orderType: Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION,
-				position: Input.GetWorldCursorPos(),
-				entity: myHero
-			});
-		}, 50);
+	  mouseBoostInterval = setInterval(() => {
+		if (!Input.IsKeyDown(Enum.ButtonCode.MOUSE_RIGHT)) {
+		  clearInterval(mouseBoostInterval);
+		  mouseBoostInterval = null;
+		  return;
+		}
+		// Realizar el clic derecho aquí
+		myPlayer.PrepareUnitOrdersStructed({
+		  orderIssuer: event.orderIssuer,
+		  orderType: Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION,
+		  position: Input.GetWorldCursorPos(),
+		  entity: myHero
+		});
+	  }, 50);
 	}
 
 	// Definición de la función stopMouseBoost
 	function stopMouseBoost() {
-		if (mouseBoostInterval) {
-			clearInterval(mouseBoostInterval);
+	  if (mouseBoostInterval) {
+		clearInterval(mouseBoostInterval);
 		mouseBoostInterval = null;
-		}
+	  }
 	}
-
-
 
 	// Definición de la función OnUpdate
 	MouseBoostAbuse.OnUpdate = () => {
-		if (localHero && isUiEnabled.GetValue()) {
-			if (Input.IsKeyDown(Enum.ButtonCode.MOUSE_RIGHT)) {
-				if (!mouseBoostInterval) {
-					startMouseBoost();
-				}
-			} else {
-				stopMouseBoost();
-			}
+	  if (localHero && isUiEnabled.GetValue()) {
+		if (Input.IsKeyDown(Enum.ButtonCode.MOUSE_RIGHT)) {
+		  if (!mouseBoostInterval) {
+			startMouseBoost();
+		  }
+		} else {
+		  stopMouseBoost();
 		}
+	  }
 	};
-
 
 	// Definición de la función OnScriptLoad
 	MouseBoostAbuse.OnScriptLoad = MouseBoostAbuse.OnGameStart = () => {
-		localHero = EntitySystem.GetLocalHero();
+	  localHero = EntitySystem.GetLocalHero();
 	};
 
 	// Definición de la función OnGameEnd
 	MouseBoostAbuse.OnGameEnd = () => {
-		localHero = null;
+	  localHero = null;
 	};
 
 	// Registro del script
 	RegisterScript(MouseBoostAbuse);
+
 
 /***/ })
 
