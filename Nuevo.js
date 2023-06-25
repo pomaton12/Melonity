@@ -760,9 +760,9 @@
 			}
 			
 			if (BestPostCastUI.GetValue()) {
-				const ultimate = localHero.GetAbilityByName("storm_spirit_ball_lightning");
+				const ultimateSS = localHero.GetAbilityByIndex(5);
 
-				if (ultimate && ultimate.GetLevel() > 0) {
+				if (ultimateSS && ultimateSS.GetLevel() > 0) {
 					// Obtener la posición del mouse
 					const mouseP = Input.GetWorldCursorPos();
 					const mousePos = Input.GetCursorPos();
