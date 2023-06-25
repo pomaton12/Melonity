@@ -768,12 +768,12 @@
 				const distance = heroPos.Distance(mouseP);
 
 				// Calcular el costo de maná por distancia recorrida
-				const manaCost = Math.floor(25+(0.075 * localHero.GetMaxMana()) + (0.01 * localHero.GetMaxMana() * Math.floor(distance / 100)));
-				const manaMax = localHero.GetMaxMana();
+				const manaMax = localHero.GetMaxMana();				
+				const manaCost = Math.floor(25.0 + ((manaMax * 0.075) + ((distance / 100.0) * (10.0 + (0.65 * (manaMax / 100.0))))));
 				const manaActual = Math.floor(localHero.GetMana()- manaCost);
 				
 				// Calcular el daño por distancia recorrida
-				const damage = Math.floor((8 + (4 * localHero.GetAbilityByIndex(5).GetLevel())) * Math.floor(distance / 100));
+				const damage = Math.floor((4 + (4 * localHero.GetAbilityByIndex(5).GetLevel())) * Math.floor(distance / 100));
 				console.log(localHero.GetAbilityByIndex(5).GetLevel());
 				
 				const valorPix  = Math.floor((manaActual * 53) / manaMax);
