@@ -30,36 +30,52 @@
 	let mouseBoostInterval = null;
 	let exOrders = [Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_MOVE];
     let accessOrders = [Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_DIRECTION, Enum.UnitOrder.DOTA_UNIT_ORDER_PICKUP_ITEM, Enum.UnitOrder.DOTA_UNIT_ORDER_PICKUP_RUNE];
-  
+	
+	let lastOrder;
 	// Definición de la función startMouseBoost
 	MouseBoostAbuse.OnPrepareUnitOrders = (event) => {
 		if (myHero && isUiEnabled.GetValue()) {
-			if (exOrders.includes(event.order)) {
-				if (mouseBoostInterval) {
-					clearInterval(mouseBoostInterval);
-					mouseBoostInterval = null;
-				}
-			} else {
-				mouseBoostInterval = setInterval((OnOrders) => {
-				  
-					//if (!Input.IsKeyDown(Enum.ButtonCode.MOUSE_RIGHT) || exOrders.includes(OnOrders.order)) {
-					if (!Input.IsKeyDown(Enum.ButtonCode.MOUSE_RIGHT)) {
-						  clearInterval(mouseBoostInterval);
-						  mouseBoostInterval = null;
-						  return;
-					}
-						
-					if (Input.IsKeyDown(Enum.ButtonCode.MOUSE_RIGHT) &&  !CheckOnPanorama(panorama.items) && !CheckOnPanorama(panorama.neutrals)  && !Input.IsCursorOnMinimap() && !Engine.IsShopOpen() && !Engine.IsMenuOpen()) {	
-						// Realizar el clic derecho aquí
-						myPlayer.PrepareUnitOrdersStructed({
-						  orderIssuer: Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY,
-						  orderType: Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION,
-						  position: Input.GetWorldCursorPos(),
-						  entity: myHero
-						});
-					}
-				}, 50);
-			}
+
+            if (exOrders.includes(event.order)) {
+                if (mouseBoostInterval) {
+                    clearInterval(mouseBoostInterval);
+                    mouseBoostInterval = null;
+                    lastOrder = null;
+                }
+            }
+            else {
+                let index = accessOrders.indexOf(event.order);
+                if (index >= 0) {
+                    if (event.order != lastOrder) {
+                        lastOrder = event.order;
+                        if (mouseBoostInterval) {
+                            clearInterval(mouseBoostInterval);
+                            mouseBoostInterval = null;
+                        }
+                        if (!mouseBoostInterval) {
+                            mouseBoostInterval = setInterval(() => {
+                                if (!Input.IsKeyDown(Enum.ButtonCode.MOUSE_RIGHT)) {
+                                    clearInterval(mouseBoostInterval);
+                                    mouseBoostInterval = null;
+                                    lastOrder = null;
+                                    return;
+                                }
+                                if (!CheckOnPanorama(panorama.items) && !CheckOnPanorama(panorama.neutrals) && !Engine.IsShopOpen() &&
+                                    !Engine.IsMenuOpen() && !Input.IsCursorOnMinimap() && (index > 1 ? event.target && event.target.IsExist() : true)) {
+                                    myPlayer.PrepareUnitOrdersStructed({
+                                        orderIssuer: event.orderIssuer,
+                                        orderType: event.order,
+                                        target: index != 0 ? event.target : undefined,
+                                        position: index == 0 ? Input.GetWorldCursorPos() : undefined,
+                                        entity: myHero
+                                    });
+                                }
+                            }, 50);
+                        }
+                    }
+                    return;
+                }
+            }
 		}
 	}
 
@@ -96,6 +112,7 @@
 	MouseBoostAbuse.OnGameEnd = () => {
 	  	myHero = null;
 		myPlayer = null;
+		lastOrder = null;
 		panorama = {
 			items: null,
 			neutrals: null
