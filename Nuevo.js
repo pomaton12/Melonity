@@ -786,14 +786,16 @@
 				Renderer.DrawFilledRect(panelX, panelY, PANEL_WIDTH, PANEL_HEIGHT, 4);
 
 				Renderer.SetDrawColor(0, 0, 0, 255);
-				Renderer.DrawFilledRect(panelX + 5, panelY + 3, PANEL_WIDTH - 11, 9, 4);
+				Renderer.DrawFilledRect(panelX + 5, panelY + 2, PANEL_WIDTH - 11, 10, 4);
 
 				Renderer.SetDrawColor(79, 113, 226, 255);
-				Renderer.DrawFilledRect(panelX + 6, panelY + 4,valorPix, 8, 4);
+				Renderer.DrawFilledRect(panelX + 6, panelY + 3,valorPix, 9, 4);
 				
 				Renderer.SetDrawColor(0, 0, 0, 255);
 				Renderer.DrawText(font, x-1, y-1, "" + manaActual, 1);
 				Renderer.DrawText(font, x+1, y+1, "" + manaActual, 1);
+				Renderer.DrawText(font, x-1, y, "" + manaActual, 1);
+				Renderer.DrawText(font, x+1, y, "" + manaActual, 1);
 
 				Renderer.SetDrawColor(255, 255, 255, 255);
 				Renderer.DrawText(font, x, y, "" + manaActual, 1);
