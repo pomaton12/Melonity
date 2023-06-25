@@ -79,7 +79,7 @@
 	// Definición de la función OnUpdate
 	MouseBoostAbuse.OnUpdate = () => {
 		if (myHero && isUiEnabled.GetValue()) {
-			console.log(myHero.GetCurrentOrder() );
+			//console.log(myHero.GetCurrentOrder() );
 			panorama = {
 				items: root.FindChildFromPath(['Hud', 'HUDElements', 'lower_hud', 'center_with_stats', 'center_block',
 				'inventory', 'inventory_items', 'inventoryContainer', 'inventory_list_container']),
