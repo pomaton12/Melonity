@@ -54,6 +54,14 @@
 		mouseBoostInterval = null;
 	  }
 	}
+	function CheckOnPanorama(panoramaPanel) {
+        if (!panoramaPanel) {
+            return;
+        }
+        let [x, y] = panoramaPanel.GetPosition();
+        let [width, height] = panoramaPanel.GetSize();
+        return Input.IsCursorInRect(x, y, width, height);
+    }
 
 	// Definición de la función OnUpdate
 	MouseBoostAbuse.OnUpdate = () => {
