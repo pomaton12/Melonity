@@ -770,7 +770,9 @@
 				// Calcular el costo de maná por distancia recorrida
 				const manaMax = localHero.GetMaxMana();				
 				const manaCost = Math.floor(25.0 + ((manaMax * 0.075) + ((distance / 100.0) * (10.0 + (0.65 * (manaMax / 100.0))))));
-				const manaActual = Math.floor(localHero.GetMana()- manaCost);
+				let manaActual = Math.floor(localHero.GetMana()- manaCost);
+				
+				if(0 > manaActual){manaActual = 0;}
 				
 				// Calcular el daño por distancia recorrida
 				const damage = Math.floor((4 + (4 * localHero.GetAbilityByIndex(5).GetLevel())) * Math.floor(distance / 100));
