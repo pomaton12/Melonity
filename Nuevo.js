@@ -760,74 +760,76 @@
 			}
 			
 			if (BestPostCastUI.GetValue()) {
+				const ultimate = localHero.GetAbilityByName("storm_spirit_ball_lightning");
 
-				// Obtener la posición del mouse
-				const mouseP = Input.GetWorldCursorPos();
-				const mousePos = Input.GetCursorPos();
-				const heroPos = localHero.GetAbsOrigin();
-				const distance = heroPos.Distance(mouseP);
-
-				// Calcular el costo de maná por distancia recorrida
-				const manaMax = localHero.GetMaxMana();				
-				const manaCost = Math.floor(25.0 + ((manaMax * 0.075) + ((distance / 100.0) * (10.0 + (0.65 * (manaMax / 100.0))))));
-				let manaActual = Math.floor(localHero.GetMana()- manaCost);
-				
-				if(0 > manaActual){manaActual = 0;}
-				
-				// Calcular el daño por distancia recorrida
-				const damage = Math.floor((4 + (4 * localHero.GetAbilityByIndex(5).GetLevel())) * Math.floor(distance / 100));
-				console.log(localHero.GetAbilityByIndex(5).GetLevel());
-				
-				const valorPix  = Math.floor((manaActual * 53) / manaMax);
-				const font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
-				const [x, y] = [panelX + 25, panelY + 4];
-
-				Renderer.SetDrawColor(0, 0, 0, 150);
-				Renderer.DrawFilledRect(panelX, panelY, PANEL_WIDTH, PANEL_HEIGHT, 4);
-
-				Renderer.SetDrawColor(0, 0, 0, 255);
-				Renderer.DrawFilledRect(panelX + 5, panelY + 2, PANEL_WIDTH - 11, 11, 4);
-
-				Renderer.SetDrawColor(79, 113, 226, 255);
-				Renderer.DrawFilledRect(panelX + 6, panelY + 3,valorPix, 10, 4);
-				
-				Renderer.SetDrawColor(0, 0, 0, 255);
-				Renderer.DrawText(font, x-1, y-1, "" + manaActual, 1);
-				Renderer.DrawText(font, x+1, y+1, "" + manaActual, 1);
-				Renderer.DrawText(font, x-1, y, "" + manaActual, 1);
-				Renderer.DrawText(font, x+1, y, "" + manaActual, 1);
-
-				Renderer.SetDrawColor(255, 255, 255, 255);
-				Renderer.DrawText(font, x, y, "" + manaActual, 1);
-				Renderer.DrawText(font, x + 5, y + 12, "" + damage, 1);
-
-				let imageHandle = Renderer.LoadImage("panorama/images/hud/icon_kill_png.vtex_c");
-				Renderer.DrawImage(imageHandle, panelX + 7, panelY + 14, 12, 12);
-
-				// Detectar si se mantiene presionada la tecla Control
-				if (Input.IsKeyDown(Enum.ButtonCode.KEY_LCONTROL) ) {
-					if (Input.IsKeyDown(Enum.ButtonCode.MOUSE_LEFT) && Input.IsCursorInRect(panelX, panelY, PANEL_WIDTH, PANEL_HEIGHT)) {
-						isDragging = true;
-						const mousePos = Input.GetCursorPos();
-						dragOffsetX = mousePos[0] - panelX;
-						dragOffsetY = mousePos[1] - panelY;
-					}
-				} else {
-					isDragging = false;
-				}
-
-				if (isDragging) {
+				if (ultimate && ultimate.GetLevel() > 0) {
+					// Obtener la posición del mouse
+					const mouseP = Input.GetWorldCursorPos();
 					const mousePos = Input.GetCursorPos();
-					panelX = mousePos[0] - dragOffsetX;
-					panelY = mousePos[1] - dragOffsetY;
-					panelX = Math.max(panelX, 0);
-					panelY = Math.max(panelY, 0);
-					panelX = Math.min(panelX, Renderer.GetScreenSize()[0] - PANEL_WIDTH);
-					panelY = Math.min(panelY, Renderer.GetScreenSize()[1] - PANEL_HEIGHT);
-				}
+					const heroPos = localHero.GetAbsOrigin();
+					const distance = heroPos.Distance(mouseP);
+
+					// Calcular el costo de maná por distancia recorrida
+					const manaMax = localHero.GetMaxMana();				
+					const manaCost = Math.floor(25.0 + ((manaMax * 0.075) + ((distance / 100.0) * (10.0 + (0.65 * (manaMax / 100.0))))));
+					let manaActual = Math.floor(localHero.GetMana()- manaCost);
+					
+					if(0 > manaActual){manaActual = 0;}
+					
+					// Calcular el daño por distancia recorrida
+					const damage = Math.floor((4 + (4 * localHero.GetAbilityByIndex(5).GetLevel())) * Math.floor(distance / 100));
+					console.log(localHero.GetAbilityByIndex(5).GetLevel());
+					
+					const valorPix  = Math.floor((manaActual * 53) / manaMax);
+					const font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
+					const [x, y] = [panelX + 25, panelY + 4];
+
+					Renderer.SetDrawColor(0, 0, 0, 150);
+					Renderer.DrawFilledRect(panelX, panelY, PANEL_WIDTH, PANEL_HEIGHT, 4);
+
+					Renderer.SetDrawColor(0, 0, 0, 255);
+					Renderer.DrawFilledRect(panelX + 5, panelY + 2, PANEL_WIDTH - 11, 11, 4);
+
+					Renderer.SetDrawColor(79, 113, 226, 255);
+					Renderer.DrawFilledRect(panelX + 6, panelY + 3,valorPix, 10, 4);
+					
+					Renderer.SetDrawColor(0, 0, 0, 255);
+					Renderer.DrawText(font, x-1, y-1, "" + manaActual, 1);
+					Renderer.DrawText(font, x+1, y+1, "" + manaActual, 1);
+					Renderer.DrawText(font, x-1, y, "" + manaActual, 1);
+					Renderer.DrawText(font, x+1, y, "" + manaActual, 1);
+
+					Renderer.SetDrawColor(255, 255, 255, 255);
+					Renderer.DrawText(font, x, y, "" + manaActual, 1);
+					Renderer.DrawText(font, x + 5, y + 12, "" + damage, 1);
+
+					let imageHandle = Renderer.LoadImage("panorama/images/hud/icon_kill_png.vtex_c");
+					Renderer.DrawImage(imageHandle, panelX + 7, panelY + 14, 12, 12);
+
+					// Detectar si se mantiene presionada la tecla Control
+					if (Input.IsKeyDown(Enum.ButtonCode.KEY_LCONTROL) ) {
+						if (Input.IsKeyDown(Enum.ButtonCode.MOUSE_LEFT) && Input.IsCursorInRect(panelX, panelY, PANEL_WIDTH, PANEL_HEIGHT)) {
+							isDragging = true;
+							const mousePos = Input.GetCursorPos();
+							dragOffsetX = mousePos[0] - panelX;
+							dragOffsetY = mousePos[1] - panelY;
+						}
+					} else {
+						isDragging = false;
+					}
+
+					if (isDragging) {
+						const mousePos = Input.GetCursorPos();
+						panelX = mousePos[0] - dragOffsetX;
+						panelY = mousePos[1] - dragOffsetY;
+						panelX = Math.max(panelX, 0);
+						panelY = Math.max(panelY, 0);
+						panelX = Math.min(panelX, Renderer.GetScreenSize()[0] - PANEL_WIDTH);
+						panelY = Math.min(panelY, Renderer.GetScreenSize()[1] - PANEL_HEIGHT);
+					}
 					
 
-				//}
+				}
 
 			}
 			
