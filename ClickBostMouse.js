@@ -35,10 +35,13 @@
 	function startMouseBoost(myHero, myPlayer) {
 	  mouseBoostInterval = setInterval((OnOrders) => {
 		  
-		if (!Input.IsKeyDown(Enum.ButtonCode.MOUSE_RIGHT) || exOrders.includes(OnOrders.order)) {
-		  clearInterval(mouseBoostInterval);
-		  mouseBoostInterval = null;
-		  return;
+		//if (!Input.IsKeyDown(Enum.ButtonCode.MOUSE_RIGHT) || exOrders.includes(OnOrders.order)) {
+		if (exOrders.includes(OnOrders.order)) {
+			if(mouseBoostInterval){
+			  clearInterval(mouseBoostInterval);
+			  mouseBoostInterval = null;
+			  return;
+			}
 		} else {
 			
 			
