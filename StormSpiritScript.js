@@ -110,9 +110,9 @@
     Menu.SetImage(path_, 'panorama/images/heroes/icons/npc_dota_hero_storm_spirit_png.vtex_c');
 	Menu.GetFolder([...path_, 'Linkens Breaker Settings']).SetImage('panorama/images/hud/reborn/minimap_gemdrop_psd.vtex_c');
 	OrbUiEnabled.SetImage('panorama/images/hud/icon_kill_png.vtex_c');
-	BestUltiEnable.SetImage('panorama/images/spellicons/storm_spirit_ball_lightning.vtex_c');
+	BestPostCastUI.SetImage('panorama/images/spellicons/storm_spirit_ball_lightning.vtex_c');
 	
-	
+
 	function GetImagesPath(name, full) {
 		if (name.startsWith('item_')) {
 			return `panorama/images/items/${name.slice(5)}_png.vtex_c`;
