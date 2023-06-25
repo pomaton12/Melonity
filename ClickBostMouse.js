@@ -14,6 +14,12 @@
 	let myHero = null;
     let myPlayer = null;
 
+    let root = Panorama.GetDotaHudRoot();
+    let panorama = {
+        items: null,
+        neutrals: null
+    };
+
 	// Definición del array path_
 	const path_ = ["Custom Scripts","Utility"];
 
@@ -51,15 +57,22 @@
 
 	// Definición de la función OnUpdate
 	MouseBoostAbuse.OnUpdate = () => {
-	  if (myHero && isUiEnabled.GetValue()) {
-		if (Input.IsKeyDown(Enum.ButtonCode.MOUSE_RIGHT) && !Input.IsCursorOnMinimap() && !Engine.IsShopOpen() && !Engine.IsMenuOpen()) {
-		  if (!mouseBoostInterval) {
-			startMouseBoost(myHero, myPlayer);
-		  }
-		} else {
-		  stopMouseBoost();
+		if (myHero && isUiEnabled.GetValue()) {
+			panorama = {
+				items: root.FindChildFromPath(['Hud', 'HUDElements', 'lower_hud', 'center_with_stats', 'center_block',
+				'inventory', 'inventory_items', 'inventoryContainer', 'inventory_list_container']),
+				neutrals: root.FindChildFromPath(['Hud', 'HUDElements', 'lower_hud',
+				'center_with_stats', 'center_block',
+				'inventory_composition_layer_container'])
+			};
+			if (Input.IsKeyDown(Enum.ButtonCode.MOUSE_RIGHT) &&  !CheckOnPanorama(panorama.items) && !CheckOnPanorama(panorama.neutrals)  && !Input.IsCursorOnMinimap() && !Engine.IsShopOpen() && !Engine.IsMenuOpen()) {
+				if (!mouseBoostInterval) {
+					startMouseBoost(myHero, myPlayer);
+				}
+			} else {
+				stopMouseBoost();
+			}
 		}
-	  }
 	};
 
 	// Definición de la función OnScriptLoad
@@ -70,8 +83,12 @@
 
 	// Definición de la función OnGameEnd
 	MouseBoostAbuse.OnGameEnd = () => {
-	  	let myHero = null;
-		let myPlayer = null;
+	  	myHero = null;
+		myPlayer = null;
+		panorama = {
+			items: null,
+			neutrals: null
+		};
 	};
 
 	// Registro del script
