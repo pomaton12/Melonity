@@ -58,7 +58,7 @@
 						Renderer.SetDrawColor(120, 0, 255, 255);
 						Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 						Renderer.SetDrawColor(255, 255, 0, 255);
-						Renderer.DrawText(font, Math.ceil(xpos)+2, Math.ceil(ypos)+15, ""+herolvl);
+						Renderer.DrawText(font, Math.ceil(xpos)+2, Math.ceil(ypos)+12, ""+herolvl);
 					}
 					xpos = xpos + sizeBarx+5;
 					for (let i = 0; i < 6; i++) {
