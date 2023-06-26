@@ -60,7 +60,7 @@
 					xpos = xpos + sizeBarx+5;
 					for (let i = 0; i < 6; i++) {
 						let ability = hero.GetAbilityByIndex(i);
-						console.log();
+						console.log(ability);
 						if (ability) {
 							let abilityImageHandle;
 							abilityImageHandle = Renderer.LoadImage("panorama/images/spellicons/" + ability.GetName() + "_png.vtex_c");
