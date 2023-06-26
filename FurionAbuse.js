@@ -30,8 +30,8 @@
 			let sizeamountx = 100;
 			let visibility = 255;
 			let sizeBarx = sizeamountx / 3 * 0.75;
-			//let sizeBary = sizeBarx * 1.2; 
-			let sizeBary = sizeBarx; 
+			let sizeBary = sizeBarx * 0.8; 
+			//let sizeBary = sizeBarx; 
 			let font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
 			let enemyList = [];
 			
@@ -60,6 +60,7 @@
 					xpos = xpos + sizeBarx+5;
 					for (let i = 0; i < 6; i++) {
 						let ability = hero.GetAbilityByIndex(i);
+						console.log();
 						if (ability) {
 							let abilityImageHandle;
 							abilityImageHandle = Renderer.LoadImage("panorama/images/spellicons/" + ability.GetName() + "_png.vtex_c");
