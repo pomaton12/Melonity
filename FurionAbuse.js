@@ -36,7 +36,7 @@
 	CreatePanel.OnUpdate = () => {
         if (localHero && isUiEnabled.GetValue()) {
 			
-			Game.ScriptLogMsg('Script enabled: SkillAlert', '#00ff00');
+			//Game.ScriptLogMsg('Script enabled: SkillAlert', '#00ff00');
 			
 			var Temp = $.CreatePanel( "Panel", $('#scripts'), "SkillAlert" );
 			Temp.SetPanelEvent( 'onactivate', SkillAlertChkBox );
