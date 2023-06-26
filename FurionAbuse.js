@@ -48,7 +48,7 @@
 				if (hero) {
 					let imageHandle;
 					let heroNAME = hero.GetUnitName();
-					console.log(hero.GetUnitName());
+					//console.log(hero.GetUnitName());
 				
 					imageHandle = Renderer.LoadImage("panorama/images/heroes/" + heroNAME + "_png.vtex_c");
 
@@ -56,14 +56,12 @@
 						Renderer.DrawImage(imageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 					}
 					xpos = xpos + sizeBarx;
-					for (let i = 0; i < hero.getAbilityCount(); i++) {
-						let ability = hero.getAbilityByIndex(i);
+					for (let i = 0; i < 6; i++) {
+						let ability = hero.GetAbilityByIndex(i);
 						if (ability) {
 							let abilityImageHandle;
-							if (!abilityicon[ability]) {
-								abilityicon[ability] = Renderer.LoadImage("resource/flash3/images/abilities/" + ability.getName() + ".png");
-							}
-							abilityImageHandle = abilityicon[ability];
+							abilityImageHandle = Renderer.LoadImage("panorama/images/spellicons/" + ability.GetName() + "_png.vtex_c");
+
 							if (abilityImageHandle) {
 								Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 							}
