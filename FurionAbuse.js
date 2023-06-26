@@ -92,6 +92,8 @@
 									Renderer.SetDrawColor(255, 255, 0, 255);
 									Renderer.DrawText(font1, Math.ceil(xpos)+2, Math.ceil(ypos)+12, ""+abilLvl);
 									
+									console.log(ability.GetCurrentCharges());
+									
 								} else {
 									Renderer.SetDrawColor(255,255, 255, 255);
 									Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
