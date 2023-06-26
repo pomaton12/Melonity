@@ -44,7 +44,7 @@
 			}
 			
 			for (let hero of enemyList) {
-				Renderer.setDrawColor(255, 255, 255, visibility);
+				Renderer.SetDrawColor(255, 255, 255, visibility);
 				if (hero[1] && heroesContains(hero[1])) {
 					let imageHandle;
 					if (!heroicon[hero[1]]) {
