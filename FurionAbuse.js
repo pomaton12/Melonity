@@ -12,8 +12,8 @@
 
 	// Declaración de la variable localHero
 	let localHero;
+	let [sizescrx,sizescry] = Renderer.GetScreenSize()
 
-	// Definición del array path_
 	// Definición del array path_
 	const path_ = ["Custom Scripts","Player"];
 
@@ -25,10 +25,10 @@
 	CreatePanel.OnUpdate = () => {
         if (localHero && isUiEnabled.GetValue()) {
 			
-			let xpos = getValue(posx);
-			let ypos = getValue(posy);
-			let sizeamountx = getValue(sizeIcon);
-			let visibility = getValue(visibility);
+			let xpos = sizescrx/2;
+			let ypos = sizescry/2;
+			let sizeamountx = 50;
+			let visibility = 255;
 			let sizeBarx = sizeamountx / 3 * 0.75;
 			let sizeBary = sizeBarx * 1.2;
 			if (!font) { 
@@ -61,7 +61,7 @@
 						}
 					}
 					ypos = ypos + sizeBary;
-					xpos = getValue(posx);
+					xpos = sizescrx/2;
 				}
 			}
 					
