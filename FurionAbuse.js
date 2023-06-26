@@ -72,7 +72,7 @@
 								Renderer.SetDrawColor(153, 0, 0, 180);
 								Renderer.DrawFilledRect( Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 								Renderer.SetDrawColor(255, 255, 255, visibility);
-								Renderer.DrawText(font,Math.ceil(xpos)+5, Math.ceil(ypos)+5, ""+coldowmABIL);
+								Renderer.DrawText(font,Math.ceil(xpos)+5, Math.ceil(ypos)+8, ""+Math.floor(coldowmABIL));
 							}
 							
 							
