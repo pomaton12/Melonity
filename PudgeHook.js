@@ -49,8 +49,6 @@ let Pudge_HP = 0;
 // Definición de la función OnScriptLoad
 PudgeExtended.OnScriptLoad = PudgeExtended.OnGameStart = () => {
     localHero = EntitySystem.GetLocalHero();
-    Pudge_Hook = localHero.GetAbilityByIndex(0);
-    Pudge.Rot = localHero.GetAbilityByIndex(1);
     NeedInitialize = false;
 };
 
@@ -100,6 +98,8 @@ PudgeExtended.OnUpdate = () => {
 			return;
 		}
 
+		Pudge_Hook = localHero.GetAbilityByIndex(0);
+		Pudge.Rot = localHero.GetAbilityByIndex(1);
 		// Auto Hook
 		if (HookKey.IsKeyDown()) {
 			const mousePos = Input.GetWorldCursorPos();
