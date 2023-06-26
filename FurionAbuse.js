@@ -32,8 +32,18 @@
 			let sizeBarx = sizeamountx / 3 * 0.75;
 			let sizeBary = sizeBarx * 1.2; 
 			let font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
+			let enemyList = [];
 			
-			for (let hero of player) {
+			let heroes = EntitySystem.GetHeroesList();
+			if (heroes) {
+				for (let hero of heroes) {
+					if (hero && !hero.IsIllusion() && !hero.IsMeepoClone() && hero.IsHero()  && !hero.IsSameTeam(localHero)) {
+						enemyList.push(hero);
+					}
+				}
+			}
+			
+			for (let hero of enemyList) {
 				Renderer.setDrawColor(255, 255, 255, visibility);
 				if (hero[1] && heroesContains(hero[1])) {
 					let imageHandle;
