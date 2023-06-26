@@ -71,8 +71,8 @@ PudgeExtended.OnDraw = () => {
 					if (!enemy.IsSameTeam(localHero) && enemy.IsAlive()) {
 						let speed = enemy.GetMoveSpeed(enemy);
 						let angle = enemy.GetRotation(enemy);
-						let angleOffset = QAngle(0, 45, 0);
-						angle.SetYaw(angle.GetYaw() + angleOffset.GetYaw());
+						let angleOffset = Angle(0, 45, 0);
+						ang.SetYaw(angle.GetYaw() + angleOffset.GetYaw());
 						let direction = angle.GetVectors().forward;
 						direction.SetZ(0);
 						direction.Normalize();
