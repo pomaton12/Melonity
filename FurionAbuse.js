@@ -93,8 +93,8 @@
 									Renderer.DrawText(font1, Math.ceil(xpos)+2, Math.ceil(ypos)+12, ""+abilLvl);
 									
 									//console.log(ability.GetAbilityCharges());
-									const cooldownRemaining = ability.GetCooldownTimeRemaining();
-									if (cooldownRemaining === 0) {
+									//const cooldownRemaining = ability.GetCooldownTimeRemaining();
+									if (ability.GetCurrentCharges()) {
 										const charges = ability.GetCurrentCharges();
 										console.log(charges);
 									}
