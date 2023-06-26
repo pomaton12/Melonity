@@ -1,5 +1,5 @@
 /******/ (() => { // webpackBootstrap
-/******/ 	var __webpack_modules__ = ({ 
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/CreatePanel.ts":
 /*!**********************************!*\
@@ -89,8 +89,8 @@
 										let textY = Math.ceil(ypos) + Math.ceil(sizeBary / 2) - Math.ceil(textHeight / 2);
 										Renderer.DrawText(font, textX, textY, text);
 									}else{
-										Renderer.SetDrawColor(0, 0, 0, 150);
-										Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+										//Renderer.SetDrawColor(0, 0, 0, 150);
+										//Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 										
 									}
 									
