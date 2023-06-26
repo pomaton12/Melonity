@@ -31,7 +31,7 @@
 			let visibility = 255;
 			let sizeBarx = sizeamountx / 3 * 0.75;
 			let sizeBary = sizeBarx * 1.2; 
-			let font = Renderer.loadFont("Tahoma", 12, "EXTRABOLD");
+			let font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
 			
 			for (let hero of player) {
 				Renderer.setDrawColor(255, 255, 255, visibility);
