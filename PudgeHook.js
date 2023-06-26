@@ -15,7 +15,7 @@ const path_rot = ["Hero Specific", "Pudge", "Rot farm"];
 let EnableUI = Menu.AddToggle(path_, "Enable", true);
 let RotEnabled = Menu.AddToggle(path_rot, "Enabled", true);
 let RotHP = Menu.AddSlider(path_rot, "HP Threshold", 0, 1000, 50);
-	.OnChange(state => SafeManaUI = state.newValue)
+	.OnChange(state => RotHP = state.newValue)
 	.GetValue();
 		
 let DisableRot = false;
