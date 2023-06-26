@@ -33,6 +33,7 @@
 			let sizeBary = sizeBarx * 0.8; 
 			//let sizeBary = sizeBarx; 
 			let font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
+			let font1 = Renderer.LoadFont("Tahoma", 8, Enum.FontWeight.EXTRABOLD);
 			let enemyList = [];
 			
 			let heroes = EntitySystem.GetHeroesList();
@@ -69,6 +70,7 @@
 							abilityImageHandle = Renderer.LoadImage("panorama/images/spellicons/" + ability.GetName() + "_png.vtex_c");
 							//console.log(ability.IsActivated());
 							if (ability.GetLevel() >= 1) {
+								
 								if (ability.IsReady() && ability.IsActivated()) {
 									Renderer.SetDrawColor(255, 255, 255, visibility);
 									Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
@@ -86,6 +88,9 @@
 										Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 										
 									}
+									let abilLvl = ability.GetLevel(); 
+									Renderer.SetDrawColor(255, 255, 0, 255);
+									Renderer.DrawText(font1, Math.ceil(xpos)+2, Math.ceil(ypos)+12, ""+abilLvl);
 									
 								} else {
 									Renderer.SetDrawColor(255,255, 255, 255);
