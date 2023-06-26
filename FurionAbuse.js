@@ -38,7 +38,7 @@
 			
 			//Game.ScriptLogMsg('Script enabled: SkillAlert', '#00ff00');
 			
-			var Temp = $.CreatePanel( "Panel", Game.GetMainHUD(), "SkillAlert" );
+			var Temp = CreatePanel( "Panel", Game.GetMainHUD(), "SkillAlert" );
 			Temp.SetPanelEvent( 'onactivate', SkillAlertChkBox );
 			Temp.BLoadLayoutFromString( '<root><styles><include src="s2r://panorama/styles/dotastyles.vcss_c" /><include src="s2r://panorama/styles/magadan.vcss_c" /></styles><Panel><ToggleButton class="CheckBox" id="SkillAlert" text="SkillAlert"/></Panel></root>', false, false);  
 			var SkillAlert = $.GetContextPanel().FindChildTraverse( 'SkillAlert' ).Children()[0];
