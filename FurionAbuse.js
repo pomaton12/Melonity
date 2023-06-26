@@ -50,6 +50,7 @@
 					if (!heroicon[hero[1]]) {
 						heroicon[hero[1]] = Renderer.loadImage("resource/flash3/images/heroes/selection/" + getUnitName(hero[1]) + ".png");
 					}
+					console.log("Funciona hasta aqui");
 					imageHandle = heroicon[hero[1]];
 					if (imageHandle) {
 						Renderer.drawImage(imageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
