@@ -26,7 +26,7 @@
         if (localHero && isUiEnabled.GetValue()) {
 			
 		let panel = Renderer.CreatePanel("EnemyHeroPanel", null, {width = 200, height = 200});
-		panel.SetText("Héroes enemigos y sus habilidades");
+		//panel.SetText("Héroes enemigos y sus habilidades");
 					
         }
     };		
