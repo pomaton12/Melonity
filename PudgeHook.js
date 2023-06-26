@@ -72,7 +72,7 @@ PudgeExtended.OnDraw = () => {
 						let speed = enemy.GetMoveSpeed();
 						let angle = enemy.GetRotation();
 						let angleOffset = Angle(0, 45, 0);
-						angle.SetYaw(angle.GetYaw() + angleOffset.GetYaw());
+						angle.setYaw(angle.getYaw() + angleOffset.getYaw());
 						let direction = angle.GetVectors().forward;
 						direction.SetZ(0);
 						direction.Normalize();
