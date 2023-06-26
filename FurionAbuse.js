@@ -65,7 +65,7 @@
 							let abilityImageHandle;
 							abilityImageHandle = Renderer.LoadImage("panorama/images/spellicons/" + ability.GetName() + "_png.vtex_c");
 							//console.log(ability.IsActivated());
-							if (ability.IsActivated()) {
+							if (ability.GetLevel() >= 1) {
 								if (ability.IsReady() && ability.IsActivated()) {
 									Renderer.SetDrawColor(255, 255, 255, visibility);
 									Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
@@ -139,4 +139,3 @@
 /******/ 	
 /******/ })()
 ;
- 
