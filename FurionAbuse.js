@@ -25,8 +25,45 @@
 	CreatePanel.OnUpdate = () => {
         if (localHero && isUiEnabled.GetValue()) {
 			
-		let panel = Renderer.CreatePanel("EnemyHeroPanel", null, {width = 200, height = 200});
-		//panel.SetText("Héroes enemigos y sus habilidades");
+			let xpos = getValue(posx);
+			let ypos = getValue(posy);
+			let sizeamountx = getValue(sizeIcon);
+			let visibility = getValue(visibility);
+			let sizeBarx = sizeamountx / 3 * 0.75;
+			let sizeBary = sizeBarx * 1.2;
+			if (!font) { 
+				font = Renderer.loadFont("Tahoma", Math.ceil(getValue(sizeIcon) / 3.5), "EXTRABOLD");
+			}
+			for (let hero of player) {
+				Renderer.setDrawColor(255, 255, 255, visibility);
+				if (hero[1] && heroesContains(hero[1])) {
+					let imageHandle;
+					if (!heroicon[hero[1]]) {
+						heroicon[hero[1]] = Renderer.loadImage("resource/flash3/images/heroes/selection/" + getUnitName(hero[1]) + ".png");
+					}
+					imageHandle = heroicon[hero[1]];
+					if (imageHandle) {
+						Renderer.drawImage(imageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+					}
+					xpos = xpos + sizeBarx;
+					for (let i = 0; i < hero.getAbilityCount(); i++) {
+						let ability = hero.getAbilityByIndex(i);
+						if (ability) {
+							let abilityImageHandle;
+							if (!abilityicon[ability]) {
+								abilityicon[ability] = Renderer.loadImage("resource/flash3/images/abilities/" + ability.getName() + ".png");
+							}
+							abilityImageHandle = abilityicon[ability];
+							if (abilityImageHandle) {
+								Renderer.drawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+							}
+							xpos = xpos + sizeBarx;
+						}
+					}
+					ypos = ypos + sizeBary;
+					xpos = getValue(posx);
+				}
+			}
 					
         }
     };		
