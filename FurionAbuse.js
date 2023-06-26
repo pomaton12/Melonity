@@ -78,8 +78,9 @@
 								Renderer.SetDrawColor(255, 0, 0, 255);
 								Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 								Renderer.SetDrawColor(255, 255, 255, visibility);
+								let text = ""+Math.floor(coldowmABIL);
 								let textSize = Renderer.MeasureText(font, text);
-								Renderer.DrawText(font,Math.ceil(xpos)+5, Math.ceil(ypos)+8, ""+Math.floor(coldowmABIL));
+								Renderer.DrawText(font,Math.ceil(xpos)+5, Math.ceil(ypos)+8, text);
 								
 							}
 							
