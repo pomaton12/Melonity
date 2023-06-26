@@ -73,7 +73,7 @@
 									Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 									
 									let heroMana = hero.GetMana();
-									let CastManaAbility = CastManaAbility.GetManaCost();
+									let CastManaAbility = ability.GetManaCost();
 									if (CastManaAbility > heroMana){
 										Renderer.SetDrawColor(255,255, 255, 255);
 										Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
