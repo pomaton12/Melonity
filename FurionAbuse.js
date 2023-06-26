@@ -27,10 +27,11 @@
 			
 			let xpos = sizescrx/2;
 			let ypos = sizescry/2;
-			let sizeamountx = 50;
+			let sizeamountx = 100;
 			let visibility = 255;
 			let sizeBarx = sizeamountx / 3 * 0.75;
 			let sizeBary = sizeBarx * 1.2; 
+			let sizeBary = sizeBarx; 
 			let font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
 			let enemyList = [];
 			
@@ -48,7 +49,6 @@
 				if (hero) {
 					let imageHandle;
 					let heroNAME = hero.GetUnitName();
-					//console.log(hero.GetUnitName());
 				
 					imageHandle = Renderer.LoadImage("panorama/images/heroes/" + heroNAME + "_png.vtex_c");
 
