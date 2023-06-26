@@ -62,9 +62,20 @@
 							let abilityImageHandle;
 							abilityImageHandle = Renderer.LoadImage("panorama/images/spellicons/" + ability.GetName() + "_png.vtex_c");
 
-							if (abilityImageHandle) {
+							if (ability.IsReady()) {
+								Renderer.SetDrawColor(255, 255, 255, visibility);
 								Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+							} else {
+								let coldowmABIL = ability.GetCooldown();
+								Renderer.SetDrawColor(255, 255, 255, visibility);
+								Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+								Renderer.SetDrawColor(153, 0, 0, 180);
+								Renderer.DrawFilledRect( Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+								Renderer.SetDrawColor(255, 255, 255, visibility);
+								Renderer.DrawText(font,Math.ceil(xpos)+5, Math.ceil(ypos)+5, ""+coldowmABIL);
 							}
+							
+							
 							xpos = xpos + sizeBarx;
 						}
 					}
