@@ -38,7 +38,7 @@
   };
 
   // Definición de la función OnGameEnd
-  CreatePanel.OnGameEnd = () => {
+  CreatePanel.OnGameEnd = () => { 
       localHero = null;
   };
 
