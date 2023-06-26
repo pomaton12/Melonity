@@ -53,7 +53,7 @@
 					imageHandle = Renderer.LoadImage("panorama/images/heroes/" + heroNAME + "_png.vtex_c");
 
 					if (imageHandle) {
-						let herolvl = hero.GetLevel();
+						let herolvl = hero.GetCurrentLevel();
 						Renderer.DrawImage(imageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 						Renderer.SetDrawColor(120, 0, 255, 255);
 						Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
