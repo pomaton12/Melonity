@@ -45,12 +45,13 @@
 			
 			for (let hero of enemyList) {
 				Renderer.SetDrawColor(255, 255, 255, visibility);
-				if (hero[1] ) {
+				if (hero) {
 					let imageHandle;
-					if (!heroicon[hero[1]]) {
-						heroicon[hero[1]] = Renderer.loadImage("resource/flash3/images/heroes/selection/" + getUnitName(hero[1]) + ".png");
-					}
-					console.log("Funciona hasta aqui");
+					console.log(hero.GetClassName());
+
+					imageHandle = Renderer.loadImage("resource/flash3/images/heroes/selection/" + getUnitName(hero[1]) + ".png");
+
+					
 					imageHandle = heroicon[hero[1]];
 					if (imageHandle) {
 						Renderer.drawImage(imageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
