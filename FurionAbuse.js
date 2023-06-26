@@ -92,7 +92,7 @@
 									Renderer.SetDrawColor(255, 255, 0, 255);
 									Renderer.DrawText(font1, Math.ceil(xpos)+2, Math.ceil(ypos)+12, ""+abilLvl);
 									
-									console.log(ability.GetAbilityCharges());
+									//console.log(ability.GetAbilityCharges());
 									
 								} else {
 									Renderer.SetDrawColor(255,255, 255, 255);
