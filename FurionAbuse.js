@@ -96,7 +96,7 @@
 									
 								}
 							} else{
-								Renderer.SetDrawColor(0, 0, 0, 150);
+								Renderer.SetDrawColor(0, 0, 0, 255);
 								Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 
 							}
