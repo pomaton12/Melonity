@@ -60,32 +60,38 @@
 					xpos = xpos + sizeBarx+5;
 					for (let i = 0; i < 6; i++) {
 						let ability = hero.GetAbilityByIndex(i);
-						console.log(ability);
+						//console.log(ability);
 						if (ability) {
 							let abilityImageHandle;
 							abilityImageHandle = Renderer.LoadImage("panorama/images/spellicons/" + ability.GetName() + "_png.vtex_c");
 
-							if (ability.IsReady() && ability.IsExist()) {
+							if (ability.IsReady() && ability.IsActivated()) {
 								Renderer.SetDrawColor(255, 255, 255, visibility);
 								Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 								Renderer.SetDrawColor(0, 255, 0, visibility);
 								Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 							} else {
-								let coldowmABIL = ability.GetCooldown();
-								Renderer.SetDrawColor(255, 255, 255, visibility);
-								Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-								Renderer.SetDrawColor(102, 0, 0, 180);
-								Renderer.DrawFilledRect( Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-								Renderer.SetDrawColor(255, 0, 0, 255);
-								Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-								Renderer.SetDrawColor(255, 255, 255, visibility);
-								
-								let text = "" + Math.floor(coldowmABIL);
-								let textWidth = Renderer.GetTextSize(font, text)[0];
-								let textHeight = Renderer.GetTextSize(font, text)[1];
-								let textX = Math.ceil(xpos) + Math.ceil(sizeBarx / 2) - Math.ceil(textWidth / 2);
-								let textY = Math.ceil(ypos) + Math.ceil(sizeBary / 2) - Math.ceil(textHeight / 2);
-								Renderer.DrawText(font, textX, textY, text);
+								if(ability.GetCooldown()){
+									let coldowmABIL = ability.GetCooldown();
+									Renderer.SetDrawColor(255, 255, 255, visibility);
+									Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+									Renderer.SetDrawColor(102, 0, 0, 180);
+									Renderer.DrawFilledRect( Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+									Renderer.SetDrawColor(255, 0, 0, 255);
+									Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+									Renderer.SetDrawColor(255, 255, 255, visibility);
+									
+									let text = "" + Math.floor(coldowmABIL);
+									let textWidth = Renderer.GetTextSize(font, text)[0];
+									let textHeight = Renderer.GetTextSize(font, text)[1];
+									let textX = Math.ceil(xpos) + Math.ceil(sizeBarx / 2) - Math.ceil(textWidth / 2);
+									let textY = Math.ceil(ypos) + Math.ceil(sizeBary / 2) - Math.ceil(textHeight / 2);
+									Renderer.DrawText(font, textX, textY, text);
+								}else{
+									Renderer.SetDrawColor(0, 0, 0, 150);
+									Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+									
+								}
 								
 							}
 							
