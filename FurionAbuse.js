@@ -45,7 +45,7 @@
 			
 			for (let hero of enemyList) {
 				Renderer.SetDrawColor(255, 255, 255, visibility);
-				if (hero[1] && heroesContains(hero[1])) {
+				if (hero[1] ) {
 					let imageHandle;
 					if (!heroicon[hero[1]]) {
 						heroicon[hero[1]] = Renderer.loadImage("resource/flash3/images/heroes/selection/" + getUnitName(hero[1]) + ".png");
