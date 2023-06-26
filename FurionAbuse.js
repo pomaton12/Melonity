@@ -55,7 +55,7 @@
 					if (imageHandle) {
 						Renderer.DrawImage(imageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 					}
-					xpos = xpos + sizeBarx;
+					xpos = xpos + sizeBarx+5;
 					for (let i = 0; i < 6; i++) {
 						let ability = hero.GetAbilityByIndex(i);
 						if (ability) {
