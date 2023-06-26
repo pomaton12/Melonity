@@ -72,6 +72,14 @@
 									Renderer.SetDrawColor(0, 255, 0, visibility);
 									Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 								} else {
+									Renderer.SetDrawColor(255,255, 255, 255);
+									Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+									Renderer.SetDrawColor(0,0, 255, 150);
+									Renderer.DrawFilledRect( Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+									Renderer.SetDrawColor(0, 0, 255, 255);
+									Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+									
+									
 									if(ability.GetCooldown()){
 										let coldowmABIL = ability.GetCooldown();
 										Renderer.SetDrawColor(255, 255, 255, visibility);
@@ -88,12 +96,8 @@
 										let textX = Math.ceil(xpos) + Math.ceil(sizeBarx / 2) - Math.ceil(textWidth / 2);
 										let textY = Math.ceil(ypos) + Math.ceil(sizeBary / 2) - Math.ceil(textHeight / 2);
 										Renderer.DrawText(font, textX, textY, text);
-									}else{
-										//Renderer.SetDrawColor(0, 0, 0, 150);
-										//Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-										
 									}
-									
+																		
 								}
 							} else{
 								Renderer.SetDrawColor(255,255, 255, 255);
