@@ -71,7 +71,7 @@
 								let coldowmABIL = ability.GetCooldown();
 								Renderer.SetDrawColor(255, 255, 255, visibility);
 								Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-								Renderer.SetDrawColor(102, 0, 0, 120);
+								Renderer.SetDrawColor(102, 0, 0, 180);
 								Renderer.DrawFilledRect( Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 								Renderer.SetDrawColor(255, 0, 0, 255);
 								Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
