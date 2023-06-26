@@ -47,14 +47,13 @@
 				Renderer.SetDrawColor(255, 255, 255, visibility);
 				if (hero) {
 					let imageHandle;
-					console.log(hero.GetClassName());
+					let heroNAME = hero.GetUnitName();
+					console.log(hero.GetUnitName());
+				
+					imageHandle = Renderer.LoadImage("panorama/images/heroes/" + heroNAME + "_png.vtex_c");
 
-					imageHandle = Renderer.loadImage("resource/flash3/images/heroes/selection/" + getUnitName(hero[1]) + ".png");
-
-					
-					imageHandle = heroicon[hero[1]];
 					if (imageHandle) {
-						Renderer.drawImage(imageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+						Renderer.DrawImage(imageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 					}
 					xpos = xpos + sizeBarx;
 					for (let i = 0; i < hero.getAbilityCount(); i++) {
@@ -62,11 +61,11 @@
 						if (ability) {
 							let abilityImageHandle;
 							if (!abilityicon[ability]) {
-								abilityicon[ability] = Renderer.loadImage("resource/flash3/images/abilities/" + ability.getName() + ".png");
+								abilityicon[ability] = Renderer.LoadImage("resource/flash3/images/abilities/" + ability.getName() + ".png");
 							}
 							abilityImageHandle = abilityicon[ability];
 							if (abilityImageHandle) {
-								Renderer.drawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+								Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 							}
 							xpos = xpos + sizeBarx;
 						}
