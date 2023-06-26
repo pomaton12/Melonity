@@ -30,10 +30,9 @@
 			let sizeamountx = 50;
 			let visibility = 255;
 			let sizeBarx = sizeamountx / 3 * 0.75;
-			let sizeBary = sizeBarx * 1.2;
-			if (!font) { 
-				font = Renderer.loadFont("Tahoma", Math.ceil(getValue(sizeIcon) / 3.5), "EXTRABOLD");
-			}
+			let sizeBary = sizeBarx * 1.2; 
+			let font = Renderer.loadFont("Tahoma", Math.ceil(getValue(sizeIcon) / 3.5), "EXTRABOLD");
+			
 			for (let hero of player) {
 				Renderer.setDrawColor(255, 255, 255, visibility);
 				if (hero[1] && heroesContains(hero[1])) {
