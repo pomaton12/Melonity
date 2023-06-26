@@ -27,10 +27,10 @@
 			
 			let xpos = sizescrx/2;
 			let ypos = sizescry/2;
-			let sizeamountx = 100;
+			let sizeamountx = 120;
 			let visibility = 255;
 			let sizeBarx = sizeamountx / 3 * 0.75;
-			let sizeBary = sizeBarx * 0.8; 
+			let sizeBary = sizeBarx * 0.7; 
 			//let sizeBary = sizeBarx; 
 			let font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
 			let font1 = Renderer.LoadFont("Tahoma", 8, Enum.FontWeight.EXTRABOLD);
