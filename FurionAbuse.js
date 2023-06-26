@@ -64,7 +64,7 @@
 						if (ability) {
 							let abilityImageHandle;
 							abilityImageHandle = Renderer.LoadImage("panorama/images/spellicons/" + ability.GetName() + "_png.vtex_c");
-							console.log(ability.IsActivated());
+							//console.log(ability.IsActivated());
 							if (ability.IsActivated()) {
 								if (ability.IsReady() && ability.IsActivated()) {
 									Renderer.SetDrawColor(255, 255, 255, visibility);
