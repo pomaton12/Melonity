@@ -18,6 +18,7 @@
 	let dragOffsetY = 0;
 	let xpos = sizescrx/2;
 	let ypos = sizescry/2;
+	let enemyList = [];
 	
 
 	// Definición del array path_
@@ -48,7 +49,7 @@
 				//let sizeBary = sizeBarx; 
 				let font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
 				let font1 = Renderer.LoadFont("Tahoma", 8, Enum.FontWeight.EXTRABOLD);
-				let enemyList = [];
+				
 				if (Engine.OnceAt(0.2)) {
 										
 					let heroes = EntitySystem.GetHeroesList();
@@ -209,9 +210,10 @@
       localHero = EntitySystem.GetLocalHero();
   };
 
-  // Definición de la función OnGameEnd 
+  // Definición de la función OnGameEnd
   CreatePanel.OnGameEnd = () => {
       localHero = null;
+	  enemyList = [];
   };
 
   // Registro del script
