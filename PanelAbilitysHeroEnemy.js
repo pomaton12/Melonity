@@ -1,5 +1,5 @@
 /******/ (() => { // webpackBootstrap
-/******/ 	var __webpack_modules__ = ({ 
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/CreatePanel.ts":
 /*!**********************************!*\
@@ -95,7 +95,7 @@
 								cooldowns[key][3] = xpos;
 								cooldowns[key][4] = ypos;
 								
-								console.log(cooldowns[key][0]," pox = ",cooldowns[key][3]," posy = ",cooldowns[key][4]);
+								//console.log(cooldowns[key][0]," pox = ",cooldowns[key][3]," posy = ",cooldowns[key][4]);
 								
 								if (ability.GetLevel() >= 1) {
 									
