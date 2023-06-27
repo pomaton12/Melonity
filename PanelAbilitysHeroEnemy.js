@@ -209,7 +209,7 @@
       localHero = EntitySystem.GetLocalHero();
   };
 
-  // Definición de la función OnGameEnd
+  // Definición de la función OnGameEnd 
   CreatePanel.OnGameEnd = () => {
       localHero = null;
   };
