@@ -131,7 +131,7 @@
 
 				if (cooldown[5]) {
 					// Si la habilidad está siendo monitorizada, crea un botón
-					if (Input.IsKeyDown(Enum.ButtonCode.MOUSE_LEFT) && Input.IsCursorInRect(pX, pY, sizeBarx, sizeBary)) {
+					if (Input.IsKeyDownOnce(Enum.ButtonCode.MOUSE_LEFT) && Input.IsCursorInRect(pX, pY, sizeBarx, sizeBary)) {
 						// Si se hace clic en el botón, realiza alguna acción
 						    if (!buttonPressed) {
 								buttonPressed = true;
