@@ -90,7 +90,7 @@
 
 								// Si la habilidad no está en la lista, agregarla
 								if (!cooldowns[key]) {
-									cooldowns[key] = [IdHERO, heroNAME, AbilNAME, 0, 0];
+									cooldowns[key] = [IdHERO, heroNAME, AbilNAME, 0, 0, 0, 0];
 								}
 
 								// Actualizar la posición de la habilidad en la lista
@@ -260,7 +260,7 @@
       localHero = EntitySystem.GetLocalHero();
   };
 
-  // Definición de la función OnGameEnd 
+  // Definición de la función OnGameEnd
   CreatePanel.OnGameEnd = () => {
       localHero = null;
   };
