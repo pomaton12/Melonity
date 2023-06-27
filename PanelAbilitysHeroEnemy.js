@@ -19,7 +19,7 @@
 	let xpos = sizescrx/2;
 	let ypos = sizescry/2;
 	let enemyList = [];
-	
+	let cooldowns = {};
 
 	// Definición del array path_
 	const path_ = ["Custom Scripts","Player"];
@@ -27,6 +27,15 @@
 	// Creación del toggle isUiEnabled
 	let isUiEnabled = Menu.AddToggle(path_, 'Skill Alert', true);
 
+	CreatePanel.OnAbilityUsed = (ability) => {
+		if (localHero && isUiEnabled.GetValue()) {
+			let cooldown = ability.GetCooldown();
+			cooldowns[ability.GetName()] = {
+				remaining: cooldown,
+				visible: true,
+			};
+		}
+	}
 
 	// Definición de la función OnUpdate
 	CreatePanel.OnUpdate = () => {
