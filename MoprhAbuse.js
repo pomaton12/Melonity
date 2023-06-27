@@ -131,7 +131,7 @@
 				
 				if (cooldown[5]) {
 					// Si la habilidad está siendo monitorizada, crea un botón
-					if (Input.IsMouseButtonPressed(Enum.ButtonCode.MOUSE_LEFT) && Input.IsCursorInRect(pX, pY, sizeBarx, sizeBary)) {
+					if (Input.IsKeyDownOnce(Enum.ButtonCode.MOUSE_LEFT) && Input.IsCursorInRect(pX, pY, sizeBarx, sizeBary)) {
 
 						console.log(AbilID);
 						console.log("hola perras");
