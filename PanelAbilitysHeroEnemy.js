@@ -156,7 +156,7 @@
 												Renderer.DrawText(font, textX, textY, text);
 												
 												cooldowns[key][5] = coldowmABIL;
-												cooldowns[key]][6] = GameRules.GetGameTime();
+												cooldowns[key][6] = GameRules.GetGameTime();
 												
 											}
 										else{
