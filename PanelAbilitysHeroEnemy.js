@@ -191,8 +191,13 @@
 												let textHeight = Renderer.GetTextSize(font, text)[1];
 												let textX = Math.ceil(xpos) + Math.ceil(sizeBarx / 2) - Math.ceil(textWidth / 2);
 												let textY = Math.ceil(ypos) + Math.ceil(sizeBary / 2) - Math.ceil(textHeight / 2);
-												Renderer.DrawText(font, textX, textY, text);
-											
+												Renderer.DrawText(font, textX, textY, text);											
+											} else{
+												Renderer.SetDrawColor(255, 255, 255, visibility);
+												Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+												Renderer.SetDrawColor(0, 255, 0, visibility);
+												Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+										
 											}
 											
 										}
