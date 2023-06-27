@@ -13,6 +13,18 @@
 	// Declaración de la variable localHero
 	let localHero;
 	let [sizescrx,sizescry] = Renderer.GetScreenSize();
+	let xpos = sizescrx/2;
+	let ypos = sizescry/2;
+	let sizeamountx = 120;
+	let visibility = 255;
+	let sizeBarx = sizeamountx / 3 * 0.75;
+	let sizeBary = sizeBarx * 0.7; 
+	
+	let PANEL_WIDTH = sizeBarx*6;
+	let PANEL_HEIGHT = sizeBary*5;
+	let isDragging = false;
+	let dragOffsetX = 0;
+	let dragOffsetY = 0;
 
 	// Definición del array path_
 	const path_ = ["Custom Scripts","Player"];
@@ -24,13 +36,7 @@
 	// Definición de la función OnUpdate
 	CreatePanel.OnUpdate = () => {
         if (localHero && isUiEnabled.GetValue()) {
-			
-			let xpos = sizescrx/2;
-			let ypos = sizescry/2;
-			let sizeamountx = 120;
-			let visibility = 255;
-			let sizeBarx = sizeamountx / 3 * 0.75;
-			let sizeBary = sizeBarx * 0.7; 
+						
 			//let sizeBary = sizeBarx; 
 			let font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
 			let font1 = Renderer.LoadFont("Tahoma", 8, Enum.FontWeight.EXTRABOLD);
@@ -94,11 +100,7 @@
 									
 									//console.log(ability.GetAbilityCharges());
 									//const cooldownRemaining = ability.GetCooldownTimeRemaining();
-									if (GetCurrentCharges(ability )) {
-										const charges = ability.GetCurrentCharges( );
-										console.log(charges);
-									}
-																		
+																	
 									
 								} else {
 									Renderer.SetDrawColor(255,255, 255, 255);
@@ -141,6 +143,28 @@
 					ypos = ypos + sizeBary;
 					xpos = sizescrx/2;
 				}
+			}
+			
+			// Detectar si se mantiene presionada la tecla Control
+			if (Input.IsKeyDown(Enum.ButtonCode.KEY_LCONTROL) ) {
+				if (Input.IsKeyDown(Enum.ButtonCode.MOUSE_LEFT) && Input.IsCursorInRect(xpos, ypos, PANEL_WIDTH, PANEL_HEIGHT)) {
+					isDragging = true;
+					const mousePos = Input.GetCursorPos();
+					dragOffsetX = mousePos[0] - xpos;
+					dragOffsetY = mousePos[1] - ypos;
+				}
+			} else {
+				isDragging = false;
+			}
+
+			if (isDragging) {
+				const mousePos = Input.GetCursorPos();
+				xpos = mousePos[0] - dragOffsetX;
+				ypos = mousePos[1] - dragOffsetY;
+				xpos = Math.max(xpos, 0);
+				ypos = Math.max(ypos, 0);
+				xpos = Math.min(xpos, Renderer.GetScreenSize()[0] - PANEL_WIDTH);
+				ypos = Math.min(ypos, Renderer.GetScreenSize()[1] - PANEL_HEIGHT);
 			}
 					
         }
