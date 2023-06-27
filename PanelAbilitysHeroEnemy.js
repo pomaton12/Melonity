@@ -161,8 +161,9 @@
 											}
 										else{
 											
-											let getcooldownTim = cooldowns[key][5];
 											console.log("no esta vivo o esta invi");
+											let getcooldownTim = cooldowns[key][5];
+											
 											if(getcooldownTim > 0){
 												
 												let lastTime = cooldowns[key][6];
