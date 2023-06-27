@@ -82,7 +82,7 @@
 
 							// Si la habilidad no está en la lista, agregarla
 							if (!cooldowns[key]) {
-								cooldowns[key] = [IdHERO, heroNAME, AbilNAME, 0, 0];
+								cooldowns[key] = [IdHERO, heroNAME, AbilNAME, 0, 0, 0];
 							}
 
 							// Actualizar la posición de la habilidad en la lista
@@ -91,17 +91,22 @@
 
 							if (ability.GetLevel() >= 1) {
 								
-								if (ability.IsReady() && ability.IsActivated()) {
+								if (!ability.IsPassive()) {
 									Renderer.SetDrawColor(255, 255, 255, visibility);
 									Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 									Renderer.SetDrawColor(0, 255, 0, visibility);
 									Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+									cooldowns[key][5] = true;
+								} else{
+									cooldowns[key][5] = false;
 								}
+								
 							} else{
 								Renderer.SetDrawColor(255,255, 255, 255);
 								Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 								Renderer.SetDrawColor(0,0, 0, 150);
 								Renderer.DrawFilledRect( Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+								cooldowns[key][5] = false;
 							}
 							
 							xpos = xpos + sizeBarx;
@@ -112,7 +117,7 @@
 				}
 			}
 			
-			console.log(Object.keys(cooldowns).length);
+			//console.log(Object.keys(cooldowns).length);
 			// Detectar si se mantiene presionada la tecla Control
 			//if (Input.IsKeyDown(Enum.ButtonCode.KEY_LCONTROL) ) {
 				//if (Input.IsKeyDown(Enum.ButtonCode.MOUSE_LEFT) && Input.IsCursorInRect(xpos, ypos, PANEL_WIDTH, PANEL_HEIGHT)) {
