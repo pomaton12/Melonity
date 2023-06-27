@@ -36,9 +36,14 @@
 			let sizeBarx = sizeamountx / 3 * 0.75;
 			let sizeBary = sizeBarx*0.9; 
 			
-			let PANEL_WIDTH = sizeBarx*6;
+			let PANEL_WIDTH = sizeBarx*5;
 			let PANEL_HEIGHT = sizeBary*5;
-
+			
+			let imgMorph = Renderer.LoadImage("panorama/images/heroes/morphling_png.vtex_c");
+			Renderer.SetDrawColor(255, 255, 255, visibility);
+			Renderer.DrawImage(imgMorph, Math.ceil(xpos)-5, Math.ceil(ypos)-20, PANEL_WIDTH+5, PANEL_HEIGHT+5);
+			Renderer.SetDrawColor(0, 0, 0, 150);
+			Renderer.DrawFilledRect( Math.ceil(xpos)-5, Math.ceil(ypos)-20, PANEL_WIDTH+5, PANEL_HEIGHT+5);
 						
 			//let sizeBary = sizeBarx; 
 			let font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
@@ -99,10 +104,10 @@
 									Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 									cooldowns[key][5] = true;
 								} else{
-									Renderer.SetDrawColor(255, 255, 255, visibility);
+									Renderer.SetDrawColor(255,255, 255, 255);
 									Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-									Renderer.SetDrawColor(0, 255, 0, visibility);
-									Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+									Renderer.SetDrawColor(0,0, 0, 150);
+									Renderer.DrawFilledRect( Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 									cooldowns[key][5] = false;
 								}
 								
