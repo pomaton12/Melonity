@@ -33,7 +33,7 @@
 			let sizeamountx = 120;
 			let visibility = 255;
 			let sizeBarx = sizeamountx / 3 * 0.75;
-			let sizeBary = sizeBarx * 0.7; 
+			let sizeBary = sizeBarx; 
 			
 			let PANEL_WIDTH = sizeBarx*6;
 			let PANEL_HEIGHT = sizeBary*5;
@@ -64,15 +64,13 @@
 					imageHandle = Renderer.LoadImage("panorama/images/heroes/" + heroNAME + "_png.vtex_c");
 
 					if (imageHandle) {
-						let herolvl = hero.GetCurrentLevel();
 						Renderer.DrawImage(imageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 						Renderer.SetDrawColor(120, 0, 255, 255);
 						Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-						Renderer.SetDrawColor(255, 255, 0, 255);
-						Renderer.DrawText(font, Math.ceil(xpos)+2, Math.ceil(ypos)+12, ""+herolvl);
+
 					}
 					xpos = xpos + sizeBarx+5;
-					for (let i = 0; i < 6; i++) {
+					for (let i = 0; i < 5; i++) {
 						let ability = hero.GetAbilityByIndex(i);
 						//console.log(ability);
 						if (ability) {
