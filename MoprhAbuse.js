@@ -135,6 +135,7 @@
 						    if (!buttonPressed) {
 								buttonPressed = true;
 								console.log(AbilID);
+								console.log("hola mendo");
 							}
 					} else {
 						// Si se suelta el botón, marca el botón como no presionado
