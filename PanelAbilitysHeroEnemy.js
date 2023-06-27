@@ -137,7 +137,7 @@
 										let isVisible = !hero.IsDormant() || !hero.IsAlive();
 										console.log(isVisible);
 
-										if (isVisible)									
+										if (isVisible == true)									
 											if(ability.GetCooldown()){
 												let coldowmABIL = Math.floor(ability.GetCooldown());
 												Renderer.SetDrawColor(255, 255, 255, visibility);
