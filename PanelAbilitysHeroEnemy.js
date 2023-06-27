@@ -1,4 +1,4 @@
-/******/ (() => { // webpackBootstrap 
+/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/CreatePanel.ts":
@@ -87,20 +87,21 @@
 								abilityImageHandle = Renderer.LoadImage("panorama/images/spellicons/" + AbilNAME + "_png.vtex_c");
 								
 								// Verificar si el héroe y la habilidad existen en la lista
-								let abilityExists = false;
 								let abilityIndex = -1;
-								for (let k = 0; k < cooldowns.length; k++) {
-									if (cooldowns[k][0] === IdHERO && cooldowns[k][1] === heroNAME && cooldowns[k][2] === AbilNAME) {
-										abilityExists = true;
-										abilityIndex = k;
-										break;
+								if (cooldowns.length > 0){
+									for (let k = 0; k < cooldowns.length; k++) {
+										if (cooldowns[k][0] === IdHERO && cooldowns[k][1] === heroNAME && cooldowns[k][2] === AbilNAME) {
+											abilityIndex = k;
+											break;
+										} else {
+											cooldowns.push([IdHERO, heroNAME, AbilNAME, 0, 0, 0, 0]);
+											abilityIndex = cooldowns.length-1;
+										}
 									}
-								}
-
-								// Si la habilidad no existe, agregarla a la lista
-								if (!abilityExists) {
+								} else{
 									cooldowns.push([IdHERO, heroNAME, AbilNAME, 0, 0, 0, 0]);
-									abilityIndex = cooldowns.length - 1;
+									abilityIndex = 0;
+									
 								}
 								
 								// Actualizar la posición de la habilidad en la lista
