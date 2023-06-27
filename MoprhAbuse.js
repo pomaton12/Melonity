@@ -12,10 +12,6 @@
 
 	// Declaración de la variable localHero
 	let localHero;
-	let [sizescrx,sizescry] = Renderer.GetScreenSize();
-
-	let xpos = sizescrx/2;
-	let ypos = sizescry/2;
 	let enemyList = [];
 	let cooldowns = [];
 
@@ -31,7 +27,9 @@
 			if (localHero.GetUnitName() !== "npc_dota_hero_morphling") {
 				return;
 			}
-			
+			let [sizescrx,sizescry] = Renderer.GetScreenSize();
+			let xpos = sizescrx/2;
+			let ypos = sizescry/2;
 			let sizeamountx = 120;
 			let visibility = 255;
 			let sizeBarx = sizeamountx / 3 * 0.75;
