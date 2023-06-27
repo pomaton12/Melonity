@@ -121,6 +121,7 @@
 				}
 			}
 			
+			let buttonPressed = false;
 			for (const key in cooldowns) {
 				const cooldown = cooldowns[key];
 				const pX = cooldown[3];
@@ -131,7 +132,13 @@
 					// Si la habilidad está siendo monitorizada, crea un botón
 					if (Input.IsKeyDown(Enum.ButtonCode.MOUSE_LEFT) && Input.IsCursorInRect(pX, pY, sizeBarx, sizeBary)) {
 						// Si se hace clic en el botón, realiza alguna acción
-						console.log(AbilID);
+						    if (!buttonPressed) {
+								buttonPressed = true;
+								console.log(AbilID);
+							}
+					} else {
+						// Si se suelta el botón, marca el botón como no presionado
+						buttonPressed = false;
 					}
 
 				}
