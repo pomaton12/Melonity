@@ -86,7 +86,7 @@
 								let AbilNAME = ability.GetName();
 								abilityImageHandle = Renderer.LoadImage("panorama/images/spellicons/" + AbilNAME + "_png.vtex_c");
 								
-								let key = IdHERO+ heroNAME + AbilNAME;
+								let key = IdHERO + heroNAME + AbilNAME;
 								if (!cooldowns[key]) {
 									cooldowns[key] = [IdHERO, heroNAME, AbilNAME, 0, 0, 0, 0];
 								}
@@ -160,10 +160,11 @@
 										else{
 											
 											let getcooldownTim = cooldowns[key][5];
-											let lastTime = cooldowns[key][6];
-											let currentTime = GameRules.GetGameTime(); 
-											console.log(getcooldownTim);
+											console.log( cooldowns[key][2]," ",getcooldownTim);
 											if(getcooldownTim > 0){
+												
+												let lastTime = cooldowns[key][6];
+												let currentTime = GameRules.GetGameTime(); 
 												if(currentTime - lastTime > 1){
 													getcooldownTim = getcooldownTim - 1;
 													
