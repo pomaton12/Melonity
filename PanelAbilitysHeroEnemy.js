@@ -222,7 +222,7 @@
 					}
 				}
 ;
-				console.log(cooldowns);
+				//console.log(cooldowns);
 
 				xpos = tempX;
 				ypos = tempY;
