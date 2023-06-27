@@ -134,9 +134,9 @@
 										Renderer.SetDrawColor(0, 0, 255, 255);
 										Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 										
-										let isVisible = hero.IsDormant() == false;
+										let isVisible = !hero.IsDormant() || !hero.IsAlive();
 
-										console.log("Visible ",hero.IsVisible());
+										console.log("Vivo ",hero.IsAlive());
 										console.log("Dormido ",hero.IsDormant());
 										if (hero.IsVisible())									
 											if(ability.GetCooldown()){
