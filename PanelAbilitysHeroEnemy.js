@@ -129,10 +129,13 @@
 										Renderer.SetDrawColor(0, 0, 255, 255);
 										Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 										
-										let isVisible = hero.IsDormant() == false && hero.IsAlive();
-										let condi = 0;
-										console.log(ability.GetCooldown());
-										if (isVisible)
+										let name = ability.GetName();
+										let cooldown = cooldowns[name];
+										if (!cooldown) continue;
+										
+										console.log(cooldown);
+										
+										if (cooldown.visible)
 											if(ability.GetCooldown()){
 												let coldowmABIL = ability.GetCooldown();
 												Renderer.SetDrawColor(255, 255, 255, visibility);
