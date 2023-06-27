@@ -131,9 +131,10 @@
 										
 										let name = ability.GetName();
 										let cooldown = cooldowns[name];
+										console.log(cooldown);
 										if (!cooldown) continue;
 										
-										console.log(cooldown);
+										
 										
 										if (cooldown.visible)
 											if(ability.GetCooldown()){
