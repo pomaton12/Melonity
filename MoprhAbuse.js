@@ -46,7 +46,7 @@
 			Renderer.SetDrawColor(0, 0, 0, 150);
 			Renderer.DrawFilledRect( Math.ceil(xpos)-50, Math.ceil(ypos)-60, PANEL_WIDTH+100, PANEL_HEIGHT+100);
 			Renderer.SetDrawColor(255, 255, 255, visibility);
-			Renderer.DrawText(font2, Math.ceil(xpos)-30, Math.ceil(ypos)-20, "Ability Cast Select");
+			Renderer.DrawText(font2, Math.ceil(xpos)-15, Math.ceil(ypos)-30, "Ability Cast Select");
 						
 			//let sizeBary = sizeBarx; 
 			let font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
