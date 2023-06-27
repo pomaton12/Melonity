@@ -3,7 +3,7 @@
 
 /***/ "./src/MorphlingUltiAbuse.ts":
 /*!**********************************!*\
-  !*** ./src/MorphlingUltiAbuse.ts ***! 
+  !*** ./src/MorphlingUltiAbuse.ts ***!
   \**********************************/
 /***/ (() => {
 
@@ -43,7 +43,7 @@
 			let imgMorph = Renderer.LoadImage("panorama/images/loadingscreens/skadi_rising_loading_screen/loadingscreen_tga.vtex_c");
 			Renderer.SetDrawColor(255, 255, 255, visibility);
 			Renderer.DrawImage(imgMorph, Math.ceil(xpos)-100, Math.ceil(ypos)-60, PANEL_WIDTH+200, PANEL_HEIGHT+120);
-			Renderer.SetDrawColor(0, 0, 0, 180);
+			Renderer.SetDrawColor(0, 0, 0, 200);
 			Renderer.DrawFilledRect( Math.ceil(xpos)-100, Math.ceil(ypos)-60, PANEL_WIDTH+200, PANEL_HEIGHT+120);
 			Renderer.SetDrawColor(255, 255, 255, visibility);
 			Renderer.DrawText(font2, Math.ceil(xpos)+40, Math.ceil(ypos)-35, "Ability Cast Select");
