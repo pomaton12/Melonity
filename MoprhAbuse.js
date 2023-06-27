@@ -23,12 +23,12 @@
 	const path_ = ["Custom Scripts","Morphling"];
 
 	// Creación del toggle isUiEnabled
-	let isUiEnabled = Menu.AddToggle(path_, 'Skill Alert', true);
+	let isUiEnabled = Menu.AddToggle(path_, 'Panel Hability', true);
 
 	// Definición de la función OnUpdate
 	MorphlingUltiAbuse.OnUpdate = () => {
         if (localHero && isUiEnabled.GetValue()) {			
-			if (localHero.GetUnitName() !== "npc_dota_hero_storm_spirit") {
+			if (localHero.GetUnitName() !== "npc_dota_hero_morphling") {
 				return;
 			}
 			
