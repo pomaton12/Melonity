@@ -39,11 +39,11 @@
 			let PANEL_WIDTH = sizeBarx*5;
 			let PANEL_HEIGHT = sizeBary*5;
 			
-			let imgMorph = Renderer.LoadImage("panorama/images/heroes/morphling_png.vtex_c");
+			let imgMorph = Renderer.LoadImage("panorama/images/heroes/npc_dota_hero_morphling_png.vtex_c");
 			Renderer.SetDrawColor(255, 255, 255, visibility);
-			Renderer.DrawImage(imgMorph, Math.ceil(xpos)-5, Math.ceil(ypos)-20, PANEL_WIDTH+5, PANEL_HEIGHT+5);
+			Renderer.DrawImage(imgMorph, Math.ceil(xpos)-5, Math.ceil(ypos)-20, PANEL_WIDTH+10, PANEL_HEIGHT+25);
 			Renderer.SetDrawColor(0, 0, 0, 150);
-			Renderer.DrawFilledRect( Math.ceil(xpos)-5, Math.ceil(ypos)-20, PANEL_WIDTH+5, PANEL_HEIGHT+5);
+			Renderer.DrawFilledRect( Math.ceil(xpos)-5, Math.ceil(ypos)-20, PANEL_WIDTH+10, PANEL_HEIGHT+25);
 						
 			//let sizeBary = sizeBarx; 
 			let font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
