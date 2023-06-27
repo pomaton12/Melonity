@@ -30,67 +30,87 @@
 	// Definición de la función OnUpdate
 	CreatePanel.OnUpdate = () => {
         if (localHero && isUiEnabled.GetValue()) {
-			let tempX = xpos;
-			let tempY = ypos;
 
-			let sizeamountx = 120;
-			let visibility = 255;
-			let sizeBarx = sizeamountx / 3 * 0.75;
-			let sizeBary = sizeBarx * 0.7; 
 			
-			let PANEL_WIDTH = sizeBarx*6;
-			let PANEL_HEIGHT = sizeBary*5;
+			if (Engine.OnceAt(0.2)) {
+				let tempX = xpos;
+				let tempY = ypos;
 
-						
-			//let sizeBary = sizeBarx; 
-			let font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
-			let font1 = Renderer.LoadFont("Tahoma", 8, Enum.FontWeight.EXTRABOLD);
-			let enemyList = [];
-			
-			let heroes = EntitySystem.GetHeroesList();
-			if (heroes) {
-				for (let hero of heroes) {
-					if (hero && !hero.IsIllusion() && !hero.IsMeepoClone() && hero.IsHero()  && !hero.IsSameTeam(localHero)) {
-						enemyList.push(hero);
+				let sizeamountx = 120;
+				let visibility = 255;
+				let sizeBarx = sizeamountx / 3 * 0.75;
+				let sizeBary = sizeBarx * 0.7; 
+				
+				let PANEL_WIDTH = sizeBarx*6;
+				let PANEL_HEIGHT = sizeBary*5;
+
+							
+				//let sizeBary = sizeBarx; 
+				let font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
+				let font1 = Renderer.LoadFont("Tahoma", 8, Enum.FontWeight.EXTRABOLD);
+				let enemyList = [];
+				
+				let heroes = EntitySystem.GetHeroesList();
+				if (heroes) {
+					for (let hero of heroes) {
+						if (hero && !hero.IsIllusion() && !hero.IsMeepoClone() && hero.IsHero()  && !hero.IsSameTeam(localHero)) {
+							enemyList.push(hero);
+						}
 					}
 				}
-			}
-			
-			for (let hero of enemyList) {
-				Renderer.SetDrawColor(255, 255, 255, visibility);
-				if (hero) {
-					let imageHandle;
-					let heroNAME = hero.GetUnitName();
 				
-					imageHandle = Renderer.LoadImage("panorama/images/heroes/" + heroNAME + "_png.vtex_c");
+				for (let hero of enemyList) {
+					Renderer.SetDrawColor(255, 255, 255, visibility);
+					if (hero) {
+						let imageHandle;
+						let heroNAME = hero.GetUnitName();
+					
+						imageHandle = Renderer.LoadImage("panorama/images/heroes/" + heroNAME + "_png.vtex_c");
 
-					if (imageHandle) {
-						let herolvl = hero.GetCurrentLevel();
-						Renderer.DrawImage(imageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-						Renderer.SetDrawColor(120, 0, 255, 255);
-						Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-						Renderer.SetDrawColor(255, 255, 0, 255);
-						Renderer.DrawText(font, Math.ceil(xpos)+2, Math.ceil(ypos)+12, ""+herolvl);
-					}
-					xpos = xpos + sizeBarx+5;
-					for (let i = 0; i < 6; i++) {
-						let ability = hero.GetAbilityByIndex(i);
-						//console.log(ability);
-						if (ability) {
-							let abilityImageHandle;
-							abilityImageHandle = Renderer.LoadImage("panorama/images/spellicons/" + ability.GetName() + "_png.vtex_c");
-							//console.log(ability.IsActivated());
-							if (ability.GetLevel() >= 1) {
-								
-								if (ability.IsReady() && ability.IsActivated()) {
-									Renderer.SetDrawColor(255, 255, 255, visibility);
-									Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-									Renderer.SetDrawColor(0, 255, 0, visibility);
-									Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+						if (imageHandle) {
+							let herolvl = hero.GetCurrentLevel();
+							Renderer.DrawImage(imageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+							Renderer.SetDrawColor(120, 0, 255, 255);
+							Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+							Renderer.SetDrawColor(255, 255, 0, 255);
+							Renderer.DrawText(font, Math.ceil(xpos)+2, Math.ceil(ypos)+12, ""+herolvl);
+						}
+						xpos = xpos + sizeBarx+5;
+						for (let i = 0; i < 6; i++) {
+							let ability = hero.GetAbilityByIndex(i);
+							//console.log(ability);
+							if (ability) {
+								let abilityImageHandle;
+								abilityImageHandle = Renderer.LoadImage("panorama/images/spellicons/" + ability.GetName() + "_png.vtex_c");
+								//console.log(ability.IsActivated());
+								if (ability.GetLevel() >= 1) {
 									
-									let heroMana = hero.GetMana();
-									let CastManaAbility = ability.GetManaCost();
-									if (CastManaAbility > heroMana){
+									if (ability.IsReady() && ability.IsActivated()) {
+										Renderer.SetDrawColor(255, 255, 255, visibility);
+										Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+										Renderer.SetDrawColor(0, 255, 0, visibility);
+										Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+										
+										let heroMana = hero.GetMana();
+										let CastManaAbility = ability.GetManaCost();
+										if (CastManaAbility > heroMana){
+											Renderer.SetDrawColor(255,255, 255, 255);
+											Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+											Renderer.SetDrawColor(0,0, 255, 150);
+											Renderer.DrawFilledRect( Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+											Renderer.SetDrawColor(0, 0, 255, 255);
+											Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+											
+										}
+										let abilLvl = ability.GetLevel(); 
+										Renderer.SetDrawColor(255, 255, 0, 255);
+										Renderer.DrawText(font1, Math.ceil(xpos)+2, Math.ceil(ypos)+12, ""+abilLvl);
+										
+										//console.log(ability.GetAbilityCharges());
+										//const cooldownRemaining = ability.GetCooldownTimeRemaining();
+																		
+										
+									} else {
 										Renderer.SetDrawColor(255,255, 255, 255);
 										Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 										Renderer.SetDrawColor(0,0, 255, 150);
@@ -98,88 +118,74 @@
 										Renderer.SetDrawColor(0, 0, 255, 255);
 										Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 										
+										
+										if(ability.GetCooldown()){
+											let coldowmABIL = ability.GetCooldown();
+											Renderer.SetDrawColor(255, 255, 255, visibility);
+											Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+											Renderer.SetDrawColor(102, 0, 0, 180);
+											Renderer.DrawFilledRect( Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+											Renderer.SetDrawColor(255, 0, 0, 255);
+											Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+											Renderer.SetDrawColor(255, 255, 255, visibility);
+											
+											let text = "" + Math.floor(coldowmABIL);
+											let textWidth = Renderer.GetTextSize(font, text)[0];
+											let textHeight = Renderer.GetTextSize(font, text)[1];
+											let textX = Math.ceil(xpos) + Math.ceil(sizeBarx / 2) - Math.ceil(textWidth / 2);
+											let textY = Math.ceil(ypos) + Math.ceil(sizeBary / 2) - Math.ceil(textHeight / 2);
+											Renderer.DrawText(font, textX, textY, text);
+											
+											console.log(ability.GetCooldown());
+										}
+																			
 									}
-									let abilLvl = ability.GetLevel(); 
-									Renderer.SetDrawColor(255, 255, 0, 255);
-									Renderer.DrawText(font1, Math.ceil(xpos)+2, Math.ceil(ypos)+12, ""+abilLvl);
-									
-									//console.log(ability.GetAbilityCharges());
-									//const cooldownRemaining = ability.GetCooldownTimeRemaining();
-																	
-									
-								} else {
+								} else{
 									Renderer.SetDrawColor(255,255, 255, 255);
 									Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-									Renderer.SetDrawColor(0,0, 255, 150);
+									Renderer.SetDrawColor(0,0, 0, 150);
 									Renderer.DrawFilledRect( Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-									Renderer.SetDrawColor(0, 0, 255, 255);
-									Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-									
-									
-									if(ability.GetCooldown()){
-										let coldowmABIL = ability.GetCooldown();
-										Renderer.SetDrawColor(255, 255, 255, visibility);
-										Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-										Renderer.SetDrawColor(102, 0, 0, 180);
-										Renderer.DrawFilledRect( Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-										Renderer.SetDrawColor(255, 0, 0, 255);
-										Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-										Renderer.SetDrawColor(255, 255, 255, visibility);
-										
-										let text = "" + Math.floor(coldowmABIL);
-										let textWidth = Renderer.GetTextSize(font, text)[0];
-										let textHeight = Renderer.GetTextSize(font, text)[1];
-										let textX = Math.ceil(xpos) + Math.ceil(sizeBarx / 2) - Math.ceil(textWidth / 2);
-										let textY = Math.ceil(ypos) + Math.ceil(sizeBary / 2) - Math.ceil(textHeight / 2);
-										Renderer.DrawText(font, textX, textY, text);
-									}
-																		
 								}
-							} else{
-								Renderer.SetDrawColor(255,255, 255, 255);
-								Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-								Renderer.SetDrawColor(0,0, 0, 150);
-								Renderer.DrawFilledRect( Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+								
+								xpos = xpos + sizeBarx;
 							}
-							
-							xpos = xpos + sizeBarx;
 						}
+						ypos = ypos + sizeBary;
+						xpos = tempX;
 					}
-					ypos = ypos + sizeBary;
-					xpos = tempX;
 				}
-			}
-			
-			xpos = tempX;
-			ypos = tempY;
-			
-			// Detectar si se mantiene presionada la tecla Control
-			if (Input.IsKeyDown(Enum.ButtonCode.KEY_LCONTROL) ) {
-				if (Input.IsKeyDown(Enum.ButtonCode.MOUSE_LEFT) && Input.IsCursorInRect(xpos, ypos, PANEL_WIDTH, PANEL_HEIGHT)) {
-					isDragging = true;
+				
+				xpos = tempX;
+				ypos = tempY;
+				
+				// Detectar si se mantiene presionada la tecla Control
+				if (Input.IsKeyDown(Enum.ButtonCode.KEY_LCONTROL) ) {
+					if (Input.IsKeyDown(Enum.ButtonCode.MOUSE_LEFT) && Input.IsCursorInRect(xpos, ypos, PANEL_WIDTH, PANEL_HEIGHT)) {
+						isDragging = true;
+						const mousePos = Input.GetCursorPos();
+						dragOffsetX = mousePos[0] - xpos;
+						dragOffsetY = mousePos[1] - ypos;
+					}
+				} else {
+					isDragging = false;
+				}
+				
+				let originalX = xpos;
+				let originalY = ypos;
+
+				if (isDragging) {
 					const mousePos = Input.GetCursorPos();
-					dragOffsetX = mousePos[0] - xpos;
-					dragOffsetY = mousePos[1] - ypos;
+					const deltaX = mousePos[0] - dragOffsetX - originalX;
+					const deltaY = mousePos[1] - dragOffsetY - originalY;
+					xpos += deltaX;
+					ypos += deltaY;
+					xpos = Math.max(xpos, 0);
+					ypos = Math.max(ypos, 0);
+					xpos = Math.min(xpos, Renderer.GetScreenSize()[0] - PANEL_WIDTH);
+					ypos = Math.min(ypos, Renderer.GetScreenSize()[1] - PANEL_HEIGHT);
 				}
-			} else {
-				isDragging = false;
-			}
 			
-			let originalX = xpos;
-			let originalY = ypos;
-
-			if (isDragging) {
-				const mousePos = Input.GetCursorPos();
-				const deltaX = mousePos[0] - dragOffsetX - originalX;
-				const deltaY = mousePos[1] - dragOffsetY - originalY;
-				xpos += deltaX;
-				ypos += deltaY;
-				xpos = Math.max(xpos, 0);
-				ypos = Math.max(ypos, 0);
-				xpos = Math.min(xpos, Renderer.GetScreenSize()[0] - PANEL_WIDTH);
-				ypos = Math.min(ypos, Renderer.GetScreenSize()[1] - PANEL_HEIGHT);
 			}
-
 					
         }
     };		
