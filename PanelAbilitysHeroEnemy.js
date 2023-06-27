@@ -134,10 +134,11 @@
 										Renderer.SetDrawColor(0, 0, 255, 255);
 										Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 										
-										let isVisible = hero.IsDormant() == false && hero.IsAlive();
+										let isVisible = hero.IsDormant() == false;
 
-										//console.log(ability.GetCooldown());
-										if (isVisible)									
+										console.log(hero.IsVisibleToEnemies());
+										console.log(hero.IsDormant());
+										if (!hero.IsDormant())									
 											if(ability.GetCooldown()){
 												let coldowmABIL = Math.floor(ability.GetCooldown());
 												Renderer.SetDrawColor(255, 255, 255, visibility);
