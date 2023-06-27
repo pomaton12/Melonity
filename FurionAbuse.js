@@ -13,18 +13,7 @@
 	// Declaración de la variable localHero
 	let localHero;
 	let [sizescrx,sizescry] = Renderer.GetScreenSize();
-	let xpos = sizescrx/2;
-	let ypos = sizescry/2;
-	let sizeamountx = 120;
-	let visibility = 255;
-	let sizeBarx = sizeamountx / 3 * 0.75;
-	let sizeBary = sizeBarx * 0.7; 
-	
-	let PANEL_WIDTH = sizeBarx*6;
-	let PANEL_HEIGHT = sizeBary*5;
-	let isDragging = false;
-	let dragOffsetX = 0;
-	let dragOffsetY = 0;
+
 
 	// Definición del array path_
 	const path_ = ["Custom Scripts","Player"];
@@ -36,6 +25,18 @@
 	// Definición de la función OnUpdate
 	CreatePanel.OnUpdate = () => {
         if (localHero && isUiEnabled.GetValue()) {
+			let xpos = sizescrx/2;
+			let ypos = sizescry/2;
+			let sizeamountx = 120;
+			let visibility = 255;
+			let sizeBarx = sizeamountx / 3 * 0.75;
+			let sizeBary = sizeBarx * 0.7; 
+			
+			let PANEL_WIDTH = sizeBarx*6;
+			let PANEL_HEIGHT = sizeBary*5;
+			let isDragging = false;
+			let dragOffsetX = 0;
+			let dragOffsetY = 0;
 						
 			//let sizeBary = sizeBarx; 
 			let font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
