@@ -3,7 +3,7 @@
 
 /***/ "./src/MorphlingUltiAbuse.ts":
 /*!**********************************!*\
-  !*** ./src/MorphlingUltiAbuse.ts ***!
+  !*** ./src/MorphlingUltiAbuse.ts ***! 
   \**********************************/
 /***/ (() => {
 
