@@ -50,17 +50,16 @@
 				let font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
 				let font1 = Renderer.LoadFont("Tahoma", 8, Enum.FontWeight.EXTRABOLD);
 				
-				if (Engine.OnceAt(0.2)) {
-										
-					let heroes = EntitySystem.GetHeroesList();
-					if (heroes) {
-						for (let hero of heroes) {
-							if (hero && !hero.IsIllusion() && !hero.IsMeepoClone() && hero.IsHero()  && !hero.IsSameTeam(localHero)) {
-								enemyList.push(hero);
-							}
+				let enemyList = [];					
+				let heroes = EntitySystem.GetHeroesList();
+				if (heroes) {
+					for (let hero of heroes) {
+						if (hero && !hero.IsIllusion() && !hero.IsMeepoClone() && hero.IsHero()  && !hero.IsSameTeam(localHero)) {
+							enemyList.push(hero);
 						}
 					}
 				}
+
 				
 				for (let hero of enemyList) {
 					Renderer.SetDrawColor(255, 255, 255, visibility);
@@ -213,7 +212,6 @@
   // Definición de la función OnGameEnd
   CreatePanel.OnGameEnd = () => {
       localHero = null;
-	  enemyList = [];
   };
 
   // Registro del script
