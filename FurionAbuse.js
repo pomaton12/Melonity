@@ -13,7 +13,9 @@
 	// Declaración de la variable localHero
 	let localHero;
 	let [sizescrx,sizescry] = Renderer.GetScreenSize();
-
+	let isDragging = false;
+	let dragOffsetX = 0;
+	let dragOffsetY = 0;
 
 	// Definición del array path_
 	const path_ = ["Custom Scripts","Player"];
@@ -34,9 +36,7 @@
 			
 			let PANEL_WIDTH = sizeBarx*6;
 			let PANEL_HEIGHT = sizeBary*5;
-			let isDragging = false;
-			let dragOffsetX = 0;
-			let dragOffsetY = 0;
+
 						
 			//let sizeBary = sizeBarx; 
 			let font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
