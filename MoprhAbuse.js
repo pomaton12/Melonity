@@ -23,6 +23,7 @@
 
 	// Definición de la función OnUpdate
 	MorphlingUltiAbuse.OnUpdate = () => {
+		let buttonPressed = false;
         if (localHero && isUiEnabled.GetValue()) {			
 			if (localHero.GetUnitName() !== "npc_dota_hero_morphling") {
 				return;
@@ -121,7 +122,7 @@
 				}
 			}
 			
-			let buttonPressed = false;
+			
 			for (const key in cooldowns) {
 				const cooldown = cooldowns[key];
 				const pX = cooldown[3];
