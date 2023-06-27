@@ -38,15 +38,15 @@
 			
 			let PANEL_WIDTH = sizeBarx*6;
 			let PANEL_HEIGHT = sizeBary*5;
-			let font2 = Renderer.LoadFont("Tahoma", 18, Enum.FontWeight.EXTRABOLD);
+			let font2 = Renderer.LoadFont("Tahoma", 16, Enum.FontWeight.EXTRABOLD);
 			
-			let imgMorph = Renderer.LoadImage("panorama\images\loadingscreens\skadi_rising_loading_screen\loadingscreen_tga.vtex_c");
+			let imgMorph = Renderer.LoadImage("panorama/images/loadingscreens/skadi_rising_loading_screen/loadingscreen_tga.vtex_c");
 			Renderer.SetDrawColor(255, 255, 255, visibility);
-			Renderer.DrawImage(imgMorph, Math.ceil(xpos)-70, Math.ceil(ypos)-60, PANEL_WIDTH+140, PANEL_HEIGHT+120);
-			Renderer.SetDrawColor(0, 0, 0, 150);
-			Renderer.DrawFilledRect( Math.ceil(xpos)-70, Math.ceil(ypos)-60, PANEL_WIDTH+140, PANEL_HEIGHT+120);
+			Renderer.DrawImage(imgMorph, Math.ceil(xpos)-100, Math.ceil(ypos)-60, PANEL_WIDTH+200, PANEL_HEIGHT+120);
+			Renderer.SetDrawColor(0, 0, 0, 180);
+			Renderer.DrawFilledRect( Math.ceil(xpos)-100, Math.ceil(ypos)-60, PANEL_WIDTH+200, PANEL_HEIGHT+120);
 			Renderer.SetDrawColor(255, 255, 255, visibility);
-			Renderer.DrawText(font2, Math.ceil(xpos)10, Math.ceil(ypos)-30, "Ability Cast Select");
+			Renderer.DrawText(font2, Math.ceil(xpos)40, Math.ceil(ypos)-35, "Ability Cast Select");
 						
 			//let sizeBary = sizeBarx; 
 			let font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
