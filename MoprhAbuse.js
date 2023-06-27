@@ -33,7 +33,7 @@
 			let sizeamountx = 120;
 			let visibility = 255;
 			let sizeBarx = sizeamountx / 3 * 0.75;
-			let sizeBary = sizeBarx; 
+			let sizeBary = sizeBarx*0.9; 
 			
 			let PANEL_WIDTH = sizeBarx*6;
 			let PANEL_HEIGHT = sizeBary*5;
@@ -112,6 +112,7 @@
 				}
 			}
 			
+			console.log(cooldowns.length);
 			// Detectar si se mantiene presionada la tecla Control
 			//if (Input.IsKeyDown(Enum.ButtonCode.KEY_LCONTROL) ) {
 				//if (Input.IsKeyDown(Enum.ButtonCode.MOUSE_LEFT) && Input.IsCursorInRect(xpos, ypos, PANEL_WIDTH, PANEL_HEIGHT)) {
