@@ -217,7 +217,6 @@
 						xpos = tempX;
 					}
 				}
-;
 				//console.log(cooldowns);
 
 				xpos = tempX;
