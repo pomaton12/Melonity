@@ -135,7 +135,7 @@
 										Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 										
 										let isVisible = !hero.IsDormant() || !hero.IsAlive();
-										console.log(isVisible);
+										//console.log(isVisible);
 
 										if (isVisible == true){									
 											if(ability.GetCooldown()){
@@ -171,28 +171,28 @@
 												let currentTime = GameRules.GetGameTime(); 
 												if(currentTime - lastTime > 1){
 													getcooldownTim = getcooldownTim - 1;
-													
-													Renderer.SetDrawColor(255, 255, 255, visibility);
-													Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-													Renderer.SetDrawColor(102, 0, 0, 180);
-													Renderer.DrawFilledRect( Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-													Renderer.SetDrawColor(255, 0, 0, 255);
-													Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-													Renderer.SetDrawColor(255, 255, 255, visibility);
-													
-													let text = "" + Math.floor(getcooldownTim);
-													let textWidth = Renderer.GetTextSize(font, text)[0];
-													let textHeight = Renderer.GetTextSize(font, text)[1];
-													let textX = Math.ceil(xpos) + Math.ceil(sizeBarx / 2) - Math.ceil(textWidth / 2);
-													let textY = Math.ceil(ypos) + Math.ceil(sizeBary / 2) - Math.ceil(textHeight / 2);
-													Renderer.DrawText(font, textX, textY, text);
-													
+																								
 													cooldowns[key][5] = getcooldownTim;
 													cooldowns[key][6] = GameRules.GetGameTime();
 													
 												
 												}
 												
+												Renderer.SetDrawColor(255, 255, 255, visibility);
+												Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+												Renderer.SetDrawColor(102, 0, 0, 180);
+												Renderer.DrawFilledRect( Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+												Renderer.SetDrawColor(255, 0, 0, 255);
+												Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+												Renderer.SetDrawColor(255, 255, 255, visibility);
+												
+												let text = "" + Math.floor(getcooldownTim);
+												let textWidth = Renderer.GetTextSize(font, text)[0];
+												let textHeight = Renderer.GetTextSize(font, text)[1];
+												let textX = Math.ceil(xpos) + Math.ceil(sizeBarx / 2) - Math.ceil(textWidth / 2);
+												let textY = Math.ceil(ypos) + Math.ceil(sizeBary / 2) - Math.ceil(textHeight / 2);
+												Renderer.DrawText(font, textX, textY, text);
+											
 											}
 											
 										}
