@@ -164,16 +164,22 @@
 			} else {
 				isDragging = false;
 			}
+			
+			let originalX = xpos;
+			let originalY = ypos;
 
 			if (isDragging) {
 				const mousePos = Input.GetCursorPos();
-				xpos = mousePos[0] - dragOffsetX;
-				ypos = mousePos[1] - dragOffsetY;
+				const deltaX = mousePos[0] - dragOffsetX - originalX;
+				const deltaY = mousePos[1] - dragOffsetY - originalY;
+				xpos += deltaX;
+				ypos += deltaY;
 				xpos = Math.max(xpos, 0);
 				ypos = Math.max(ypos, 0);
 				xpos = Math.min(xpos, Renderer.GetScreenSize()[0] - PANEL_WIDTH);
 				ypos = Math.min(ypos, Renderer.GetScreenSize()[1] - PANEL_HEIGHT);
 			}
+
 					
         }
     };		
