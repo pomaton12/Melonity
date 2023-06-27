@@ -135,6 +135,7 @@
 										Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 										
 										let isVisible = !hero.IsDormant() || !hero.IsAlive();
+										console.log(isVisible);
 
 										if (isVisible)									
 											if(ability.GetCooldown()){
