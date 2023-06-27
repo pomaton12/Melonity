@@ -162,7 +162,7 @@
 										}
 										else{
 											
-											console.log("no esta vivo o esta invi");
+											//console.log("no esta vivo o esta invi");
 											let getcooldownTim = cooldowns[key][5];
 											
 											if(getcooldownTim > 0){
