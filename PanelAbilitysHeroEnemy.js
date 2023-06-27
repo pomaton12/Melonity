@@ -162,6 +162,7 @@
 											let getcooldownTim = cooldowns[key][5];
 											let lastTime = cooldowns[key][6];
 											let currentTime = GameRules.GetGameTime(); 
+											console.log(getcooldownTim);
 											if(getcooldownTim > 0){
 												if(currentTime - lastTime > 1){
 													getcooldownTim = getcooldownTim - 1;
