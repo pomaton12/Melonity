@@ -122,7 +122,7 @@
 				}
 			}
 			
-			let buttonPressed = false; 
+			let lastClickTime = 0; // se declara la variable lastClickTime aquí
 			for (const key in cooldowns) {
 				const cooldown = cooldowns[key];
 				const pX = cooldown[3];
@@ -132,15 +132,13 @@
 				if (cooldown[5]) {
 					// Si la habilidad está siendo monitorizada, crea un botón
 					if (Input.IsKeyDownOnce(Enum.ButtonCode.MOUSE_LEFT) && Input.IsCursorInRect(pX, pY, sizeBarx, sizeBary)) {
-						// Si se hace clic en el botón, realiza alguna acción
-						    if (!buttonPressed) {
-								buttonPressed = true;
-								console.log(AbilID);
-								console.log("hola bb");
-							}
-					} else {
-						// Si se suelta el botón, marca el botón como no presionado
-						buttonPressed = false;
+						const currentTime = GameRules.GetGameTime(); // se obtiene el tiempo actual del juego
+						if (currentTime - lastClickTime > 0.5) { // se compara el tiempo actual con lastClickTime
+							lastClickTime = currentTime; // se actualiza lastClickTime
+							console.log(AbilID);
+							console.log("hola mendo");
+							// Realiza alguna acción adicional...
+						}
 					}
 
 				}
