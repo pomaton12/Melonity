@@ -32,7 +32,7 @@
         if (localHero && isUiEnabled.GetValue()) {
 
 			
-			if (Engine.OnceAt(0.2)) {
+			
 				let tempX = xpos;
 				let tempY = ypos;
 
@@ -49,12 +49,14 @@
 				let font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
 				let font1 = Renderer.LoadFont("Tahoma", 8, Enum.FontWeight.EXTRABOLD);
 				let enemyList = [];
-				
-				let heroes = EntitySystem.GetHeroesList();
-				if (heroes) {
-					for (let hero of heroes) {
-						if (hero && !hero.IsIllusion() && !hero.IsMeepoClone() && hero.IsHero()  && !hero.IsSameTeam(localHero)) {
-							enemyList.push(hero);
+				if (Engine.OnceAt(0.2)) {
+										
+					let heroes = EntitySystem.GetHeroesList();
+					if (heroes) {
+						for (let hero of heroes) {
+							if (hero && !hero.IsIllusion() && !hero.IsMeepoClone() && hero.IsHero()  && !hero.IsSameTeam(localHero)) {
+								enemyList.push(hero);
+							}
 						}
 					}
 				}
@@ -118,25 +120,36 @@
 										Renderer.SetDrawColor(0, 0, 255, 255);
 										Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 										
-										
-										if(ability.GetCooldown()){
-											let coldowmABIL = ability.GetCooldown();
-											Renderer.SetDrawColor(255, 255, 255, visibility);
-											Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-											Renderer.SetDrawColor(102, 0, 0, 180);
-											Renderer.DrawFilledRect( Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-											Renderer.SetDrawColor(255, 0, 0, 255);
-											Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-											Renderer.SetDrawColor(255, 255, 255, visibility);
+										let isVisible = hero.IsDormant() == false && hero.IsAlive();
+										let condi = 0;
+										console.log(ability.GetCooldown());
+										if (isVisible)
+											if(ability.GetCooldown()){
+												let coldowmABIL = ability.GetCooldown();
+												Renderer.SetDrawColor(255, 255, 255, visibility);
+												Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+												Renderer.SetDrawColor(102, 0, 0, 180);
+												Renderer.DrawFilledRect( Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+												Renderer.SetDrawColor(255, 0, 0, 255);
+												Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+												Renderer.SetDrawColor(255, 255, 255, visibility);
+												
+												let text = "" + Math.floor(coldowmABIL);
+												let textWidth = Renderer.GetTextSize(font, text)[0];
+												let textHeight = Renderer.GetTextSize(font, text)[1];
+												let textX = Math.ceil(xpos) + Math.ceil(sizeBarx / 2) - Math.ceil(textWidth / 2);
+												let textY = Math.ceil(ypos) + Math.ceil(sizeBary / 2) - Math.ceil(textHeight / 2);
+												Renderer.DrawText(font, textX, textY, text);
+												
+												
+											}
+										else{
 											
-											let text = "" + Math.floor(coldowmABIL);
-											let textWidth = Renderer.GetTextSize(font, text)[0];
-											let textHeight = Renderer.GetTextSize(font, text)[1];
-											let textX = Math.ceil(xpos) + Math.ceil(sizeBarx / 2) - Math.ceil(textWidth / 2);
-											let textY = Math.ceil(ypos) + Math.ceil(sizeBary / 2) - Math.ceil(textHeight / 2);
-											Renderer.DrawText(font, textX, textY, text);
+											if(ability.GetCooldown()>0){
+												//condi = ability.GetCooldown();
+												
+											}
 											
-											console.log(ability.GetCooldown());
 										}
 																			
 									}
@@ -185,7 +198,7 @@
 					ypos = Math.min(ypos, Renderer.GetScreenSize()[1] - PANEL_HEIGHT);
 				}
 			
-			}
+			
 					
         }
     };		
