@@ -87,7 +87,7 @@
 								
 								let key = heroNAME + AbilNAME;
 								if (!cooldowns[key]) {
-									cooldowns[key] = [hero, abilityName, 0, 0];
+									cooldowns[key] = [heroNAME, AbilNAME, 0, 0];
 								}
 
 								// Actualizar la posición de la habilidad en la lista
