@@ -136,8 +136,8 @@
 										
 										let isVisible = hero.IsDormant() == false;
 
-										console.log(hero.IsVisible());
-										console.log(hero.IsDormant());
+										console.log("Visible ",hero.IsVisible());
+										console.log("Dormido ",hero.IsDormant());
 										if (hero.IsVisible())									
 											if(ability.GetCooldown()){
 												let coldowmABIL = Math.floor(ability.GetCooldown());
