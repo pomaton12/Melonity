@@ -86,29 +86,18 @@
 								let AbilNAME = ability.GetName();
 								abilityImageHandle = Renderer.LoadImage("panorama/images/spellicons/" + AbilNAME + "_png.vtex_c");
 								
-								// Verificar si el héroe y la habilidad existen en la lista
-								let abilityIndex = -1;
-								if (cooldowns.length > 0){
-									for (let k = 0; k < cooldowns.length; k++) {
-										if (cooldowns[k][0] === IdHERO && cooldowns[k][1] === heroNAME && cooldowns[k][2] === AbilNAME) {
-											abilityIndex = k;
-											break;
-										} else {
-											cooldowns.push([IdHERO, heroNAME, AbilNAME, 0, 0, 0, 0]);
-											abilityIndex = cooldowns.length-1;
-										}
-									}
-								} else{
-									cooldowns.push([IdHERO, heroNAME, AbilNAME, 0, 0, 0, 0]);
-									abilityIndex = 0;
-									
+								let key = IdHERO+ heroNAME + AbilNAME;
+
+								// Si la habilidad no está en la lista, agregarla
+								if (!cooldowns[key]) {
+									cooldowns[key] = [IdHERO, heroNAME, AbilNAME, 0, 0];
 								}
-								
+
 								// Actualizar la posición de la habilidad en la lista
-								cooldowns[abilityIndex][3] = xpos;
-								cooldowns[abilityIndex][4] = ypos;
-								
-								//console.log(cooldowns[key][0]," pox = ",cooldowns[key][3]," posy = ",cooldowns[key][4]);
+								cooldowns[key][3] = xpos;
+								cooldowns[key][4] = ypos;
+
+								console.log(cooldowns[key]);
 								
 								if (ability.GetLevel() >= 1) {
 									
@@ -166,17 +155,17 @@
 												let textY = Math.ceil(ypos) + Math.ceil(sizeBary / 2) - Math.ceil(textHeight / 2);
 												Renderer.DrawText(font, textX, textY, text);
 												
-												cooldowns[abilityIndex][5] = coldowmABIL;
-												cooldowns[abilityIndex][6] = GameRules.GetGameTime();
+												cooldowns[key][5] = coldowmABIL;
+												cooldowns[key]][6] = GameRules.GetGameTime();
 												
 											}
 										else{
 											
-											let getcooldownTim = cooldowns[abilityIndex][5];
+											let getcooldownTim = cooldowns[key][5];
 											//console.log( cooldowns[key][2]," ",getcooldownTim);
 											if(getcooldownTim > 0){
 												
-												let lastTime = cooldowns[abilityIndex][6];
+												let lastTime = cooldowns[key][6];
 												let currentTime = GameRules.GetGameTime(); 
 												if(currentTime - lastTime > 1){
 													getcooldownTim = getcooldownTim - 1;
@@ -196,8 +185,8 @@
 													let textY = Math.ceil(ypos) + Math.ceil(sizeBary / 2) - Math.ceil(textHeight / 2);
 													Renderer.DrawText(font, textX, textY, text);
 													
-													cooldowns[abilityIndex][5] = getcooldownTim;
-													cooldowns[abilityIndex][6] = GameRules.GetGameTime();
+													cooldowns[key][5] = getcooldownTim;
+													cooldowns[key][6] = GameRules.GetGameTime();
 													
 												
 												}
@@ -222,7 +211,7 @@
 					}
 				}
 ;
-				//console.log(cooldowns);
+				console.log(cooldowns);
 
 				xpos = tempX;
 				ypos = tempY;
