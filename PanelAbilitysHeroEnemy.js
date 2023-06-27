@@ -88,7 +88,7 @@
 								
 								let key = IdHERO+ heroNAME + AbilNAME;
 								if (!cooldowns[key]) {
-									cooldowns[key] = [IdHERO, heroNAME, AbilNAME, 0, 0,0,true];
+									cooldowns[key] = [IdHERO, heroNAME, AbilNAME, 0, 0, 0, 0];
 								}
 
 								// Actualizar la posición de la habilidad en la lista
@@ -137,7 +137,7 @@
 										//console.log(ability.GetCooldown());
 										if (isVisible)									
 											if(ability.GetCooldown()){
-												let coldowmABIL = ability.GetCooldown();
+												let coldowmABIL = Math.floor(ability.GetCooldown());
 												Renderer.SetDrawColor(255, 255, 255, visibility);
 												Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 												Renderer.SetDrawColor(102, 0, 0, 180);
@@ -146,19 +146,46 @@
 												Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 												Renderer.SetDrawColor(255, 255, 255, visibility);
 												
-												let text = "" + Math.floor(coldowmABIL);
+												let text = "" + coldowmABIL;
 												let textWidth = Renderer.GetTextSize(font, text)[0];
 												let textHeight = Renderer.GetTextSize(font, text)[1];
 												let textX = Math.ceil(xpos) + Math.ceil(sizeBarx / 2) - Math.ceil(textWidth / 2);
 												let textY = Math.ceil(ypos) + Math.ceil(sizeBary / 2) - Math.ceil(textHeight / 2);
 												Renderer.DrawText(font, textX, textY, text);
 												
+												cooldowns[key][5] = coldowmABIL;
+												cooldowns[key][6] = GameRules.GetGameTime();
 												
 											}
 										else{
 											
-											if(ability.GetCooldown()>0){
-												//condi = ability.GetCooldown();
+											let getcooldownTim = cooldowns[key][5];
+											let lastTime = cooldowns[key][6];
+											let currentTime = GameRules.GetGameTime(); 
+											if(getcooldownTim > 0){
+												if(currentTime - lastTime > 1){
+													getcooldownTim = getcooldownTim - 1;
+													
+													Renderer.SetDrawColor(255, 255, 255, visibility);
+													Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+													Renderer.SetDrawColor(102, 0, 0, 180);
+													Renderer.DrawFilledRect( Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+													Renderer.SetDrawColor(255, 0, 0, 255);
+													Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+													Renderer.SetDrawColor(255, 255, 255, visibility);
+													
+													let text = "" + Math.floor(getcooldownTim);
+													let textWidth = Renderer.GetTextSize(font, text)[0];
+													let textHeight = Renderer.GetTextSize(font, text)[1];
+													let textX = Math.ceil(xpos) + Math.ceil(sizeBarx / 2) - Math.ceil(textWidth / 2);
+													let textY = Math.ceil(ypos) + Math.ceil(sizeBary / 2) - Math.ceil(textHeight / 2);
+													Renderer.DrawText(font, textX, textY, text);
+													
+													cooldowns[key][5] = getcooldownTim;
+													cooldowns[key][6] = GameRules.GetGameTime();
+													
+												
+												}
 												
 											}
 											
