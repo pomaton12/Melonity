@@ -137,7 +137,7 @@
 										let isVisible = !hero.IsDormant() || !hero.IsAlive();
 										console.log(isVisible);
 
-										if (isVisible == true)									
+										if (isVisible == true){									
 											if(ability.GetCooldown()){
 												let coldowmABIL = Math.floor(ability.GetCooldown());
 												Renderer.SetDrawColor(255, 255, 255, visibility);
@@ -158,7 +158,8 @@
 												cooldowns[key][5] = coldowmABIL;
 												cooldowns[key][6] = GameRules.GetGameTime();
 												
-											}
+											}	
+										}
 										else{
 											
 											console.log("no esta vivo o esta invi");
