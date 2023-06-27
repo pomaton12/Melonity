@@ -131,7 +131,7 @@
 				
 				if (cooldown[5]) {
 					// Si la habilidad está siendo monitorizada, crea un botón
-					if (Input.IsKeyDownOnce(Enum.ButtonCode.MOUSE_LEFT) && Input.IsCursorInRect(pX, pY, sizeBarx, sizeBary)) {
+					if (Input.IsKeyDown(Enum.ButtonCode.MOUSE_LEFT) && Input.IsCursorInRect(pX, pY, sizeBarx, sizeBary)) {
 						const currentTime = GameRules.GetGameTime(); // se obtiene el tiempo actual del juego
 						if (currentTime - lastClickTime > 0.5) { // se compara el tiempo actual con lastClickTime
 							lastClickTime = currentTime; // se actualiza lastClickTime
