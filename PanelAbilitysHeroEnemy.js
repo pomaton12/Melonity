@@ -102,10 +102,6 @@
 									cooldowns.push([IdHERO, heroNAME, AbilNAME, 0, 0, 0, 0]);
 									abilityIndex = cooldowns.length - 1;
 								}
-
-								// Actualizar la posición de la habilidad en la lista
-								cooldowns[key][3] = xpos;
-								cooldowns[key][4] = ypos;
 								
 								// Actualizar la posición de la habilidad en la lista
 								cooldowns[abilityIndex][3] = xpos;
