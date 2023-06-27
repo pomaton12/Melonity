@@ -23,7 +23,7 @@
 
 	// Definición de la función OnUpdate
 	MorphlingUltiAbuse.OnUpdate = () => {
-		let buttonPressed = false;
+		
         if (localHero && isUiEnabled.GetValue()) {			
 			if (localHero.GetUnitName() !== "npc_dota_hero_morphling") {
 				return;
@@ -128,7 +128,7 @@
 				const pX = cooldown[3];
 				const pY = cooldown[4];
 				const AbilID = cooldown[2];
-
+				let buttonPressed = false; 
 				if (cooldown[5]) {
 					// Si la habilidad está siendo monitorizada, crea un botón
 					if (Input.IsKeyDownOnce(Enum.ButtonCode.MOUSE_LEFT) && Input.IsCursorInRect(pX, pY, sizeBarx, sizeBary)) {
