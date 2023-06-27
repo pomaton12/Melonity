@@ -86,14 +86,30 @@
 								let AbilNAME = ability.GetName();
 								abilityImageHandle = Renderer.LoadImage("panorama/images/spellicons/" + AbilNAME + "_png.vtex_c");
 								
-								let key = IdHERO + heroNAME + AbilNAME;
-								if (!cooldowns[key]) {
-									cooldowns[key] = [IdHERO, heroNAME, AbilNAME, 0, 0, 0, 0];
+								// Verificar si el héroe y la habilidad existen en la lista
+								let abilityExists = false;
+								let abilityIndex = -1;
+								for (let k = 0; k < cooldowns.length; k++) {
+									if (cooldowns[k][0] === IdHERO && cooldowns[k][1] === heroNAME && cooldowns[k][2] === AbilNAME) {
+										abilityExists = true;
+										abilityIndex = k;
+										break;
+									}
+								}
+
+								// Si la habilidad no existe, agregarla a la lista
+								if (!abilityExists) {
+									cooldowns.push([IdHERO, heroNAME, AbilNAME, 0, 0, 0, 0]);
+									abilityIndex = cooldowns.length - 1;
 								}
 
 								// Actualizar la posición de la habilidad en la lista
 								cooldowns[key][3] = xpos;
 								cooldowns[key][4] = ypos;
+								
+								// Actualizar la posición de la habilidad en la lista
+								cooldowns[abilityIndex][3] = xpos;
+								cooldowns[abilityIndex][4] = ypos;
 								
 								//console.log(cooldowns[key][0]," pox = ",cooldowns[key][3]," posy = ",cooldowns[key][4]);
 								
@@ -133,7 +149,7 @@
 										Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 										
 										let isVisible = hero.IsDormant() == false && hero.IsAlive();
-										let condi = 0;
+
 										//console.log(ability.GetCooldown());
 										if (isVisible)									
 											if(ability.GetCooldown()){
@@ -153,17 +169,17 @@
 												let textY = Math.ceil(ypos) + Math.ceil(sizeBary / 2) - Math.ceil(textHeight / 2);
 												Renderer.DrawText(font, textX, textY, text);
 												
-												cooldowns[key][5] = coldowmABIL;
-												cooldowns[key][6] = GameRules.GetGameTime();
+												cooldowns[abilityIndex][5] = coldowmABIL;
+												cooldowns[abilityIndex][6] = GameRules.GetGameTime();
 												
 											}
 										else{
 											
-											let getcooldownTim = cooldowns[key][5];
+											let getcooldownTim = cooldowns[abilityIndex][5];
 											//console.log( cooldowns[key][2]," ",getcooldownTim);
 											if(getcooldownTim > 0){
 												
-												let lastTime = cooldowns[key][6];
+												let lastTime = cooldowns[abilityIndex][6];
 												let currentTime = GameRules.GetGameTime(); 
 												if(currentTime - lastTime > 1){
 													getcooldownTim = getcooldownTim - 1;
@@ -183,8 +199,8 @@
 													let textY = Math.ceil(ypos) + Math.ceil(sizeBary / 2) - Math.ceil(textHeight / 2);
 													Renderer.DrawText(font, textX, textY, text);
 													
-													cooldowns[key][5] = getcooldownTim;
-													cooldowns[key][6] = GameRules.GetGameTime();
+													cooldowns[abilityIndex][5] = getcooldownTim;
+													cooldowns[abilityIndex][6] = GameRules.GetGameTime();
 													
 												
 												}
@@ -208,10 +224,9 @@
 						xpos = tempX;
 					}
 				}
-				console.log("Agregando habilidad...");
-				cooldowns["1-Hero1-Ability1"] = [1, "Hero1", "Ability1", 0, 0, 0, 0];
+;
 				console.log(cooldowns);
-				console.log("hola mundo");
+
 				xpos = tempX;
 				ypos = tempY;
 				
