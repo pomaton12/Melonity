@@ -94,8 +94,8 @@
 									
 									//console.log(ability.GetAbilityCharges());
 									//const cooldownRemaining = ability.GetCooldownTimeRemaining();
-									if (ability.GetInitialCharges()) {
-										const charges = ability.GetInitialCharges();
+									if (ability.GetCurrentCharges( )) {
+										const charges = ability.GetCurrentCharges( );
 										console.log(charges);
 									}
 																		
