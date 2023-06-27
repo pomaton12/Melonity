@@ -112,7 +112,7 @@
 				}
 			}
 			
-			console.log(cooldowns.length);
+			console.log(Object.keys(cooldowns).length);
 			// Detectar si se mantiene presionada la tecla Control
 			//if (Input.IsKeyDown(Enum.ButtonCode.KEY_LCONTROL) ) {
 				//if (Input.IsKeyDown(Enum.ButtonCode.MOUSE_LEFT) && Input.IsCursorInRect(xpos, ypos, PANEL_WIDTH, PANEL_HEIGHT)) {
