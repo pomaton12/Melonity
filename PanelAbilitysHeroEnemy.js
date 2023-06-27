@@ -19,23 +19,13 @@
 	let xpos = sizescrx/2;
 	let ypos = sizescry/2;
 	let enemyList = [];
-	let cooldowns = {};
+	let cooldowns = [];
 
 	// Definición del array path_
 	const path_ = ["Custom Scripts","Player"];
 
 	// Creación del toggle isUiEnabled
 	let isUiEnabled = Menu.AddToggle(path_, 'Skill Alert', true);
-
-	CreatePanel.OnAbilityUsed = (ability) => {
-		if (localHero && isUiEnabled.GetValue()) {
-			let cooldown = ability.GetCooldown();
-			cooldowns[ability.GetName()] = {
-				remaining: cooldown,
-				visible: true,
-			};
-		}
-	}
 
 	// Definición de la función OnUpdate
 	CreatePanel.OnUpdate = () => {
@@ -92,8 +82,20 @@
 							//console.log(ability);
 							if (ability) {
 								let abilityImageHandle;
-								abilityImageHandle = Renderer.LoadImage("panorama/images/spellicons/" + ability.GetName() + "_png.vtex_c");
-								//console.log(ability.IsActivated());
+								let AbilNAME = ability.GetName();
+								abilityImageHandle = Renderer.LoadImage("panorama/images/spellicons/" + AbilNAME + "_png.vtex_c");
+								
+								let key = heroNAME + AbilNAME;
+								if (!cooldowns[key]) {
+									cooldowns[key] = [hero, abilityName, 0, 0];
+								}
+
+								// Actualizar la posición de la habilidad en la lista
+								cooldowns[key][2] = xpos;
+								cooldowns[key][3] = ypos;
+								
+								console.log(cooldowns);
+								
 								if (ability.GetLevel() >= 1) {
 									
 									if (ability.IsReady() && ability.IsActivated()) {
@@ -129,14 +131,10 @@
 										Renderer.SetDrawColor(0, 0, 255, 255);
 										Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 										
-										let name = ability.GetName();
-										let cooldown = cooldowns[name];
-										console.log(cooldown);
-										if (!cooldown) continue;
-										
-										
-										
-										if (cooldown.visible)
+										let isVisible = hero.IsDormant() == false && hero.IsAlive();
+										let condi = 0;
+										//console.log(ability.GetCooldown());
+										if (isVisible)									
 											if(ability.GetCooldown()){
 												let coldowmABIL = ability.GetCooldown();
 												Renderer.SetDrawColor(255, 255, 255, visibility);
