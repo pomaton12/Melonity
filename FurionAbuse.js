@@ -16,6 +16,9 @@
 	let isDragging = false;
 	let dragOffsetX = 0;
 	let dragOffsetY = 0;
+	let xpos = sizescrx/2;
+	let ypos = sizescry/2;
+	
 
 	// Definición del array path_
 	const path_ = ["Custom Scripts","Player"];
@@ -27,8 +30,9 @@
 	// Definición de la función OnUpdate
 	CreatePanel.OnUpdate = () => {
         if (localHero && isUiEnabled.GetValue()) {
-			let xpos = sizescrx/2;
-			let ypos = sizescry/2;
+			let tempX = xpos;
+			let tempY = ypos;
+
 			let sizeamountx = 120;
 			let visibility = 255;
 			let sizeBarx = sizeamountx / 3 * 0.75;
@@ -145,6 +149,9 @@
 					xpos = sizescrx/2;
 				}
 			}
+			
+			xpos = tempX;
+			ypos = tempY;
 			
 			// Detectar si se mantiene presionada la tecla Control
 			if (Input.IsKeyDown(Enum.ButtonCode.KEY_LCONTROL) ) {
