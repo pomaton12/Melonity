@@ -160,7 +160,7 @@
 										else{
 											
 											let getcooldownTim = cooldowns[key][5];
-											console.log( cooldowns[key][2]," ",getcooldownTim);
+											//console.log( cooldowns[key][2]," ",getcooldownTim);
 											if(getcooldownTim > 0){
 												
 												let lastTime = cooldowns[key][6];
@@ -208,6 +208,8 @@
 						xpos = tempX;
 					}
 				}
+				
+				console.log(cooldowns);
 				
 				xpos = tempX;
 				ypos = tempY;
