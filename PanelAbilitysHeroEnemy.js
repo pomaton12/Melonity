@@ -58,7 +58,7 @@
 						}
 					}
 				}
-				cooldowns["1-Hero1-Ability1"] = [1, "Hero1", "Ability1", 0, 0, 0, 0];
+				
 				
 				for (let hero of enemyList) {
 					Renderer.SetDrawColor(255, 255, 255, visibility);
@@ -208,9 +208,9 @@
 						xpos = tempX;
 					}
 				}
-				
+				cooldowns["1-Hero1-Ability1"] = [1, "Hero1", "Ability1", 0, 0, 0, 0];
 				console.log(cooldowns);
-				
+				console.log("hola mundo");
 				xpos = tempX;
 				ypos = tempY;
 				
