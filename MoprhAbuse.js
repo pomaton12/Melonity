@@ -38,12 +38,15 @@
 			
 			let PANEL_WIDTH = sizeBarx*6;
 			let PANEL_HEIGHT = sizeBary*5;
+			let font2 = Renderer.LoadFont("Tahoma", 18, Enum.FontWeight.EXTRABOLD);
 			
 			let imgMorph = Renderer.LoadImage("panorama/images/heroes/npc_dota_hero_morphling_png.vtex_c");
 			Renderer.SetDrawColor(255, 255, 255, visibility);
-			Renderer.DrawImage(imgMorph, Math.ceil(xpos)-15, Math.ceil(ypos)-40, PANEL_WIDTH+30, PANEL_HEIGHT+75);
+			Renderer.DrawImage(imgMorph, Math.ceil(xpos)-50, Math.ceil(ypos)-60, PANEL_WIDTH+100, PANEL_HEIGHT+100);
 			Renderer.SetDrawColor(0, 0, 0, 150);
-			Renderer.DrawFilledRect( Math.ceil(xpos)-15, Math.ceil(ypos)-40, PANEL_WIDTH+30, PANEL_HEIGHT+75);
+			Renderer.DrawFilledRect( Math.ceil(xpos)-50, Math.ceil(ypos)-60, PANEL_WIDTH+100, PANEL_HEIGHT+100);
+			Renderer.SetDrawColor(255, 255, 255, visibility);
+			Renderer.DrawText(font2, Math.ceil(xpos)-30, Math.ceil(ypos)-20, "Ability Cast Select");
 						
 			//let sizeBary = sizeBarx; 
 			let font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
