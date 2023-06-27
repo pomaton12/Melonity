@@ -94,7 +94,7 @@
 								cooldowns[key][2] = xpos;
 								cooldowns[key][3] = ypos;
 								
-								console.log(cooldowns);
+								console.log(cooldowns[key][2]);
 								
 								if (ability.GetLevel() >= 1) {
 									
