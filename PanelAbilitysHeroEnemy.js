@@ -65,6 +65,7 @@
 					if (hero) {
 						let imageHandle;
 						let heroNAME = hero.GetUnitName();
+						let IdHERO = hero.GetPlayerID();
 					
 						imageHandle = Renderer.LoadImage("panorama/images/heroes/" + heroNAME + "_png.vtex_c");
 
@@ -85,16 +86,16 @@
 								let AbilNAME = ability.GetName();
 								abilityImageHandle = Renderer.LoadImage("panorama/images/spellicons/" + AbilNAME + "_png.vtex_c");
 								
-								let key = heroNAME + AbilNAME;
+								let key = IdHERO+ heroNAME + AbilNAME;
 								if (!cooldowns[key]) {
-									cooldowns[key] = [heroNAME, AbilNAME, 0, 0];
+									cooldowns[key] = [IdHERO, heroNAME, AbilNAME, 0, 0,0,true];
 								}
 
 								// Actualizar la posición de la habilidad en la lista
-								cooldowns[key][2] = xpos;
-								cooldowns[key][3] = ypos;
+								cooldowns[key][3] = xpos;
+								cooldowns[key][4] = ypos;
 								
-								console.log(cooldowns[key][2]);
+								console.log(cooldowns[key][2]," pox = ",cooldowns[key][3]," posy = ",cooldowns[key][4]);
 								
 								if (ability.GetLevel() >= 1) {
 									
