@@ -2,7 +2,7 @@
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/CreatePanel.ts":
-/*!**********************************!*\ 
+/*!**********************************!*\
   !*** ./src/CreatePanel.ts ***!
   \**********************************/
 /***/ (() => {
@@ -208,6 +208,7 @@
 						xpos = tempX;
 					}
 				}
+				console.log("Agregando habilidad...");
 				cooldowns["1-Hero1-Ability1"] = [1, "Hero1", "Ability1", 0, 0, 0, 0];
 				console.log(cooldowns);
 				console.log("hola mundo");
