@@ -1,5 +1,5 @@
 /******/ (() => { // webpackBootstrap
-/******/ 	var __webpack_modules__ = ({ 
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/MorphlingUltiAbuse.ts":
 /*!**********************************!*\
@@ -38,13 +38,15 @@
 			
 			let PANEL_WIDTH = sizeBarx*6;
 			let PANEL_HEIGHT = sizeBary*5;
-			let font2 = Renderer.LoadFont("Tahoma", 16, Enum.FontWeight.EXTRABOLD);
+			let font2 = Renderer.LoadFont("Tahoma", 15, Enum.FontWeight.EXTRABOLD);
 			
-			let imgMorph = Renderer.LoadImage("panorama/images/loadingscreens/skadi_rising_loading_screen/loadingscreen_tga.vtex_c");
+			let imgMorph = Renderer.LoadImage("panorama/images/loadingscreens/eminence_of_ristul_loadingscreen2/loadingscreen.vtex_c");
+			let imgclose = Renderer.LoadImage("panorama/images/control_icons/x_close_png.vtex_c");
 			Renderer.SetDrawColor(255, 255, 255, visibility);
-			Renderer.DrawImage(imgMorph, Math.ceil(xpos)-100, Math.ceil(ypos)-60, PANEL_WIDTH+200, PANEL_HEIGHT+120);
-			Renderer.SetDrawColor(0, 0, 0, 100);
-			Renderer.DrawFilledRect( Math.ceil(xpos)-100, Math.ceil(ypos)-60, PANEL_WIDTH+200, PANEL_HEIGHT+120);
+			Renderer.DrawImage(imgMorph, Math.ceil(xpos)-130, Math.ceil(ypos)-60, PANEL_WIDTH+260, PANEL_HEIGHT+140);
+			Renderer.DrawImage(imgMorph, Math.ceil(xpos)+130, Math.ceil(ypos), 50, 50);
+			Renderer.SetDrawColor(0, 0, 0, 150);
+			Renderer.DrawFilledRect( Math.ceil(xpos)-130, Math.ceil(ypos)-60, PANEL_WIDTH+260, PANEL_HEIGHT+140);
 			Renderer.SetDrawColor(255, 255, 255, visibility);
 			Renderer.DrawText(font2, Math.ceil(xpos)+40, Math.ceil(ypos)-35, "Ability Cast Select");
 						
@@ -70,7 +72,7 @@
 					let heroNAME = hero.GetUnitName();
 					let IdHERO = hero.GetPlayerID();
 				
-					imageHandle = Renderer.LoadImage("panorama/images/heroes/" + heroNAME + "_png.vtex_c");
+					imageHandle = Renderer.LoadImage("panorama/images/heroes/icons/" + heroNAME + "_png.vtex_c");
 
 					if (imageHandle) {
 						Renderer.DrawImage(imageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
@@ -98,22 +100,13 @@
 							cooldowns[key][3] = xpos;
 							cooldowns[key][4] = ypos;
 
-							if (ability.GetLevel() >= 1) {
-								
-								if (!ability.IsPassive()) {
-									Renderer.SetDrawColor(255, 255, 255, visibility);
-									Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-									Renderer.SetDrawColor(0, 255, 0, visibility);
-									Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-									cooldowns[key][5] = true;
-								} else{
-									Renderer.SetDrawColor(255,255, 255, 255);
-									Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-									Renderer.SetDrawColor(0,0, 0, 150);
-									Renderer.DrawFilledRect( Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-									cooldowns[key][5] = false;
-								}
-								
+			
+							if (!ability.IsPassive()) {
+								Renderer.SetDrawColor(255, 255, 255, visibility);
+								Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+								Renderer.SetDrawColor(0, 255, 0, visibility);
+								Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+								cooldowns[key][5] = true;
 							} else{
 								Renderer.SetDrawColor(255,255, 255, 255);
 								Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
@@ -121,6 +114,7 @@
 								Renderer.DrawFilledRect( Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 								cooldowns[key][5] = false;
 							}
+								
 							
 							xpos = xpos + sizeBarx;
 						}
