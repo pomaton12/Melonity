@@ -40,11 +40,11 @@
 			let PANEL_HEIGHT = sizeBary*5;
 			let font2 = Renderer.LoadFont("Tahoma", 15, Enum.FontWeight.EXTRABOLD);
 			
-			let imgMorph = Renderer.LoadImage("panorama/images/loadingscreens/eminence_of_ristul_loadingscreen2/loadingscreen.vtex_c");
+			let imgMorph = Renderer.LoadImage("panorama/images/loadingscreens/skadi_rising_loading_screen/loadingscreen_tga.vtex_c");
 			let imgclose = Renderer.LoadImage("panorama/images/control_icons/x_close_png.vtex_c");
 			Renderer.SetDrawColor(255, 255, 255, visibility);
 			Renderer.DrawImage(imgMorph, Math.ceil(xpos)-130, Math.ceil(ypos)-60, PANEL_WIDTH+260, PANEL_HEIGHT+140);
-			Renderer.DrawImage(imgMorph, Math.ceil(xpos)+130, Math.ceil(ypos), 50, 50);
+			Renderer.DrawImage(imgclose, Math.ceil(xpos)+130, Math.ceil(ypos), 50, 50);
 			Renderer.SetDrawColor(0, 0, 0, 150);
 			Renderer.DrawFilledRect( Math.ceil(xpos)-130, Math.ceil(ypos)-60, PANEL_WIDTH+260, PANEL_HEIGHT+140);
 			Renderer.SetDrawColor(255, 255, 255, visibility);
@@ -83,7 +83,7 @@
 					xpos = xpos + sizeBarx+5;
 					for (let i = 0; i < 5; i++) {
 						let ability = hero.GetAbilityByIndex(i);
-						console.log(ability);
+						//console.log(ability);
 						if (ability) {
 							let abilityImageHandle;
 							let AbilNAME = ability.GetName();
@@ -100,13 +100,14 @@
 							cooldowns[key][3] = xpos;
 							cooldowns[key][4] = ypos;
 
-			
 							if (!ability.IsPassive()) {
-								Renderer.SetDrawColor(255, 255, 255, visibility);
-								Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-								Renderer.SetDrawColor(0, 255, 0, visibility);
-								Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-								cooldowns[key][5] = true;
+									if (ability.IsExist()) {
+									Renderer.SetDrawColor(255, 255, 255, visibility);
+									Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+									Renderer.SetDrawColor(0, 255, 0, visibility);
+									Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+									cooldowns[key][5] = true;
+								}
 							} else{
 								Renderer.SetDrawColor(255,255, 255, 255);
 								Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
