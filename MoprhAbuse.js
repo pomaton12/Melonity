@@ -74,7 +74,7 @@
 				let keyHero = IdHERO + heroNAME;
 				// Si la habilidad no está en la lista, agregarla
 				if (!EnemeyDraw[keyHero]) {
-					EnemeyDraw[keyHero] = [IdHERO, heroNAME, 0, 0, True];
+					EnemeyDraw[keyHero] = [IdHERO, heroNAME, 0, 0, true];
 				}
 
 				// Actualizar la posición de la habilidad en la lista
