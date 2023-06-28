@@ -17,14 +17,16 @@
 	let EnemeyDraw = [];
 
 	let isMonitoring = false;
-	let monitorKey = Enum.ButtonCode.KEY_X;
+	//let monitorKey = Enum.ButtonCode.KEY_X;
 	
 	// Definición del array path_
-	const path_ = ["Custom Scripts","Morphling"];
+	const path_ = ["Heroes","Agility","Morphling","Best Ulti Cast"];
 
+	
 	// Creación del toggle isUiEnabled
-	let isUiEnabled = Menu.AddToggle(path_, 'Panel Hability', true);
-
+	let isUiEnabled = Menu.AddToggle(path_, 'Enable', true);
+	let KeyBindPanel = Menu.AddKeyBind(path_, 'Panel Open', Enum.ButtonCode.KEY_NONE);
+	
 	function monitorizarHabilidadesMorphling() {
 		let [sizescrx,sizescry] = Renderer.GetScreenSize();
 		let xpos = sizescrx/2-100;
@@ -209,7 +211,7 @@
 		
 		
 
-			if (Input.IsKeyDownOnce(monitorKey)) {
+			if (KeyBindPanel.IsKeyDownOnce()) {
 				isMonitoring = !isMonitoring; // Cambia el valor de isMonitoring a su opuesto
 				//console.log(isMonitoring);
 			}
@@ -217,6 +219,12 @@
 			if (isMonitoring) {
 				monitorizarHabilidadesMorphling();
 			}
+			
+			
+			
+			
+			
+			
 				
         }
     };		
