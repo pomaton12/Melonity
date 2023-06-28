@@ -103,7 +103,7 @@
 							console.log(AbilNAME);
 
 							if (!ability.IsPassive()) {
-								if (ability.IsExist() && !AbilNAME !== "generic_hidden") {
+								if (ability.IsExist() && AbilNAME !== "generic_hidden") {
 									Renderer.SetDrawColor(255, 255, 255, visibility);
 									Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 									Renderer.SetDrawColor(0, 255, 0, visibility);
