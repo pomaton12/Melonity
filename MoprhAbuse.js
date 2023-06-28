@@ -15,7 +15,7 @@
 	let enemyList = [];
 	let cooldowns = [];
 	
-	let monitorInterval;
+
 	let isMonitoring = false;
 	let monitorKey = Enum.ButtonCode.KEY_X;
 	
@@ -145,12 +145,6 @@
 			}
 		}
 		
-		monitorInterval = setInterval(() => {
-			if (Input.IsKeyDownOnce(monitorKey)) {
-				isMonitoring = false;
-				clearInterval(monitorInterval);
-			}
-		}, 100); 
 	}
 
 	// Definición de la función OnUpdate
@@ -162,12 +156,9 @@
 			}
 
 			if (Input.IsKeyDownOnce(monitorKey)) {
+				isMonitoring = !isMonitoring; // Cambia el valor de isMonitoring a su opuesto
+
 				if (isMonitoring) {
-					// Salir de la función
-					isMonitoring = false;
-				} else {
-					// Llamar la función
-					isMonitoring = true;
 					monitorizarHabilidadesMorphling();
 				}
 			}
