@@ -83,7 +83,7 @@
 					xpos = xpos + sizeBarx+5;
 					for (let i = 0; i < 5; i++) {
 						let ability = hero.GetAbilityByIndex(i);
-						//console.log(ability);
+						console.log(ability);
 						if (ability) {
 							let abilityImageHandle;
 							let AbilNAME = ability.GetName();
