@@ -100,7 +100,7 @@
 							// Actualizar la posición de la habilidad en la lista
 							cooldowns[key][3] = xpos;
 							cooldowns[key][4] = ypos;
-							console.log(AbilNAME);
+
 
 							if (!ability.IsPassive()) {
 								if (ability.IsExist() && AbilNAME !== "generic_hidden") {
