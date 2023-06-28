@@ -14,7 +14,7 @@
 	let localHero;
 	let enemyList = [];
 	let cooldowns = [];
-	
+	let EnemeyDraw = [];
 
 	let isMonitoring = false;
 	let monitorKey = Enum.ButtonCode.KEY_X;
@@ -70,15 +70,17 @@
 				let imageHandle;
 				let heroNAME = hero.GetUnitName();
 				let IdHERO = hero.GetPlayerID();
-			
-				imageHandle = Renderer.LoadImage("panorama/images/heroes/icons/" + heroNAME + "_png.vtex_c");
-
-				if (imageHandle) {
-					Renderer.DrawImage(imageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-					Renderer.SetDrawColor(120, 0, 255, 255);
-					Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-
+				
+				let keyHero = IdHERO + heroNAME;
+				// Si la habilidad no está en la lista, agregarla
+				if (!EnemeyDraw[keyHero]) {
+					EnemeyDraw[keyHero] = [IdHERO, heroNAME, 0, 0, True];
 				}
+
+				// Actualizar la posición de la habilidad en la lista
+				EnemeyDraw[keyHero][2] = xpos;
+				EnemeyDraw[keyHero][3] = ypos;
+			
 				xpos = xpos + sizeBarx+5;
 				for (let i = 0; i < 5; i++) {
 					let ability = hero.GetAbilityByIndex(i);
@@ -125,6 +127,21 @@
 			}
 		}
 		
+		//Dibujar Heroes en x y
+		for (const key in EnemeyDraw) {
+			const enemyListDraw = EnemeyDraw[key];
+			const HeroIcon = enemyListDraw[1];
+			const peX = enemyListDraw[2];
+			const peY = enemyListDraw[3];
+
+			let imageHeroIcon = Renderer.LoadImage("panorama/images/heroes/icons/" + HeroIcon + "_png.vtex_c");
+			Renderer.SetDrawColor(255, 255, 255, visibility);
+			Renderer.DrawImage(imageHandle, Math.ceil(peX), Math.ceil(peY), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+			Renderer.SetDrawColor(120, 0, 255, 255);
+			Renderer.DrawOutlineRect(Math.ceil(peX), Math.ceil(peY), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+	
+		}
+		
 		//let lastClickTime = 0; // se declara la variable lastClickTime aquí
 		for (const key in cooldowns) {
 			const cooldown = cooldowns[key];
@@ -163,7 +180,10 @@
 			if (isMonitoring) {
 				monitorizarHabilidadesMorphling();
 			}
-
+			
+			
+			
+			
         }
     };		
 	
