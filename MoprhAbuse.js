@@ -16,7 +16,7 @@
 	let cooldowns = [];
 	
 	let isMonitoring = false;
-	let monitorKey = Enum.ButtonCode.
+	let monitorKey = Enum.ButtonCode.KEY_X;
 
 	// Definición del array path_
 	const path_ = ["Custom Scripts","Morphling"];
