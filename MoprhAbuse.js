@@ -158,9 +158,10 @@
 			if (Input.IsKeyDownOnce(monitorKey)) {
 				isMonitoring = !isMonitoring; // Cambia el valor de isMonitoring a su opuesto
 				console.log(isMonitoring);
-				if (isMonitoring) {
-					monitorizarHabilidadesMorphling();
-				}
+			}
+
+			if (isMonitoring) {
+				monitorizarHabilidadesMorphling();
 			}
 
         }
