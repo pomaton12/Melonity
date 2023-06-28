@@ -1,4 +1,4 @@
-/******/ (() => { // webpackBootstrap 
+/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/MorphlingUltiAbuse.ts":
@@ -65,9 +65,9 @@
 		
 		
 		for (let hero of enemyList) {
-			Renderer.SetDrawColor(255, 255, 255, visibility);
+
 			if (hero) {
-				let imageHandle;
+
 				let heroNAME = hero.GetUnitName();
 				let IdHERO = hero.GetPlayerID();
 				
@@ -86,15 +86,13 @@
 					let ability = hero.GetAbilityByIndex(i);
 					//console.log(ability);
 					if (ability) {
-						let abilityImageHandle;
 						let AbilNAME = ability.GetName();
-						abilityImageHandle = Renderer.LoadImage("panorama/images/spellicons/" + AbilNAME + "_png.vtex_c");
 						
 						let key = IdHERO+ heroNAME + AbilNAME;
 
 						// Si la habilidad no está en la lista, agregarla
 						if (!cooldowns[key]) {
-							cooldowns[key] = [IdHERO, heroNAME, AbilNAME, 0, 0, false];
+							cooldowns[key] = [IdHERO, heroNAME, AbilNAME, 0, 0, false, true];
 						}
 
 						// Actualizar la posición de la habilidad en la lista
@@ -104,21 +102,13 @@
 
 						if (!ability.IsPassive()) {
 							if (ability.IsExist() && AbilNAME !== "generic_hidden") {
-								Renderer.SetDrawColor(255, 255, 255, visibility);
-								Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-								Renderer.SetDrawColor(0, 255, 0, visibility);
-								Renderer.DrawOutlineRect(Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 								cooldowns[key][5] = true;
 							}
 						} else{
-							Renderer.SetDrawColor(255,255, 255, 255);
-							Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-							Renderer.SetDrawColor(0,0, 0, 150);
-							Renderer.DrawFilledRect( Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+
 							cooldowns[key][5] = false;
 						}
 							
-						
 						xpos = xpos + sizeBarx;
 					}
 				}
@@ -141,6 +131,38 @@
 			Renderer.DrawOutlineRect(Math.ceil(peX), Math.ceil(peY), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 	
 		}
+		
+		//Bibujar Iconos de habilidades
+		for (const key in cooldowns) {
+			const cooldown = cooldowns[key];
+			const AbilID = cooldown[2];			
+			const pX = cooldown[3];
+			const pY = cooldown[4];
+			let abilityImageHandle = Renderer.LoadImage("panorama/images/spellicons/" + AbilID + "_png.vtex_c");
+			
+			if (cooldown[5]) {
+				Renderer.SetDrawColor(255, 255, 255, visibility);
+				Renderer.DrawImage(abilityImageHandle, Math.ceil(pX), Math.ceil(pY), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+												
+				if (cooldown[6]) {
+					Renderer.SetDrawColor(0, 255, 0, visibility);
+					Renderer.DrawOutlineRect(Math.ceil(pX), Math.ceil(pY), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+					Renderer.DrawOutlineRect(Math.ceil(pX)+1, Math.ceil(pY)+1, Math.ceil(sizeBarx)-2, Math.ceil(sizeBary)-2);					
+				} else {
+					Renderer.SetDrawColor(255, 0, 0, visibility);
+					Renderer.DrawOutlineRect(Math.ceil(pX), Math.ceil(pY), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+					Renderer.DrawOutlineRect(Math.ceil(pX)+1, Math.ceil(pY)+1, Math.ceil(sizeBarx)-2, Math.ceil(sizeBary)-2);					
+				}
+			} else{
+				Renderer.SetDrawColor(255,255, 255, 255);
+				Renderer.DrawImage(abilityImageHandle, Math.ceil(pX), Math.ceil(pY), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+				Renderer.SetDrawColor(0,0, 0, 150);
+				Renderer.DrawFilledRect( Math.ceil(pX), Math.ceil(pY), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+				
+			}
+		}		
+		
+		
 		
 		//let lastClickTime = 0; // se declara la variable lastClickTime aquí
 		for (const key in cooldowns) {
