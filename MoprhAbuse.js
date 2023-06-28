@@ -173,7 +173,7 @@
 			const pX = cooldown[3];
 			const pY = cooldown[4];
 			const AbilID = cooldown[2];
-			const cond = cooldown[6];
+			let cond = cooldown[6];
 			if (cooldown[5]) {
 				// Si la habilidad está siendo monitorizada, crea un botón
 				if (Input.IsCursorInRect(pX, pY, sizeBarx, sizeBary)) {
