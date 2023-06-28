@@ -29,14 +29,13 @@
 		let [sizescrx,sizescry] = Renderer.GetScreenSize();
 		let xpos = sizescrx/2-100;
 		let ypos = sizescry/2-100;
-		let Xtemp = sizescrx/2-100;
-		let sizeamountx = 120;
 
-		let sizeBarx = sizeamountx / 3 * 0.75;
+		let sizeBarx = 120 / 3 * 0.75;
 		let sizeBary = sizeBarx*0.9; 
 		
 		let PANEL_WIDTH = sizeBarx*6;
 		let PANEL_HEIGHT = sizeBary*5;
+		
 		let font2 = Renderer.LoadFont("Tahoma", 15, Enum.FontWeight.EXTRABOLD);
 		let font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
 		let font1 = Renderer.LoadFont("Tahoma", 8, Enum.FontWeight.EXTRABOLD);		
@@ -50,73 +49,8 @@
 		Renderer.SetDrawColor(0, 0, 0, 150);
 		Renderer.DrawFilledRect( Math.ceil(xpos)-130, Math.ceil(ypos)-60, PANEL_WIDTH+260, PANEL_HEIGHT+140);
 		Renderer.SetDrawColor(255, 255, 255, 255);
-		Renderer.DrawText(font2, Math.ceil(xpos)+40, Math.ceil(ypos)-35, "Ability Cast Select");
-					
-
-		
-		let enemyList = [];					
-		let heroes = EntitySystem.GetHeroesList();
-		if (heroes) {
-			for (let hero of heroes) {
-				if (hero && !hero.IsIllusion() && !hero.IsMeepoClone() && hero.IsHero()  && !hero.IsSameTeam(localHero)) {
-					enemyList.push(hero);
-				}
-			}
-		}
-		
-		
-		for (let hero of enemyList) {
-
-			if (hero) {
-
-				let heroNAME = hero.GetUnitName();
-				let IdHERO = hero.GetPlayerID();
-				
-				let keyHero = IdHERO + heroNAME;
-				// Si la habilidad no está en la lista, agregarla
-				if (!EnemeyDraw[keyHero]) {
-					EnemeyDraw[keyHero] = [IdHERO, heroNAME, 0, 0, true];
-				}
-
-				// Actualizar la posición de la habilidad en la lista
-				EnemeyDraw[keyHero][2] = xpos;
-				EnemeyDraw[keyHero][3] = ypos;
+		Renderer.DrawText(font2, Math.ceil(xpos)+50, Math.ceil(ypos)-35, "Ability Cast Select");
 			
-				xpos = xpos + sizeBarx+5;
-				for (let i = 0; i < 5; i++) {
-					let ability = hero.GetAbilityByIndex(i);
-					//console.log(ability);
-					if (ability) {
-						let AbilNAME = ability.GetName();
-						
-						let key = IdHERO+ heroNAME + AbilNAME;
-
-						// Si la habilidad no está en la lista, agregarla
-						if (!cooldowns[key]) {
-							cooldowns[key] = [IdHERO, heroNAME, AbilNAME, 0, 0, false, true];
-						}
-
-						// Actualizar la posición de la habilidad en la lista
-						cooldowns[key][3] = xpos;
-						cooldowns[key][4] = ypos;
-
-
-						if (!ability.IsPassive()) {
-							if (ability.IsExist() && AbilNAME !== "generic_hidden") {
-								cooldowns[key][5] = true;
-							}
-						} else{
-
-							cooldowns[key][5] = false;
-						}
-							
-						xpos = xpos + sizeBarx;
-					}
-				}
-				ypos = ypos + sizeBary;
-				xpos = Xtemp;
-			}
-		}
 		
 		//Dibujar Heroes en x y
 		for (const key in EnemeyDraw) {
@@ -182,7 +116,7 @@
 						// Cambiar el valor de cond
 						cond = !cond;
 						cooldown[6] = cond;
-						console.log(cond);
+						//console.log(cond);
 
 					}
 				}
@@ -199,19 +133,91 @@
 			if (localHero.GetUnitName() !== "npc_dota_hero_morphling") {
 				return;
 			}
+			
+			let [sizescrx,sizescry] = Renderer.GetScreenSize();
+			let xposG = sizescrx/2-100;
+			let yposG = sizescry/2-100;
+			let Xtemp = sizescrx/2-100;
+
+			let sizeBarxG = 120 / 3 * 0.75;
+			let sizeBaryG = sizeBarxG*0.9; 
+
+		
+			let enemyList = [];					
+			let heroes = EntitySystem.GetHeroesList();
+			if (heroes) {
+				for (let hero of heroes) {
+					if (hero && !hero.IsIllusion() && !hero.IsMeepoClone() && hero.IsHero()  && !hero.IsSameTeam(localHero)) {
+						enemyList.push(hero);
+					}
+				}
+			}
+			
+			
+			for (let hero of enemyList) {
+
+				if (hero) {
+
+					let heroNAME = hero.GetUnitName();
+					let IdHERO = hero.GetPlayerID();
+					
+					let keyHero = IdHERO + heroNAME;
+					// Si la habilidad no está en la lista, agregarla
+					if (!EnemeyDraw[keyHero]) {
+						EnemeyDraw[keyHero] = [IdHERO, heroNAME, 0, 0, true];
+					}
+
+					// Actualizar la posición de la habilidad en la lista
+					EnemeyDraw[keyHero][2] = xposG;
+					EnemeyDraw[keyHero][3] = yposG;
+				
+					xposG = xposG + sizeBarxG+5;
+					for (let i = 0; i < 5; i++) {
+						let ability = hero.GetAbilityByIndex(i);
+						//console.log(ability);
+						if (ability) {
+							let AbilNAME = ability.GetName();
+							
+							let key = IdHERO+ heroNAME + AbilNAME;
+
+							// Si la habilidad no está en la lista, agregarla
+							if (!cooldowns[key]) {
+								cooldowns[key] = [IdHERO, heroNAME, AbilNAME, 0, 0, false, true];
+							}
+
+							// Actualizar la posición de la habilidad en la lista
+							cooldowns[key][3] = xposG;
+							cooldowns[key][4] = yposG;
+
+
+							if (!ability.IsPassive()) {
+								if (ability.IsExist() && AbilNAME !== "generic_hidden") {
+									cooldowns[key][5] = true;
+								}
+							} else{
+
+								cooldowns[key][5] = false;
+							}
+								
+							xposG = xposG + sizeBarxG;
+						}
+					}
+					yposG = yposG + sizeBaryG;
+					xposG = Xtemp;
+				}
+			}
+		
+		
 
 			if (Input.IsKeyDownOnce(monitorKey)) {
 				isMonitoring = !isMonitoring; // Cambia el valor de isMonitoring a su opuesto
-				console.log(isMonitoring);
+				//console.log(isMonitoring);
 			}
 
 			if (isMonitoring) {
 				monitorizarHabilidadesMorphling();
 			}
-			
-			
-			
-			
+				
         }
     };		
 	
