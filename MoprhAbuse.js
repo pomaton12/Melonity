@@ -31,27 +31,28 @@
 		let ypos = sizescry/2-100;
 		let Xtemp = sizescrx/2-100;
 		let sizeamountx = 120;
-		let visibility = 255;
+
 		let sizeBarx = sizeamountx / 3 * 0.75;
 		let sizeBary = sizeBarx*0.9; 
 		
 		let PANEL_WIDTH = sizeBarx*6;
 		let PANEL_HEIGHT = sizeBary*5;
 		let font2 = Renderer.LoadFont("Tahoma", 15, Enum.FontWeight.EXTRABOLD);
+		let font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
+		let font1 = Renderer.LoadFont("Tahoma", 8, Enum.FontWeight.EXTRABOLD);		
 		
 		let imgMorph = Renderer.LoadImage("panorama/images/loadingscreens/skadi_rising_loading_screen/loadingscreen_tga.vtex_c");
 		let imgclose = Renderer.LoadImage("panorama/images/control_icons/x_close_png.vtex_c");
-		Renderer.SetDrawColor(255, 255, 255, visibility);
+		
+		Renderer.SetDrawColor(255, 255, 255, 255);
 		Renderer.DrawImage(imgMorph, Math.ceil(xpos)-130, Math.ceil(ypos)-60, PANEL_WIDTH+260, PANEL_HEIGHT+140);
 		Renderer.DrawImage(imgclose, Math.ceil(xpos)+250, Math.ceil(ypos)-60, 10, 10);
 		Renderer.SetDrawColor(0, 0, 0, 150);
 		Renderer.DrawFilledRect( Math.ceil(xpos)-130, Math.ceil(ypos)-60, PANEL_WIDTH+260, PANEL_HEIGHT+140);
-		Renderer.SetDrawColor(255, 255, 255, visibility);
+		Renderer.SetDrawColor(255, 255, 255, 255);
 		Renderer.DrawText(font2, Math.ceil(xpos)+40, Math.ceil(ypos)-35, "Ability Cast Select");
 					
-		//let sizeBary = sizeBarx; 
-		let font = Renderer.LoadFont("Tahoma", 10, Enum.FontWeight.EXTRABOLD);
-		let font1 = Renderer.LoadFont("Tahoma", 8, Enum.FontWeight.EXTRABOLD);
+
 		
 		let enemyList = [];					
 		let heroes = EntitySystem.GetHeroesList();
@@ -125,7 +126,7 @@
 			const peY = enemyListDraw[3];
 
 			let imageHeroIcon = Renderer.LoadImage("panorama/images/heroes/icons/" + HeroIcon + "_png.vtex_c");
-			Renderer.SetDrawColor(255, 255, 255, visibility);
+			Renderer.SetDrawColor(255, 255, 255, 255);
 			Renderer.DrawImage(imageHeroIcon, Math.ceil(peX), Math.ceil(peY), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 			Renderer.SetDrawColor(120, 0, 255, 255);
 			Renderer.DrawOutlineRect(Math.ceil(peX), Math.ceil(peY), Math.ceil(sizeBarx), Math.ceil(sizeBary));
@@ -141,17 +142,17 @@
 			let abilityImageHandle = Renderer.LoadImage("panorama/images/spellicons/" + AbilID + "_png.vtex_c");
 			
 			if (cooldown[5]) {
-				Renderer.SetDrawColor(255, 255, 255, visibility);
+				Renderer.SetDrawColor(255, 255, 255, 255);
 				Renderer.DrawImage(abilityImageHandle, Math.ceil(pX), Math.ceil(pY), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 												
 				if (cooldown[6]) {
-					Renderer.SetDrawColor(0, 255, 0, visibility);
+					Renderer.SetDrawColor(0, 255, 0, 255);
 					Renderer.DrawOutlineRect(Math.ceil(pX), Math.ceil(pY), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 					Renderer.DrawOutlineRect(Math.ceil(pX)+1, Math.ceil(pY)+1, Math.ceil(sizeBarx)-2, Math.ceil(sizeBary)-2);					
 				} else {
 					Renderer.SetDrawColor(0,0, 0, 150);
 					Renderer.DrawFilledRect( Math.ceil(pX), Math.ceil(pY), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-					Renderer.SetDrawColor(255, 0, 0, visibility);
+					Renderer.SetDrawColor(255, 0, 0, 255);
 					Renderer.DrawOutlineRect(Math.ceil(pX), Math.ceil(pY), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 					Renderer.DrawOutlineRect(Math.ceil(pX)+1, Math.ceil(pY)+1, Math.ceil(sizeBarx)-2, Math.ceil(sizeBary)-2);					
 				}
@@ -172,15 +173,18 @@
 			const pX = cooldown[3];
 			const pY = cooldown[4];
 			const AbilID = cooldown[2];
-			
+			const cond = cooldown[6];
 			if (cooldown[5]) {
 				// Si la habilidad está siendo monitorizada, crea un botón
 				if (Input.IsCursorInRect(pX, pY, sizeBarx, sizeBary)) {
-				  if (Input.IsKeyDownOnce(Enum.ButtonCode.MOUSE_LEFT)) {
-					console.log(AbilID);
-					//console.log("hola mendo");
-					// Realiza alguna acción adicional...
-				  }
+					if (Input.IsKeyDownOnce(Enum.ButtonCode.MOUSE_LEFT)) {
+
+						// Cambiar el valor de cond
+						cond = !cond;
+						cooldown[6] = cond;
+						console.log(cond);
+
+					}
 				}
 
 			}
