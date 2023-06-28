@@ -15,7 +15,9 @@
 	let enemyList = [];
 	let cooldowns = [];
 	
-	let isMonitoring = false; // Variable para controlar si se está mon
+	let monitorInterval;
+	let isMonitoring = false;
+	let monitorKey = Enum.ButtonCode.KEY_X;
 	
 	// Definición del array path_
 	const path_ = ["Custom Scripts","Morphling"];
@@ -143,14 +145,12 @@
 			}
 		}
 		
-		while (isMonitoring) {
-			if (Input.IsKeyDownOnce(Enum.ButtonCode.KEY_X)) {
+		monitorInterval = setInterval(() => {
+			if (Input.IsKeyDownOnce(monitorKey)) {
 				isMonitoring = false;
+				clearInterval(monitorInterval);
 			}
-
-			$.Sleep(0.03); // Espera 0.03 segundos (30 milisegundos) antes de verificar el estado de la tecla X nuevamente
-		}
-	
+		}, 100); 
 	}
 
 	// Definición de la función OnUpdate
@@ -161,9 +161,15 @@
 				return;
 			}
 
-			if (Input.IsKeyDownOnce(Enum.ButtonCode.KEY_X)) {
-				isMonitoring = true; // Establecer isMonitoring en verdadero para iniciar el monitoreo
-				monitorizarHabilidadesMorphling(); // Llamar a la función para monitorear las habilidades de Morphling
+			if (Input.IsKeyDownOnce(monitorKey)) {
+				if (isMonitoring) {
+					// Salir de la función
+					isMonitoring = false;
+				} else {
+					// Llamar la función
+					isMonitoring = true;
+					monitorizarHabilidadesMorphling();
+				}
 			}
 
         }
