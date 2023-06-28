@@ -1,5 +1,5 @@
 /******/ (() => { // webpackBootstrap
-/******/ 	var __webpack_modules__ = ({ 
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/MorphlingUltiAbuse.ts":
 /*!**********************************!*\
@@ -15,9 +15,8 @@
 	let enemyList = [];
 	let cooldowns = [];
 	
-	let isMonitoring = false;
-	let monitorKey = Enum.ButtonCode.KEY_X;
-
+	
+	
 	// Definición del array path_
 	const path_ = ["Custom Scripts","Morphling"];
 
@@ -144,12 +143,10 @@
 			}
 		}
 		
-		// Esperar a que se presione la tecla X nuevamente para salir de la función
-		while (isMonitoring) {
-			if (Input.IsKeyDownOnce(monitorKey)) {
-				isMonitoring = false;
-			}
-		}
+		Input.RegisterKey(Enum.ButtonCode.KEY_ESCAPE, function() {
+			// Salir de la función cuando se presiona la tecla ESCAPE
+			return true;
+		});
 	}
 
 	// Definición de la función OnUpdate
@@ -160,15 +157,8 @@
 				return;
 			}
 
-			if (Input.IsKeyDownOnce(monitorKey)) {
-				if (isMonitoring) {
-					// Salir de la función
-					isMonitoring = false;
-				} else {
-					// Llamar la función
-					isMonitoring = true;
-					monitorizarHabilidadesMorphling();
-				}
+			if (Input.IsKeyDownOnce(Enum.ButtonCode.KEY_X)) {
+				monitorizarHabilidadesMorphling();
 			}
 
         }
