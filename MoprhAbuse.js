@@ -29,8 +29,9 @@
 				return;
 			}
 			let [sizescrx,sizescry] = Renderer.GetScreenSize();
-			let xpos = sizescrx/2;
-			let ypos = sizescry/2;
+			let xpos = sizescrx/2-150;
+			let ypos = sizescry/2-150;
+			let Xtemp = sizescrx/2-150;
 			let sizeamountx = 120;
 			let visibility = 255;
 			let sizeBarx = sizeamountx / 3 * 0.75;
@@ -44,7 +45,7 @@
 			let imgclose = Renderer.LoadImage("panorama/images/control_icons/x_close_png.vtex_c");
 			Renderer.SetDrawColor(255, 255, 255, visibility);
 			Renderer.DrawImage(imgMorph, Math.ceil(xpos)-130, Math.ceil(ypos)-60, PANEL_WIDTH+260, PANEL_HEIGHT+140);
-			Renderer.DrawImage(imgclose, Math.ceil(xpos)+130, Math.ceil(ypos), 50, 50);
+			Renderer.DrawImage(imgclose, Math.ceil(xpos)+250, Math.ceil(ypos)-60, 10, 10);
 			Renderer.SetDrawColor(0, 0, 0, 150);
 			Renderer.DrawFilledRect( Math.ceil(xpos)-130, Math.ceil(ypos)-60, PANEL_WIDTH+260, PANEL_HEIGHT+140);
 			Renderer.SetDrawColor(255, 255, 255, visibility);
@@ -101,7 +102,7 @@
 							cooldowns[key][4] = ypos;
 
 							if (!ability.IsPassive()) {
-									if (ability.IsExist()) {
+								if (ability.IsExist() && !AbilNAME !== "generic_hidden") {
 									Renderer.SetDrawColor(255, 255, 255, visibility);
 									Renderer.DrawImage(abilityImageHandle, Math.ceil(xpos), Math.ceil(ypos), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 									Renderer.SetDrawColor(0, 255, 0, visibility);
@@ -121,7 +122,7 @@
 						}
 					}
 					ypos = ypos + sizeBary;
-					xpos = sizescrx/2;
+					xpos = Xtemp;
 				}
 			}
 			
@@ -137,7 +138,7 @@
 					if (Input.IsCursorInRect(pX, pY, sizeBarx, sizeBary)) {
 					  if (Input.IsKeyDownOnce(Enum.ButtonCode.MOUSE_LEFT)) {
 						console.log(AbilID);
-						console.log("hola mendo");
+						//console.log("hola mendo");
 						// Realiza alguna acción adicional...
 					  }
 					}
