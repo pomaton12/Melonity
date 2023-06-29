@@ -359,7 +359,7 @@
 								//AbilHybrid.CastTarget(localHero);
 								
 								const behavior = AbilHybrid.GetBehavior();
-								console.log(behavior);
+								console.log(DOTA_ABILITY_BEHAVIOR_UNIT_TARGET);
 								if (behavior === Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_NO_TARGET) {
 									// La habilidad es activable.
 									console.log("La habilidad es activable.");
