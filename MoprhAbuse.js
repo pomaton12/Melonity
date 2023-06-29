@@ -349,7 +349,9 @@
 						//console.log(Modifier2);
 						
 						if (Modifier2) {
-							console.log(localHero.GetAbilityByIndex(0));
+							let AbilHybrid = localHero.GetAbilityByIndex(0));
+							let AbilHybridName = AbilHybrid.GetName();
+							console.log(AbilHybridName);
 						}
 						
 						if (menu_AbilitiesList[0]) {
