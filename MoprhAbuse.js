@@ -341,7 +341,7 @@
 						const dist = localHeroPosition.Distance(enemyHeroPosition)-58;
 						const dist2 = enemyHeroPosition.sub(localHeroPosition).Length()
 					
-						let Modifier1 = localHero.GetModifier("modifier_morphling_replicate_timer_Description");
+						let Modifier1 = localHero.HasModifier("modifier_morphling_replicate_timer_Description");
 						
 						console.log(Modifier1);
 						if (menu_AbilitiesList[0]) {
