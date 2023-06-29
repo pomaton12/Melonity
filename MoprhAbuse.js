@@ -355,9 +355,10 @@
 						if (ModifierReplicate && ModifierHybrid) {
 							for (let i = 0; i < 5; i++) {
 								let AbilHybrid = localHero.GetAbilityByIndex(i);
+								console.log(AbilHybrid);
 								let AbilHybridName = AbilHybrid.GetName();
 																
-								console.log(AbilHybridName);
+								
 
 								if (AbilHybrid && AbilHybrid.IsExist() && AbilHybrid.CanCast()){
 									//AbilHybrid.CastTarget(localHero);
