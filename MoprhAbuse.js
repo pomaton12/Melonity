@@ -389,9 +389,30 @@
 												} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_POINT) {
 													// La habilidad es de tipo con objetivo y requiere una ubicación en el mapa.
 													console.log("Casteo en una posicion");
-													console.log(AbilHybrid.GetLevelSpecialValueFor("speed"));
+													//console.log(AbilHybrid.GetLevelSpecialValueFor("speed"));
 													
-													AbilHybrid.CastPosition(comboTarget.GetAbsOrigin());
+													let  castRange = AbilHybrid.GetCastRange();
+													if (TargetInRadius(comboTarget, castRange, localHero)) {
+													
+														
+														
+														let speedUlti = AbilHybrid.GetLevelSpecialValueFor("speed");
+														let travel_time = 0;
+														if(speedUlti > 0){
+															travel_time = castRange / (speedUlti + 1);
+														}	else{
+															travel_time = 0;
+														}
+														const castpointTimee = AbilHybrid.GetCastPoint();
+														const delay = travel_time + castpointTimee;
+														const BestPost = GetPredictedPosition(comboTarget, delay);
+														//const BestPost = Post.add(new Vector(50, 50, 0));
+														console.log(speedUlti);
+														console.log(castpointTimee);
+														
+														myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,BestPost,AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+
+													}
 													
 													
 												} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_DIRECTIONAL) {
