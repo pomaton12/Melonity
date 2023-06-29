@@ -342,7 +342,7 @@
 						const dist2 = enemyHeroPosition.sub(localHeroPosition).Length()
 					
 						let Modifier1 = localHero.HasModifier("modifier_morphling_replicate_manager"); //  replicate Exist
-						let Modifier2 = localHero.GetModifier("modifier_morphling_replicate_manager"); //
+						let Modifier2 = localHero.HasModifier("modifier_morphling_replicate_manager_Description"); //
 						console.log(Modifier2);
 						
 						if (menu_AbilitiesList[0]) {
