@@ -347,16 +347,39 @@
 						//modifier_morphling_morph /// Normal
 						//modifier_morphling_replicate  Tranformado
 						//let Abilulti = localHero.GetAbilityByIndex(5)
-						let AbilHybrid = localHero.GetAbilityByIndex(6)
+						//let AbilHybrid = localHero.GetAbilityByIndex(6)
 						
 						//console.log(Abilulti.GetName());
-						console.log(AbilHybrid.GetName());
+						//console.log(AbilHybrid.GetName());
 						
 						if (ModifierReplicate && ModifierHybrid) {
 							let AbilHybrid = localHero.GetAbilityByIndex(0);
 							let AbilHybridName = AbilHybrid.GetName();
 							if (AbilHybrid && AbilHybrid.IsExist() && AbilHybrid.CanCast()){
 								AbilHybrid.CastTarget(localHero);
+								
+								const behavior = AbilHybrid.GetBehavior();
+								if (behavior & DOTA_ABILITY_BEHAVIOR.NO_TARGET) {
+									// La habilidad es activable.
+									console.log("La habilidad es activable.");
+								
+								} else if (behavior & DOTA_ABILITY_BEHAVIOR.UNIT_TARGET) {
+									const targetTeam = AbilHybrid.GetTargetTeam();
+									if (targetTeam & DOTA_UNIT_TARGET_TEAM.FRIENDLY) {
+										// La habilidad es de tipo con objetivo y se puede usar en unidades aliadas, incluyéndose a uno mismo.
+										console.log("Cast Aliados y yo");
+										AbilHybrid.CastTarget(localHero);
+										
+									} else if (targetTeam & DOTA_UNIT_TARGET_TEAM.ENEMY) {
+										// La habilidad es de tipo con objetivo y solo se puede usar en unidades enemigas.
+										console.log("Cast Enemigos");
+									}
+								} else if (behavior & DOTA_ABILITY_BEHAVIOR.POINT) {
+									// La habilidad es de tipo con objetivo y requiere una ubicación en el mapa.
+									console.log("Casteo en una posicion");
+									
+								}
+								
 							}
 						}
 						
