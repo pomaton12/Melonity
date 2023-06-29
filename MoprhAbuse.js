@@ -1,5 +1,5 @@
 /******/ (() => { // webpackBootstrap
-/******/ 	var __webpack_modules__ = ({ 
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/MorphlingUltiAbuse.ts":
 /*!**********************************!*\
@@ -386,7 +386,7 @@
 												} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_POINT) {
 													// La habilidad es de tipo con objetivo y requiere una ubicación en el mapa.
 													console.log("Casteo en una posicion");
-													AbilHybrid.CastPosition(.GetAbsOrigin());
+													AbilHybrid.CastPosition(comboTarget.GetAbsOrigin());
 												} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_DIRECTIONAL) {
 													// La habilidad es de tipo direccional.
 													console.log("Casteo en una dirección");
