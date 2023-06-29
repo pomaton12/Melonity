@@ -371,6 +371,13 @@
 												if ((behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_NO_TARGET) && !(behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_TOGGLE)) {
 													// La habilidad es activable.
 													console.log("La habilidad es activable.");
+													let aoe_radius = AbilHybrid.GetLevelSpecialValueFor("radius");
+													let AttackRangeBasic = localHero.GetAttackRange();
+													let AttackRangeBuff = localHero.GetAttackRangeBonus();
+													
+													console.log(aoe_radius);
+													console.log(AttackRangeBasic+AttackRangeBuff);
+													
 													AbilHybrid.CastNoTarget();
 												} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_UNIT_TARGET) {
 													const targetTeam = AbilHybrid.GetTargetTeam();
