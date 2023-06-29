@@ -366,12 +366,12 @@
 								
 								} else if (behavior === Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_UNIT_TARGET) {
 									const targetTeam = AbilHybrid.GetTargetTeam();
-									if (targetTeam === DOTA_UNIT_TARGET_TEAM_FRIENDLY) {
+									if (targetTeam === Enum.TargetTeam.DOTA_UNIT_TARGET_TEAM_FRIENDLY) {
 										// La habilidad es de tipo con objetivo y se puede usar en unidades aliadas, incluyéndose a uno mismo.
 										console.log("Cast Aliados y yo");
 										AbilHybrid.CastTarget(localHero);
 										
-									} else if (targetTeam === DOTA_UNIT_TARGET_TEAM_ENEMY) {
+									} else if (targetTeam === Enum.TargetTeam.DOTA_UNIT_TARGET_TEAM_ENEMY) {
 										// La habilidad es de tipo con objetivo y solo se puede usar en unidades enemigas.
 										console.log("Cast Enemigos");
 									}
