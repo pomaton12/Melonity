@@ -419,7 +419,7 @@
 								let  castRange = Waveform.GetCastRange();
                                 if (TargetInRadius(comboTarget, castRange, localHero)) {
 									
-									console.log(Waveform.GetLevelSpecialValueFor("speed"););
+									console.log(Waveform.GetLevelSpecialValueFor("speed"));
 									
 									let speedUlti = 1250;
 									
