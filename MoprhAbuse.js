@@ -341,13 +341,15 @@
 						const dist = localHeroPosition.Distance(enemyHeroPosition)-58;
 						const dist2 = enemyHeroPosition.sub(localHeroPosition).Length()
 					
-						let Modifier1 = localHero.HasModifier("modifier_morphling_replicate_manager"); //  replicate Exist
-						let Modifier2 = localHero.HasModifier("modifier_morphling_replicate_manager_Description"); //
+						let Modifier1 = localHero.HasModifier("modifier_morphling_replicate_manager"); //  replicate tiempo o duracion
+						//modifier_morphling_morph /// Normal
+						//modifier_morphling_replicate  Tranformado
+						
+						let Modifier2 = localHero.HasModifier("modifier_morphling_replicate"); //
 						//console.log(Modifier2);
 						
-						const modifiers = localHero.GetModifiers();
-						for (let modifier of modifiers) {
-							console.log(modifier.GetName());
+						if (Modifier2) {
+							console.log(localHero.GetAbilityByIndex(0));
 						}
 						
 						if (menu_AbilitiesList[0]) {
