@@ -347,11 +347,13 @@
 						//modifier_morphling_morph /// Normal
 						//modifier_morphling_replicate  Tranformado
 						
+						console.log(localHero.GetAbilityByIndex(6));
+						
 						if (ModifierReplicate && ModifierHybrid) {
 							let AbilHybrid = localHero.GetAbilityByIndex(0);
 							let AbilHybridName = AbilHybrid.GetName();
 							if (AbilHybrid && AbilHybrid.IsExist() && AbilHybrid.CanCast()){
-								AbilHybrid.CastTarget(comboTarget);
+								AbilHybrid.CastTarget(localHero);
 							}
 						}
 						
