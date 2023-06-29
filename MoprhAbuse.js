@@ -349,7 +349,7 @@
 						//console.log(Modifier2);
 						
 						if (Modifier2) {
-							let AbilHybrid = localHero.GetAbilityByIndex(0));
+							let AbilHybrid = localHero.GetAbilityByIndex(0);
 							let AbilHybridName = AbilHybrid.GetName();
 							console.log(AbilHybridName);
 						}
