@@ -270,7 +270,8 @@
 
 
 							if (!ability.IsPassive()) {
-								if (ability.IsExist() && AbilNAME !== "generic_hidden") {
+								const behaviorR = ability.GetBehavior();
+								if (ability.IsExist() && AbilNAME !== "generic_hidden" && !(behaviorR & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_TOGGLE)) {
 									cooldowns[key][5] = true;
 								}
 							} else{
