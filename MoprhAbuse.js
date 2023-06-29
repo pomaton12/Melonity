@@ -380,13 +380,20 @@
 														AbilHybrid.CastTarget(localHero);
 													} else if (targetTeam & Enum.TargetTeam.DOTA_UNIT_TARGET_TEAM_ENEMY) {
 														// La habilidad es de tipo con objetivo y solo se puede usar en unidades enemigas.
-														console.log("Cast Enemigos");
-														AbilHybrid.CastTarget(comboTarget);
+														let  castRange = AbilHybrid.GetCastRange();
+														if (TargetInRadius(comboTarget, castRange, localHero)) {
+															console.log("Cast Enemigos");
+															AbilHybrid.CastTarget(comboTarget);
+														}
 													}
 												} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_POINT) {
 													// La habilidad es de tipo con objetivo y requiere una ubicación en el mapa.
 													console.log("Casteo en una posicion");
+													
+													
 													AbilHybrid.CastPosition(comboTarget.GetAbsOrigin());
+													
+													
 												} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_DIRECTIONAL) {
 													// La habilidad es de tipo direccional.
 													console.log("Casteo en una dirección");
@@ -411,6 +418,8 @@
                             if (Waveform && Waveform.IsExist() && Waveform.CanCast() && ModifierNormal) {
 								let  castRange = Waveform.GetCastRange();
                                 if (TargetInRadius(comboTarget, castRange, localHero)) {
+									
+									console.log(Waveform.GetLevelSpecialValueFor("speed"););
 									
 									let speedUlti = 1250;
 									
