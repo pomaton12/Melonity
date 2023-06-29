@@ -1,7 +1,7 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/MorphlingUltiAbuse.ts":
+/***/ "./src/MorphlingUltiAbuse.ts": 
 /*!**********************************!*\
   !*** ./src/MorphlingUltiAbuse.ts ***!
   \**********************************/
