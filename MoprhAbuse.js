@@ -254,7 +254,7 @@
 					for (let i = 0; i < 5; i++) {
 						let ability = hero.GetAbilityByIndex(i);
 						//console.log(ability);
-						if (ability) {
+						if (ability != null) {
 							let AbilNAME = ability.GetName();
 							
 							let key = IdHERO+ heroNAME + AbilNAME;
@@ -366,7 +366,7 @@
 										//AbilHybrid.CastTarget(localHero);
 																				
 										const behavior = AbilHybrid.GetBehavior();
-										if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_NO_TARGET) {
+										if ((behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_NO_TARGET) && !(behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_TOGGLE)) {
 											// La habilidad es activable.
 											console.log("La habilidad es activable.");
 											AbilHybrid.CastNoTarget();
