@@ -341,7 +341,7 @@
 						const dist = localHeroPosition.Distance(enemyHeroPosition)-58;
 						const dist2 = enemyHeroPosition.sub(localHeroPosition).Length()
 					
-						let Modifier1 = localHero.GetModifier("modifier_morphling_replicate_timer");
+						let Modifier1 = localHero.GetModifier("modifier_morphling_replicate_timer_Description");
 						
 						console.log(Modifier1);
 						if (menu_AbilitiesList[0]) {
@@ -349,7 +349,17 @@
                             if (Waveform && Waveform.IsExist() && Waveform.CanCast()) {
 								let  castRange = Waveform.GetCastRange();
                                 if (TargetInRadius(comboTarget, castRange, localHero)) {
-                                    myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,enemyHeroPosition,Waveform, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+									
+									let speedUlti = 1250;
+									
+									const travel_time = castRange / (speedUlti + 1);
+									const castpointTimee = 0.25;
+									const delay = travel_time + castpointTimee;
+									const Post = GetPredictedPosition(comboTarget, delay);
+									const BestPost = Post.add(new Vector(50, 50, 0));
+									
+									
+                                    myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,BestPost,Waveform, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 
                                 }
 							}
@@ -500,6 +510,122 @@
 			}
 		}
 		
+	}	
+	
+	//Funciones Para precedir pos
+	function GetPredictedPosition(HeroEnemigo, delay) {
+		const pos = HeroEnemigo.GetAbsOrigin();
+		if (CantMove(HeroEnemigo)) {
+			return pos;
+		}
+		if (!HeroEnemigo.IsRunning() || !delay) {
+			return pos;
+		}
+
+		const dir = HeroEnemigo.GetRotation().GetForward().Normalized();
+		const speed = FGetMoveSpeed(HeroEnemigo);
+
+		return pos.add(dir.Scaled(speed * delay));
+	}
+
+	function CantMove(HeroEnemigo) {
+		if (!HeroEnemigo){
+			return false;
+		}
+
+		if ( HeroEnemigo.HasState(Enum.ModifierState.MODIFIER_STATE_ROOTED) || GetStunTimeLeft(HeroEnemigo) >= 1){
+			return true;
+		}
+		if (HeroEnemigo.HasModifier("modifier_axe_berserkers_call")){
+			return true;
+		}
+		if (HeroEnemigo.HasModifier("modifier_legion_commander_duel")){
+			return true;
+		}
+
+		return false;
+	}
+
+	function GetStunTimeLeft(HeroEnemigo) {
+		let mod = HeroEnemigo.GetModifier("modifier_stunned");
+		if (!mod){
+			return 0;
+		}
+		return Math.max(mod.GetDieTime() - GameRules.GetGameTime(), 0);
+	}
+
+	function FGetMoveSpeed(HeroEnemigo) {
+		let base_speed = HeroEnemigo.GetBaseSpeed();
+		let bonus_speed = HeroEnemigo.GetMoveSpeed() - HeroEnemigo.GetBaseSpeed();
+
+		// when affected by ice wall, assume move speed as 100 for convenience
+		if (HeroEnemigo.HasModifier("modifier_invoker_ice_wall_slow_debuff")){
+			return 100;
+		}
+
+		if (HeroEnemigo.HasModifier("modifier_item_diffusal_blade_slow")){
+			return 100;
+		}
+
+		// when get hexed, move speed = 140/100 + bonus_speed
+		if (GetHexTimeLeft(HeroEnemigo) > 0){
+			return 140 + bonus_speed;
+		}
+
+		return base_speed + bonus_speed;
+	}
+
+	function GetHexTimeLeft(HeroEnemigo) {
+		let mod;
+		let mod1 = HeroEnemigo.GetModifier("modifier_sheepstick_debuff");
+		let mod2 = HeroEnemigo.GetModifier("modifier_lion_voodoo");
+		let mod3 = HeroEnemigo.GetModifier("modifier_shadow_shaman_voodoo");
+
+		if (mod1){
+			mod = mod1;
+		}
+		if (mod2){
+			mod = mod2;
+		}
+		if (mod3){
+			mod = mod3;
+		}
+
+		if (!mod){
+			return 0;
+		}
+		return Math.max(mod.GetDieTime() - GameRules.GetGameTime(), 0);
+	}
+	// radius Rdio de Casteo
+	function BestPosition(EnemiInRadius, radius) {
+		if (!EnemiInRadius || EnemiInRadius.length <= 0) return null;
+		let enemyNum = EnemiInRadius.length;
+
+		if (enemyNum == 1) return EnemiInRadius[0].GetAbsOrigin();
+
+		let maxNum = 1;
+		let bestPos = EnemiInRadius[0].GetAbsOrigin();
+		for (let i = 0; i < enemyNum - 1; i++) {
+			for (let j = i + 1; j < enemyNum; j++) {
+				let pos1 = EnemiInRadius[i].GetAbsOrigin();
+				let pos2 = EnemiInRadius[j].GetAbsOrigin();
+				let mid = pos1.add(pos2).Scaled(0.5);
+
+				let heroesNum = 0;
+				for (let k = 0; k < enemyNum; k++) {
+					if (EnemiInRadius[k].IsPositionInRange( mid, radius, 0)) {
+						heroesNum++;
+					}
+				}
+
+				if (heroesNum > maxNum) {
+					maxNum = heroesNum;
+					bestPos = mid;
+				}
+			}
+		}
+
+		return bestPos;
 	}	
 	
 	
