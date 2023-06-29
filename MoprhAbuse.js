@@ -341,9 +341,10 @@
 						const dist = localHeroPosition.Distance(enemyHeroPosition)-58;
 						const dist2 = enemyHeroPosition.sub(localHeroPosition).Length()
 					
-						let Modifier1 = localHero.HasModifier("modifier_morphling_replicate_manager");
+						let Modifier1 = localHero.HasModifier("modifier_morphling_replicate_manager"); //  replicate Exist
+						let Modifier2 = localHero.GetModifier("modifier_morphling_replicate_manager"); //
+						console.log(Modifier2);
 						
-						console.log(Modifier1);
 						if (menu_AbilitiesList[0]) {
                             
                             if (Waveform && Waveform.IsExist() && Waveform.CanCast()) {
