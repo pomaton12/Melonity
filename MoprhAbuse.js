@@ -478,11 +478,14 @@
 	// Definición de la función OnScriptLoad
 	MorphlingUltiAbuse.OnScriptLoad = MorphlingUltiAbuse.OnGameStart = () => {
 		localHero = EntitySystem.GetLocalHero();
+	    myPlayer = EntitySystem.GetLocalPlayer();
+		enemyList = [];
 	};
 
 	// Definición de la función OnGameEnd
 	MorphlingUltiAbuse.OnGameEnd = () => {
 		localHero = null;
+	    myPlayer = null;
 	};
 
 	// Registro del script
