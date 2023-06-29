@@ -11,11 +11,15 @@
 	const MorphlingUltiAbuse = {};
 
 	// Declaración de la variable localHero
-	let localHero;
+	let localHero = null;
+	let myPlayer = null;
+	let comboTarget = null;
+	let particle = null;
 	let enemyList = [];
+	
+	
 	let cooldowns = [];
 	let EnemeyDraw = [];
-
 	let isMonitoring = false;
 	//let monitorKey = Enum.ButtonCode.KEY_X;
 	
@@ -129,7 +133,246 @@
 		};
 	}
 	
+	function GetNearHeroInRadius(vector, radius = 1000) {
+        let en = enemyList;
+        if (en.length == 0)
+            return undefined;
+        let accessHero = Array(enemyList.length);
+        en.forEach((object) => {
+            if (object.GetAbsOrigin().Distance(vector) <= radius) {
+                accessHero.push([object, object.GetAbsOrigin().Distance(vector)]);
+            }
+        });
+        accessHero.sort((a, b) => {
+            return (a[1] - b[1]);
+        });
+        return accessHero[0] ? accessHero[0][0] : undefined;
+    }
 	
+	function SendOrderMovePos(vector, myHero) {
+        myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, vector, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, myHero, false, true);
+    }
+	
+	function TargetInRadius(target, radius, sourceHero, team = Enum.TeamType.TEAM_ENEMY) {
+        let er = sourceHero.GetHeroesInRadius(radius, team);
+        if (er) {
+            for (let enemy of er) {
+                if (enemy == target)
+                    return true;
+            }
+        }
+        return false;
+    }
+	
+	function CustomCanCast(item) {
+        let owner = item.GetOwner(), hasModf = owner.HasState(Enum.ModifierState.MODIFIER_STATE_MUTED)
+            || owner.HasState(Enum.ModifierState.MODIFIER_STATE_STUNNED)
+            || owner.HasState(Enum.ModifierState.MODIFIER_STATE_HEXED)
+            || owner.HasState(Enum.ModifierState.MODIFIER_STATE_INVULNERABLE)
+            || owner.HasState(Enum.ModifierState.MODIFIER_STATE_FROZEN)
+            || owner.HasState(Enum.ModifierState.MODIFIER_STATE_FEARED)
+            || owner.HasState(Enum.ModifierState.MODIFIER_STATE_TAUNTED);
+        return item && !hasModf && owner.GetMana() >= item.GetManaCost() && item.IsCastable(owner.GetMana());
+    }
+	
+	MorphlingUltiAbuse.OnDraw = () => {
+        if (localHero && isUiEnabled.GetValue()) {
+			if (localHero.GetUnitName() !== "npc_dota_hero_morphling") {
+				return;
+			}
+			
+            if (comboTarget) {
+                if (!particle) {
+                    particle = Particle.Create('particles/ui_mouseactions/range_finder_tower_aoe.vpcf', Enum.ParticleAttachment.PATTACH_INVALID, comboTarget);
+                    particle.SetControl(2, EntitySystem.GetLocalHero().GetAbsOrigin());
+                    particle.SetControl(6, new Vector(1, 0, 0));
+                    particle.SetControl(7, comboTarget.GetAbsOrigin());
+                }
+                else {
+                    particle.SetControl(2, EntitySystem.GetLocalHero().GetAbsOrigin());
+                    particle.SetControl(7, comboTarget.GetAbsOrigin());
+                }
+            }
+            else {
+                if (particle) {
+                    particle.Destroy();
+                    particle = null;
+                }
+            }
+        }
+    };
+
+	// Definición de la función OnUpdate
+	MorphlingUltiAbuse.OnUpdate = () => {
+			
+        if (localHero && isUiEnabled.GetValue()) {			
+			if (localHero.GetUnitName() !== "npc_dota_hero_morphling") {
+				return;
+			}
+			
+			let [sizescrx,sizescry] = Renderer.GetScreenSize();
+			let xposG = sizescrx/2-100;
+			let yposG = sizescry/2-100;
+			let Xtemp = sizescrx/2-100;
+
+			let sizeBarxG = 120 / 3 * 0.75;
+			let sizeBaryG = sizeBarxG*0.9; 
+
+		
+			if (enemyList.length < 5) {
+                enemyList = [];
+                let heroes = EntitySystem.GetHeroesList();
+                if (heroes) {
+                    for (let hero of heroes) {
+                        if (hero && !hero.IsIllusion() && !hero.IsMeepoClone() && hero.IsHero() && hero.IsAlive() &&
+                            !hero.IsDormant() && !hero.IsSameTeam(localHero)) {
+                            enemyList.push(hero);
+                        }
+                    }
+                }
+            }
+			
+			
+			for (let hero of enemyList) {
+
+				if (hero) {
+
+					let heroNAME = hero.GetUnitName();
+					let IdHERO = hero.GetPlayerID();
+					
+					let keyHero = IdHERO + heroNAME;
+					// Si la habilidad no está en la lista, agregarla
+					if (!EnemeyDraw[keyHero]) {
+						EnemeyDraw[keyHero] = [IdHERO, heroNAME, 0, 0, true];
+					}
+
+					// Actualizar la posición de la habilidad en la lista
+					EnemeyDraw[keyHero][2] = xposG;
+					EnemeyDraw[keyHero][3] = yposG;
+				
+					xposG = xposG + sizeBarxG+5;
+					for (let i = 0; i < 5; i++) {
+						let ability = hero.GetAbilityByIndex(i);
+						//console.log(ability);
+						if (ability) {
+							let AbilNAME = ability.GetName();
+							
+							let key = IdHERO+ heroNAME + AbilNAME;
+
+							// Si la habilidad no está en la lista, agregarla
+							if (!cooldowns[key]) {
+								cooldowns[key] = [IdHERO, heroNAME, AbilNAME, 0, 0, false, true];
+							}
+
+							// Actualizar la posición de la habilidad en la lista
+							cooldowns[key][3] = xposG;
+							cooldowns[key][4] = yposG;
+
+
+							if (!ability.IsPassive()) {
+								if (ability.IsExist() && AbilNAME !== "generic_hidden") {
+									cooldowns[key][5] = true;
+								}
+							} else{
+
+								cooldowns[key][5] = false;
+							}
+								
+							xposG = xposG + sizeBarxG;
+						}
+					}
+					yposG = yposG + sizeBaryG;
+					xposG = Xtemp;
+				}
+			}
+		
+			if (KeyBindOrderAgresive.IsKeyDown()) {
+				
+				if (comboTarget && !comboTarget.IsAlive()){
+						comboTarget = null;
+				}
+				
+				let target = GetNearHeroInRadius(Input.GetWorldCursorPos());
+
+				if (!comboTarget && target && target.IsExist())
+					comboTarget = target;
+				else if (!comboTarget) {
+					comboTarget = null;
+					if (Engine.OnceAt(0.2)){
+						SendOrderMovePos(Input.GetWorldCursorPos(), localHero);
+					}
+				}
+				
+				if (Engine.OnceAt(0.2)) {
+				
+					let MyModBkb = localHero.HasModifier("modifier_black_king_bar_immune");
+					
+					if (comboTarget && comboTarget.HasModifier('modifier_item_blade_mail_reflect') && !MyModBkb) {
+						let bkbItemMy = localHero.GetItem('item_black_king_bar', true);
+						if(menu_ItemsList.IsEnabled('item_black_king_bar') && bkbItemMy && CustomCanCast(bkbItemMy) && TargetInRadius(comboTarget, 1000, localHero)){
+							bkbItemMy.CastNoTarget();
+						} else{
+							SendOrderMovePos(Input.GetWorldCursorPos(), localHero);
+							return;
+						}
+                    }
+					
+					if (comboTarget && comboTarget.HasModifier("modifier_item_lotus_orb_active") && !MyModBkb) {
+						let bkbItemMy = localHero.GetItem('item_black_king_bar', true);
+						if(menu_ItemsList.IsEnabled('item_black_king_bar') && bkbItemMy && CustomCanCast(bkbItemMy) && TargetInRadius(comboTarget, 1000, localHero)){
+							bkbItemMy.CastNoTarget();
+						} else{
+							myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, comboTarget, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);	
+							return;
+						}
+                    }
+
+					if (comboTarget && comboTarget.IsExist()) {		
+
+
+
+						
+						let [order, target, pos] = [Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, comboTarget, comboTarget.GetAbsOrigin()];
+						if (comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_ATTACK_IMMUNE) ||
+							comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_INVULNERABLE) ||
+							comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_MAGIC_IMMUNE) ||
+							comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_UNTARGETABLE)) {
+							order = Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION;
+							target = null;
+							pos = Input.GetWorldCursorPos();
+						}
+						
+						myPlayer.PrepareUnitOrders(order, target, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+				
+					}
+				}
+				
+				
+			} else{
+				comboTarget = null;
+			}
+
+
+
+
+
+
+
+			if (KeyBindPanel.IsKeyDownOnce()) {
+				isMonitoring = !isMonitoring; // Cambia el valor de isMonitoring a su opuesto
+				//console.log(isMonitoring);
+			}
+
+			if (isMonitoring) {
+				monitorizarHabilidadesMorphling();
+			}
+			
+			
+			
+				
+        }
+    };	
+
 	function monitorizarHabilidadesMorphling() {
 		let [sizescrx,sizescry] = Renderer.GetScreenSize();
 		let xpos = sizescrx/2-100;
@@ -229,108 +472,7 @@
 			}
 		}
 		
-	}
-
-	// Definición de la función OnUpdate
-	MorphlingUltiAbuse.OnUpdate = () => {
-			
-        if (localHero && isUiEnabled.GetValue()) {			
-			if (localHero.GetUnitName() !== "npc_dota_hero_morphling") {
-				return;
-			}
-			
-			let [sizescrx,sizescry] = Renderer.GetScreenSize();
-			let xposG = sizescrx/2-100;
-			let yposG = sizescry/2-100;
-			let Xtemp = sizescrx/2-100;
-
-			let sizeBarxG = 120 / 3 * 0.75;
-			let sizeBaryG = sizeBarxG*0.9; 
-
-		
-			let enemyList = [];					
-			let heroes = EntitySystem.GetHeroesList();
-			if (heroes) {
-				for (let hero of heroes) {
-					if (hero && !hero.IsIllusion() && !hero.IsMeepoClone() && hero.IsHero()  && !hero.IsSameTeam(localHero)) {
-						enemyList.push(hero);
-					}
-				}
-			}
-			
-			
-			for (let hero of enemyList) {
-
-				if (hero) {
-
-					let heroNAME = hero.GetUnitName();
-					let IdHERO = hero.GetPlayerID();
-					
-					let keyHero = IdHERO + heroNAME;
-					// Si la habilidad no está en la lista, agregarla
-					if (!EnemeyDraw[keyHero]) {
-						EnemeyDraw[keyHero] = [IdHERO, heroNAME, 0, 0, true];
-					}
-
-					// Actualizar la posición de la habilidad en la lista
-					EnemeyDraw[keyHero][2] = xposG;
-					EnemeyDraw[keyHero][3] = yposG;
-				
-					xposG = xposG + sizeBarxG+5;
-					for (let i = 0; i < 5; i++) {
-						let ability = hero.GetAbilityByIndex(i);
-						//console.log(ability);
-						if (ability) {
-							let AbilNAME = ability.GetName();
-							
-							let key = IdHERO+ heroNAME + AbilNAME;
-
-							// Si la habilidad no está en la lista, agregarla
-							if (!cooldowns[key]) {
-								cooldowns[key] = [IdHERO, heroNAME, AbilNAME, 0, 0, false, true];
-							}
-
-							// Actualizar la posición de la habilidad en la lista
-							cooldowns[key][3] = xposG;
-							cooldowns[key][4] = yposG;
-
-
-							if (!ability.IsPassive()) {
-								if (ability.IsExist() && AbilNAME !== "generic_hidden") {
-									cooldowns[key][5] = true;
-								}
-							} else{
-
-								cooldowns[key][5] = false;
-							}
-								
-							xposG = xposG + sizeBarxG;
-						}
-					}
-					yposG = yposG + sizeBaryG;
-					xposG = Xtemp;
-				}
-			}
-		
-		
-
-			if (KeyBindPanel.IsKeyDownOnce()) {
-				isMonitoring = !isMonitoring; // Cambia el valor de isMonitoring a su opuesto
-				//console.log(isMonitoring);
-			}
-
-			if (isMonitoring) {
-				monitorizarHabilidadesMorphling();
-			}
-			
-			
-			
-			
-			
-			
-				
-        }
-    };		
+	}	
 	
 	
 	// Definición de la función OnScriptLoad
