@@ -395,8 +395,8 @@
 													const Idealdirection = (enemyHePos.sub(localHePos)).Normalized();
 													let IdealPosition = localHePos.add(Idealdirection.mul(new Vector(300, 300, 0)));
 													
-													myPlayer.PrepareUnitOrders(30, null, enemyHePos, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
-													AbilHybrid.CastPosition(IdealPosition);
+													myPlayer.PrepareUnitOrders(30, null, IdealPosition, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
+													AbilHybrid.CastPosition(enemyHePos);
 												}
 											
 											}
