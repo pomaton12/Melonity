@@ -360,37 +360,40 @@
 								if(AbilHybrid != null) {
 									
 									let AbilHybridName = AbilHybrid.GetName();
-									console.log(AbilHybridName);								
-									
+							
+									for (let key in cooldowns) {
+										let abilityList = cooldowns[key];
+										if (abilityList[2] === AbilHybridName && abilityList[5] === true && abilityList[6] === true)  {
 
-									if (AbilHybrid && AbilHybrid.IsExist() && AbilHybrid.CanCast()){
-										//AbilHybrid.CastTarget(localHero);
-																				
-										const behavior = AbilHybrid.GetBehavior();
-										if ((behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_NO_TARGET) && !(behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_TOGGLE)) {
-											// La habilidad es activable.
-											console.log("La habilidad es activable.");
-											AbilHybrid.CastNoTarget();
-										
-										} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_UNIT_TARGET) {
-											const targetTeam = AbilHybrid.GetTargetTeam();
-											if (targetTeam & Enum.TargetTeam.DOTA_UNIT_TARGET_TEAM_FRIENDLY) {
-												// La habilidad es de tipo con objetivo y se puede usar en unidades aliadas, incluyéndose a uno mismo.
-												console.log("Cast Aliados y yo");
-												AbilHybrid.CastTarget(localHero);
+											if (AbilHybrid && AbilHybrid.IsExist() && AbilHybrid.CanCast()){
+																					
+												const behavior = AbilHybrid.GetBehavior();
+												if ((behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_NO_TARGET) && !(behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_TOGGLE)) {
+													// La habilidad es activable.
+													console.log("La habilidad es activable.");
+													AbilHybrid.CastNoTarget();
 												
-											} else if (targetTeam & Enum.TargetTeam.DOTA_UNIT_TARGET_TEAM_ENEMY) {
-												// La habilidad es de tipo con objetivo y solo se puede usar en unidades enemigas.
-												console.log("Cast Enemigos");
-												AbilHybrid.CastTarget(comboTarget);
-											}
-										} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_POINT) {
-											// La habilidad es de tipo con objetivo y requiere una ubicación en el mapa.
-											console.log("Casteo en una posicion");
-											AbilHybrid.CastPosition(comboTarget.GetAbsOrigin());
+												} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_UNIT_TARGET) {
+													const targetTeam = AbilHybrid.GetTargetTeam();
+													if (targetTeam & Enum.TargetTeam.DOTA_UNIT_TARGET_TEAM_FRIENDLY) {
+														// La habilidad es de tipo con objetivo y se puede usar en unidades aliadas, incluyéndose a uno mismo.
+														console.log("Cast Aliados y yo");
+														AbilHybrid.CastTarget(localHero);
+														
+													} else if (targetTeam & Enum.TargetTeam.DOTA_UNIT_TARGET_TEAM_ENEMY) {
+														// La habilidad es de tipo con objetivo y solo se puede usar en unidades enemigas.
+														console.log("Cast Enemigos");
+														AbilHybrid.CastTarget(comboTarget);
+													}
+												} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_POINT) {
+													// La habilidad es de tipo con objetivo y requiere una ubicación en el mapa.
+													console.log("Casteo en una posicion");
+													AbilHybrid.CastPosition(comboTarget.GetAbsOrigin());
+													
+												}
 											
+											}
 										}
-										
 									}
 								}
 							}
