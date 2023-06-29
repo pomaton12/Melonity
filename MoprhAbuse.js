@@ -1,5 +1,5 @@
 /******/ (() => { // webpackBootstrap
-/******/ 	var __webpack_modules__ = ({ 
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/MorphlingUltiAbuse.ts":
 /*!**********************************!*\
@@ -341,22 +341,23 @@
 						const dist = localHeroPosition.Distance(enemyHeroPosition)-58;
 						const dist2 = enemyHeroPosition.sub(localHeroPosition).Length()
 					
-						let Modifier1 = localHero.HasModifier("modifier_morphling_replicate_manager"); //  replicate tiempo o duracion
+						let ModifierReplicate = localHero.HasModifier("modifier_morphling_replicate_manager"); //  replicate tiempo o duracion
+						let ModifierNormal = localHero.HasModifier("modifier_morphling_morph"); //
+						let ModifierHybrid = localHero.HasModifier("modifier_morphling_replicate"); //
 						//modifier_morphling_morph /// Normal
 						//modifier_morphling_replicate  Tranformado
 						
-						let Modifier2 = localHero.HasModifier("modifier_morphling_replicate"); //
-						//console.log(Modifier2);
-						
-						if (Modifier2) {
+						if (ModifierReplicate && ModifierHybrid) {
 							let AbilHybrid = localHero.GetAbilityByIndex(0);
 							let AbilHybridName = AbilHybrid.GetName();
-							console.log(AbilHybridName);
+							if (AbilHybrid && AbilHybrid.IsExist() && AbilHybrid.CanCast()){
+								AbilHybrid.CastTarget(comboTarget);
+							}
 						}
 						
 						if (menu_AbilitiesList[0]) {
                             
-                            if (Waveform && Waveform.IsExist() && Waveform.CanCast()) {
+                            if (Waveform && Waveform.IsExist() && Waveform.CanCast() && ModifierNormal) {
 								let  castRange = Waveform.GetCastRange();
                                 if (TargetInRadius(comboTarget, castRange, localHero)) {
 									
@@ -378,7 +379,7 @@
 
 						if (menu_AbilitiesList[1]) {
                             
-                            if (AdaptiveStrike_AGI && AdaptiveStrike_AGI.IsExist() && AdaptiveStrike_AGI.CanCast()) {
+                            if (AdaptiveStrike_AGI && AdaptiveStrike_AGI.IsExist() && AdaptiveStrike_AGI.CanCast() && ModifierNormal) {
 								let  castRange = AdaptiveStrike_AGI.GetCastRange();
                                 if (TargetInRadius(comboTarget, castRange, localHero)) {
 									AdaptiveStrike_AGI.CastTarget(comboTarget);
