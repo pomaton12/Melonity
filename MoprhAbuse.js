@@ -343,7 +343,7 @@
 					
 						let Modifier1 = localHero.HasModifier("modifier_morphling_replicate_manager"); //  replicate Exist
 						let Modifier2 = localHero.HasModifier("modifier_morphling_replicate_manager_Description"); //
-						console.log(Modifier2);
+						//console.log(Modifier2);
 						
 						const modifiers = localHero.GetModifiers();
 						for (let modifier of modifiers) {
