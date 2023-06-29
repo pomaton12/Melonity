@@ -355,14 +355,14 @@
 						if (ModifierReplicate && ModifierHybrid) {
 							for (let i = 0; i < 5; i++) {
 								let AbilHybrid = localHero.GetAbilityByIndex(i);
-								//console.log(ability);
-
 								let AbilHybridName = AbilHybrid.GetName();
+																
+								console.log(AbilHybridName);
+
 								if (AbilHybrid && AbilHybrid.IsExist() && AbilHybrid.CanCast()){
 									//AbilHybrid.CastTarget(localHero);
 									
 									const behavior = AbilHybrid.GetBehavior();
-									console.log(Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_UNIT_TARGET);
 									if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_NO_TARGET) {
 										// La habilidad es activable.
 										console.log("La habilidad es activable.");
