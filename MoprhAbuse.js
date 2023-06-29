@@ -341,13 +341,14 @@
 						const dist = localHeroPosition.Distance(enemyHeroPosition)-58;
 						const dist2 = enemyHeroPosition.sub(localHeroPosition).Length()
 					
-						let Modifier1 = localHero.HasModifier("modifier_morphling_replicate_timer");
+						let Modifier1 = localHero.GetModifier("modifier_morphling_replicate_timer");
 						
 						console.log(Modifier1);
 						if (menu_AbilitiesList[0]) {
                             
-                            if (Waveform && Waveform.IsExist() && Waveform.CanCast() && !Modifier1) {
-                                if (TargetInRadius(comboTarget, 280, localHero)) {
+                            if (Waveform && Waveform.IsExist() && Waveform.CanCast()) {
+								let  castRange = Waveform.GetCastRange();
+                                if (TargetInRadius(comboTarget, castRange, localHero)) {
                                     myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,enemyHeroPosition,Waveform, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 
                                 }
