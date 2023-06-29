@@ -292,6 +292,12 @@
 						comboTarget = null;
 				}
 				
+				let Waveform = localHero.GetAbilityByIndex(0);
+				let AdaptiveStrike_AGI = localHero.GetAbilityByIndex(1);
+				let AdaptiveStrike_STR = localHero.GetAbilityByIndex(2);
+				let Ultimate = localHero.GetAbilityByIndex(5);
+				let SheepstickHexx = localHero.GetItem('item_sheepstick', true);
+				
 				let target = GetNearHeroInRadius(Input.GetWorldCursorPos());
 
 				if (!comboTarget && target && target.IsExist())
@@ -328,6 +334,27 @@
                     }
 
 					if (comboTarget && comboTarget.IsExist()) {		
+					
+						const localHeroPosition = localHero.GetAbsOrigin();
+						const attackRange = localHero.GetAttackRange();
+						const enemyHeroPosition = comboTarget.GetAbsOrigin();
+						const dist = localHeroPosition.Distance(enemyHeroPosition)-58;
+						const dist2 = enemyHeroPosition.sub(localHeroPosition).Length()
+					
+						let Modifier1 = localHero.HasModifier("modifier_morphling_replicate_timer");
+						
+						console.log(Modifier1);
+						if (menu_AbilitiesList[0]) {
+                            
+                            if (Waveform && Waveform.IsExist() && Waveform.CanCast() && !Modifier1) {
+                                if (TargetInRadius(comboTarget, 280, localHero)) {
+                                    myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,enemyHeroPosition,Waveform, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+
+                                }
+							}
+                        }
+
+
 
 
 
@@ -480,6 +507,8 @@
 		localHero = EntitySystem.GetLocalHero();
 	    myPlayer = EntitySystem.GetLocalPlayer();
 		enemyList = [];
+		cooldowns = [];
+		EnemeyDraw = [];
 	};
 
 	// Definición de la función OnGameEnd
