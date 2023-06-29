@@ -346,8 +346,10 @@
 						let ModifierHybrid = localHero.HasModifier("modifier_morphling_replicate"); //
 						//modifier_morphling_morph /// Normal
 						//modifier_morphling_replicate  Tranformado
+						let Abilulti = localHero.GetAbilityByIndex(5)
 						let AbilHybrid = localHero.GetAbilityByIndex(6)
 						
+						console.log(Abilulti.GetName());
 						console.log(AbilHybrid.GetName());
 						
 						if (ModifierReplicate && ModifierHybrid) {
