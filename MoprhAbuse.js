@@ -401,14 +401,14 @@
 														if(speedUlti > 0){
 															travel_time = castRange / (speedUlti + 1);
 														}	else{
-															travel_time = 0;
+															travel_time = 0.1;
 														}
 														const castpointTimee = AbilHybrid.GetCastPoint();
 														const delay = travel_time + castpointTimee;
 														const BestPost = GetPredictedPosition(comboTarget, delay);
 														//const BestPost = Post.add(new Vector(50, 50, 0));
-														console.log(speedUlti);
-														console.log(castpointTimee);
+														//console.log(speedUlti);
+														//console.log(castpointTimee);
 														
 														myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,BestPost,AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 
@@ -418,13 +418,21 @@
 												} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_DIRECTIONAL) {
 													// La habilidad es de tipo direccional.
 													console.log("Casteo en una dirección");
-													const localHePos = localHero.GetAbsOrigin();
-													const enemyHePos = comboTarget.GetAbsOrigin();
-													const Idealdirection = (enemyHePos.sub(localHePos)).Normalized();
-													let IdealPosition = localHePos.add(Idealdirection.mul(new Vector(300, 300, 0)));
+													let  castRange = AbilHybrid.GetCastRange();
+													if (TargetInRadius(comboTarget, castRange, localHero)) {
+														const localHePos = localHero.GetAbsOrigin();
+														const enemyHePos = comboTarget.GetAbsOrigin();
+														const Idealdirection = (enemyHePos.sub(localHePos)).Normalized();
+														let IdealPosition = enemyHePos.add(Idealdirection.mul(new Vector(100, 100, 0)));
 													
-													myPlayer.PrepareUnitOrders(30, null, IdealPosition, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
-													AbilHybrid.CastPosition(enemyHePos);
+														const travel_time = 0.1;
+														const castpointTimee = AbilHybrid.GetCastPoint();
+														const delay = travel_time + castpointTimee;
+														const BestPost = GetPredictedPosition(comboTarget, delay);
+													
+														myPlayer.PrepareUnitOrders(30, null, IdealPosition, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
+														AbilHybrid.CastPosition(BestPost);
+													}
 												}
 											
 											}
