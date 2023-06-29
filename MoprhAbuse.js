@@ -341,7 +341,7 @@
 						const dist = localHeroPosition.Distance(enemyHeroPosition)-58;
 						const dist2 = enemyHeroPosition.sub(localHeroPosition).Length()
 					
-						let Modifier1 = localHero.HasModifier("modifier_morphling_replicate_timer_Description");
+						let Modifier1 = localHero.HasModifier("modifier_morphling_replicate_manager");
 						
 						console.log(Modifier1);
 						if (menu_AbilitiesList[0]) {
@@ -366,7 +366,15 @@
                         }
 
 
-
+						if (menu_AbilitiesList[1]) {
+                            
+                            if (AdaptiveStrike_AGI && AdaptiveStrike_AGI.IsExist() && AdaptiveStrike_AGI.CanCast()) {
+								let  castRange = AdaptiveStrike_AGI.GetCastRange();
+                                if (TargetInRadius(comboTarget, castRange, localHero)) {
+									AdaptiveStrike_AGI.CastTarget(comboTarget);
+                                }
+							}
+                        }
 
 
 						
