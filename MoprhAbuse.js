@@ -20,12 +20,115 @@
 	//let monitorKey = Enum.ButtonCode.KEY_X;
 	
 	// Definición del array path_
-	const path_ = ["Heroes","Agility","Morphling","Best Ulti Cast"];
+	const path_ = ["Custom Scripts","Heroes","Agility","Morphling"];
+	const path_1 = ["Custom Scripts","Heroes","Agility","Morphling","Best Ulti Cast"];
 
+	const item_Images = [
+	'item_soul_ring', 'item_armlet', 'item_mjollnir', 'item_blink', 'item_abyssal_blade', 'item_fallen_sky',
+	'item_glimmer_cape', 'item_manta', 'item_refresher', 'item_disperser', 'item_sheepstick', 'item_orchid',
+	'item_bloodthorn', 'item_nullifier', 'item_rod_of_atos', 'item_gungir', 'item_diffusal_blade', 'item_bullwhip',
+	'item_ethereal_blade', 'item_dagon_5', 'item_heavens_halberd', 'item_veil_of_discord', 'item_urn_of_shadows', 'item_spirit_vessel',
+	'item_medallion_of_courage', 'item_solar_crest', 'item_pipe', 'item_hood_of_defiance', 'item_eternal_shroud', 'item_lotus_orb',
+	'item_black_king_bar', 'item_harpoon', 'item_essence_ring', 'item_blade_mail', 'item_shivas_guard', 'item_crimson_guard',
+	'item_ancient_janggo', 'item_ex_machina', 'item_revenants_brooch', 'item_bloodstone'
+	];
+    //const abilities = ['storm_spirit_static_remnant', 'storm_spirit_electric_vortex', 'storm_spirit_overload', 'storm_spirit_ball_lightning'];
+    const linkBreakers = [
+        'item_dagon_5', 'item_heavens_halberd', 'item_diffusal_blade', 'item_disperser', 'item_harpoon', 'item_force_staff',
+		'item_cyclone', 'item_rod_of_atos', 'item_abyssal_blade', 'item_orchid', 'item_bloodthorn', 'item_sheepstick',
+		'item_nullifier', 'item_ethereal_blade', 'item_force_boots', 'item_book_of_shadows'
+    ];
 	
 	// Creación del toggle isUiEnabled
 	let isUiEnabled = Menu.AddToggle(path_, 'Enable', true);
-	let KeyBindPanel = Menu.AddKeyBind(path_, 'Panel Open', Enum.ButtonCode.KEY_NONE);
+	let KeyBindOrderAgresive = Menu.AddKeyBind(path_, 'Key', Enum.ButtonCode.KEY_NONE);
+	let menu_ItemsList = CreateMultiSelect(path_, 'Items', item_Images, true);
+	
+	let menu_AbilitiesList = Menu.AddMultiSelect(path_, 'Spells', ['panorama/images/spellicons/morphling_waveform_png.vtex_c', 'panorama/images/spellicons/morphling_adaptive_strike_agi_png.vtex_c', 'panorama/images/spellicons/morphling_adaptive_strike_str_png.vtex_c', 'panorama/images/spellicons/morphling_replicate_png.vtex_c'], [true, true, true, true])
+		.OnChange((state) => {menu_AbilitiesList = state.newValue;})
+		.GetValue();
+				
+	let menu_LinkensItems = CreatePrioritySelect([...path_, 'Linkens Breaker Settings'], 'Linkens Breaker', linkBreakers, true);
+	
+	
+	
+	let KeyBindPanel = Menu.AddKeyBind(path_1, 'Panel Open', Enum.ButtonCode.KEY_NONE);
+	
+	Menu.SetImage(['Custom Scripts', 'Heroes'], '~/menu/40x40/heroes.png');
+    Menu.SetImage(['Custom Scripts', 'Heroes', 'Agility'], '~/menu/40x40/Agility.png');
+    Menu.SetImage(path_, 'panorama/images/heroes/icons/npc_dota_hero_morphling_png.vtex_c');
+	Menu.GetFolder([...path_, 'Linkens Breaker Settings']).SetImage('panorama/images/hud/reborn/minimap_gemdrop_psd.vtex_c');
+	Menu.SetImage(path_1, 'panorama/images/spellicons/morphling_replicate_png.vtex_c');
+
+	
+	
+	function GetImagesPath(name, full) {
+		if (name.startsWith('item_')) {
+			return `panorama/images/items/${name.slice(5)}_png.vtex_c`;
+		}
+		else if (name.startsWith('npc_dota_hero')) {
+			if (full) {
+				return `panorama/images/heroes/${name}_png.vtex_c`;
+			}
+			else {
+				return `panorama/images/heroes/icons/${name}_png.vtex_c`;
+			}
+		}
+		else if (name.startsWith('npc_dota_neutral')) {
+			return `panorama/images/heroes/${name}_png.vtex_c`;
+		}
+		else {
+			return `panorama/images/spellicons/${name}_png.vtex_c`;
+		}
+	}
+	
+	function CreateMultiSelect(path, name, iconsArray, default_value = true) {
+		let icons = [];
+		for (let q of iconsArray) {
+			icons.push(GetImagesPath(q));
+		}
+		let a = Menu.AddMultiSelect(path, name, icons, default_value);
+
+		return {
+			GetOption: () => {
+				return a;
+			},
+			IsEnabled: (name) => {
+				let n = name;
+				if (typeof name === 'object') {
+					if (name.GetEntityName()) {
+						n = name.GetEntityName();
+					}
+					if (name.GetName()) {
+						n = name.GetName();
+					}
+				}
+				return a.GetValue()[iconsArray.indexOf(n)];
+			}
+		};
+	}
+	
+	function CreatePrioritySelect(path, name, iconsArray, default_value = true) {
+		let icons = [];
+		for (let q of iconsArray) {
+			icons.push(GetImagesPath(q));
+		}
+		let a = Menu.AddPrioritySelect(path, name, icons, default_value);
+
+		return {
+			GetOption: () => {
+				return a;
+			},
+			GetValue: () => {
+				let t = [];
+				for (let e of a.GetValue()) {
+					t.push(iconsArray[e]);
+				}
+				return t;
+			}
+		};
+	}
+	
 	
 	function monitorizarHabilidadesMorphling() {
 		let [sizescrx,sizescry] = Renderer.GetScreenSize();
