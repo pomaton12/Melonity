@@ -390,7 +390,7 @@
 												} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_DIRECTIONAL) {
 													// La habilidad es de tipo direccional.
 													console.log("Casteo en una dirección");
-													const localHePos = localHero.GetAbsOrigin()
+													const localHePos = localHero.GetAbsOrigin();
 													const enemyHePos = comboTarget.GetAbsOrigin();
 													const Idealdirection = (enemyHePos.sub(localHePos)).Normalized();
 													let IdealPosition = localHePos.add(Idealdirection.mul(new Vector(300, 300, 0)));
