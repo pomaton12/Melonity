@@ -4,7 +4,7 @@
 /***/ "./src/MorphlingUltiAbuse.ts":
 /*!**********************************!*\
   !*** ./src/MorphlingUltiAbuse.ts ***!
-  \**********************************/
+  \**********************************/ 
 /***/ (() => {
 
 	// Definición del objeto MorphlingUltiAbuse
