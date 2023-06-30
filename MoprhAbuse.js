@@ -61,7 +61,7 @@
 	
 	let ShiftEnabled = Menu.AddToggle(path_2, 'Enable', true);
 	
-	let HealthUI = Menu.AddSlider(path_Ulti, 'Save Mana', 1, 100, 30)
+	let HealthUI = Menu.AddSlider(path_2, 'Save Mana', 1, 100, 30)
 	.OnChange(state => HealthUI = state.newValue)
 	.SetImage('panorama/images/challenges/icon_challenges_cleave_png.vtex')
 	.GetValue();
