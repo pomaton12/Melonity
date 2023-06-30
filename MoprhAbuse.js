@@ -233,7 +233,7 @@
 			
 			if (comboTarget) {
                 if (!particleKill) {
-					if(comboTarget.GetHealth() < 1)
+					if(comboTarget.GetHealth() < 1){
 						particleKill = Particle.Create('particles/econ/items/spectre/spectre_arcana/spectre_arcana_rare_run_ground_slash_flames.vpcf', Enum.ParticleAttachment.PATTACH_INVALID, comboTarget);
 						timeParticle = GameRules.GetGameTime();
 					}
