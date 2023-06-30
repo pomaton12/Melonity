@@ -193,9 +193,9 @@
 			}
 			
 			let killedUnit = EntIndexToHScript(event.entindex_killed);
-
+			console.log("enemigo",killedUnit)
 			// Comprueba si la entidad asesinada es un héroe enemigo
-			if( killedUnit.IsRealHero() && killedUnit.GetTeamNumber() !== event.attacker.GetTeamNumber() ){
+			if( killedUnit.IsHero() && killedUnit.GetTeamNumber() !== event.attacker.GetTeamNumber() ){
 				console.log("¡Has matado a un héroe enemigo!",killedUnit)
 			//Realiza acciones adicionales aquí, como actualizar el puntaje del jugador o reproducir efectos visuales y de sonido
 			}
