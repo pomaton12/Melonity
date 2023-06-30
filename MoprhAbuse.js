@@ -1,4 +1,4 @@
-/******/ (() => { // webpackBootstrap 
+/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/MorphlingUltiAbuse.ts":
@@ -191,7 +191,7 @@
 			if (localHero.GetUnitName() !== "npc_dota_hero_morphling") {
 				return;
 			}
-			
+			console.log("funciona",event)
 			let killedUnit = EntIndexToHScript(event.entindex_killed);
 			console.log("enemigo",killedUnit)
 			// Comprueba si la entidad asesinada es un héroe enemigo
