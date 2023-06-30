@@ -383,7 +383,7 @@
 														castRange = RangeAttackMax;
 													}
 																										
-													if (TargetInRadius(comboTarget, castRange, localHero)) {
+													if (comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), castRange, 0)) {
 														
 														AbilHybrid.CastNoTarget();
 													}
@@ -396,9 +396,7 @@
 													} else if (targetTeam & Enum.TargetTeam.DOTA_UNIT_TARGET_TEAM_ENEMY) {
 														// La habilidad es de tipo con objetivo y solo se puede usar en unidades enemigas.
 														let  castRange = AbilHybrid.GetCastRange();
-														let castRangeBonus = localHero.GetCastRangeBonus();
-														console.log(castRange);
-														console.log(castRangeBonus);
+														//let castRangeBonus = localHero.GetCastRangeBonus();
 														if (TargetInRadius(comboTarget, castRange, localHero)) {
 															console.log("Cast Enemigos");
 															AbilHybrid.CastTarget(comboTarget);
@@ -465,14 +463,16 @@
                             
                             if (Waveform && Waveform.IsExist() && Waveform.CanCast() && ModifierNormal) {
 								let  castRange = Waveform.GetCastRange();
-                                if (TargetInRadius(comboTarget, castRange, localHero)) {
+								let castRangeBonus = localHero.GetCastRangeBonus();
+								let castRangeTotal =  castRange + castRangeBonus;
+                                if (comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), castRangeTotal, 0)) {
 									
-									console.log(Waveform.GetLevelSpecialValueFor("speed"));
+									//console.log(Waveform.GetLevelSpecialValueFor("speed"));
 									
-									let speedUlti = 1250;
+									let speedUlti = Waveform.GetLevelSpecialValueFor("speed");
 									
-									const travel_time = castRange / (speedUlti + 1);
-									const castpointTimee = 0.25;
+									const travel_time = castRangeTotal / (speedUlti + 1);
+									const castpointTimee = Waveform.GetCastPoint();
 									const delay = travel_time + castpointTimee;
 									const BestPost = GetPredictedPosition(comboTarget, delay);
 									//const BestPost = Post.add(new Vector(50, 50, 0));
@@ -490,9 +490,8 @@
                             if (AdaptiveStrike_AGI && AdaptiveStrike_AGI.IsExist() && AdaptiveStrike_AGI.CanCast() && ModifierNormal) {
 								let  castRange = AdaptiveStrike_AGI.GetCastRange();
 								let castRangeBonus = localHero.GetCastRangeBonus();
-								console.log(castRange);
-								console.log(castRangeBonus);
-                                if (comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), castRange, 0)) {
+								let castRangeTotal =  castRange + castRangeBonus;
+                                if (comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), castRangeTotal, 0)) {
 									AdaptiveStrike_AGI.CastTarget(comboTarget);
                                 }
 							}
@@ -515,9 +514,9 @@
 						//console.log(comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), 600, 0));
 						let EnemiP = comboTarget.GetAbsOrigin();
 						let MiheroP = localHero.GetAbsOrigin();
-						console.log("dist",MiheroP.Distance(EnemiP));
-						console.log("dist2D",EnemiP.sub(MiheroP).Length2D());
-						console.log("dist3D",EnemiP.sub(MiheroP).Length());
+
+						
+						
 						
 						myPlayer.PrepareUnitOrders(order, target, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 				
