@@ -559,7 +559,7 @@
 			// ===== Funcion Opcion Panel =========
 			if (ShiftEnabled.GetValue()) {
 				
-				if (localHero.IsSilenced() || localHero.HasState(Enum.ModifierState.MODIFIER_STATE_HEXED) || localHero.HasState(Enum.ModifierState.MODIFIER_STATE_MUTED)) {
+				if (!localHero.IsAlive() || localHero.IsSilenced() || localHero.HasState(Enum.ModifierState.MODIFIER_STATE_HEXED) || localHero.HasState(Enum.ModifierState.MODIFIER_STATE_MUTED)) {
 					return;
 				}
 				
