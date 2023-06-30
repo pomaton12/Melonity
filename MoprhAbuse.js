@@ -865,6 +865,7 @@
 	    myPlayer = null;
 	};
 
+	GameEvents.Subscribe("entity_killed", OnEntityKilled);
 	// Registro del script
 	RegisterScript(MorphlingUltiAbuse);
 
