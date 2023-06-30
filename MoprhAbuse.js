@@ -613,9 +613,9 @@
 					if(hero.IsKillable()){
 						let poskill = hero.GetAbsOrigin();
 						let x, y, visible = Renderer.WorldToScreen(poskill);
-						let Morphling.font = Renderer.LoadFont("Tahoma", 30, Enum.FontWeight.EXTRABOLD);
+						let font = Renderer.LoadFont("Tahoma", 30, Enum.FontWeight.EXTRABOLD);
 						Renderer.SetDrawColor(255, 0, 0, 255);
-						Renderer.DrawTextCentered(Morphling.font, x, y, "Kill", 1);
+						Renderer.DrawTextCentered(font, x, y, "Kill", 1);
 					}
 				}
 			}
