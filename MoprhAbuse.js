@@ -515,7 +515,7 @@
 
 						let EnemiP = comboTarget.GetAbsOrigin();
 						let MiheroP = localHero.GetAbsOrigin();	
-						let distHR = Math.floor(Dist2D(MiheroP, EnemiP)-20);
+						let distHR = Math.floor(Dist2D(MiheroP, EnemiP)-40);
 						
 						let AttackRangeBasicHR = localHero.GetAttackRange();
 						let AttackRangeBuffHR = localHero.GetAttackRangeBonus();
