@@ -515,7 +515,7 @@
 
 						let EnemiP = comboTarget.GetAbsOrigin();
 						let MiheroP = localHero.GetAbsOrigin();	
-						let distHR = Dist2D(MiheroP, EnemiP);
+						let distHR = Math.floor(Dist2D(MiheroP, EnemiP)-50);
 						
 						let AttackRangeBasicHR = localHero.GetAttackRange();
 						let AttackRangeBuffHR = localHero.GetAttackRangeBonus();
@@ -523,7 +523,7 @@
 						
 						console.log("Rango ",RangeAttackMaxHR);
 						console.log("Dist ",distHR);
-						console.log("Dist ",MiheroP.Distance(EnemiP));
+
 						
 						//if (comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), RangeAttackMaxHR, 0)) {
 							myPlayer.PrepareUnitOrders(order, target, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
