@@ -486,7 +486,9 @@
                             
                             if (AdaptiveStrike_AGI && AdaptiveStrike_AGI.IsExist() && AdaptiveStrike_AGI.CanCast() && ModifierNormal) {
 								let  castRange = AdaptiveStrike_AGI.GetCastRange();
+								let castRangeBonus = localHero.GetCastRangeBonus();
 								console.log(castRange);
+								console.log(castRangeBonus);
                                 if (comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), castRange, 0)) {
 									AdaptiveStrike_AGI.CastTarget(comboTarget);
                                 }
