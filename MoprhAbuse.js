@@ -396,6 +396,9 @@
 													} else if (targetTeam & Enum.TargetTeam.DOTA_UNIT_TARGET_TEAM_ENEMY) {
 														// La habilidad es de tipo con objetivo y solo se puede usar en unidades enemigas.
 														let  castRange = AbilHybrid.GetCastRange();
+														let castRangeBonus = localHero.GetCastRangeBonus();
+														console.log(castRange);
+														console.log(castRangeBonus);
 														if (TargetInRadius(comboTarget, castRange, localHero)) {
 															console.log("Cast Enemigos");
 															AbilHybrid.CastTarget(comboTarget);
