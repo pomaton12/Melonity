@@ -504,7 +504,7 @@
 							pos = Input.GetWorldCursorPos();
 						}
 						
-						console.log(localHero.IsEntityInRange(comboTarget,500));
+						console.log(localHero.IsEntityInRange(comboTarget,600));
 						myPlayer.PrepareUnitOrders(order, target, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 				
 					}
