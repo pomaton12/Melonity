@@ -185,6 +185,23 @@
         return item && !hasModf && owner.GetMana() >= item.GetManaCost() && item.IsCastable(owner.GetMana());
     }
 	
+	
+	MorphlingUltiAbuse.OnEntityKilled = (event) =>{
+		if (localHero && isUiEnabled.GetValue()) {
+			if (localHero.GetUnitName() !== "npc_dota_hero_morphling") {
+				return;
+			}
+			
+			let killedUnit = EntIndexToHScript(event.entindex_killed);
+
+			// Comprueba si la entidad asesinada es un héroe enemigo
+			if( killedUnit.IsRealHero() && killedUnit.GetTeamNumber() ~= event.attacker.GetTeamNumber() ){
+				console.log("¡Has matado a un héroe enemigo!",killedUnit)
+			//Realiza acciones adicionales aquí, como actualizar el puntaje del jugador o reproducir efectos visuales y de sonido
+			}
+		}
+	}
+	
 	MorphlingUltiAbuse.OnDraw = () => {
         if (localHero && isUiEnabled.GetValue()) {
 			if (localHero.GetUnitName() !== "npc_dota_hero_morphling") {
