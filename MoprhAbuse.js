@@ -1,5 +1,5 @@
 /******/ (() => { // webpackBootstrap
-/******/ 	var __webpack_modules__ = ({ 
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/MorphlingUltiAbuse.ts":
 /*!**********************************!*\
@@ -612,7 +612,7 @@
 				if (hero) {
 					if(hero.IsKillable()){
 						let poskill = hero.GetAbsOrigin();
-						let x, y, visible = Renderer.WorldToScreen(poskill);
+						let [x, y, visible] = Renderer.WorldToScreen(poskill);
 						let font = Renderer.LoadFont("Tahoma", 30, Enum.FontWeight.EXTRABOLD);
 						Renderer.SetDrawColor(255, 0, 0, 255);
 						Renderer.DrawTextCentered(font, x, y, "Kill", 1);
