@@ -511,6 +511,7 @@
 						let MiheroP = localHero.GetAbsOrigin();
 						console.log("dist",MiheroP.Distance(EnemiP));
 						console.log("dist2D",EnemiP.sub(MiheroP).Length2D());
+						console.log("dist3D",EnemiP.sub(MiheroP).Length());
 						
 						myPlayer.PrepareUnitOrders(order, target, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 				
