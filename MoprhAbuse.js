@@ -2,7 +2,7 @@
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/MorphlingUltiAbuse.ts":
-/*!**********************************!*\ 
+/*!**********************************!*\
   !*** ./src/MorphlingUltiAbuse.ts ***!
   \**********************************/
 /***/ (() => {
@@ -68,7 +68,7 @@
 	
 	
 	Menu.SetImage(['Custom Scripts', 'Heroes'], '~/menu/40x40/heroes.png');
-    Menu.SetImage(['Custom Scripts', 'Heroes', 'Agility']).SetImage('panorama/images/primary_attribute_icons/primary_attribute_icon_agility_psd.vtex_c');
+    //Menu.SetImage(['Custom Scripts', 'Heroes', 'Agility']).SetImage('panorama/images/primary_attribute_icons/primary_attribute_icon_agility_psd.vtex_c');
     Menu.SetImage(path_, 'panorama/images/heroes/icons/npc_dota_hero_morphling_png.vtex_c');
 	Menu.GetFolder([...path_, 'Linkens Breaker Settings']).SetImage('panorama/images/hud/reborn/minimap_gemdrop_psd.vtex_c');
 	Menu.SetImage(path_1, 'panorama/images/spellicons/morphling_replicate_png.vtex_c');
