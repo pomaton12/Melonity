@@ -523,6 +523,7 @@
 						if (comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), RangeAttackMaxHR, 0)) {
 							myPlayer.PrepareUnitOrders(order, target, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 						} else{
+							myPlayer.PrepareUnitOrders(order, target, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 							SendOrderMovePos(EnemiP, localHero);
 						}
 					}
