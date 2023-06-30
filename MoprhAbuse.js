@@ -26,6 +26,7 @@
 	// Definición del array path_
 	const path_ = ["Custom Scripts","Heroes","Agility","Morphling"];
 	const path_1 = ["Custom Scripts","Heroes","Agility","Morphling","Best Ulti Cast"];
+	const path_2 = ["Custom Scripts","Heroes","Agility","Morphling","Auto Shift Dogde"];
 
 	const item_Images = [
 	'item_soul_ring', 'item_armlet', 'item_mjollnir', 'item_blink', 'item_abyssal_blade', 'item_fallen_sky',
@@ -58,11 +59,21 @@
 	
 	let KeyBindPanel = Menu.AddKeyBind(path_1, 'Panel Open', Enum.ButtonCode.KEY_NONE);
 	
+	let ShiftEnabled = Menu.AddToggle(path_2, 'Enable', true);
+	
+	let HealthUI = Menu.AddSlider(path_Ulti, 'Save Mana', 1, 100, 30)
+	.OnChange(state => HealthUI = state.newValue)
+	.SetImage('panorama/images/challenges/icon_challenges_cleave_png.vtex')
+	.GetValue();
+	
+	
 	Menu.SetImage(['Custom Scripts', 'Heroes'], '~/menu/40x40/heroes.png');
-    Menu.SetImage(['Custom Scripts', 'Heroes', 'Agility'], '~/menu/40x40/Agility.png');
+    Menu.SetImage(['Custom Scripts', 'Heroes', 'Agility']).SetImage('panorama/images/primary_attribute_icons/primary_attribute_icon_agility_psd.vtex_c');
     Menu.SetImage(path_, 'panorama/images/heroes/icons/npc_dota_hero_morphling_png.vtex_c');
 	Menu.GetFolder([...path_, 'Linkens Breaker Settings']).SetImage('panorama/images/hud/reborn/minimap_gemdrop_psd.vtex_c');
 	Menu.SetImage(path_1, 'panorama/images/spellicons/morphling_replicate_png.vtex_c');
+	Menu.SetImage(path_2, 'panorama/images/spellicons/morphling_morph_str_png.vtex_c');
+
 
 	
 	
@@ -496,6 +507,11 @@
                                 }
 							}
                         }
+						
+						if (menu_AbilitiesList[4]) {
+                            
+
+                        }
 
 
 						
@@ -521,8 +537,8 @@
 						let AttackRangeBuffHR = localHero.GetAttackRangeBonus();
 						let RangeAttackMaxHR = AttackRangeBasicHR + AttackRangeBuffHR;	
 						
-						console.log("Rango ",RangeAttackMaxHR);
-						console.log("Dist ",distHR);
+						//console.log("Rango ",RangeAttackMaxHR);
+						//console.log("Dist ",distHR);
 
 						
 						if ( RangeAttackMaxHR > distHR ) {
@@ -539,12 +555,15 @@
 				comboTarget = null;
 			}
 
+			
+			
+			// ===== Funcion Opcion Panel =========
+			
+			
 
 
 
-
-
-
+			// ===== Funcion Opcion Panel =========
 			if (KeyBindPanel.IsKeyDownOnce()) {
 				isMonitoring = !isMonitoring; // Cambia el valor de isMonitoring a su opuesto
 				//console.log(isMonitoring);
