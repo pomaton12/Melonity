@@ -516,10 +516,15 @@
 						let MiheroP = localHero.GetAbsOrigin();
 
 						
+						let AttackRangeBasicHR = localHero.GetAttackRange();
+						let AttackRangeBuffHR = localHero.GetAttackRangeBonus();
+						let RangeAttackMaxHR = AttackRangeBasicHR + AttackRangeBuffHR;	
 						
-						
-						myPlayer.PrepareUnitOrders(order, target, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
-				
+						if (comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), RangeAttackMaxHR, 0)) {
+							myPlayer.PrepareUnitOrders(order, target, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+						} else{
+							SendOrderMovePos(EnemiP, localHero);
+						}
 					}
 				}
 				
