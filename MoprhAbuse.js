@@ -512,8 +512,7 @@
 						///console.log(localHero.IsEntityInRange(comboTarget,600));
 						//console.log("sin casco");
 						//console.log(comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), 600, 0));
-						let EnemiP = comboTarget.GetAbsOrigin();
-						let MiheroP = localHero.GetAbsOrigin();
+
 
 						
 						let AttackRangeBasicHR = localHero.GetAttackRange();
@@ -523,8 +522,14 @@
 						if (comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), RangeAttackMaxHR, 0)) {
 							myPlayer.PrepareUnitOrders(order, target, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 						} else{
-							SendOrderMovePos(EnemiP, localHero);
-							myPlayer.PrepareUnitOrders(order, target, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+							let EnemiP = comboTarget.GetAbsOrigin();
+							let MiheroP = localHero.GetAbsOrigin();		
+							let Idealdir = (EnemiP.sub(MiheroP)).Normalized();
+							let IdealPos = MiheroP.add(Idealdirection.mul(new Vector(10, 10, 0)));
+							
+							myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, IdealPos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+
+							//myPlayer.PrepareUnitOrders(order, target, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 							
 						}
 					}
