@@ -525,7 +525,7 @@
 							let EnemiP = comboTarget.GetAbsOrigin();
 							let MiheroP = localHero.GetAbsOrigin();		
 							let Idealdir = (EnemiP.sub(MiheroP)).Normalized();
-							let IdealPos = MiheroP.add(Idealdirection.mul(new Vector(10, 10, 0)));
+							let IdealPos = MiheroP.add(Idealdir.mul(new Vector(10, 10, 0)));
 							
 							myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, IdealPos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 
@@ -795,7 +795,7 @@
 	};
 
 	// Registro del script
-	RegisterScript(MorphlingUltiAbuse); 
+	RegisterScript(MorphlingUltiAbuse);
 
 /***/ })
 
