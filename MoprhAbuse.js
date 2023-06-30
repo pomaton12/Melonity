@@ -1,7 +1,7 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/MorphlingUltiAbuse.ts": 
+/***/ "./src/MorphlingUltiAbuse.ts":
 /*!**********************************!*\
   !*** ./src/MorphlingUltiAbuse.ts ***!
   \**********************************/
@@ -374,11 +374,19 @@
 													let aoe_radius = AbilHybrid.GetLevelSpecialValueFor("radius");
 													let AttackRangeBasic = localHero.GetAttackRange();
 													let AttackRangeBuff = localHero.GetAttackRangeBonus();
-													
-													console.log(aoe_radius);
-													console.log(AttackRangeBasic+AttackRangeBuff);
-													
-													AbilHybrid.CastNoTarget();
+													let RangeAttackMax = AttackRangeBasic + AttackRangeBuff;														
+
+													let castRange = 0;
+													if(aoe_radius > 0){
+														castRange = aoe_radius;
+													} else {
+														castRange = RangeAttackMax;
+													}
+																										
+													if (TargetInRadius(comboTarget, castRange, localHero)) {
+														
+														AbilHybrid.CastNoTarget();
+													}
 												} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_UNIT_TARGET) {
 													const targetTeam = AbilHybrid.GetTargetTeam();
 													if (targetTeam & Enum.TargetTeam.DOTA_UNIT_TARGET_TEAM_FRIENDLY) {
