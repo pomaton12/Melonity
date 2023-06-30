@@ -213,7 +213,7 @@
 			
             if (comboTarget) {
                 if (!particle) {
-                    particle = Particle.Create('particles/econ/items/spectre/spectre_arcana/spectre_arcana_minigame_death_target.vpcf', Enum.ParticleAttachment.PATTACH_INVALID, comboTarget);
+                    particle = Particle.Create('particles/ui_mouseactions/range_finder_tower_aoe.vpcf', Enum.ParticleAttachment.PATTACH_INVALID, comboTarget);
                     particle.SetControl(2, EntitySystem.GetLocalHero().GetAbsOrigin());
                     particle.SetControl(6, new Vector(1, 0, 0));
                     particle.SetControl(7, comboTarget.GetAbsOrigin());
@@ -230,23 +230,6 @@
                 }
             }
 			
-			
-			if (comboTarget) {
-                if (!particleKill) {
-					if(comboTarget.GetHealth() < 500){
-						particleKill = Particle.Create('particles/econ/items/spectre/spectre_arcana/spectre_arcana_rare_run_ground_slash_flames.vpcf', Enum.ParticleAttachment.PATTACH_ABSORIGIN_FOLLOW, comboTarget);
-						timeParticle = GameRules.GetGameTime();
-					}
-				}
-            }
-            else {
-                if (particleKill) {
-					if (GameRules.GetGameTime() - timeParticle >= 1) {
-						particleKill.Destroy();
-						particleKill = null;
-					}
-                }
-            }
         }
     };
 
@@ -625,7 +608,17 @@
 			}
 			
 			// ===== Particula Kill =========
-
+			for (let hero of enemyList) {
+				if (hero) {
+					if(hero.IsKillable()){
+						let poskill = hero.GetAbsOrigin();
+						let x, y, visible = Renderer.WorldToScreen(poskill);
+						let Morphling.font = Renderer.LoadFont("Tahoma", 30, Enum.FontWeight.EXTRABOLD);
+						Renderer.SetDrawColor(255, 0, 0, 255);
+						Renderer.DrawTextCentered(Morphling.font, x, y, "Kill", 1);
+					}
+				}
+			}
 			//particleKill 
 			
 				
