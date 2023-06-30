@@ -15,6 +15,9 @@
 	let myPlayer = null;
 	let comboTarget = null;
 	let particle = null;
+	let particleKill = null;
+	let timeParticle = 0;
+	
 	let enemyList = [];
 	
 	
@@ -226,6 +229,24 @@
                     particle = null;
                 }
             }
+			
+			
+			if (comboTarget) {
+                if (!particleKill) {
+					if(comboTarget.GetHealth() < 1)
+						particleKill = Particle.Create('particles/econ/items/spectre/spectre_arcana/spectre_arcana_rare_run_ground_slash_flames.vpcf', Enum.ParticleAttachment.PATTACH_INVALID, comboTarget);
+						timeParticle = GameRules.GetGameTime();
+					}
+				}
+            }
+            else {
+                if (particleKill) {
+					if (GameRules.GetGameTime() - timeParticle >= 1) {
+						particleKill.Destroy();
+						particleKill = null;
+					}
+                }
+            }
         }
     };
 
@@ -263,10 +284,10 @@
 			for (let hero of enemyList) {
 
 				if (hero) {
+		
 
 					let heroNAME = hero.GetUnitName();
 					let IdHERO = hero.GetPlayerID();
-					
 					let keyHero = IdHERO + heroNAME;
 					// Si la habilidad no está en la lista, agregarla
 					if (!EnemeyDraw[keyHero]) {
@@ -603,7 +624,9 @@
 				monitorizarHabilidadesMorphling();
 			}
 			
-			
+			// ===== Particula Kill =========
+
+			//particleKill 
 			
 				
         }
