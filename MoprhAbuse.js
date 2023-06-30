@@ -505,6 +505,7 @@
 						}
 						
 						console.log(localHero.IsEntityInRange(comboTarget,600));
+						console.log("sin casco");
 						console.log(comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), 600, 0));
 						myPlayer.PrepareUnitOrders(order, target, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 				
