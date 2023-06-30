@@ -61,9 +61,8 @@
 	
 	let ShiftEnabled = Menu.AddToggle(path_2, 'Enable', true);
 	
-	let HealthUI = Menu.AddSlider(path_2, 'Save Mana', 1, 100, 30)
+	let HealthUI = Menu.AddSlider(path_2, 'HP % less Automatic', 1, 100, 30)
 	.OnChange(state => HealthUI = state.newValue)
-	.SetImage('panorama/images/challenges/icon_challenges_cleave_png.vtex')
 	.GetValue();
 	
 	
@@ -558,8 +557,22 @@
 			
 			
 			// ===== Funcion Opcion Panel =========
-			
-			
+			if (ShiftEnabled.GetValue()) {
+				
+				if (localHero.IsSilenced() || localHero.HasState(Enum.ModifierState.MODIFIER_STATE_HEXED) || localHero.HasState(Enum.ModifierState.MODIFIER_STATE_MUTED)) {
+					return;
+				}
+				
+				let HpThreshold = HealthUI/100;
+				const myMana = localHero.GetMana();
+				const morph2 = localHero.GetAbilityByIndex(3);
+
+				if (localHero.IsStunned() || localHero.HasModifier("modifier_legion_commander_duel") || localHero.HasModifier("modifier_axe_berserkers_call") || localHero.HasModifier("modifier_faceless_void_chronosphere") || localHero.HasModifier("modifier_enigma_black_hole_pull") || localHero.GetHealth() <= localHero.GetMaxHealth() * HpThreshold) {
+					if (morph2 && morph2.IsCastable(myMana) && !morph2.GetToggleState()) {
+						morph2.Toggle(true);
+					}
+				}
+			}
 
 
 
