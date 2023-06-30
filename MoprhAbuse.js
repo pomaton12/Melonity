@@ -515,7 +515,7 @@
 
 						let EnemiP = comboTarget.GetAbsOrigin();
 						let MiheroP = localHero.GetAbsOrigin();	
-						let distHR = Math.floor(Dist2D(MiheroP, EnemiP)-50);
+						let distHR = Math.floor(Dist2D(MiheroP, EnemiP)-40);
 						
 						let AttackRangeBasicHR = localHero.GetAttackRange();
 						let AttackRangeBuffHR = localHero.GetAttackRangeBonus();
@@ -525,19 +525,17 @@
 						console.log("Dist ",distHR);
 
 						
-						//if (comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), RangeAttackMaxHR, 0)) {
+						if (comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), RangeAttackMaxHR, 0)) {
 							myPlayer.PrepareUnitOrders(order, target, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
-						//} else{
+						} else{
 	
-							//let Idealdir = (MiheroP.sub(EnemiP)).Normalized();
-							//let IdealPos = MiheroP.add(Idealdir.mul(new Vector(15, 15, 0)));
-							//let posHR = MiheroP.add(new Vector(dist - newRange).Rotated(GetAngleToPos(MiheroP, EnemiP)));
+							let posHR = MiheroP.add(new Vector(distHR - newRange).Rotated(GetAngleToPos(MiheroP, EnemiP)));
 
 							//myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, IdealPos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 
 							//myPlayer.PrepareUnitOrders(order, target, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 							
-						//}
+						}
 					}
 				}
 				
