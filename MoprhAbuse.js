@@ -486,7 +486,8 @@
                             
                             if (AdaptiveStrike_AGI && AdaptiveStrike_AGI.IsExist() && AdaptiveStrike_AGI.CanCast() && ModifierNormal) {
 								let  castRange = AdaptiveStrike_AGI.GetCastRange();
-                                if (TargetInRadius(comboTarget, castRange, localHero)) {
+								console.log(castRange);
+                                if (comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), castRange, 0)) {
 									AdaptiveStrike_AGI.CastTarget(comboTarget);
                                 }
 							}
@@ -506,7 +507,7 @@
 						
 						///console.log(localHero.IsEntityInRange(comboTarget,600));
 						//console.log("sin casco");
-						//console.log(comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), 600, 0
+						//console.log(comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), 600, 0));
 						let EnemiP = comboTarget.GetAbsOrigin();
 						let MiheroP = localHero.GetAbsOrigin();
 						console.log("dist",MiheroP.Distance(EnemiP));
