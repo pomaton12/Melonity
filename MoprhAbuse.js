@@ -504,9 +504,14 @@
 							pos = Input.GetWorldCursorPos();
 						}
 						
-						console.log(localHero.IsEntityInRange(comboTarget,600));
-						console.log("sin casco");
-						console.log(comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), 600, 0));
+						///console.log(localHero.IsEntityInRange(comboTarget,600));
+						//console.log("sin casco");
+						//console.log(comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), 600, 0
+						let EnemiP = comboTarget.GetAbsOrigin();
+						let MiheroP = localHero.GetAbsOrigin();
+						console.log("dist",MiheroP.Distance(EnemiP));
+						console.log("dist2D",EnemiP.sub(MiheroP).Length2D());
+						
 						myPlayer.PrepareUnitOrders(order, target, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 				
 					}
