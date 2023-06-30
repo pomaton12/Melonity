@@ -795,7 +795,7 @@
 	};
 
 	// Registro del script
-	RegisterScript(MorphlingUltiAbuse);
+	RegisterScript(MorphlingUltiAbuse); 
 
 /***/ })
 
