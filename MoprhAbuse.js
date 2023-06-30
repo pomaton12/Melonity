@@ -513,25 +513,30 @@
 						//console.log("sin casco");
 						//console.log(comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), 600, 0));
 
-
+						let EnemiP = comboTarget.GetAbsOrigin();
+						let MiheroP = localHero.GetAbsOrigin();	
+						let distHR = Dist2D(MiheroP, EnemiP);
 						
 						let AttackRangeBasicHR = localHero.GetAttackRange();
 						let AttackRangeBuffHR = localHero.GetAttackRangeBonus();
 						let RangeAttackMaxHR = AttackRangeBasicHR + AttackRangeBuffHR;	
 						
-						if (comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), RangeAttackMaxHR, 0)) {
+						console.log("Rango ",RangeAttackMaxHR);
+						console.log("Dist ",distHR);
+						
+						//if (comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), RangeAttackMaxHR, 0)) {
 							myPlayer.PrepareUnitOrders(order, target, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
-						} else{
-							let EnemiP = comboTarget.GetAbsOrigin();
-							let MiheroP = localHero.GetAbsOrigin();		
-							let Idealdir = (MiheroP.sub(EnemiP)).Normalized();
-							let IdealPos = MiheroP.add(Idealdir.mul(new Vector(15, 15, 0)));
-							
-							myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, IdealPos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+						//} else{
+	
+							//let Idealdir = (MiheroP.sub(EnemiP)).Normalized();
+							//let IdealPos = MiheroP.add(Idealdir.mul(new Vector(15, 15, 0)));
+							//let posHR = MiheroP.add(new Vector(dist - newRange).Rotated(GetAngleToPos(MiheroP, EnemiP)));
+
+							//myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, IdealPos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 
 							//myPlayer.PrepareUnitOrders(order, target, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 							
-						}
+						//}
 					}
 				}
 				
@@ -778,6 +783,29 @@
 		return bestPos;
 	}	
 	
+	// 2 .- ====   Funcion para calcular distancia2D
+	function Dist2D(vec1, vec2) {
+		if (vec1 && vec2) {
+			let pos1 = (vec1.x ? (vec1) : (vec1.GetAbsOrigin ? (vec1.GetAbsOrigin()) : (0)));
+			let pos2 = (vec2.x ? (vec2) : (vec2.GetAbsOrigin ? (vec2.GetAbsOrigin()) : (0)));
+			return pos1 && pos2 && pos1.sub(pos2).Length2D();
+		}
+		return -1;
+	}
+
+	// 3 .- ====   Funcion POSICION DEL ANGULO
+	function IsntUndefined(value, withfalse) {
+		return withfalse ? (value !== false) : value !== undefined && value !== null;
+	}
+	
+	function GetAngleToPos(_e1, _e2, prefer = _e2, inrad) {
+		let [a, b] = [IsntUndefined(_e1.x) ? _e1 : _e1.GetAbsOrigin(), IsntUndefined(_e2.x) ? _e2 : _e2.GetAbsOrigin()];
+		if (prefer == _e1) {
+			[a, b] = [b, a];
+		}
+		let atan2 = Math.atan2(b.y - a.y, b.x - a.x);
+		return inrad ? atan2 : (atan2 * (180 / Math.PI));
+	}
 	
 	// Definición de la función OnScriptLoad
 	MorphlingUltiAbuse.OnScriptLoad = MorphlingUltiAbuse.OnGameStart = () => {
