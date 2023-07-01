@@ -402,6 +402,19 @@
 								
 							}
 							
+							if (ModifierReplicate && ModifierNormal) {
+								
+								for (let key in AbilHybritList) {
+									let abilListH = AbilHybritList[key];
+									let abilityListH = abilListH[0];
+									if (abilityListH && abilityListH.IsExist() && abilityListH.CanCast() && abilityListH.IsCastable(localHero.GetMana()) && localHero.GetMana() >= abilityListH.GetManaCost()){
+										if(Ultimate && Ultimate.IsExist() && Ultimate.CanCast()){
+											Ultimate.CastNoTarget();
+										}
+									}
+								}									
+							}	
+							
 							if (ModifierReplicate && ModifierHybrid) {
 								for (let i = 0; i < 5; i++) {
 									let AbilHybrid = localHero.GetAbilityByIndex(i);
