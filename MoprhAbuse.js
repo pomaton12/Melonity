@@ -429,12 +429,13 @@
 										if(AbilHybrid != null) {
 											
 											let AbilHybridName = AbilHybrid.GetName();
-											let getcoldownmax = AbilHybrid.GetCooldown();
-											console.log(AbilHybrid.GetName()," ",getcoldownmax);
 											for (let key in cooldowns) {
 												let abilityList = cooldowns[key];
 												if (abilityList[2] === AbilHybridName && abilityList[5] === true && abilityList[6] === true)  {
-																								
+													let getcoldownmax = AbilHybrid.GetCooldown();
+													let getcoldownmaxCharges = AbilHybrid.GetLevelSpecialValueFor ("max_charges");
+													console.log(AbilHybrid.GetName()," ",getcoldownmaxCharges);
+																		
 													let keyAbil = AbilHybridName;
 													if (!AbilHybritList[keyAbil]) {
 														AbilHybritList[keyAbil] = [AbilHybrid, AbilHybridName, 0, getcoldownmax];
