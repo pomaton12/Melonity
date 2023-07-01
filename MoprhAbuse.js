@@ -418,7 +418,7 @@
 														let maxCharges = AbilHybrid.GetLevelSpecialValueFor("max_charges");
 														
 														if(maxCharges > 0){
-															let Charges = AbilHybrid.GetLevelSpecialValueFor("counter");
+															let Charges = AbilHybrid.GetLevelSpecialValueFor("charge_counter");
 															console.log("counter ",Charges);
 															if(Charges > 0){
 																AbilHybrid.CastNoTarget();
