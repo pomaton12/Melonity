@@ -406,8 +406,8 @@
 											//if (GameRules.GetGameTime()- LastTime > ColdowMax){
 												if(Ultimate && Ultimate.IsExist() && Ultimate.CanCast()){
 													
-													timeUltihidrid = GameRules.GetGameTime();
-													//Ultimate.CastNoTarget();
+													//timeUltihidrid = GameRules.GetGameTime();
+													Ultimate.CastNoTarget();
 												}
 											//}
 										//} 
@@ -428,7 +428,7 @@
 												if (abilityList[2] === AbilHybridName && abilityList[5] === true && abilityList[6] === true)  {
 													let getcoldownmax = AbilHybrid.GetCooldown();
 													
-													console.log(AbilHybrid.GetName()," ",getcoldownmax);
+													//console.log(AbilHybrid.GetName()," ",getcoldownmax);
 																		
 													let keyAbil = AbilHybridName;
 													if (!AbilHybritList[keyAbil]) {
@@ -436,7 +436,7 @@
 		
 													}
 													
-													
+													AbilHybritList[keyAbil][3] = getcoldownmax;
 													
 													if (AbilHybrid && AbilHybrid.IsExist() && AbilHybrid.CanCast() && AbilHybrid.IsCastable(localHero.GetMana()) && localHero.GetMana() >= AbilHybrid.GetManaCost()){
 																							
