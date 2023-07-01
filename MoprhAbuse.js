@@ -396,7 +396,7 @@
 										let abilityList = cooldowns[key];
 										if (abilityList[2] === AbilHybridName && abilityList[5] === true && abilityList[6] === true)  {
 
-											if (AbilHybrid && AbilHybrid.IsExist() && AbilHybrid.CanCast() && item.IsCastable(localHero.GetMana()) && localHero.GetMana() >= AbilHybrid.GetManaCost()){
+											if (AbilHybrid && AbilHybrid.IsExist() && AbilHybrid.CanCast() && AbilHybrid.IsCastable(localHero.GetMana()) && localHero.GetMana() >= AbilHybrid.GetManaCost()){
 																					
 												const behavior = AbilHybrid.GetBehavior();
 												if ((behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_NO_TARGET) && !(behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_TOGGLE)) {
