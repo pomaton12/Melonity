@@ -422,7 +422,7 @@
 							}	
 							
 							if (ModifierReplicate && ModifierHybrid) {
-								if (Engine.OnceAtByKey(1, 'TarjetHeroDetected')) {
+								
 									for (let i = 0; i < 5; i++) {
 										let AbilHybrid = localHero.GetAbilityByIndex(i);
 										
@@ -434,7 +434,7 @@
 												if (abilityList[2] === AbilHybridName && abilityList[5] === true && abilityList[6] === true)  {
 													let getcoldownmax = AbilHybrid.GetCooldown();
 													let getcoldownmaxCharges = AbilHybrid.GetLevelSpecialValueFor ("max_charges");
-													console.log(AbilHybrid.GetName()," ",getcoldownmaxCharges);
+													console.log(AbilHybrid.GetName()," ",getcoldownmax);
 																		
 													let keyAbil = AbilHybridName;
 													if (!AbilHybritList[keyAbil]) {
@@ -541,7 +541,7 @@
 											}
 										}
 									}
-								}
+								
 								
 							}
 							
