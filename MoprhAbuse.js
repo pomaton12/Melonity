@@ -16,7 +16,7 @@
 	let comboTarget = null;
 	let particle = null;
 	let particleKill = null;
-	let timeParticle = 0;
+	let timeUltihidrid = 0;
 	
 	let  AbilHybritList = [];
 	
@@ -381,6 +381,7 @@
 									if (TargetInRadius(comboTarget, castRange - 300, localHero)) {
 										//console.log("Cast Enemigos");
 										Ultimate.CastTarget(comboTarget);
+										timeUltihidrid = GameRules.GetGameTime();
 									}
 								}
 								
@@ -390,11 +391,17 @@
 								
 								for (let key in AbilHybritList) {
 									let abilListH = AbilHybritList[key];
-									let abilityListH = abilListH[0];
-									console.log(abilityListH);
-									if (abilityListH && abilityListH.IsExist() && abilityListH.CanCast() && abilityListH.IsCastable(localHero.GetMana()) && localHero.GetMana() >= abilityListH.GetManaCost()){
-										if(Ultimate && Ultimate.IsExist() && Ultimate.CanCast()){
-											Ultimate.CastNoTarget();
+									let LastTime = abilListH[2];
+									let ColdowMax = abilListH[3];
+									
+									if (ColdowMax > 0){
+										if (LastTime > 0){
+											if (GameRules.GetGameTime()- LastTime > ColdowMax){
+											if(Ultimate && Ultimate.IsExist() && Ultimate.CanCast()){
+												Ultimate.CastNoTarget();
+												timeUltihidrid = GameRules.GetGameTime();
+											}
+											}
 										}
 									}
 								}									
@@ -402,11 +409,11 @@
 							
 							if (ModifierReplicate && ModifierHybrid) {
 								for (let i = 0; i < 5; i++) {
-									let AbilHybrid = localHero.GetAbilityByIndex(i);
+									let AbilHybrido = localHero.GetAbilityByIndex(i);
 									
-									if(AbilHybrid != null) {
+									if(AbilHybrido != null) {
 										
-										let AbilHybridName = AbilHybrid.GetName();
+										let AbilHybridName = AbilHybrido.GetName();
 								
 										for (let key in cooldowns) {
 											let abilityList = cooldowns[key];
@@ -414,9 +421,16 @@
 
 												let keyAbil = AbilHybridName;
 												if (!AbilHybritList[keyAbil]) {
-													AbilHybritList[keyAbil] = [AbilHybrid, 0, 0];
+													AbilHybritList[keyAbil] = [AbilHybrido, AbilHybridName, 0, 0];
 												}
+											}	
+										}		
 
+										if(GameRules.GetGameTime() - timeUltihidrid <= 1.5){
+											for (let key in AbilHybritList) {											
+												let abilityListOfi = AbilHybritList[key];
+												let AbilHybrid = abilityListOfi[0];
+										
 												if (AbilHybrid && AbilHybrid.IsExist() && AbilHybrid.CanCast() && AbilHybrid.IsCastable(localHero.GetMana()) && localHero.GetMana() >= AbilHybrid.GetManaCost()){
 																						
 													const behavior = AbilHybrid.GetBehavior();
@@ -438,6 +452,8 @@
 														if (comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), castRange, 0)) {
 
 															AbilHybrid.CastNoTarget();
+															abilityListOfi[2] = GameRules.GetGameTime();
+															abilityListOfi[3] = AbilHybrid.GetCooldownLength();
 															
 														}
 													} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_UNIT_TARGET) {
@@ -446,6 +462,8 @@
 															// La habilidad es de tipo con objetivo y se puede usar en unidades aliadas, incluyéndose a uno mismo.
 															//console.log("Cast Aliados y yo");
 															AbilHybrid.CastTarget(localHero);
+															abilityListOfi[2] = GameRules.GetGameTime();
+															abilityListOfi[3] = AbilHybrid.GetCooldownLength();
 														} else if (targetTeam & Enum.TargetTeam.DOTA_UNIT_TARGET_TEAM_ENEMY) {
 															// La habilidad es de tipo con objetivo y solo se puede usar en unidades enemigas.
 															let  castRange = AbilHybrid.GetCastRange();
@@ -453,6 +471,8 @@
 															if (TargetInRadius(comboTarget, castRange, localHero)) {
 																//console.log("Cast Enemigos");
 																AbilHybrid.CastTarget(comboTarget);
+																abilityListOfi[2] = GameRules.GetGameTime();
+																abilityListOfi[3] = AbilHybrid.GetCooldownLength();
 															}
 														}
 													} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_POINT) {
@@ -480,7 +500,8 @@
 															//console.log(castpointTimee);
 															
 															myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,BestPost,AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
-
+															abilityListOfi[2] = GameRules.GetGameTime();
+															abilityListOfi[3] = AbilHybrid.GetCooldownLength();
 														}
 														
 														
@@ -501,18 +522,19 @@
 														
 															myPlayer.PrepareUnitOrders(30, null, localHePos, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
 															AbilHybrid.CastPosition(enemyHePos);
+															abilityListOfi[2] = GameRules.GetGameTime();
+															abilityListOfi[3] = AbilHybrid.GetCooldownLength();
 															setTimeout(function() {}, 300);
 														}
 													}
-												
-												} else {
-													if(Ultimate && Ultimate.IsExist() && Ultimate.CanCast()){
-														Ultimate.CastNoTarget();
-													}
-														
-												}
-											}
+												} 
+											} 
+										}else{
+											if(Ultimate && Ultimate.IsExist() && Ultimate.CanCast()){
+												Ultimate.CastNoTarget();														
+											}																								
 										}
+										
 									}
 								}
 							}
