@@ -397,10 +397,15 @@
 									if (ColdowMax > 1){
 										if (LastTime > 0){
 											if (GameRules.GetGameTime()- LastTime > ColdowMax){
+												if(Ultimate && Ultimate.IsExist() && Ultimate.CanCast()){
+													Ultimate.CastNoTarget();
+													timeUltihidrid = GameRules.GetGameTime();
+												}
+											}
+										} else{
 											if(Ultimate && Ultimate.IsExist() && Ultimate.CanCast()){
 												Ultimate.CastNoTarget();
 												timeUltihidrid = GameRules.GetGameTime();
-											}
 											}
 										}
 									}
@@ -418,10 +423,11 @@
 										for (let key in cooldowns) {
 											let abilityList = cooldowns[key];
 											if (abilityList[2] === AbilHybridName && abilityList[5] === true && abilityList[6] === true)  {
-
+												let getcoldownmax = AbilHybrid.GetCooldownLength();
+												console.log(AbilHybrid.GetName()," ",getcoldownmax);
 												let keyAbil = AbilHybridName;
 												if (!AbilHybritList[keyAbil]) {
-													AbilHybritList[keyAbil] = [AbilHybrido, AbilHybridName, 0, 0];
+													AbilHybritList[keyAbil] = [AbilHybrido, AbilHybridName, 0, getcoldownmax];
 												}
 											}	
 										}		
@@ -436,7 +442,7 @@
 													const behavior = AbilHybrid.GetBehavior();
 													if ((behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_NO_TARGET) && !(behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_TOGGLE)) {
 														// La habilidad es activable.
-														console.log(AbilHybrid.GetName()," ",AbilHybrid.GetCooldownLength());
+														//console.log(AbilHybrid.GetName()," ",AbilHybrid.GetCooldownLength());
 														let aoe_radius = AbilHybrid.GetLevelSpecialValueFor("radius");
 														let AttackRangeBasic = localHero.GetAttackRange();
 														let AttackRangeBuff = localHero.GetAttackRangeBonus();
@@ -453,7 +459,6 @@
 
 															AbilHybrid.CastNoTarget();
 															abilityListOfi[2] = GameRules.GetGameTime();
-															abilityListOfi[3] = AbilHybrid.GetCooldownLength();
 															
 														}
 													} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_UNIT_TARGET) {
@@ -463,7 +468,7 @@
 															//console.log("Cast Aliados y yo");
 															AbilHybrid.CastTarget(localHero);
 															abilityListOfi[2] = GameRules.GetGameTime();
-															abilityListOfi[3] = AbilHybrid.GetCooldownLength();
+															
 														} else if (targetTeam & Enum.TargetTeam.DOTA_UNIT_TARGET_TEAM_ENEMY) {
 															// La habilidad es de tipo con objetivo y solo se puede usar en unidades enemigas.
 															let  castRange = AbilHybrid.GetCastRange();
@@ -472,7 +477,7 @@
 																//console.log("Cast Enemigos");
 																AbilHybrid.CastTarget(comboTarget);
 																abilityListOfi[2] = GameRules.GetGameTime();
-																abilityListOfi[3] = AbilHybrid.GetCooldownLength();
+																
 															}
 														}
 													} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_POINT) {
@@ -501,7 +506,7 @@
 															
 															myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,BestPost,AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 															abilityListOfi[2] = GameRules.GetGameTime();
-															abilityListOfi[3] = AbilHybrid.GetCooldownLength();
+															
 														}
 														
 														
@@ -523,7 +528,7 @@
 															myPlayer.PrepareUnitOrders(30, null, localHePos, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
 															AbilHybrid.CastPosition(enemyHePos);
 															abilityListOfi[2] = GameRules.GetGameTime();
-															abilityListOfi[3] = AbilHybrid.GetCooldownLength();
+															
 															setTimeout(function() {}, 300);
 														}
 													}
