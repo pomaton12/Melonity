@@ -422,7 +422,7 @@
 													const behavior = AbilHybrid.GetBehavior();
 													if ((behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_NO_TARGET) && !(behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_TOGGLE)) {
 														// La habilidad es activable.
-														console.log(AbilHybrid.GetCooldown());
+														console.log(AbilHybrid.GetCooldownLength());
 														let aoe_radius = AbilHybrid.GetLevelSpecialValueFor("radius");
 														let AttackRangeBasic = localHero.GetAttackRange();
 														let AttackRangeBuff = localHero.GetAttackRangeBonus();
