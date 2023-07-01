@@ -448,7 +448,7 @@
 							}
 							
 							if (ModifierReplicate && ModifierHybrid) {
-								if(GameRules.GetGameTime() - timeUltihidrid <= 2.5){
+								//if(GameRules.GetGameTime() - timeUltihidrid <= 2.5){
 									const count = Object.keys(AbilHybritList).length;
 									if(count> 0){
 										for (let key in AbilHybritList) {											
@@ -550,11 +550,11 @@
 											} 
 										} 
 									}
-								}else{
-									if(Ultimate && Ultimate.IsExist() && Ultimate.CanCast()){
+								//}else{
+									//if(Ultimate && Ultimate.IsExist() && Ultimate.CanCast()){
 										Ultimate.CastNoTarget();														
-									}																								
-								}							
+									//}																								
+								//}							
 							}
 
 						}
