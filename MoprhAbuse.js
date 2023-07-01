@@ -477,7 +477,7 @@
 														const delay = travel_time + castpointTimee;
 														const BestPost = GetPredictedPosition(comboTarget, delay);
 													
-														myPlayer.PrepareUnitOrders(30, null, IdealPosition, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
+														myPlayer.PrepareUnitOrders(30, null, localHePos, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
 														AbilHybrid.CastPosition(BestPost);
 														setTimeout(function() {}, 300);
 													}
@@ -608,17 +608,6 @@
 			}
 			
 			// ===== Particula Kill =========
-			for (let hero of enemyList) {
-				if (hero) {
-					if(hero.IsKillable()){
-						let poskill = hero.GetAbsOrigin();
-						let [x, y, visible] = Renderer.WorldToScreen(poskill);
-						let font = Renderer.LoadFont("Tahoma", 30, Enum.FontWeight.EXTRABOLD);
-						Renderer.SetDrawColor(255, 0, 0, 255);
-						Renderer.DrawTextCentered(font, x, y, "Kill", 1);
-					}
-				}
-			}
 			//particleKill 
 			
 				
