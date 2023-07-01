@@ -400,7 +400,7 @@
 									let abilListH = AbilHybritList[key];
 									let LastTime = abilListH[2];
 									let ColdowMax = abilListH[3];
-									console.log(ColdowMax);
+									//console.log(ColdowMax);
 									if (ColdowMax > 0){
 										//if (LastTime > 0){
 											//if (GameRules.GetGameTime()- LastTime > ColdowMax){
@@ -428,7 +428,7 @@
 												if (abilityList[2] === AbilHybridName && abilityList[5] === true && abilityList[6] === true)  {
 													let getcoldownmax = AbilHybrid.GetCooldown();
 													
-													//console.log(AbilHybrid.GetName()," ",getcoldownmax);
+													console.log(AbilHybrid.GetName()," ",getcoldownmax);
 																		
 													let keyAbil = AbilHybridName;
 													if (!AbilHybritList[keyAbil]) {
