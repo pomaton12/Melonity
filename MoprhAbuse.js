@@ -407,6 +407,7 @@
 								for (let key in AbilHybritList) {
 									let abilListH = AbilHybritList[key];
 									let abilityListH = abilListH[0];
+									console.log(abilityListH.GetName());
 									if (abilityListH && abilityListH.IsExist() && abilityListH.CanCast() && abilityListH.IsCastable(localHero.GetMana()) && localHero.GetMana() >= abilityListH.GetManaCost()){
 										if(Ultimate && Ultimate.IsExist() && Ultimate.CanCast()){
 											Ultimate.CastNoTarget();
