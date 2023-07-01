@@ -386,7 +386,7 @@
 									//let castRangeBonus = localHero.GetCastRangeBonus();
 									if (TargetInRadius(comboTarget, castRange - 300, localHero)) {
 										//console.log("Cast Enemigos");
-										timeUltihidrid = GameRules.GetGameTime();
+										//timeUltihidrid = GameRules.GetGameTime();
 										Ultimate.CastTarget(comboTarget);
 										
 									}
@@ -412,6 +412,13 @@
 												}
 											}
 										} 
+									} else{
+										if (GameRules.GetGameTime()- timeUltihidrid > 3){
+											if(Ultimate && Ultimate.IsExist() && Ultimate.CanCast()){
+											
+												Ultimate.CastNoTarget();
+											}
+										}
 									}
 								}									
 							}	
@@ -536,7 +543,7 @@
 														if(Ultimate && Ultimate.IsExist() && Ultimate.CanCast()){
 															
 															Ultimate.CastNoTarget();
-												
+															timeUltihidrid = GameRules.GetGameTime();
 														}
 													}
 						
