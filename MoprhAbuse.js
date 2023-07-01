@@ -191,22 +191,6 @@
     }
 	
 	
-	MorphlingUltiAbuse.OnEntityKilled = (event) =>{
-		if (localHero && isUiEnabled.GetValue()) {
-			if (localHero.GetUnitName() !== "npc_dota_hero_morphling") {
-				return;
-			}
-			console.log("funciona",event)
-			let killedUnit = EntIndexToHScript(event.entindex_killed);
-			console.log("enemigo",killedUnit)
-			// Comprueba si la entidad asesinada es un héroe enemigo
-			if( killedUnit.IsHero() && killedUnit.GetTeamNumber() !== event.attacker.GetTeamNumber() ){
-				console.log("¡Has matado a un héroe enemigo!",killedUnit)
-			//Realiza acciones adicionales aquí, como actualizar el puntaje del jugador o reproducir efectos visuales y de sonido
-			}
-		}
-	}
-	
 	MorphlingUltiAbuse.OnDraw = () => {
         if (localHero && isUiEnabled.GetValue()) {
 			if (localHero.GetUnitName() !== "npc_dota_hero_morphling") {
@@ -394,7 +378,7 @@
 								if(Ultimate && Ultimate.IsExist() && Ultimate.CanCast()){
 									let  castRange = Ultimate.GetCastRange();
 									//let castRangeBonus = localHero.GetCastRangeBonus();
-									if (TargetInRadius(comboTarget, castRange, localHero)) {
+									if (TargetInRadius(comboTarget, castRange - 300, localHero)) {
 										//console.log("Cast Enemigos");
 										Ultimate.CastTarget(comboTarget);
 									}
@@ -430,7 +414,7 @@
 
 												let keyAbil = AbilHybridName;
 												if (!AbilHybritList[keyAbil]) {
-													AbilHybritList[keyAbil] = [AbilHybrid];
+													AbilHybritList[keyAbil] = [AbilHybrid, 0, 0];
 												}
 
 												if (AbilHybrid && AbilHybrid.IsExist() && AbilHybrid.CanCast() && AbilHybrid.IsCastable(localHero.GetMana()) && localHero.GetMana() >= AbilHybrid.GetManaCost()){
@@ -438,7 +422,7 @@
 													const behavior = AbilHybrid.GetBehavior();
 													if ((behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_NO_TARGET) && !(behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_TOGGLE)) {
 														// La habilidad es activable.
-														console.log("La habilidad es activable.");
+														console.log(behavior);
 														let aoe_radius = AbilHybrid.GetLevelSpecialValueFor("radius");
 														let AttackRangeBasic = localHero.GetAttackRange();
 														let AttackRangeBuff = localHero.GetAttackRangeBonus();
@@ -460,20 +444,20 @@
 														const targetTeam = AbilHybrid.GetTargetTeam();
 														if (targetTeam & Enum.TargetTeam.DOTA_UNIT_TARGET_TEAM_FRIENDLY) {
 															// La habilidad es de tipo con objetivo y se puede usar en unidades aliadas, incluyéndose a uno mismo.
-															console.log("Cast Aliados y yo");
+															//console.log("Cast Aliados y yo");
 															AbilHybrid.CastTarget(localHero);
 														} else if (targetTeam & Enum.TargetTeam.DOTA_UNIT_TARGET_TEAM_ENEMY) {
 															// La habilidad es de tipo con objetivo y solo se puede usar en unidades enemigas.
 															let  castRange = AbilHybrid.GetCastRange();
 															//let castRangeBonus = localHero.GetCastRangeBonus();
 															if (TargetInRadius(comboTarget, castRange, localHero)) {
-																console.log("Cast Enemigos");
+																//console.log("Cast Enemigos");
 																AbilHybrid.CastTarget(comboTarget);
 															}
 														}
 													} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_POINT) {
 														// La habilidad es de tipo con objetivo y requiere una ubicación en el mapa.
-														console.log("Casteo en una posicion");
+														//console.log("Casteo en una posicion");
 														//console.log(AbilHybrid.GetLevelSpecialValueFor("speed"));
 														
 														let  castRange = AbilHybrid.GetCastRange();
@@ -502,7 +486,7 @@
 														
 													} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_DIRECTIONAL) {
 														// La habilidad es de tipo direccional.
-														console.log("Casteo en una dirección");
+														//console.log("Casteo en una dirección");
 														let  castRange = AbilHybrid.GetCastRange();
 														if (TargetInRadius(comboTarget, castRange, localHero)) {
 															const localHePos = localHero.GetAbsOrigin();
