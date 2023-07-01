@@ -418,9 +418,9 @@
 														let maxCharges = AbilHybrid.GetLevelSpecialValueFor("max_charges");
 														
 														if(maxCharges > 0){
-															let Charges = AbilHybrid.GetLevelSpecialValueFor("charge_counter_Description");
+															let Charges = AbilHybrid.GetLevelSpecialValueFor("charge_restore_time");
 															console.log("rest counter ",Charges);
-															if(Charges > 0){
+															if(0 >= Charges){
 																AbilHybrid.CastNoTarget();
 															}
 														} else{
