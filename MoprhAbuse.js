@@ -390,8 +390,9 @@
 									//let castRangeBonus = localHero.GetCastRangeBonus();
 									if (TargetInRadius(comboTarget, castRange - 300, localHero)) {
 										//console.log("Cast Enemigos");
-										Ultimate.CastTarget(comboTarget);
 										timeUltihidrid = GameRules.GetGameTime();
+										Ultimate.CastTarget(comboTarget);
+										
 									}
 								}
 								
@@ -414,8 +415,9 @@
 											}
 										} else{
 											if(Ultimate && Ultimate.IsExist() && Ultimate.CanCast()){
-												Ultimate.CastNoTarget();
 												timeUltihidrid = GameRules.GetGameTime();
+												Ultimate.CastNoTarget();
+												
 											}
 										}
 									}
@@ -442,7 +444,7 @@
 											}	
 										}		
 
-										if(GameRules.GetGameTime() - timeUltihidrid <= 3){
+										if(GameRules.GetGameTime() - timeUltihidrid <= 2.5){
 											for (let key in AbilHybritList) {											
 												let abilityListOfi = AbilHybritList[key];
 												let AbilHybrid = abilityListOfi[0];
