@@ -422,26 +422,29 @@
 							}	
 							
 							if (ModifierReplicate && ModifierHybrid) {
-								for (let i = 0; i < 5; i++) {
-									let AbilHybrido = localHero.GetAbilityByIndex(i);
-									
-									if(AbilHybrido != null) {
+								if (Engine.OnceAtByKey(1, 'TarjetHeroDetected')) {
+									for (let i = 0; i < 5; i++) {
+										let AbilHybrido = localHero.GetAbilityByIndex(i);
 										
-										let AbilHybridName = AbilHybrido.GetName();
-										let getcoldownmax = AbilHybrido.GetCooldownLength();
-										console.log(AbilHybrido.GetName()," ",getcoldownmax);
-										for (let key in cooldowns) {
-											let abilityList = cooldowns[key];
-											if (abilityList[2] === AbilHybridName && abilityList[5] === true && abilityList[6] === true)  {
-																							
-												let keyAbil = AbilHybridName;
-												if (!AbilHybritList[keyAbil]) {
-													AbilHybritList[keyAbil] = [AbilHybrido, AbilHybridName, 0, getcoldownmax];
-												}
-											}	
+										if(AbilHybrido != null) {
+											
+											let AbilHybridName = AbilHybrido.GetName();
+											let getcoldownmax = AbilHybrido.GetCooldownLength();
+											console.log(AbilHybrido.GetName()," ",getcoldownmax);
+											for (let key in cooldowns) {
+												let abilityList = cooldowns[key];
+												if (abilityList[2] === AbilHybridName && abilityList[5] === true && abilityList[6] === true)  {
+																								
+													let keyAbil = AbilHybridName;
+													if (!AbilHybritList[keyAbil]) {
+														AbilHybritList[keyAbil] = [AbilHybrido, AbilHybridName, 0, getcoldownmax];
+													}
+												}	
+											}
 										}
 									}
 								}
+								
 							}
 							
 							if (ModifierReplicate && ModifierHybrid) {
