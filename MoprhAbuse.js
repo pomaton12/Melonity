@@ -400,17 +400,18 @@
 									let abilListH = AbilHybritList[key];
 									let LastTime = abilListH[2];
 									let ColdowMax = abilListH[3];
+									console.log(LastTime);
 									console.log(ColdowMax);
 									if (ColdowMax > 0){
-										//if (LastTime > 0){
-											//if (GameRules.GetGameTime()- LastTime > ColdowMax){
+										if (LastTime > 0){
+											if (GameRules.GetGameTime()- LastTime > ColdowMax){
 												if(Ultimate && Ultimate.IsExist() && Ultimate.CanCast()){
 													
 													//timeUltihidrid = GameRules.GetGameTime();
 													Ultimate.CastNoTarget();
 												}
-											//}
-										//} 
+											}
+										} 
 									}
 								}									
 							}	
