@@ -249,8 +249,18 @@
                 }
             }
 			
+			let enemyListTemp = [];					
+			let heroesTemp = EntitySystem.GetHeroesList();
+			if (heroesTemp) {
+				for (let hero of heroesTemp) {
+					if (hero && !hero.IsIllusion() && !hero.IsMeepoClone() && hero.IsHero()  && !hero.IsSameTeam(localHero)) {
+						enemyListTemp.push(hero);
+					}
+				}
+			}
 			
-			for (let hero of enemyList) {
+			
+			for (let hero of enemyListTemp) {
 
 				if (hero) {
 		
