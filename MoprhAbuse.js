@@ -426,7 +426,7 @@
 											}	
 										}		
 
-										if(GameRules.GetGameTime() - timeUltihidrid <= 2.5){
+										if(GameRules.GetGameTime() - timeUltihidrid <= 3){
 											for (let key in AbilHybritList) {											
 												let abilityListOfi = AbilHybritList[key];
 												let AbilHybrid = abilityListOfi[0];
