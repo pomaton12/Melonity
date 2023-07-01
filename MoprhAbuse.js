@@ -401,17 +401,17 @@
 									let LastTime = abilListH[2];
 									let ColdowMax = abilListH[3];
 									
-									//if (ColdowMax = 0){
-										if (LastTime > 0){
-											if (GameRules.GetGameTime()- LastTime > ColdowMax){
+									if (ColdowMax = 0){
+										//if (LastTime > 0){
+											//if (GameRules.GetGameTime()- LastTime > ColdowMax){
 												if(Ultimate && Ultimate.IsExist() && Ultimate.CanCast()){
 													
 													timeUltihidrid = GameRules.GetGameTime();
 													//Ultimate.CastNoTarget();
 												}
-											}
-										} 
-									//}
+											//}
+										//} 
+									}
 								}									
 							}	
 							
