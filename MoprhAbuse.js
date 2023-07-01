@@ -467,6 +467,7 @@
 
 															AbilHybrid.CastNoTarget();
 															abilityListOfi[2] = GameRules.GetGameTime();
+															abilityListOfi[3] = AbilHybrid.GetCooldownLength();
 															
 														}
 													} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_UNIT_TARGET) {
@@ -475,6 +476,7 @@
 															// La habilidad es de tipo con objetivo y se puede usar en unidades aliadas, incluyéndose a uno mismo.
 															AbilHybrid.CastTarget(localHero);
 															abilityListOfi[2] = GameRules.GetGameTime();
+															abilityListOfi[3] = AbilHybrid.GetCooldownLength();
 															
 														} else if (targetTeam & Enum.TargetTeam.DOTA_UNIT_TARGET_TEAM_ENEMY) {
 															// La habilidad es de tipo con objetivo y solo se puede usar en unidades enemigas.
@@ -484,6 +486,7 @@
 																//console.log("Cast Enemigos");
 																AbilHybrid.CastTarget(comboTarget);
 																abilityListOfi[2] = GameRules.GetGameTime();
+																abilityListOfi[3] = AbilHybrid.GetCooldownLength();
 																
 															}
 														}
@@ -508,6 +511,7 @@
 																														
 															myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,BestPost,AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 															abilityListOfi[2] = GameRules.GetGameTime();
+															abilityListOfi[3] = AbilHybrid.GetCooldownLength();
 															
 														}
 														
@@ -529,7 +533,7 @@
 															myPlayer.PrepareUnitOrders(30, null, localHePos, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
 															AbilHybrid.CastPosition(enemyHePos);
 															abilityListOfi[2] = GameRules.GetGameTime();
-															
+															abilityListOfi[3] = AbilHybrid.GetCooldownLength();
 															setTimeout(function() {}, 300);
 														}
 													}
