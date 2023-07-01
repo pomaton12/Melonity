@@ -387,7 +387,7 @@
 						//console.log(AbilHybrid.GetName());
 						
 						
-						if (menu_AbilitiesList[5]) {
+						if (menu_AbilitiesList[3]) {
 							if (!ModifierReplicate){
 								AbilHybritList = [];
 								
@@ -558,7 +558,7 @@
 							}
                         }
 						
-						if (menu_AbilitiesList[4]) {
+						if (menu_AbilitiesList[2]) {
                             
 
                         }
