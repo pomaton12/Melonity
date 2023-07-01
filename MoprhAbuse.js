@@ -478,7 +478,7 @@
 														const BestPost = GetPredictedPosition(comboTarget, delay);
 													
 														myPlayer.PrepareUnitOrders(30, null, localHePos, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
-														AbilHybrid.CastPosition(BestPost);
+														AbilHybrid.CastPosition(enemyHePos);
 														setTimeout(function() {}, 300);
 													}
 												}
