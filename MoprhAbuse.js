@@ -460,7 +460,7 @@
 
 																
 																abilityListOfi[keyAbil][2] = GameRules.GetGameTime();
-																abilityListOfi[keyAbil][3] = =  = AbilHybrid.GetCooldown();
+																abilityListOfi[keyAbil][3] = AbilHybrid.GetCooldown();
 																AbilHybrid.CastNoTarget();
 															}
 														} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_UNIT_TARGET) {
