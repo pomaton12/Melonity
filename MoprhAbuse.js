@@ -280,7 +280,7 @@
 					xposG = xposG + sizeBarxG+5;
 					for (let i = 0; i < 5; i++) {
 						let ability = hero.GetAbilityByIndex(i);
-						//console.log(ability);
+						
 						if (ability != null) {
 							let AbilNAME = ability.GetName();
 							
@@ -376,11 +376,7 @@
 						//modifier_morphling_replicate  Tranformado
 						//let Abilulti = localHero.GetAbilityByIndex(5)
 						//let AbilHybrid = localHero.GetAbilityByIndex(6)
-						
-						//console.log(Abilulti.GetName());
-						//console.log(AbilHybrid.GetName());
-						
-						
+												
 						if (menu_AbilitiesList[3]) {
 							if (!ModifierReplicate){
 								AbilHybritList = [];
@@ -454,7 +450,7 @@
 													const behavior = AbilHybrid.GetBehavior();
 													if ((behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_NO_TARGET) && !(behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_TOGGLE)) {
 														// La habilidad es activable.
-														//console.log(AbilHybrid.GetName()," ",AbilHybrid.GetCooldownLength());
+								
 														let aoe_radius = AbilHybrid.GetLevelSpecialValueFor("radius");
 														let AttackRangeBasic = localHero.GetAttackRange();
 														let AttackRangeBuff = localHero.GetAttackRangeBonus();
@@ -477,7 +473,6 @@
 														const targetTeam = AbilHybrid.GetTargetTeam();
 														if (targetTeam & Enum.TargetTeam.DOTA_UNIT_TARGET_TEAM_FRIENDLY) {
 															// La habilidad es de tipo con objetivo y se puede usar en unidades aliadas, incluyéndose a uno mismo.
-															//console.log("Cast Aliados y yo");
 															AbilHybrid.CastTarget(localHero);
 															abilityListOfi[2] = GameRules.GetGameTime();
 															
@@ -495,8 +490,6 @@
 													} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_POINT) {
 														// La habilidad es de tipo con objetivo y requiere una ubicación en el mapa.
 														//console.log("Casteo en una posicion");
-														//console.log(AbilHybrid.GetLevelSpecialValueFor("speed"));
-														
 														let  castRange = AbilHybrid.GetCastRange();
 														if (TargetInRadius(comboTarget, castRange, localHero)) {
 														
@@ -512,10 +505,7 @@
 															const castpointTimee = AbilHybrid.GetCastPoint();
 															const delay = travel_time + castpointTimee;
 															const BestPost = GetPredictedPosition(comboTarget, delay);
-															//const BestPost = Post.add(new Vector(50, 50, 0));
-															//console.log(speedUlti);
-															//console.log(castpointTimee);
-															
+																														
 															myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,BestPost,AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 															abilityListOfi[2] = GameRules.GetGameTime();
 															
@@ -524,7 +514,6 @@
 														
 													} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_DIRECTIONAL) {
 														// La habilidad es de tipo direccional.
-														//console.log("Casteo en una dirección");
 														let  castRange = AbilHybrid.GetCastRange();
 														if (TargetInRadius(comboTarget, castRange, localHero)) {
 															const localHePos = localHero.GetAbsOrigin();
@@ -564,9 +553,7 @@
 								let castRangeBonus = localHero.GetCastRangeBonus();
 								let castRangeTotal =  castRange + castRangeBonus;
                                 if (comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), castRangeTotal, 0)) {
-									
-									//console.log(Waveform.GetLevelSpecialValueFor("speed"));
-									
+																		
 									let speedUlti = Waveform.GetLevelSpecialValueFor("speed");
 									
 									const travel_time = castRangeTotal / (speedUlti + 1);
@@ -612,10 +599,6 @@
 							pos = Input.GetWorldCursorPos();
 						}
 						
-						///console.log(localHero.IsEntityInRange(comboTarget,600));
-						//console.log("sin casco");
-						//console.log(comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), 600, 0));
-
 						let EnemiP = comboTarget.GetAbsOrigin();
 						let MiheroP = localHero.GetAbsOrigin();	
 						let distHR = Math.floor(Dist2D(MiheroP, EnemiP)-40);
@@ -623,11 +606,7 @@
 						let AttackRangeBasicHR = localHero.GetAttackRange();
 						let AttackRangeBuffHR = localHero.GetAttackRangeBonus();
 						let RangeAttackMaxHR = AttackRangeBasicHR + AttackRangeBuffHR;	
-						
-						//console.log("Rango ",RangeAttackMaxHR);
-						//console.log("Dist ",distHR);
-
-						
+				
 						if ( RangeAttackMaxHR > distHR ) {
 							myPlayer.PrepareUnitOrders(order, target, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 						} else{	
@@ -667,7 +646,7 @@
 			// ===== Funcion Opcion Panel =========
 			if (KeyBindPanel.IsKeyDownOnce()) {
 				isMonitoring = !isMonitoring; // Cambia el valor de isMonitoring a su opuesto
-				//console.log(isMonitoring);
+				
 			}
 
 			if (isMonitoring) {
@@ -772,7 +751,7 @@
 						// Cambiar el valor de cond
 						cond = !cond;
 						cooldown[6] = cond;
-						//console.log(cond);
+						
 
 					}
 				}
