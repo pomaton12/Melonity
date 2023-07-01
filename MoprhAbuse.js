@@ -2,7 +2,7 @@
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/MorphlingUltiAbuse.ts":
-/*!**********************************!*\ 
+/*!**********************************!*\
   !*** ./src/MorphlingUltiAbuse.ts ***!
   \**********************************/
 /***/ (() => {
@@ -415,7 +415,8 @@
 													}
 																										
 													if (comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), castRange, 0)) {
-														
+														let maxCharges = AbilHybrid.GetLevelSpecialValueFor("max_charges");
+														console.log("Charges ",maxCharges);
 														AbilHybrid.CastNoTarget();
 													}
 												} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_UNIT_TARGET) {
