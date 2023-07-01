@@ -2,7 +2,7 @@
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/MorphlingUltiAbuse.ts":
-/*!**********************************!*\ 
+/*!**********************************!*\
   !*** ./src/MorphlingUltiAbuse.ts ***!
   \**********************************/
 /***/ (() => {
@@ -418,8 +418,8 @@
 														let maxCharges = AbilHybrid.GetLevelSpecialValueFor("max_charges");
 														
 														if(maxCharges > 0){
-															let Charges = AbilHybrid.GetLevelSpecialValueFor("charge_counter");
-															console.log("counter ",Charges);
+															let Charges = AbilHybrid.GetLevelSpecialValueFor("charge_counter_Description");
+															console.log("rest counter ",Charges);
 															if(Charges > 0){
 																AbilHybrid.CastNoTarget();
 															}
