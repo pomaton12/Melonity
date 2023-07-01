@@ -416,8 +416,17 @@
 																										
 													if (comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), castRange, 0)) {
 														let maxCharges = AbilHybrid.GetLevelSpecialValueFor("max_charges");
-														console.log("Charges ",maxCharges);
-														AbilHybrid.CastNoTarget();
+														
+														if(maxCharges > 0){
+															let Charges = AbilHybrid.GetLevelSpecialValueFor("counter");
+															console.log("counter ",Charges);
+															if(Charges > 0){
+																AbilHybrid.CastNoTarget();
+															}
+														} else{
+															AbilHybrid.CastNoTarget();
+														}
+														
 													}
 												} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_UNIT_TARGET) {
 													const targetTeam = AbilHybrid.GetTargetTeam();
