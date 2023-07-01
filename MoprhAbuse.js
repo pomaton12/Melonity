@@ -429,7 +429,7 @@
 										if(AbilHybrid != null) {
 											
 											let AbilHybridName = AbilHybrid.GetName();
-											let getcoldownmax = AbilHybrid.GetCooldownLength();
+											let getcoldownmax = AbilHybrid.GetCooldown();
 											console.log(AbilHybrid.GetName()," ",getcoldownmax);
 											for (let key in cooldowns) {
 												let abilityList = cooldowns[key];
