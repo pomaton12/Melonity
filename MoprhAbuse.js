@@ -497,28 +497,76 @@
 															// La habilidad es de tipo con objetivo y requiere una ubicación en el mapa.
 															
 															let  castRange = AbilHybrid.GetCastRange();
-															let aoe_radius = AbilHybrid.GetLevelSpecialValueFor("abilitycastrange");
-															console.log("Cast range",castRange);
-															console.log("aoe",aoe_radius);
-															if (TargetInRadius(comboTarget, castRange, localHero)) {
+															let aoe_amqop = AbilHybrid.GetLevelSpecialValueFor("abilitycastrange");
+															let aoe_void = AbilHybrid.GetLevelSpecialValueFor("range");
 															
-																
-																console.log("Casteo en una posicion");
-																let speedUlti = AbilHybrid.GetLevelSpecialValueFor("speed");
-																let travel_time = 0;
-																if(speedUlti > 0){
-																	travel_time = castRange / (speedUlti + 1);
-																}	else{
-																	travel_time = 0.1;
-																}
-																const castpointTimee = AbilHybrid.GetCastPoint();
-																const delay = travel_time + castpointTimee;
-																const BestPost = GetPredictedPosition(comboTarget, delay);
-																
-																if (Engine.OnceAt(0.6)) {
+															if (castRange != 0) {
+																if (TargetInRadius(comboTarget, castRange, localHero)) {
+																	console.log("Casteo en una posicion");
+																	let speedUlti = AbilHybrid.GetLevelSpecialValueFor("speed");
+																	let travel_time = 0;
+																	if(speedUlti > 0){
+																		travel_time = castRange / (speedUlti + 1);
+																	}	else{
+																		travel_time = 0.1;
+																	}
+																	const castpointTimee = AbilHybrid.GetCastPoint();
+																	const delay = travel_time + castpointTimee;
+																	const BestPost = GetPredictedPosition(comboTarget, delay);
+																	
+																	
 																	AbilHybritList[keyAbil][2] = GameRules.GetGameTime();
 																	AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
-																	AbilHybrid.CastPosition(comboTarget.GetAbsOrigin());
+																	AbilHybrid.CastPosition(BestPost);
+																
+																}
+																
+																
+															} else if (aoe_amqop != 0) {
+																if (TargetInRadius(comboTarget, aoe_amqop, localHero)) {
+																	console.log("Casteo en una posicion");
+																	let speedUlti = AbilHybrid.GetLevelSpecialValueFor("speed");
+																	let travel_time = 0;
+																	if(speedUlti > 0){
+																		travel_time = aoe_amqop / (speedUlti + 1);
+																	}	else{
+																		travel_time = 0.1;
+																	}
+																	const castpointTimee = AbilHybrid.GetCastPoint();
+																	const delay = travel_time + castpointTimee;
+																	const BestPost = GetPredictedPosition(comboTarget, delay);
+																	const pos11 = localHero.GetAbsOrigin();
+																	const post22 = comboTarget.GetAbsOrigin();
+																	const dist11 = pos11.Distance(post22);
+																	if (dist11 > 750){
+																		AbilHybritList[keyAbil][2] = GameRules.GetGameTime();
+																		AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
+																		AbilHybrid.CastPosition(BestPost);
+																	}
+																}
+																
+															} else if (aoe_void != 0) {
+																if (TargetInRadius(comboTarget, aoe_void, localHero)) {
+																	console.log("Casteo en una posicion");
+																	let speedUlti = AbilHybrid.GetLevelSpecialValueFor("speed");
+																	let travel_time = 0;
+																	if(speedUlti > 0){
+																		travel_time = aoe_void / (speedUlti + 1);
+																	}	else{
+																		travel_time = 0.1;
+																	}
+																	const castpointTimee = AbilHybrid.GetCastPoint();
+																	const delay = travel_time + castpointTimee;
+																	const BestPost = GetPredictedPosition(comboTarget, delay);
+																	const pos11 = localHero.GetAbsOrigin();
+																	const post22 = comboTarget.GetAbsOrigin();
+																	const dist11 = pos11.Distance(post22);
+																	if (dist11 > 650){
+																		AbilHybritList[keyAbil][2] = GameRules.GetGameTime();
+																		AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
+																		AbilHybrid.CastPosition(BestPost);
+																	}
+																	
 																}
 															}
 															
