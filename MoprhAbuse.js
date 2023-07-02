@@ -450,35 +450,10 @@
 																							
 														const behavior = AbilHybrid.GetBehavior();
 														console.log(behavior);
-														
-														if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_IMMEDIATE) {
-															let  castRange = AbilHybrid.GetCastRange();
-															if (TargetInRadius(comboTarget, castRange, localHero)) {
-															
-																
-																
-																let speedUlti = AbilHybrid.GetLevelSpecialValueFor("speed");
-																let travel_time = 0;
-																if(speedUlti > 0){
-																	travel_time = castRange / (speedUlti + 1);
-																}	else{
-																	travel_time = 0.1;
-																}
-																const castpointTimee = AbilHybrid.GetCastPoint();
-																const delay = travel_time + castpointTimee;
-																const BestPost = GetPredictedPosition(comboTarget, delay);
-																
-																if (Engine.OnceAt(0.2)) {
-																	AbilHybritList[keyAbil][2] = GameRules.GetGameTime();
-																	AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
-																	AbilHybrid.CastPosition(comboTarget.GetAbsOrigin());
-																}
-															}
-															
-														
-														} else if ((behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_NO_TARGET) && !(behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_TOGGLE)) {
+																												
+														if ((behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_NO_TARGET) && !(behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_TOGGLE)) {
 															// La habilidad es activable.
-									
+															// La habilidad es activable.
 															let aoe_radius = AbilHybrid.GetLevelSpecialValueFor("radius");
 															let AttackRangeBasic = localHero.GetAttackRange();
 															let AttackRangeBuff = localHero.GetAttackRangeBonus();
@@ -502,7 +477,7 @@
 															const targetTeam = AbilHybrid.GetTargetTeam();
 															if (targetTeam & Enum.TargetTeam.DOTA_UNIT_TARGET_TEAM_FRIENDLY) {
 																// La habilidad es de tipo con objetivo y se puede usar en unidades aliadas, incluyéndose a uno mismo.
-																
+																console.log("La habilidad es de tipo con objetivo");
 																AbilHybritList[keyAbil][2] = GameRules.GetGameTime();
 																AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
 																AbilHybrid.CastTarget(localHero);
