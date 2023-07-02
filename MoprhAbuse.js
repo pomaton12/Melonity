@@ -512,7 +512,7 @@
 																const delay = travel_time + castpointTimee;
 																const BestPost = GetPredictedPosition(comboTarget, delay);
 																
-																if (Engine.OnceAt(0.2)) {
+																if (Engine.OnceAt(0.6)) {
 																	AbilHybritList[keyAbil][2] = GameRules.GetGameTime();
 																	AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
 																	AbilHybrid.CastPosition(comboTarget.GetAbsOrigin());
