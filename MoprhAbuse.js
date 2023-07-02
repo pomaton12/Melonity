@@ -495,12 +495,12 @@
 															}
 														} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_POINT) {
 															// La habilidad es de tipo con objetivo y requiere una ubicación en el mapa.
-															console.log("Casteo en una posicion");
+															
 															let  castRange = AbilHybrid.GetCastRange();
 															if (TargetInRadius(comboTarget, castRange, localHero)) {
 															
 																
-																
+																console.log("Casteo en una posicion");
 																let speedUlti = AbilHybrid.GetLevelSpecialValueFor("speed");
 																let travel_time = 0;
 																if(speedUlti > 0){
