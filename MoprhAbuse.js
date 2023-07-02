@@ -477,7 +477,7 @@
 															const targetTeam = AbilHybrid.GetTargetTeam();
 															if (targetTeam & Enum.TargetTeam.DOTA_UNIT_TARGET_TEAM_FRIENDLY) {
 																// La habilidad es de tipo con objetivo y se puede usar en unidades aliadas, incluyéndose a uno mismo.
-																//console.log("La habilidad es de tipo con objetivo");
+																console.log("La habilidad es de tipo con objetivo");
 																AbilHybritList[keyAbil][2] = GameRules.GetGameTime();
 																AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
 																AbilHybrid.CastTarget(localHero);
