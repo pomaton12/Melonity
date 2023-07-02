@@ -477,7 +477,7 @@
 															const targetTeam = AbilHybrid.GetTargetTeam();
 															if (targetTeam & Enum.TargetTeam.DOTA_UNIT_TARGET_TEAM_FRIENDLY) {
 																// La habilidad es de tipo con objetivo y se puede usar en unidades aliadas, incluyéndose a uno mismo.
-																console.log("La habilidad es de tipo con objetivo");
+																//console.log("La habilidad es de tipo con objetivo");
 																AbilHybritList[keyAbil][2] = GameRules.GetGameTime();
 																AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
 																AbilHybrid.CastTarget(localHero);
@@ -495,7 +495,7 @@
 															}
 														} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_POINT) {
 															// La habilidad es de tipo con objetivo y requiere una ubicación en el mapa.
-															//console.log("Casteo en una posicion");
+															console.log("Casteo en una posicion");
 															let  castRange = AbilHybrid.GetCastRange();
 															if (TargetInRadius(comboTarget, castRange, localHero)) {
 															
