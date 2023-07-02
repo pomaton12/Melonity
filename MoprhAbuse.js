@@ -386,7 +386,7 @@
 									//let castRangeBonus = localHero.GetCastRangeBonus();
 									if (TargetInRadius(comboTarget, castRange - 300, localHero)) {
 										//console.log("Cast Enemigos");
-										//timeUltihidrid = GameRules.GetGameTime();
+										
 										Ultimate.CastTarget(comboTarget);
 										
 									}
@@ -407,7 +407,7 @@
 											if (GameRules.GetGameTime()- LastTime > ColdowMax){
 												if(Ultimate && Ultimate.IsExist() && Ultimate.CanCast()){
 													
-													//timeUltihidrid = GameRules.GetGameTime();
+													
 													Ultimate.CastNoTarget();
 												}
 											}
@@ -596,8 +596,8 @@
 													} else{
 														if(Ultimate && Ultimate.IsExist() && Ultimate.CanCast()){
 															
-															//Ultimate.CastNoTarget();
-															//timeUltihidrid = GameRules.GetGameTime();
+															Ultimate.CastNoTarget();
+															timeUltihidrid = GameRules.GetGameTime();
 														}
 													}
 						
@@ -673,11 +673,11 @@
 						let AttackRangeBuffHR = localHero.GetAttackRangeBonus();
 						let RangeAttackMaxHR = AttackRangeBasicHR + AttackRangeBuffHR;	
 				
-						//if ( RangeAttackMaxHR > distHR ) {
+						if ( RangeAttackMaxHR > distHR ) {
 							myPlayer.PrepareUnitOrders(order, target, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
-						//} else{	
-							//myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, EnemiP, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
-						//}
+						} else{	
+							myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, EnemiP, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+						}
 					}
 				}
 				
