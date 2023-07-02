@@ -372,10 +372,32 @@
 						let ModifierReplicate = localHero.HasModifier("modifier_morphling_replicate_manager"); //  replicate tiempo o duracion
 						let ModifierNormal = localHero.HasModifier("modifier_morphling_morph"); //
 						let ModifierHybrid = localHero.HasModifier("modifier_morphling_replicate"); //
-						//modifier_morphling_morph /// Normal
-						//modifier_morphling_replicate  Tranformado
-						//let Abilulti = localHero.GetAbilityByIndex(5)
-						//let AbilHybrid = localHero.GetAbilityByIndex(6)
+						
+						let Stunned = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_STUNNED);
+						let InmuneMagic = comboTarget.HasModifier("modifier_black_king_bar_immune"); 
+						let Hexxed = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_HEXED);
+						let Silenced = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_SILENCED);
+						let Ethereo = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_ATTACK_IMMUNE);
+						
+						
+						
+						
+						
+
+						let [linken, mirror] = [comboTarget.GetItem('item_sphere', true), comboTarget.GetItem('item_mirror_shield', false)];
+                        if (linken && linken.CanCast() || mirror && mirror.CanCast()) {
+                            let linkenBrokItems = menu_LinkensItems.GetValue();
+                            for (let brokObj of linkenBrokItems) {
+                                let vi = localHero.GetItem(brokObj, false);
+                                if (vi) {
+                                    if (vi.IsExist() && CustomCanCast(vi)) {
+                                        vi.CastTarget(comboTarget);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+						
 												
 						if (menu_AbilitiesList[3]) {
 							if (!ModifierReplicate){
@@ -653,8 +675,117 @@
 
                         }
 
+						
+						if (menu_ItemsList.IsEnabled('item_orchid') ) { 
+							let Orchid = localHero.GetItem('item_orchid', true);
+							if (Orchid && CustomCanCast(Orchid)  && !Stunned && !InmuneMagic && !Hexxed  && !Silenced) { 
+								if (TargetInRadius(comboTarget, 900, localHero)) {
+									Orchid.CastTarget(comboTarget);
+								}
+							}
+						}
+						
 
 						
+						if (menu_ItemsList.IsEnabled('item_bloodthorn') ) { 
+							let Bloodthorn = localHero.GetItem('item_bloodthorn', true);
+							if (Bloodthorn && CustomCanCast(Bloodthorn) && !Stunned && !InmuneMagic && !Hexxed && !Silenced) { 
+								if (TargetInRadius(comboTarget, 900, localHero)) {
+									Bloodthorn.CastTarget(comboTarget);								
+								}
+							}
+						}
+						
+						
+						if (menu_ItemsList.IsEnabled('item_sheepstick') ) {
+							let Sheepstick = localHero.GetItem('item_sheepstick', true);
+							if (Sheepstick && CustomCanCast(Sheepstick) && !Stunned && !InmuneMagic && !Hexxed ) {
+								if (TargetInRadius(comboTarget, 600, localHero)) {
+									Sheepstick.CastTarget(comboTarget);
+									
+								}
+							} 
+						} 
+						
+						
+						if (menu_ItemsList.IsEnabled('item_nullifier') ) { 
+							let Nullifier = localHero.GetItem('item_nullifier', true);
+							if (Nullifier && CustomCanCast(Nullifier) && Ethereo) { 
+								Nullifier.CastTarget(comboTarget);
+							}
+						}
+					
+							
+						if (menu_ItemsList.IsEnabled('item_shivas_guard') ) { 
+							let Shivas = localHero.GetItem('item_shivas_guard', true);
+							if (Shivas && CustomCanCast(Shivas) && !InmuneMagic && !Hexxed ) { 
+								if (TargetInRadius(comboTarget, 500, localHero)) {
+									Shivas.CastNoTarget();
+								}
+							}
+						}
+						
+						
+						if (menu_ItemsList.IsEnabled('item_revenants_brooch') ) { 
+							let Revenants = localHero.GetItem('item_revenants_brooch', true);
+							let RevenantsMod = localHero.HasModifier("modifier_item_revenants_brooch_counter");
+							if (Revenants && CustomCanCast(Revenants) && !InmuneMagic && !RevenantsMod) { 
+								if (TargetInRadius(comboTarget, 480, localHero)) {
+									Revenants.CastNoTarget();
+								}
+							}
+						}
+
+						if (menu_ItemsList.IsEnabled('item_mjollnir') ) { 
+							let Mjollnir = localHero.GetItem('item_mjollnir', true);
+							if (Mjollnir && CustomCanCast(Mjollnir) && !InmuneMagic ) { 
+								if (TargetInRadius(comboTarget, 500, localHero)) {
+									Mjollnir.CastTarget(localHero);
+								}
+							}
+						}						
+						
+
+						if (menu_ItemsList.IsEnabled('item_bullwhip') ) { 
+							let Bullwhip = localHero.GetItem('item_bullwhip', false);
+							if (Bullwhip && CustomCanCast(Bullwhip) && !InmuneMagic && comboTarget.IsRunning() && !Hexxed ) { 
+								if (TargetInRadius(comboTarget, 850, localHero)) {
+									Bullwhip.CastTarget(comboTarget);
+								}
+							}
+						}
+						
+						//'item_diffusal_blade', 'item_disperser'
+						if (menu_ItemsList.IsEnabled('item_diffusal_blade') ) { 
+							let Diffusal = localHero.GetItem('item_diffusal_blade', true);
+							if (Diffusal && CustomCanCast(Diffusal) && !InmuneMagic && comboTarget.IsRunning() && !Hexxed ) { 
+								if (TargetInRadius(comboTarget, 600, localHero)) {
+									Diffusal.CastTarget(comboTarget);
+								}
+							}
+						}
+						
+						if (menu_ItemsList.IsEnabled('item_disperser') ) { 
+							let Disperser = localHero.GetItem('item_disperser', true);
+							if (Disperser && CustomCanCast(Disperser) && !InmuneMagic && comboTarget.IsRunning() && !Hexxed ) { 
+								if (TargetInRadius(comboTarget, 600, localHero)) {
+									Disperser.CastTarget(comboTarget);
+								}
+							}
+						}
+						
+							
+						if (menu_ItemsList.IsEnabled('item_bloodstone') ) { 
+							let Bloodstone = localHero.GetItem('item_bloodstone', true);
+							if (Bloodstone && CustomCanCast(Bloodstone) && !InmuneMagic && !Hexxed ) { 
+								if (TargetInRadius(comboTarget, 480, localHero)) {
+									myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_NO_TARGET,null,null,Bloodstone,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+
+								}
+							}
+						}						
+						
+											
 						let [order, target, pos] = [Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, comboTarget, comboTarget.GetAbsOrigin()];
 						if (comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_ATTACK_IMMUNE) ||
 							comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_INVULNERABLE) ||
