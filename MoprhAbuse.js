@@ -471,7 +471,7 @@
 																if (Engine.OnceAt(0.2)) {
 																	AbilHybritList[keyAbil][2] = GameRules.GetGameTime();
 																	AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
-																	AbilHybrid.CastPosition(comboTarget);
+																	AbilHybrid.CastPosition(comboTarget.GetAbsOrigin());
 																}
 															}
 															
@@ -540,7 +540,7 @@
 																if (Engine.OnceAt(0.2)) {
 																	AbilHybritList[keyAbil][2] = GameRules.GetGameTime();
 																	AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
-																	AbilHybrid.CastPosition(comboTarget);
+																	AbilHybrid.CastPosition(comboTarget.GetAbsOrigin());
 																}
 															}
 															
