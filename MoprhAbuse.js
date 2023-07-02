@@ -450,7 +450,33 @@
 																							
 														const behavior = AbilHybrid.GetBehavior();
 														console.log(behavior);
-														if ((behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_NO_TARGET) && !(behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_TOGGLE)) {
+														
+														if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_IMMEDIATE) {
+															let  castRange = AbilHybrid.GetCastRange();
+															if (TargetInRadius(comboTarget, castRange, localHero)) {
+															
+																
+																
+																let speedUlti = AbilHybrid.GetLevelSpecialValueFor("speed");
+																let travel_time = 0;
+																if(speedUlti > 0){
+																	travel_time = castRange / (speedUlti + 1);
+																}	else{
+																	travel_time = 0.1;
+																}
+																const castpointTimee = AbilHybrid.GetCastPoint();
+																const delay = travel_time + castpointTimee;
+																const BestPost = GetPredictedPosition(comboTarget, delay);
+																
+																if (Engine.OnceAt(0.2)) {
+																	AbilHybritList[keyAbil][2] = GameRules.GetGameTime();
+																	AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
+																	AbilHybrid.CastPosition(BestPost);
+																}
+															}
+															
+														
+														} else if ((behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_NO_TARGET) && !(behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_TOGGLE)) {
 															// La habilidad es activable.
 									
 															let aoe_radius = AbilHybrid.GetLevelSpecialValueFor("radius");
