@@ -570,8 +570,8 @@
 													} else{
 														if(Ultimate && Ultimate.IsExist() && Ultimate.CanCast()){
 															
-															Ultimate.CastNoTarget();
-															timeUltihidrid = GameRules.GetGameTime();
+															//Ultimate.CastNoTarget();
+															//timeUltihidrid = GameRules.GetGameTime();
 														}
 													}
 						
