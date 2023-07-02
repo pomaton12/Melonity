@@ -449,7 +449,7 @@
 													if (AbilHybrid && AbilHybrid.IsExist() && AbilHybrid.CanCast() && AbilHybrid.IsCastable(localHero.GetMana()) && localHero.GetMana() >= AbilHybrid.GetManaCost()){
 																							
 														const behavior = AbilHybrid.GetBehavior();
-														//console.log(behavior);
+														console.log(behavior);
 														
 														if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_IMMEDIATE) {
 															let  castRange = AbilHybrid.GetCastRange();
