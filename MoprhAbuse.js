@@ -497,7 +497,7 @@
 															// La habilidad es de tipo con objetivo y requiere una ubicación en el mapa.
 															
 															let  castRange = AbilHybrid.GetCastRange();
-															let aoe_radius = AbilHybrid.GetLevelSpecialValueFor("radius");
+															let aoe_radius = AbilHybrid.GetLevelSpecialValueFor("abilitycastrange");
 															console.log("Cast range",castRange);
 															console.log("aoe",aoe_radius);
 															if (TargetInRadius(comboTarget, castRange, localHero)) {
