@@ -449,7 +449,7 @@
 													if (AbilHybrid && AbilHybrid.IsExist() && AbilHybrid.CanCast() && AbilHybrid.IsCastable(localHero.GetMana()) && localHero.GetMana() >= AbilHybrid.GetManaCost()){
 																							
 														const behavior = AbilHybrid.GetBehavior();
-														console.log(behavior);
+														//console.log(behavior);
 																												
 														if ((behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_NO_TARGET) && !(behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_TOGGLE)) {
 															// La habilidad es activable.
@@ -497,7 +497,9 @@
 															// La habilidad es de tipo con objetivo y requiere una ubicación en el mapa.
 															
 															let  castRange = AbilHybrid.GetCastRange();
-															console.log(castRange);
+															let aoe_radius = AbilHybrid.GetLevelSpecialValueFor("radius");
+															console.log("Cast range",castRange);
+															console.log("aoe",aoe_radius);
 															if (TargetInRadius(comboTarget, castRange, localHero)) {
 															
 																
