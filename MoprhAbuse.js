@@ -400,8 +400,8 @@
 									let abilListH = AbilHybritList[key];
 									let LastTime = abilListH[2];
 									let ColdowMax = abilListH[3];
-									console.log(LastTime);
-									console.log(ColdowMax);
+									//console.log(LastTime);
+									//console.log(ColdowMax);
 									if (ColdowMax > 0){
 										if (LastTime > 0){
 											if (GameRules.GetGameTime()- LastTime > ColdowMax){
@@ -449,6 +449,7 @@
 													if (AbilHybrid && AbilHybrid.IsExist() && AbilHybrid.CanCast() && AbilHybrid.IsCastable(localHero.GetMana()) && localHero.GetMana() >= AbilHybrid.GetManaCost()){
 																							
 														const behavior = AbilHybrid.GetBehavior();
+														console.log(behavior);
 														if ((behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_NO_TARGET) && !(behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_TOGGLE)) {
 															// La habilidad es activable.
 									
