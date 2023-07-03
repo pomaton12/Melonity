@@ -753,13 +753,13 @@
 								|| comboTarget.GetItem('item_aeon_disk', true)
 								|| comboTarget.GetItem('item_hurricane_pike', true);
 						
-							let HeroMod = comboTarget.GetItem('modifier_item_glimmer_cape_fade', true) 
-								|| comboTarget.GetItem('modifier_eul_cyclone', true) 
-								|| comboTarget.GetItem('modifier_wind_waker', true) 
-								|| comboTarget.GetItem('modifier_ghost_state', true)
-								|| comboTarget.GetItem('modifier_item_aeon_disk_buff', true)								
-								|| comboTarget.GetItem('modifier_windrunner_windrun', true)
-								|| comboTarget.GetItem('modifier_ember_spirit_flame_guard', true);						
+							let HeroMod = comboTarget.HasState('modifier_item_glimmer_cape_fade', true) 
+								|| comboTarget.HasState('modifier_eul_cyclone', true) 
+								|| comboTarget.HasState('modifier_wind_waker', true) 
+								|| comboTarget.HasState('modifier_ghost_state', true)
+								|| comboTarget.HasState('modifier_item_aeon_disk_buff', true)								
+								|| comboTarget.HasState('modifier_windrunner_windrun', true)
+								|| comboTarget.HasState('modifier_ember_spirit_flame_guard', true);						
 							
 							
 							if (Nullifier && CustomCanCast(Nullifier) && (HeroItem || HeroMod || Ethereo) && !MyModSilverEdge) { 
