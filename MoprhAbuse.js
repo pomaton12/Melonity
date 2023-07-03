@@ -200,18 +200,15 @@
 			
             if (comboTarget) {
                 if (!particle) {
-                    //particle = Particle.Create('particles/ui_mouseactions/range_finder_tower_aoe.vpcf', Enum.ParticleAttachment.PATTACH_INVALID, comboTarget);
-					particle = Particle.Create("particles/units/heroes/hero_kunkka/kunkka_spell_torrent_splash.vpcf", Enum.ParticleAttachment.PATTACH_ABSORIGIN_FOLLOW, comboTarget);
-					//particle.SetControl(7, comboTarget.GetAbsOrigin());
-					//particle.SetControl(0, Vector(209,21,255));
-					//particle.SetControl(1, Vector(500,0,0));
-					//particle.SetControl(2, EntitySystem.GetLocalHero().GetAbsOrigin());
-					particle.SetControl(6, new Vector(1, 0, 0));
+                     particle = Particle.Create('particles/ui_mouseactions/range_finder_tower_aoe.vpcf', Enum.ParticleAttachment.PATTACH_INVALID, comboTarget);
+                    particle.SetControl(2, EntitySystem.GetLocalHero().GetAbsOrigin());
+                    particle.SetControl(6, new Vector(1, 0, 0));
+                    particle.SetControl(7, comboTarget.GetAbsOrigin());
 					
                 }
                 else {
-                    //particle.SetControl(2, EntitySystem.GetLocalHero().GetAbsOrigin());
-                   
+                    particle.SetControl(2, EntitySystem.GetLocalHero().GetAbsOrigin());
+                    particle.SetControl(7, comboTarget.GetAbsOrigin());
                 }
             }
             else {
@@ -915,7 +912,7 @@
 			if (menu_ItemsList.IsEnabled('item_manta') ) { 
 				let invimod = localHero.HasModifier("Invisible");
 				let manta = localHero.GetItem('item_manta', true);
-				let MyHeroSilenced = localHero.HasState(Enum.ModifierState.MODIFIER_STATE_SILENCED) || localHero.HasState(Enum.ModifierState.MODIFIER_STATE_ROOTED);
+				let MyHeroSilenced = localHero.HasModifier("Silenced") || localHero.HasModifier("Rooted");
 				let enemiesMorRange = localHero.GetHeroesInRadius(700, Enum.TeamType.TEAM_ENEMY);
 
 				if (manta && CustomCanCast(manta) && !invimod) { 
