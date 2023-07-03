@@ -440,7 +440,7 @@
 											}
 										} 
 									} else{
-										if (GameRules.GetGameTime()- timeUltihidrid > 3){
+										if (GameRules.GetGameTime()- timeUltihidrid > 4.5){
 											if(Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && !MyModSilverEdge){
 											
 												Ultimate.CastNoTarget();
@@ -704,6 +704,44 @@
 								}
 							}
 						}
+						
+						if (menu_ItemsList.IsEnabled('item_manta') ) { 
+							let manta = localHero.GetItem('item_manta', true);
+
+							if (manta && CustomCanCast(manta) && !MyModSilverEdge) { 
+								const silences = localHero.HasModifier('modifier_orchid_malevolence_debuff')
+									|| localHero.HasModifier('modifier_bloodthorn_debuff')
+									|| localHero.HasModifier('modifier_skywrath_mage_ancient_seal')
+									|| localHero.HasModifier('modifier_drowranger_wave_of_silence') 
+									|| localHero.HasModifier('modifier_death_prophet_silence')
+									|| localHero.HasModifier('modifier_night_stalker_crippling_fear')
+									|| localHero.HasModifier('modifier_silencer_global_silence')
+									|| localHero.HasModifier('modifier_grimstroke_spirit_walk_buff')
+									|| localHero.HasModifier('modifier_silencer_last_word')
+									|| localHero.HasModifier('modifier_riki_smoke_screen')
+									|| localHero.HasModifier('modifier_disruptor_static_storm')
+									|| localHero.HasModifier('modifier_techies_blast_off')
+									|| localHero.HasModifier('modifier_enigma_malefice')
+									|| localHero.HasModifier('modifier_bloodseeker_blood_bath')
+									|| localHero.HasModifier('modifier_dark_willow_bramble_maze')
+									|| localHero.HasModifier('modifier_dark_willow_cursed_crown')
+									|| localHero.HasModifier('modifier_puck_silence')
+									|| localHero.HasModifier('modifier_faceless_void_time_dilation_slow')
+									|| localHero.HasModifier('modifier_invoker_cold_snap')
+									|| localHero.HasModifier('modifier_templar_assassin_trap_meld')
+									|| localHero.HasModifier('modifier_furion_sprout_entangle')
+									|| localHero.HasModifier('modifier_crystal_maiden_frostbite')
+									|| localHero.HasModifier('modifier_earth_spirit_geomagnetic_grip')
+									|| localHero.HasModifier('modifier_abaddon_frostmourne_debuff_bonus');
+								if (silences){
+									let enemiesMorRange = localHero.GetHeroesInRadius(700, Enum.TeamType.TEAM_ENEMY);
+									if(enemiesMorRange.length > 0) {									
+										myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_NO_TARGET,null,null,manta,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+									}
+								}
+							}
+						}
+			
 
 						if (menu_ItemsList.IsEnabled('item_satanic') ) { 
 							let Satanic = localHero.GetItem('item_satanic', true);
@@ -881,7 +919,7 @@
 			// ===== Funcion Opcion Panel =========
 			if (ShiftEnabled.GetValue()) {
 				let invimod = localHero.HasModifier("Invisible");
-				if (!localHero.IsAlive() || localHero.IsSilenced() || localHero.HasState(Enum.ModifierState.MODIFIER_STATE_HEXED) || localHero.HasState(Enum.ModifierState.MODIFIER_STATE_MUTED) || invimod) {
+				if (!localHero.IsAlive() || localHero.IsSilenced() || localHero.HasState(Enum.ModifierState.MODIFIER_STATE_HEXED) || localHero.HasState(Enum.ModifierState.MODIFIER_STATE_MUTED) || MyModSilverEdge) {
 					return;
 				}
 				
@@ -909,43 +947,6 @@
 			}
 			
 			// ===== Particula Kill =========
-			if (menu_ItemsList.IsEnabled('item_manta') ) { 
-				let invimod = localHero.HasModifier("Invisible");
-				let manta = localHero.GetItem('item_manta', true);
-
-				if (manta && CustomCanCast(manta) && !invimod) { 
-					let enemiesMorRange = localHero.GetHeroesInRadius(700, Enum.TeamType.TEAM_ENEMY);
-					const silences = localHero.HasModifier('modifier_orchid_malevolence_debuff')
-						|| localHero.HasModifier('modifier_bloodthorn_debuff')
-						|| localHero.HasModifier('modifier_skywrath_mage_ancient_seal')
-						|| localHero.HasModifier('modifier_drowranger_wave_of_silence') 
-						|| localHero.HasModifier('modifier_death_prophet_silence')
-						|| localHero.HasModifier('modifier_night_stalker_crippling_fear')
-						|| localHero.HasModifier('modifier_silencer_global_silence')
-						|| localHero.HasModifier('modifier_grimstroke_spirit_walk_buff')
-						|| localHero.HasModifier('modifier_silencer_last_word')
-						|| localHero.HasModifier('modifier_riki_smoke_screen')
-						|| localHero.HasModifier('modifier_disruptor_static_storm')
-						|| localHero.HasModifier('modifier_techies_blast_off')
-						|| localHero.HasModifier('modifier_enigma_malefice')
-						|| localHero.HasModifier('modifier_bloodseeker_blood_bath')
-						|| localHero.HasModifier('modifier_dark_willow_bramble_maze')
-						|| localHero.HasModifier('modifier_dark_willow_cursed_crown')
-						|| localHero.HasModifier('modifier_puck_silence')
-						|| localHero.HasModifier('modifier_faceless_void_time_dilation_slow')
-						|| localHero.HasModifier('modifier_invoker_cold_snap')
-						|| localHero.HasModifier('modifier_templar_assassin_trap_meld')
-						|| localHero.HasModifier('modifier_furion_sprout_entangle')
-						|| localHero.HasModifier('modifier_crystal_maiden_frostbite')
-						|| localHero.HasModifier('modifier_earth_spirit_geomagnetic_grip')
-						|| localHero.HasModifier('modifier_abaddon_frostmourne_debuff_bonus');
-					if (silences && enemiesMorRange.length > 0) {
-						
-						myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_NO_TARGET,null,null,manta,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
-					}
-				}
-			}
-			
 				
         }
     };	
