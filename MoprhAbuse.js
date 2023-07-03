@@ -941,7 +941,7 @@
 						|| localHero.HasModifier('modifier_abaddon_frostmourne_debuff_bonus');
 					if (silences && enemiesMorRange.length > 0) {
 						
-						manta.CastNoTarget();
+						myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_NO_TARGET,null,null,manta,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 					}
 				}
 			}
