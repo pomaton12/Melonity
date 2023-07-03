@@ -201,7 +201,7 @@
             if (comboTarget) {
                 if (!particle) {
                     //particle = Particle.Create('particles/ui_mouseactions/range_finder_tower_aoe.vpcf', Enum.ParticleAttachment.PATTACH_INVALID, comboTarget);
-				particle = Particle.Create("particles/items_fx/aura_shivas.vpcf", Enum.ParticleAttachment.PATTACH_ABSORIGIN_FOLLOW, comboTarget);
+				particle = Particle.Create("particles/units/heroes/hero_gyrocopter/gyro_calldown_marker.vpcf", Enum.ParticleAttachment.PATTACH_ABSORIGIN_FOLLOW, comboTarget);
 				//particle.SetControl(0, comboTarget.GetAbsOrigin());
 				particle.SetControl(0, Vector(209,21,255));
 				particle.SetControl(1, Vector(500,0,0));
