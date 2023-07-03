@@ -202,9 +202,10 @@
                 if (!particle) {
                     //particle = Particle.Create('particles/ui_mouseactions/range_finder_tower_aoe.vpcf', Enum.ParticleAttachment.PATTACH_INVALID, comboTarget);
 				particle = Particle.Create("particles/econ/items/spectre/spectre_arcana/spectre_arcana_minigame_death_target.vpcf", Enum.ParticleAttachment.PATTACH_ABSORIGIN_FOLLOW, comboTarget);
-				particle.SetControl(0, comboTarget.GetAbsOrigin());
+				//particle.SetControl(0, comboTarget.GetAbsOrigin());
 				//particle.SetControl(1, Vector(500,0,0));
 				particle.SetControl(6, new Vector(1, 0, 0));
+				particle.SetControl(7, comboTarget.GetAbsOrigin());
                 }
                 else {
                     //particle.SetControl(2, EntitySystem.GetLocalHero().GetAbsOrigin());
