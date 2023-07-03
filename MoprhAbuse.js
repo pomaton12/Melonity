@@ -606,6 +606,8 @@
 															// La habilidad es de tipo direccional.
 															let  castRange = AbilHybrid.GetCastRange();
 															if (TargetInRadius(comboTarget, castRange, localHero)) {
+																if (Engine.OnceAt(0.2)) {
+																}
 																const localHePos = localHero.GetAbsOrigin();
 																const enemyHePos = comboTarget.GetAbsOrigin();
 																const Idealdirection = (enemyHePos.sub(localHePos)).Normalized();
@@ -620,8 +622,8 @@
 																AbilHybritList[keyAbil][2] = GameRules.GetGameTime();
 																AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
 																
-																myPlayer.PrepareUnitOrders(30, null, IdealPosition, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
-																myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION, null, BestPost, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
+																myPlayer.PrepareUnitOrders(30, null, localHePos, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
+																AbilHybrid.CastPosition(BestPost);
 
 																//AbilHybrid.CastPosition(IdealPosition);
 																//AbilHybrid.CastPosition(BestPost);
