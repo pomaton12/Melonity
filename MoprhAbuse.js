@@ -204,6 +204,7 @@
 				particle = Particle.Create("particles/ui_mouseactions/range_display_magenta.vpcf", Enum.ParticleAttachment.PATTACH_ABSORIGIN_FOLLOW, comboTarget);
 				//particle.SetControl(0, comboTarget.GetAbsOrigin());
 				//particle.SetControl(1, Vector(500,0,0));
+				particle.SetControl(1, Vector(500,0,0));
 				particle.SetControl(6, new Vector(1, 0, 0));
 				particle.SetControl(7, comboTarget.GetAbsOrigin());
                 }
