@@ -431,8 +431,7 @@
 									let abilListH = AbilHybritList[key];
 									let LastTime = abilListH[2];
 									let ColdowMax = abilListH[3];
-									//console.log(LastTime);
-									//console.log(ColdowMax);
+
 									if (ColdowMax > 0){
 										if (LastTime > 0){
 											if (GameRules.GetGameTime()- LastTime > ColdowMax){
@@ -467,7 +466,7 @@
 												if (abilityList[2] === AbilHybridName && abilityList[5] === true && abilityList[6] === true)  {
 													let getcoldownmax = AbilHybrid.GetCooldown();
 													
-													//console.log(AbilHybrid.GetName()," ",getcoldownmax);
+													
 																		
 													let keyAbil = AbilHybridName;
 													if (!AbilHybritList[keyAbil]) {
@@ -480,7 +479,7 @@
 													if (AbilHybrid && AbilHybrid.IsExist() && AbilHybrid.CanCast() && AbilHybrid.IsCastable(localHero.GetMana()) && localHero.GetMana() >= AbilHybrid.GetManaCost() && !MyModSilverEdge){
 																							
 														const behavior = AbilHybrid.GetBehavior();
-														//console.log(behavior);
+														
 																												
 														if ((behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_NO_TARGET) && !(behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_TOGGLE)) {
 															// La habilidad es activable.
@@ -508,7 +507,7 @@
 															const targetTeam = AbilHybrid.GetTargetTeam();
 															if (targetTeam & Enum.TargetTeam.DOTA_UNIT_TARGET_TEAM_FRIENDLY) {
 																// La habilidad es de tipo con objetivo y se puede usar en unidades aliadas, incluyéndose a uno mismo.
-																//console.log("La habilidad es de tipo con objetivo");
+																
 																AbilHybritList[keyAbil][2] = GameRules.GetGameTime();
 																AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
 																AbilHybrid.CastTarget(localHero);
@@ -517,7 +516,7 @@
 																let  castRange = AbilHybrid.GetCastRange();
 																//let castRangeBonus = localHero.GetCastRangeBonus();
 																if (TargetInRadius(comboTarget, castRange, localHero)) {
-																	//console.log("Cast Enemigos");
+																	
 																	
 																	AbilHybritList[keyAbil][2] = GameRules.GetGameTime();
 																	AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
@@ -530,7 +529,7 @@
 															let  castRange = AbilHybrid.GetCastRange();
 															let aoe_amqop = AbilHybrid.GetLevelSpecialValueFor("abilitycastrange");
 															let aoe_void = AbilHybrid.GetLevelSpecialValueFor("range");
-															//console.log(AbilHybrid.GetName());
+															
 															if (castRange != 0) {
 																if (AbilHybrid.GetName() === "void_spirit_aether_remnant" || AbilHybrid.GetName() === "pangolier_swashbuckle" || AbilHybrid.GetName() === "windrunner_gale_force") {
 																	let  castRange = AbilHybrid.GetCastRange();
@@ -551,12 +550,8 @@
 																		AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
 																		
 																		myPlayer.PrepareUnitOrders(30, null, BestPost, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
-																		AbilHybrid.CastPosition(enemyHePos);
+																		AbilHybrid.CastPosition(localHePos);
 																		setTimeout(function() {}, 300);
-																		console.log("ctmr");
-																		//AbilHybrid.CastPosition(IdealPosition);
-																		//AbilHybrid.CastPosition(BestPost);
-																	
 
 																	}
 																	
@@ -586,7 +581,7 @@
 																
 															} else if (aoe_amqop != 0) {
 																if (TargetInRadius(comboTarget, aoe_amqop, localHero)) {
-																	console.log("Casteo en una posicion");
+																	
 																	let speedUlti = AbilHybrid.GetLevelSpecialValueFor("speed");
 																	let travel_time = 0;
 																	if(speedUlti > 0){
@@ -609,7 +604,7 @@
 																
 															} else if (aoe_void != 0) {
 																if (TargetInRadius(comboTarget, aoe_void, localHero)) {
-																	console.log("Casteo en una posicion");
+																	
 																	let speedUlti = AbilHybrid.GetLevelSpecialValueFor("speed");
 																	let travel_time = 0;
 																	if(speedUlti > 0){
@@ -678,7 +673,7 @@
 									let trueWaveDamage = waveDamage * comboTarget.GetMagicalArmorDamageMultiplier();
 									let enemyHp = comboTarget.GetHealth();
 
-									//console.log(waveDamage," ",trueWaveDamage);
+									
 									if (dist > RangeAttackMax){
 										myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,BestPost,Waveform, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 									}
