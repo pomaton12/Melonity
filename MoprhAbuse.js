@@ -33,6 +33,33 @@
 	const path_ = ["Custom Scripts","Heroes","Agility","Morphling"];
 	const path_1 = ["Custom Scripts","Heroes","Agility","Morphling","Best Ulti Cast"];
 	const path_2 = ["Custom Scripts","Heroes","Agility","Morphling","Auto Shift Dogde"];
+	
+	const silences = [
+		'modifier_orchid_malevolence_debuff',
+		'modifier_bloodthorn_debuff',
+		'modifier_skywrath_mage_ancient_seal',
+		'modifier_drowranger_wave_of_silence', 
+		'modifier_death_prophet_silence',
+		'modifier_night_stalker_crippling_fear',
+		'modifier_silencer_global_silence',
+		'modifier_grimstroke_spirit_walk_buff',
+		'modifier_silencer_last_word',
+		'modifier_riki_smoke_screen',
+		'modifier_disruptor_static_storm',
+		'modifier_techies_blast_off',
+		'modifier_enigma_malefice',
+		'modifier_bloodseeker_blood_bath',
+		'modifier_dark_willow_bramble_maze',
+		'modifier_dark_willow_cursed_crown',
+		'modifier_puck_silence',
+		'modifier_faceless_void_time_dilation_slow',
+		'modifier_invoker_cold_snap',
+		'modifier_templar_assassin_trap_meld',
+		'modifier_furion_sprout_entangle',
+		'modifier_crystal_maiden_frostbite',
+		'modifier_earth_spirit_geomagnetic_grip',
+		'modifier_abaddon_frostmourne_debuff_bonus'
+	];
 
 	const item_Images = [
 	'item_soul_ring', 'item_armlet', 'item_mjollnir', 'item_blink', 'item_abyssal_blade', 'item_fallen_sky',
@@ -912,12 +939,12 @@
 			if (menu_ItemsList.IsEnabled('item_manta') ) { 
 				let invimod = localHero.HasModifier("Invisible");
 				let manta = localHero.GetItem('item_manta', true);
-				let MyHeroSilenced = localHero.HasModifier("Silenced") || localHero.HasModifier("Rooted");
-				let enemiesMorRange = localHero.GetHeroesInRadius(700, Enum.TeamType.TEAM_ENEMY);
-	
+
 				if (manta && CustomCanCast(manta) && !invimod) { 
-					console.log(MyHeroSilenced);
-					if (MyHeroSilenced && enemiesMorRange.length > 0) {
+					let enemiesMorRange = localHero.GetHeroesInRadius(900, Enum.TeamType.TEAM_ENEMY);
+					const modifiers = localHero.GetModifiers();
+					const isSilenced = modifiers.some(modifier => silences.includes(modifier.GetName()));
+					if (isSilenced && enemiesMorRange.length > 0) {
 						
 						manta.CastNoTarget();
 					}
