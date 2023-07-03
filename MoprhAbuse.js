@@ -880,7 +880,7 @@
 			
 			// ===== Funcion Opcion Panel =========
 			if (ShiftEnabled.GetValue()) {
-				let invimod = localHero.HasState("Invisible");
+				let invimod = localHero.HasModifier("Invisible");
 				if (!localHero.IsAlive() || localHero.IsSilenced() || localHero.HasState(Enum.ModifierState.MODIFIER_STATE_HEXED) || localHero.HasState(Enum.ModifierState.MODIFIER_STATE_MUTED) || invimod) {
 					return;
 				}
@@ -910,7 +910,7 @@
 			
 			// ===== Particula Kill =========
 			if (menu_ItemsList.IsEnabled('item_manta') ) { 
-				let invimod = localHero.HasState("Invisible");
+				let invimod = localHero.HasModifier("Invisible");
 				let manta = localHero.GetItem('item_manta', true);
 				let MyHeroSilenced = localHero.HasState(Enum.ModifierState.MODIFIER_STATE_SILENCED) || localHero.HasState(Enum.ModifierState.MODIFIER_STATE_ROOTED);
 				let enemiesMorRange = localHero.GetHeroesInRadius(700, Enum.TeamType.TEAM_ENEMY);
