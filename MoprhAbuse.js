@@ -201,7 +201,7 @@
             if (comboTarget) {
                 if (!particle) {
                     //particle = Particle.Create('particles/ui_mouseactions/range_finder_tower_aoe.vpcf', Enum.ParticleAttachment.PATTACH_INVALID, comboTarget);
-					particle = Particle.Create("particles/units/heroes/hero_invoker/invoker_sun_strike.vpcf", Enum.ParticleAttachment.PATTACH_INVALID, 0);
+					particle = Particle.Create("particles/units/heroes/hero_invoker/invoker_sun_strike.vpcf", Enum.ParticleAttachment.PATTACH_INVALID, comboTarget);
 					particle.SetControl(7, comboTarget.GetAbsOrigin());
 					//particle.SetControl(0, Vector(209,21,255));
 					particle.SetControl(1, Vector(500,0,0));
