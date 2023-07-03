@@ -7,7 +7,6 @@
   \**********************************/
 /***/ (() => {
 
-eval(`
 	// Definición del objeto AutoSaverWindrunner
 	const AutoSaverWindrunner = {};
 
@@ -159,7 +158,7 @@ eval(`
 				// Agregar condición para evitar lanzar gale force si el enemigo tiene activado bkb
 				if (enemy.HasModifier("modifier_black_king_bar_immune") === false) {
 				  gale_force.CastPosition(pushPosition);
-				  setTimeout(function() {}, 300);
+				  //setTimeout(function() {}, 300);
 				}
 		      }
 		    }
@@ -190,7 +189,6 @@ eval(`
 	RegisterScript(AutoSaverWindrunner);
 
 
-`);
 
 /***/ })
 
