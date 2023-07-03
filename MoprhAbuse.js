@@ -535,7 +535,8 @@
 																if (AbilHybrid.GetName() === "void_spirit_aether_remnant" || AbilHybrid.GetName() === "pangolier_swashbuckle" || AbilHybrid.GetName() === "windrunner_gale_force") {
 																	let  castRange = AbilHybrid.GetCastRange();
 																	if (TargetInRadius(comboTarget, castRange, localHero)) {
-
+																		if (Engine.OnceAt(0.2)) {
+																		}
 																		const localHePos = localHero.GetAbsOrigin();
 																		const enemyHePos = comboTarget.GetAbsOrigin();
 																		const Idealdirection = (enemyHePos.sub(localHePos)).Normalized();
