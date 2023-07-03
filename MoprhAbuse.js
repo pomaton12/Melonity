@@ -444,7 +444,7 @@
 											}
 										} 
 									} else{
-										if (GameRules.GetGameTime()- timeUltihidrid > 4.5){
+										if (GameRules.GetGameTime()- timeUltihidrid > 3){
 											if(Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && !MyModSilverEdge){
 											
 												Ultimate.CastNoTarget();
@@ -530,10 +530,34 @@
 															let  castRange = AbilHybrid.GetCastRange();
 															let aoe_amqop = AbilHybrid.GetLevelSpecialValueFor("abilitycastrange");
 															let aoe_void = AbilHybrid.GetLevelSpecialValueFor("range");
-															console.log(AbilHybrid.GetName());
+															//console.log(AbilHybrid.GetName());
 															if (castRange != 0) {
-																if (AbilHybrid.GetName() === "Hola mundo") {
+																if (AbilHybrid.GetName() === "void_spirit_aether_remnant" || AbilHybrid.GetName() === "pangolier_swashbuckle" || AbilHybrid.GetName() === "windrunner_gale_force") {
+																	let  castRange = AbilHybrid.GetCastRange();
+																	if (TargetInRadius(comboTarget, castRange, localHero)) {
+
+																		const localHePos = localHero.GetAbsOrigin();
+																		const enemyHePos = comboTarget.GetAbsOrigin();
+																		const Idealdirection = (enemyHePos.sub(localHePos)).Normalized();
+																		let IdealPosition = enemyHePos.add(Idealdirection.mul(new Vector(300, 300, 0)));
 																	
+																		const travel_time = 0.1;
+																		const castpointTimee = AbilHybrid.GetCastPoint();
+																		const delay = travel_time + castpointTimee;
+																		const BestPost = GetPredictedPosition(comboTarget, delay);
+																	
+																		
+																		AbilHybritList[keyAbil][2] = GameRules.GetGameTime();
+																		AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
+																		
+																		myPlayer.PrepareUnitOrders(30, null, localHero, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
+																		AbilHybrid.CastPosition(BestPost);
+																		console.log("ctmr");
+																		//AbilHybrid.CastPosition(IdealPosition);
+																		//AbilHybrid.CastPosition(BestPost);
+																	
+
+																	}
 																	
 																	
 																} else{
@@ -610,32 +634,7 @@
 															
 														} else if (behavior & Enum.AbilityBehavior.DOTA_ABILITY_BEHAVIOR_DIRECTIONAL) {
 															// La habilidad es de tipo direccional.
-															let  castRange = AbilHybrid.GetCastRange();
-															if (TargetInRadius(comboTarget, castRange, localHero)) {
-																if (Engine.OnceAt(0.2)) {
-																}
-																const localHePos = localHero.GetAbsOrigin();
-																const enemyHePos = comboTarget.GetAbsOrigin();
-																const Idealdirection = (enemyHePos.sub(localHePos)).Normalized();
-																let IdealPosition = enemyHePos.add(Idealdirection.mul(new Vector(300, 300, 0)));
-															
-																const travel_time = 0.1;
-																const castpointTimee = AbilHybrid.GetCastPoint();
-																const delay = travel_time + castpointTimee;
-																const BestPost = GetPredictedPosition(comboTarget, delay);
-															
-																
-																AbilHybritList[keyAbil][2] = GameRules.GetGameTime();
-																AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
-																
-																myPlayer.PrepareUnitOrders(30, null, localHePos, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
-																//AbilHybrid.CastPosition(BestPost);
-																console.log("ctmr");
-																//AbilHybrid.CastPosition(IdealPosition);
-																//AbilHybrid.CastPosition(BestPost);
-															
 
-															}
 														}
 													} else{
 														if(Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && !MyModSilverEdge){
