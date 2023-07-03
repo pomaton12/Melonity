@@ -73,7 +73,7 @@
 	.GetValue();
 	
 	let MiscEnabled = Menu.AddToggle(path_3, 'Use strategic mode', true);
-	MiscEnabled.SetImage('panorama/images/items/item_manta_png.vtex_c');
+	MiscEnabled.SetImage('panorama/images/items/manta_png.vtex_c');
 	
 	
 	Menu.SetImage(['Custom Scripts', 'Heroes'], '~/menu/40x40/heroes.png');
