@@ -72,7 +72,7 @@
 	.OnChange(state => HealthUI = state.newValue)
 	.GetValue();
 	
-	let MiscEnabled = Menu.AddKeyBind(path_3, 'Use strategic mode', true);
+	let MiscEnabled = Menu.AddToggle(path_3, 'Use strategic mode', true);
 	MiscEnabled.SetImage('panorama/images/items/item_manta_png.vtex_c');
 	
 	
