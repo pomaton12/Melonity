@@ -914,9 +914,9 @@
 				let manta = localHero.GetItem('item_manta', true);
 				let MyHeroSilenced = localHero.HasModifier("Silenced") || localHero.HasModifier("Rooted");
 				let enemiesMorRange = localHero.GetHeroesInRadius(700, Enum.TeamType.TEAM_ENEMY);
-
+	
 				if (manta && CustomCanCast(manta) && !invimod) { 
-				
+					console.log("manta");
 					if (MyHeroSilenced && enemiesMorRange.length > 0) {
 
 						manta.CastNoTarget();
