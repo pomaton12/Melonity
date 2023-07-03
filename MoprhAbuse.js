@@ -550,7 +550,7 @@
 																		AbilHybritList[keyAbil][2] = GameRules.GetGameTime();
 																		AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
 																		
-																		myPlayer.PrepareUnitOrders(30, null, localHero, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
+																		myPlayer.PrepareUnitOrders(30, null, localHePos, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
 																		AbilHybrid.CastPosition(BestPost);
 																		console.log("ctmr");
 																		//AbilHybrid.CastPosition(IdealPosition);
