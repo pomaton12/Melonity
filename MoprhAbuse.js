@@ -411,7 +411,7 @@
 										let TarjetName = comboTarget.GetUnitName();
 										for (let key in EnemeyDraw) {
 											let EnemiReply = EnemeyDraw[key];
-											if (EnemiReply[1] === TarjetName){
+											if (EnemiReply[1] === TarjetName && EnemiReply[4]){
 												Ultimate.CastTarget(comboTarget);
 											}
 										}
@@ -760,13 +760,13 @@
 								|| comboTarget.GetItem('item_aeon_disk', true)
 								|| comboTarget.GetItem('item_hurricane_pike', true);
 						
-							let HeroMod = comboTarget.HasState('modifier_item_glimmer_cape_fade', true) 
-								|| comboTarget.HasState('modifier_eul_cyclone', true) 
-								|| comboTarget.HasState('modifier_wind_waker', true) 
-								|| comboTarget.HasState('modifier_ghost_state', true)
-								|| comboTarget.HasState('modifier_item_aeon_disk_buff', true)								
-								|| comboTarget.HasState('modifier_windrunner_windrun', true)
-								|| comboTarget.HasState('modifier_ember_spirit_flame_guard', true);						
+							let HeroMod = comboTarget.HasModifier('modifier_item_glimmer_cape_fade') 
+								|| comboTarget.HasModifier('modifier_eul_cyclone') 
+								|| comboTarget.HasModifier('modifier_wind_waker') 
+								|| comboTarget.HasModifier('modifier_ghost_state')
+								|| comboTarget.HasModifier('modifier_item_aeon_disk_buff')								
+								|| comboTarget.HasModifier('modifier_windrunner_windrun')
+								|| comboTarget.HasModifier('modifier_ember_spirit_flame_guard');						
 							
 							
 							if (Nullifier && CustomCanCast(Nullifier) && (HeroItem || HeroMod || Ethereo) && !MyModSilverEdge) { 
