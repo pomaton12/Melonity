@@ -72,7 +72,7 @@
 	
 	
 	Menu.SetImage(['Custom Scripts', 'Heroes'], '~/menu/40x40/heroes.png');
-    //Menu.SetImage(['Custom Scripts', 'Heroes', 'Agility']).SetImage('panorama/images/primary_attribute_icons/primary_attribute_icon_agility_psd.vtex_c');
+    Menu.SetImage(['Custom Scripts', 'Heroes', 'Agility']).SetImage('panorama/images/primary_attribute_icons/mini_primary_attribute_icon_agility_psd.vtex_c');
     Menu.SetImage(path_, 'panorama/images/heroes/icons/npc_dota_hero_morphling_png.vtex_c');
 	Menu.GetFolder([...path_, 'Linkens Breaker Settings']).SetImage('panorama/images/hud/reborn/minimap_gemdrop_psd.vtex_c');
 	Menu.SetImage(path_1, 'panorama/images/spellicons/morphling_replicate_png.vtex_c');
@@ -199,8 +199,9 @@
 			
             if (comboTarget) {
                 if (!particle) {
-                    particle = Particle.Create('particles/ui_mouseactions/range_finder_tower_aoe.vpcf', Enum.ParticleAttachment.PATTACH_INVALID, comboTarget);
-                    particle.SetControl(2, EntitySystem.GetLocalHero().GetAbsOrigin());
+                    //particle = Particle.Create('particles/ui_mouseactions/range_finder_tower_aoe.vpcf', Enum.ParticleAttachment.PATTACH_INVALID, comboTarget);
+                    particle = Particle.Create('particles/econ/items/spectre/spectre_arcana/spectre_arcana_minigame_death_target.vpcf_c', Enum.ParticleAttachment.PATTACH_INVALID, comboTarget);
+					particle.SetControl(2, EntitySystem.GetLocalHero().GetAbsOrigin());
                     particle.SetControl(6, new Vector(1, 0, 0));
                     particle.SetControl(7, comboTarget.GetAbsOrigin());
                 }
@@ -405,9 +406,14 @@
 									let  castRange = Ultimate.GetCastRange();
 									//let castRangeBonus = localHero.GetCastRangeBonus();
 									if (TargetInRadius(comboTarget, castRange - 300, localHero)) {
-										//console.log("Cast Enemigos");
 										
-										Ultimate.CastTarget(comboTarget);
+										let TarjetName = comboTarget.GetUnitName();
+										for (let key in EnemeyDraw) {
+											let EnemiReply = EnemeyDraw[key];
+											if (EnemiReply[1] === TarjetName){
+												Ultimate.CastTarget(comboTarget);
+											}
+										}
 										
 									}
 								}
@@ -873,8 +879,8 @@
 			
 			// ===== Funcion Opcion Panel =========
 			if (ShiftEnabled.GetValue()) {
-				
-				if (!localHero.IsAlive() || localHero.IsSilenced() || localHero.HasState(Enum.ModifierState.MODIFIER_STATE_HEXED) || localHero.HasState(Enum.ModifierState.MODIFIER_STATE_MUTED)) {
+				let invimod = localHero.HasState("Invisible");
+				if (!localHero.IsAlive() || localHero.IsSilenced() || localHero.HasState(Enum.ModifierState.MODIFIER_STATE_HEXED) || localHero.HasState(Enum.ModifierState.MODIFIER_STATE_MUTED) || invimod) {
 					return;
 				}
 				
@@ -903,11 +909,12 @@
 			
 			// ===== Particula Kill =========
 			if (menu_ItemsList.IsEnabled('item_manta') ) { 
+				let invimod = localHero.HasState("Invisible");
 				let manta = localHero.GetItem('item_manta', true);
 				let MyHeroSilenced = localHero.HasState(Enum.ModifierState.MODIFIER_STATE_SILENCED) || localHero.HasState(Enum.ModifierState.MODIFIER_STATE_ROOTED);
 				let enemiesMorRange = localHero.GetHeroesInRadius(700, Enum.TeamType.TEAM_ENEMY);
 
-				if (manta && CustomCanCast(manta)) { 
+				if (manta && CustomCanCast(manta) && !invimod) { 
 				
 					if (MyHeroSilenced && enemiesMorRange.length > 0) {
 
@@ -955,10 +962,23 @@
 			const peY = enemyListDraw[3];
 
 			let imageHeroIcon = Renderer.LoadImage("panorama/images/heroes/icons/" + HeroIcon + "_png.vtex_c");
+			let imageHeroIcontarjet = Renderer.LoadImage("panorama/images/hud/reborn/disconnect_x_psd.vtex_c");
 			Renderer.SetDrawColor(255, 255, 255, 255);
-			Renderer.DrawImage(imageHeroIcon, Math.ceil(peX), Math.ceil(peY), Math.ceil(sizeBarx), Math.ceil(sizeBary));
-			Renderer.SetDrawColor(120, 0, 255, 255);
-			Renderer.DrawOutlineRect(Math.ceil(peX), Math.ceil(peY), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+			Renderer.DrawImage(imageHeroIcon, Math.ceil(peX), Math.ceil(peY), Math.ceil(sizeBarx), Math.ceil(sizeBary));			
+			
+			if (cooldown[4]) {
+				Renderer.SetDrawColor(120, 0, 255, 255);
+				Renderer.DrawOutlineRect(Math.ceil(peX), Math.ceil(peY), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+				Renderer.DrawOutlineRect(Math.ceil(peX)+1, Math.ceil(peY)+1, Math.ceil(sizeBarx)-2, Math.ceil(sizeBary)-2);
+			} else
+				Renderer.SetDrawColor(92, 92, 92, 150);
+				Renderer.DrawFilledRect( Math.ceil(peX), Math.ceil(peY), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+				Renderer.SetDrawColor(255, 0, 0, 255);
+				Renderer.DrawOutlineRect(Math.ceil(peX), Math.ceil(peY), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+				Renderer.DrawOutlineRect(Math.ceil(peX)+1, Math.ceil(peY)+1, Math.ceil(sizeBarx)-2, Math.ceil(sizeBary)-2);
+				Renderer.SetDrawColor(255, 255, 255, 255);
+				Renderer.DrawImage(imageHeroIcontarjet, Math.ceil(peX), Math.ceil(peY), Math.ceil(sizeBarx), Math.ceil(sizeBary));
+			}
 	
 		}
 		
@@ -1018,6 +1038,29 @@
 
 			}
 		}
+		
+		//inabilitar copia de hero
+		for (const key in EnemeyDraw) {
+			const EnemeyDrw = EnemeyDraw[key];
+			const pX = EnemeyDrw[2];
+			const pY = EnemeyDrw[3];
+			let cond = EnemeyDrw[4];
+
+			// Si la habilidad está siendo monitorizada, crea un botón
+			if (Input.IsCursorInRect(pX, pY, sizeBarx, sizeBary)) {
+				if (Input.IsKeyDownOnce(Enum.ButtonCode.MOUSE_LEFT)) {
+
+					// Cambiar el valor de cond
+					cond = !cond;
+					EnemeyDrw[4] = cond;
+					
+
+				}
+			}
+
+		}
+		
+		
 		
 	}	
 	
