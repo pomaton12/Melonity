@@ -967,7 +967,7 @@
 			Renderer.SetDrawColor(255, 255, 255, 255);
 			Renderer.DrawImage(imageHeroIcon, Math.ceil(peX), Math.ceil(peY), Math.ceil(sizeBarx), Math.ceil(sizeBary));			
 			
-			if (cooldown[4]) {
+			if (enemyListDraw[4]) {
 				Renderer.SetDrawColor(120, 0, 255, 255);
 				Renderer.DrawOutlineRect(Math.ceil(peX), Math.ceil(peY), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 				Renderer.DrawOutlineRect(Math.ceil(peX)+1, Math.ceil(peY)+1, Math.ceil(sizeBarx)-2, Math.ceil(sizeBary)-2);
