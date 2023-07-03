@@ -201,15 +201,13 @@
             if (comboTarget) {
                 if (!particle) {
                     //particle = Particle.Create('particles/ui_mouseactions/range_finder_tower_aoe.vpcf', Enum.ParticleAttachment.PATTACH_INVALID, comboTarget);
-                    particle = Particle.Create('particles/ui_mouseactions/range_display_magenta.vpcf', Enum.ParticleAttachment.PATTACH_ABSORIGIN_FOLLOW, comboTarget);
-					particle.SetControl(1, Vector(500,0,0));
-					particle.SetControl(2, EntitySystem.GetLocalHero().GetAbsOrigin());
-                    particle.SetControl(6, new Vector(1, 0, 0));
-                    particle.SetControl(7, comboTarget.GetAbsOrigin());
+				particle = Particle.Create("particles/ui_mouseactions/range_display.vpcf", Enum.ParticleAttachment.PATTACH_ABSORIGIN_FOLLOW, comboTarget);
+				particle.SetControl(1, Vector(500,0,0));
+				particle.SetControl(6, new Vector(1, 0, 0));
                 }
                 else {
-                    particle.SetControl(2, EntitySystem.GetLocalHero().GetAbsOrigin());
-                    particle.SetControl(7, comboTarget.GetAbsOrigin());
+                    //particle.SetControl(2, EntitySystem.GetLocalHero().GetAbsOrigin());
+                    //particle.SetControl(7, comboTarget.GetAbsOrigin());
                 }
             }
             else {
