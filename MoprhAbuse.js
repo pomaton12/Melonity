@@ -29,6 +29,7 @@
 	//let monitorKey = Enum.ButtonCode.KEY_X;
 	
 	// Definición del array path_
+	const path = ["Custom Scripts","Heroes","Agility"];
 	const path_ = ["Custom Scripts","Heroes","Agility","Morphling"];
 	const path_1 = ["Custom Scripts","Heroes","Agility","Morphling","Best Ulti Cast"];
 	const path_2 = ["Custom Scripts","Heroes","Agility","Morphling","Auto Shift Dogde"];
@@ -72,7 +73,7 @@
 	
 	
 	Menu.SetImage(['Custom Scripts', 'Heroes'], '~/menu/40x40/heroes.png');
-    Menu.SetImage(['Custom Scripts', 'Heroes', 'Agility']).SetImage('panorama/images/primary_attribute_icons/mini_primary_attribute_icon_agility_psd.vtex_c');
+    Menu.SetImage(path,'panorama/images/primary_attribute_icons/mini_primary_attribute_icon_agility_psd.vtex_c');
     Menu.SetImage(path_, 'panorama/images/heroes/icons/npc_dota_hero_morphling_png.vtex_c');
 	Menu.GetFolder([...path_, 'Linkens Breaker Settings']).SetImage('panorama/images/hud/reborn/minimap_gemdrop_psd.vtex_c');
 	Menu.SetImage(path_1, 'panorama/images/spellicons/morphling_replicate_png.vtex_c');
