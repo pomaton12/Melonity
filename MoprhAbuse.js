@@ -916,9 +916,9 @@
 				let enemiesMorRange = localHero.GetHeroesInRadius(700, Enum.TeamType.TEAM_ENEMY);
 	
 				if (manta && CustomCanCast(manta) && !invimod) { 
-					console.log("manta");
+					
 					if (MyHeroSilenced && enemiesMorRange.length > 0) {
-
+						console.log("manta");
 						manta.CastNoTarget();
 					}
 				}
