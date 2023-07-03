@@ -970,7 +970,7 @@
 				Renderer.SetDrawColor(120, 0, 255, 255);
 				Renderer.DrawOutlineRect(Math.ceil(peX), Math.ceil(peY), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 				Renderer.DrawOutlineRect(Math.ceil(peX)+1, Math.ceil(peY)+1, Math.ceil(sizeBarx)-2, Math.ceil(sizeBary)-2);
-			} else
+			} else {
 				Renderer.SetDrawColor(92, 92, 92, 150);
 				Renderer.DrawFilledRect( Math.ceil(peX), Math.ceil(peY), Math.ceil(sizeBarx), Math.ceil(sizeBary));
 				Renderer.SetDrawColor(255, 0, 0, 255);
