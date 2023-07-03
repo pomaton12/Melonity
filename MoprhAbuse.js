@@ -1217,7 +1217,7 @@
 	};
 
 	// Definición de la función OnGameEnd
-	MorphlingUltiAbuse.OnGameEnd = () => {
+	MorphlingUltiAbuse.OnGameEnd = () => { 
 		localHero = null;
 	    myPlayer = null;
 	};
