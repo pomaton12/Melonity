@@ -552,6 +552,7 @@
 																		
 																		myPlayer.PrepareUnitOrders(30, null, localHePos, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
 																		AbilHybrid.CastPosition(BestPost);
+																		setTimeout(function() {}, 300);
 																		console.log("ctmr");
 																		//AbilHybrid.CastPosition(IdealPosition);
 																		//AbilHybrid.CastPosition(BestPost);
