@@ -206,7 +206,7 @@
 					//particle.SetControl(0, Vector(209,21,255));
 					//particle.SetControl(1, Vector(500,0,0));
 					particle.SetControl(2, EntitySystem.GetLocalHero().GetAbsOrigin());
-					//particle.SetControl(6, new Vector(1, 0, 0));
+					particle.SetControl(6, new Vector(1, 0, 0));
 					particle.SetControl(7, comboTarget.GetAbsOrigin());
                 }
                 else {
