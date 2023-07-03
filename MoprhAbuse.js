@@ -535,8 +535,7 @@
 																if (AbilHybrid.GetName() === "void_spirit_aether_remnant" || AbilHybrid.GetName() === "pangolier_swashbuckle" || AbilHybrid.GetName() === "windrunner_gale_force") {
 																	let  castRange = AbilHybrid.GetCastRange();
 																	if (TargetInRadius(comboTarget, castRange, localHero)) {
-																		if (Engine.OnceAt(0.2)) {
-																		}
+						
 																		const localHePos = localHero.GetAbsOrigin();
 																		const enemyHePos = comboTarget.GetAbsOrigin();
 																		const Idealdirection = (enemyHePos.sub(localHePos)).Normalized();
@@ -552,7 +551,7 @@
 																		AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
 																		
 																		myPlayer.PrepareUnitOrders(30, null, BestPost, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
-																		AbilHybrid.CastPosition(localHePos);
+																		AbilHybrid.CastPosition(enemyHePos);
 																		setTimeout(function() {}, 300);
 																		console.log("ctmr");
 																		//AbilHybrid.CastPosition(IdealPosition);
