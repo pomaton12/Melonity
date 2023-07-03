@@ -918,7 +918,7 @@
 				if (manta && CustomCanCast(manta) && !invimod) { 
 					
 					if (MyHeroSilenced && enemiesMorRange.length > 0) {
-						console.log("manta");
+						console.log(MyHeroSilenced);
 						manta.CastNoTarget();
 					}
 				}
