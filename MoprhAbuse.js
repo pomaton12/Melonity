@@ -35,12 +35,12 @@
 
 	const item_Images = [
 	'item_soul_ring', 'item_armlet', 'item_mjollnir', 'item_blink', 'item_abyssal_blade', 'item_fallen_sky',
-	'item_glimmer_cape', 'item_manta', 'item_refresher', 'item_disperser', 'item_sheepstick', 'item_orchid',
+	'item_glimmer_cape', 'item_manta', 'item_satanic', 'item_disperser', 'item_sheepstick', 'item_orchid',
 	'item_bloodthorn', 'item_nullifier', 'item_rod_of_atos', 'item_gungir', 'item_diffusal_blade', 'item_bullwhip',
 	'item_ethereal_blade', 'item_dagon_5', 'item_heavens_halberd', 'item_veil_of_discord', 'item_urn_of_shadows', 'item_spirit_vessel',
 	'item_medallion_of_courage', 'item_solar_crest', 'item_pipe', 'item_hood_of_defiance', 'item_eternal_shroud', 'item_lotus_orb',
 	'item_black_king_bar', 'item_harpoon', 'item_essence_ring', 'item_blade_mail', 'item_shivas_guard', 'item_crimson_guard',
-	'item_ancient_janggo', 'item_ex_machina', 'item_revenants_brooch', 'item_bloodstone'
+	'item_ancient_janggo', 'item_hurricane_pike', 'item_revenants_brooch', 'item_bloodstone'
 	];
     //const abilities = ['storm_spirit_static_remnant', 'storm_spirit_electric_vortex', 'storm_spirit_overload', 'storm_spirit_ball_lightning'];
     const linkBreakers = [
@@ -379,10 +379,7 @@
 						let Silenced = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_SILENCED);
 						let Ethereo = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_ATTACK_IMMUNE);
 						
-						
-						
-						
-						
+						let LinkenActive = comboTarget.HasModifier("modifier_item_sphere_target"); 
 
 						let [linken, mirror] = [comboTarget.GetItem('item_sphere', true), comboTarget.GetItem('item_mirror_shield', false)];
                         if (linken && linken.CanCast() || mirror && mirror.CanCast()) {
@@ -403,7 +400,7 @@
 							if (!ModifierReplicate){
 								AbilHybritList = [];
 								
-								if(Ultimate && Ultimate.IsExist() && Ultimate.CanCast()){
+								if(Ultimate && Ultimate.IsExist() && Ultimate.CanCast() && !LinkenActive){
 									let  castRange = Ultimate.GetCastRange();
 									//let castRangeBonus = localHero.GetCastRangeBonus();
 									if (TargetInRadius(comboTarget, castRange - 300, localHero)) {
@@ -654,11 +651,17 @@
 									let RangeAttackMax = AttackRangeBasic + AttackRangeBuff;	
 									let waveDamage = Waveform.GetDamage();
 									let trueWaveDamage = waveDamage * comboTarget.GetMagicalArmorDamageMultiplier();
-									
-									console.log(waveDamage," ",trueWaveDamage);
+									let enemyHp = comboTarget.GetHealth();
+
+									//console.log(waveDamage," ",trueWaveDamage);
 									if (dist > RangeAttackMax){
 										myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,BestPost,Waveform, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+									}
+									
+									if (trueWaveDamage > enemyHp){
+										myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,BestPost,Waveform, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 									}									
+																
                                 }
 							}
                         }
@@ -666,7 +669,7 @@
 
 						if (menu_AbilitiesList[1]) {
                             
-                            if (AdaptiveStrike_AGI && AdaptiveStrike_AGI.IsExist() && AdaptiveStrike_AGI.CanCast() && ModifierNormal) {
+                            if (AdaptiveStrike_AGI && AdaptiveStrike_AGI.IsExist() && AdaptiveStrike_AGI.CanCast() && ModifierNormal && !InmuneMagic) {
 								let  castRange = AdaptiveStrike_AGI.GetCastRange();
 								let castRangeBonus = localHero.GetCastRangeBonus();
 								let castRangeTotal =  castRange + castRangeBonus;
@@ -680,7 +683,44 @@
                             
 
                         }
+						
 
+						if (menu_ItemsList.IsEnabled('item_hurricane_pike') ) { 
+							let pike = localHero.GetItem('item_hurricane_pike', true);
+							if (pike && CustomCanCast(pike)  && !Stunned && !Hexxed  && !Silenced && !LinkenActive) { 
+								if (TargetInRadius(comboTarget, 350, localHero)) {
+									let MyheroHp = localHero.GetHealth();
+									if(MyheroHp <= localHero.GetMaxHealth() * 0.15){
+										pike.CastTarget(comboTarget);
+									}
+								}
+							}
+						}
+
+						if (menu_ItemsList.IsEnabled('item_satanic') ) { 
+							let Satanic = localHero.GetItem('item_satanic', true);
+							if (Satanic && CustomCanCast(Satanic)) { 
+								if (TargetInRadius(comboTarget, 350, localHero)) {
+									let MyheroHp = localHero.GetHealth();
+									if(MyheroHp <= localHero.GetMaxHealth() * 0.4){
+										Satanic.CastNoTarget();
+									}
+								}
+							}
+						}
+
+
+						if (menu_ItemsList.IsEnabled('item_satanic') ) { 
+							let Satanic = localHero.GetItem('item_satanic', true);
+							if (Satanic && CustomCanCast(Satanic)  && !Stunned && !InmuneMagic && !Hexxed  && !Silenced) { 
+								if (TargetInRadius(comboTarget, 350, localHero)) {
+									let MyheroHp = localHero.GetHealth();
+									if(MyheroHp <= localHero.GetMaxHealth() * 0.4){
+										Satanic.CastNoTarget();
+									}
+								}
+							}
+						}
 						
 						if (menu_ItemsList.IsEnabled('item_orchid') ) { 
 							let Orchid = localHero.GetItem('item_orchid', true);
