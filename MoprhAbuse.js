@@ -366,7 +366,7 @@
 						const localHeroPosition = localHero.GetAbsOrigin();
 						const attackRange = localHero.GetAttackRange();
 						const enemyHeroPosition = comboTarget.GetAbsOrigin();
-						const dist = localHeroPosition.Distance(enemyHeroPosition)-58;
+						const dist = Math.floor(Dist2D(localHeroPosition, enemyHeroPosition)-40);
 						const dist2 = enemyHeroPosition.sub(localHeroPosition).Length()
 					
 						let ModifierReplicate = localHero.HasModifier("modifier_morphling_replicate_manager"); //  replicate tiempo o duracion
@@ -649,10 +649,16 @@
 									const delay = travel_time + castpointTimee;
 									const BestPost = GetPredictedPosition(comboTarget, delay);
 									//const BestPost = Post.add(new Vector(50, 50, 0));
+									let AttackRangeBasic = localHero.GetAttackRange();
+									let AttackRangeBuff = localHero.GetAttackRangeBonus();
+									let RangeAttackMax = AttackRangeBasic + AttackRangeBuff;	
+									let waveDamage = Waveform.GetDamage();
+									let trueWaveDamage = waveDamage * comboTarget.GetMagicalArmorDamageMultiplier();
 									
-									
-                                    myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,BestPost,Waveform, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
-
+									console.log(waveDamage," ",trueWaveDamage);
+									if (dist > RangeAttackMax){
+										myPlayer.PrepareUnitOrders( Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_POSITION,null,BestPost,Waveform, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+									}									
                                 }
 							}
                         }
