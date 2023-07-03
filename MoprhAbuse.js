@@ -530,26 +530,32 @@
 															let  castRange = AbilHybrid.GetCastRange();
 															let aoe_amqop = AbilHybrid.GetLevelSpecialValueFor("abilitycastrange");
 															let aoe_void = AbilHybrid.GetLevelSpecialValueFor("range");
-															
+															console.log(AbilHybrid.GetName());
 															if (castRange != 0) {
-																if (TargetInRadius(comboTarget, castRange, localHero)) {
-																	console.log("Casteo en una posicion");
-																	let speedUlti = AbilHybrid.GetLevelSpecialValueFor("speed");
-																	let travel_time = 0;
-																	if(speedUlti > 0){
-																		travel_time = castRange / (speedUlti + 1);
-																	}	else{
-																		travel_time = 0.1;
+																if (AbilHybrid.GetName() === "Hola mundo") {
+																	
+																	
+																	
+																} else{
+																	if (TargetInRadius(comboTarget, castRange, localHero)) {
+																		
+																		let speedUlti = AbilHybrid.GetLevelSpecialValueFor("speed");
+																		let travel_time = 0;
+																		if(speedUlti > 0){
+																			travel_time = castRange / (speedUlti + 1);
+																		}	else{
+																			travel_time = 0.1;
+																		}
+																		const castpointTimee = AbilHybrid.GetCastPoint();
+																		const delay = travel_time + castpointTimee;
+																		const BestPost = GetPredictedPosition(comboTarget, delay);
+																		
+																		
+																		AbilHybritList[keyAbil][2] = GameRules.GetGameTime();
+																		AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
+																		AbilHybrid.CastPosition(BestPost);
+																	
 																	}
-																	const castpointTimee = AbilHybrid.GetCastPoint();
-																	const delay = travel_time + castpointTimee;
-																	const BestPost = GetPredictedPosition(comboTarget, delay);
-																	
-																	
-																	AbilHybritList[keyAbil][2] = GameRules.GetGameTime();
-																	AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
-																	AbilHybrid.CastPosition(BestPost);
-																
 																}
 																
 																
