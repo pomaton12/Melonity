@@ -544,7 +544,13 @@
 																		const Idealdirection = (enemyHePos.sub(localHePos)).Normalized();
 																		let IdealPosition = enemyHePos.add(Idealdirection.mul(new Vector(-300, -300, 0)));
 																	
-																		const travel_time = 0.1;
+																		let speedUlti = AbilHybrid.GetLevelSpecialValueFor("speed");
+																		let travel_time = 0;
+																		if(speedUlti > 0){
+																			travel_time = castRange / (speedUlti + 1);
+																		}	else{
+																			travel_time = 0.1;
+																		}
 																		const castpointTimee = AbilHybrid.GetCastPoint();
 																		const delay = travel_time + castpointTimee;
 																		const BestPost = GetPredictedPosition(comboTarget, delay);
@@ -553,12 +559,10 @@
 																		
 																		AbilHybritList[keyAbil][2] = GameRules.GetGameTime();
 																		AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
+
+																		myPlayer.PrepareUnitOrders(30, null, BestPost, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
+																		AbilHybrid.CastPosition(IdealPosition);	
 																		
-																		
-																		setTimeout(function() {
-																		myPlayer.PrepareUnitOrders(30, null, IdealPosition, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
-																		AbilHybrid.CastPosition(BestPost);	
-																		}, 300);
 
 																	}
 																	
