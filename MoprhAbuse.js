@@ -548,7 +548,7 @@
 																		const castpointTimee = AbilHybrid.GetCastPoint();
 																		const delay = travel_time + castpointTimee;
 																		const BestPost = GetPredictedPosition(comboTarget, delay);
-																		BestPost = BestPost.add(new Vector(100, 100, 0));
+																		BestPost = BestPost.add(Idealdirection.mul(new Vector(100, 100, 0)));
 																		//const BestPost = GetBestPost(localHero, comboTarget);
 																		
 																		AbilHybritList[keyAbil][2] = GameRules.GetGameTime();
