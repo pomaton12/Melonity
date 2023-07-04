@@ -78,6 +78,7 @@
 		if (localHero && isUiEnabled1.GetValue()) {
 			if (exOrders.includes(event.order)) {
 				let orderIssuer = event.orderIssuer;
+				console.log("nombre_d",orderIssuer);
 				let target = PlayerResource.GetSelectedHeroEntity(orderIssuer);
 				if (target && target.IsHero() && target.IsAlive() && !target.IsDormant() && target.IsOpposingTeam(myHero.GetTeamNumber())) {
 					console.log("nombre_de_la_habilidad", target); // Reemplaza "nombre_de_la_habilidad" con el nombre de la habilidad que quieres lanzar
