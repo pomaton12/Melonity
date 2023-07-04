@@ -257,7 +257,17 @@
 					if (dist >= newRange) {
 						if (!isUiEnabled2.GetValue()) {
 							if (newRange) {
-								pos1 = localHeroPosition.add(new Vector(dist - newRange).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
+								if(localHero.IsRanged()){
+									pos1 = localHeroPosition.add(new Vector(dist - newRange).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
+								} else{
+									if (dist >= attackRange) {
+										pos1 = localHeroPosition.add(new Vector(dist - newRange).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
+									} else{
+										pos1 = localHeroPosition.add(new Vector(15).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
+										
+									}
+								}
+								
 								if (parseInt(newRange) == parseInt(dist)) {
 									if(Abilite != null) {
 										Abilite.CastTarget(EnemyHero);
