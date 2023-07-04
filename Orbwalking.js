@@ -82,7 +82,7 @@
 				if (exOrders.includes(event.order)) {
 					let EnemiHero = event.target;
 
-					if (EnemiHero && EnemiHero.IsHero() && EnemiHero.IsAlive() && !EnemiHero.IsDormant() && EnemiHero.IsOpposingTeam(localHero.GetTeamNumber())) {
+					if (EnemiHero && !EnemiHero.IsIllusion() && !EnemiHero.IsMeepoClone() && EnemiHero.IsHero() && EnemiHero.IsAlive() && !EnemiHero.IsDormant() && !EnemiHero.IsSameTeam(localHero)) {
 						console.log("nombre_del_hero ", EnemiHero.GetPlayerID()); // Reemplaza "nombre_de_la_habilidad" con el nombre de la habilidad que quieres lanzar
 						HitRunOrbFunction(EnemiHero);
 					}
