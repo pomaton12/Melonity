@@ -178,14 +178,27 @@
 				const dist = localHeroPosition.Distance(enemyHeroPosition) - 50;
 				const attackSpeed = localHero.GetAttacksPerSecond();
 				const attackTime = 1 / attackSpeed;
+				let Abilite = null;
+				
+				
+				if (menu_AbilitiesList[1]) {
+					let abilExist = localHero.GetAbilityByName("drow_ranger_frost_arrows");
+					console.log(abilExist);
+					if (abilExist && abilExist.IsExist() && abilExist.CanCast()) {
+
+						//Abilite.CastTarget(comboTarget);
+
+					}
+				}
+				
+				
+				
 				if (DisplayMode === 0 ) {							
 					let newRange = attackRange * (SafeDistanceUIval / 100);
 					if (5 >= newRange) {
 						newRange = 5;
 					}
-					
-					
-					
+	
 					if (dist >= newRange) {
 						if (!isUiEnabled2.GetValue()) {
 							if (newRange) {
