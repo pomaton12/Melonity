@@ -542,7 +542,7 @@
 																		const localHePos = localHero.GetAbsOrigin();
 																		const enemyHePos = comboTarget.GetAbsOrigin();
 																		const Idealdirection = (enemyHePos.sub(localHePos)).Normalized();
-																		let IdealPosition = enemyHePos.add(Idealdirection.mul(new Vector(300, 300, 0)));
+																		let IdealPosition = enemyHePos.add(Idealdirection.mul(new Vector(-100, -100, 0)));
 																	
 																		const travel_time = 0.1;
 																		const castpointTimee = AbilHybrid.GetCastPoint();
@@ -554,7 +554,7 @@
 																		AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
 																		
 																		myPlayer.PrepareUnitOrders(30, null, BestPost, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
-																		AbilHybrid.CastPosition(localHePos);
+																		AbilHybrid.CastPosition(IdealPosition);
 																		setTimeout(function() {}, 300);
 
 																	}
