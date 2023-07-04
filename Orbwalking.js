@@ -255,10 +255,10 @@
 				if (isUiEnabled4.GetValue()) { 
 					let Diffusal = localHero.GetItem('item_diffusal_blade', true) || localHero.GetItem('item_disperser', true);
 					if (Diffusal && Diffusal.IsExist() && Diffusal.CanCast()) { 
-							if(attackRange >= dist){
-								Diffusal.CastTarget(EnemyHero);
-							}
+						if(attackRange >= dist){
+							Diffusal.CastTarget(EnemyHero);
 						}
+						
 					}
 				}
 				
