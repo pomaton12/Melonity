@@ -84,7 +84,7 @@
 
 					if (EnemiHero && EnemiHero.IsHero() && EnemiHero.IsAlive() && !EnemiHero.IsDormant() && EnemiHero.IsOpposingTeam(localHero.GetTeamNumber())) {
 						console.log("nombre_del_hero ", EnemiHero.GetPlayerID()); // Reemplaza "nombre_de_la_habilidad" con el nombre de la habilidad que quieres lanzar
-						HitRunOrbFunction(enemiHero);
+						HitRunOrbFunction(EnemiHero);
 					}
 				}
 			}
@@ -131,7 +131,7 @@
 		}
 	};
 	
-	function HitRunOrbFunction(tarjet)
+	function HitRunOrbFunction(tarjet){
 		if (Engine.OnceAt(0.2)) {
 			if (target != null) {
 				const localHeroPosition = localHero.GetAbsOrigin();
