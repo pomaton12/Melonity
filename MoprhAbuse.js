@@ -559,9 +559,9 @@
 																		
 																		AbilHybritList[keyAbil][2] = GameRules.GetGameTime();
 																		AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
-																		AbilHybrid.CastPosition(IdealPosition);	
-																		myPlayer.PrepareUnitOrders(30, null, BestPost, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
 																		
+																		myPlayer.PrepareUnitOrders(30, null, enemyHePos, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
+																		AbilHybrid.CastPosition(IdealPosition);	
 																		
 
 																	}
