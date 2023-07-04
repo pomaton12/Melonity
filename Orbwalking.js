@@ -80,10 +80,9 @@
 		if (localHero && isUiEnabled1.GetValue()) {
 			if (isUiEnabled3.GetValue()) {
 				if (exOrders.includes(event.order)) {
-					let EnemiHero1 = event.target;
-					let EnemiHero = EnemiHero1.Get();
+					let EnemiHero = event.target;
 					if (EnemiHero && !EnemiHero.IsIllusion() && !EnemiHero.IsMeepoClone() && EnemiHero.IsHero() && EnemiHero.IsAlive() && !EnemiHero.IsDormant() && !EnemiHero.IsSameTeam(localHero)) {
-						console.log("nombre_del_hero ", EnemiHero.GetPlayerID()); // Reemplaza "nombre_de_la_habilidad" con el nombre de la habilidad que quieres lanzar
+						console.log("nombre_del_hero ", EnemiHero.GetUnitName()); // Reemplaza "nombre_de_la_habilidad" con el nombre de la habilidad que quieres lanzar
 						HitRunOrbFunction(EnemiHero);
 					}
 				}
