@@ -73,7 +73,7 @@
 	
 	// Definición de la función startMouseBoost
 	HitRunHeros.OnPrepareUnitOrders = (event) => {
-		if (myHero && isUiEnabled.GetValue()) {
+		if (localHero && isUiEnabled1.GetValue()) {
 			if (exOrders.includes(event.order)) {
 				let orderIssuer = event.orderIssuer;
 				let target = PlayerResource.GetSelectedHeroEntity(orderIssuer);
