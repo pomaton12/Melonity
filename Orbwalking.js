@@ -181,7 +181,7 @@
 				let Abilite = null;
 				
 				if (menu_AbilitiesList[0]) {
-					if (localHero.GetUnitName() == "npc_dota_obsidian_destroyer") {
+					if (localHero.GetUnitName() == "npc_dota_hero_obsidian_destroyer") {
 						let abilExist = localHero.GetAbilityByIndex(0);
 						if (abilExist && abilExist.IsExist() && abilExist.CanCast()) {
 							
@@ -195,7 +195,7 @@
 
 				if (menu_AbilitiesList[1]) {
 						console.log(localHero.GetUnitName());
-					if (localHero.GetUnitName() == "npc_dota_drow_ranger") {
+					if (localHero.GetUnitName() == "npc_dota_hero_drow_ranger") {
 						
 						let abilExist = localHero.GetAbilityByIndex(0);
 						if (abilExist && abilExist.IsExist() && abilExist.CanCast()) {
@@ -209,7 +209,7 @@
 				}
 				
 				if (menu_AbilitiesList[2]) {
-					if (localHero.GetUnitName() == "npc_dota_silencer") {
+					if (localHero.GetUnitName() == "npc_dota_hero_silencer") {
 						let abilExist = localHero.GetAbilityByIndex(1);
 						if (abilExist && abilExist.IsExist() && abilExist.CanCast()) {
 							
@@ -222,7 +222,7 @@
 				}
 				
 				if (menu_AbilitiesList[3]) {
-					if (localHero.GetUnitName() == "npc_dota_viper") {
+					if (localHero.GetUnitName() == "npc_dota_hero_viper") {
 						let abilExist = localHero.GetAbilityByIndex(0);
 						if (abilExist && abilExist.IsExist() && abilExist.CanCast()) {
 							
@@ -235,7 +235,7 @@
 				}		
 
 				if (menu_AbilitiesList[4]) {
-					if (localHero.GetUnitName() == "npc_dota_huskar") {
+					if (localHero.GetUnitName() == "npc_dota_hero_huskar") {
 						let abilExist = localHero.GetAbilityByIndex(1);
 						if (abilExist && abilExist.IsExist() && abilExist.CanCast()) {
 							
