@@ -169,6 +169,10 @@
         return accessHero[0] ? accessHero[0][0] : undefined;
     }
 	
+	function GetBestPost(hero1, hero2) {
+        return comboTarget.GetAbsOrigin().add(new Vector(Dist2D(hero1, hero2) / 2, 0, 0).Rotated(GetAngleToPos(hero1, hero2)));
+    }
+	
 	function SendOrderMovePos(vector, myHero) {
         myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, vector, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, myHero, false, true);
     }
@@ -543,8 +547,8 @@
 																		const travel_time = 0.1;
 																		const castpointTimee = AbilHybrid.GetCastPoint();
 																		const delay = travel_time + castpointTimee;
-																		const BestPost = GetPredictedPosition(comboTarget, delay);
-																	
+																		//const BestPost = GetPredictedPosition(comboTarget, delay);
+																		const BestPost = GetBestPost(localHero, comboTarget);
 																		
 																		AbilHybritList[keyAbil][2] = GameRules.GetGameTime();
 																		AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
