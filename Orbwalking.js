@@ -47,7 +47,7 @@
 		.GetValue();
 		
 	let isUiEnabled4 = Menu.AddToggle(path_, 'Use Diffusal or Disperser', true);
-	isUiEnabled4.SetImage('panorama/images/items/diffusal_blade.vtex_c');
+	isUiEnabled4.SetImage('panorama/images/items/diffusal_blade_png.vtex_c');
   
 	Menu.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama/images/hud/reborn/icon_damage_psd.vtex_c');
 
