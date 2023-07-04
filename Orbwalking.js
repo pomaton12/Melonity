@@ -1,6 +1,6 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
-  
+ 
 /***/ "./src/HitRunHeros.ts":
 /*!**********************************!*\
   !*** ./src/HitRunHeros.ts ***!
@@ -70,6 +70,8 @@
 		let atan2 = Math.atan2(b.y - a.y, b.x - a.x);
 		return inrad ? atan2 : (atan2 * (180 / Math.PI));
 	}
+	
+	let exOrders = [Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_MOVE];
 	
 	// Definición de la función startMouseBoost
 	HitRunHeros.OnPrepareUnitOrders = (event) => {
