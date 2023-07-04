@@ -194,8 +194,9 @@
 				}
 
 				if (menu_AbilitiesList[1]) {
-					if (localHero.GetUnitName() == "npc_dota_drow_ranger") {
 						console.log(localHero.GetUnitName());
+					if (localHero.GetUnitName() == "npc_dota_drow_ranger") {
+						
 						let abilExist = localHero.GetAbilityByIndex(0);
 						if (abilExist && abilExist.IsExist() && abilExist.CanCast()) {
 							
