@@ -77,11 +77,10 @@
 	HitRunHeros.OnPrepareUnitOrders = (event) => {
 		if (localHero && isUiEnabled1.GetValue()) {
 			if (exOrders.includes(event.order)) {
-				let orderIssuer = event.orderIssuer;
-				console.log("nombre_d",orderIssuer);
-				let target = PlayerResource.GetSelectedHeroEntity(orderIssuer);
+				let target = event.target;
+
 				if (target && target.IsHero() && target.IsAlive() && !target.IsDormant() && target.IsOpposingTeam(myHero.GetTeamNumber())) {
-					console.log("nombre_de_la_habilidad", target); // Reemplaza "nombre_de_la_habilidad" con el nombre de la habilidad que quieres lanzar
+					console.log("nombre_del_hero ", target.GetPlayerID()); // Reemplaza "nombre_de_la_habilidad" con el nombre de la habilidad que quieres lanzar
 				}
 			}
 		}
