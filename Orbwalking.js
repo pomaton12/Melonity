@@ -7,8 +7,6 @@
   \**********************************/
 /***/ (() => {
 
-eval(`
-
 	const HitRunHeros = {};
 
 	let localHero;
@@ -28,11 +26,19 @@ eval(`
 
 	let KeyBindOrbwalk = Menu.AddKeyBind(path_, 'Key of OrbWalk', Enum.ButtonCode.KEY_NONE);
 
-	let isUiEnabled2 = Menu.AddToggle(path_, 'Kill Safe Pos', true);
+	let isUiEnabled2 = Menu.AddToggle(path_, 'Kill Safe Pos', false);
 	
 	let DisplayMode = Menu.AddComboBox(path_, 'Display', ['To Enemy', 'Mouse position'],0)
 	.OnChange(state =>{	DisplayMode = state.newValue;})
 	.GetValue();
+	
+	let menu_AbilitiesList = Menu.AddMultiSelect(path_, 'Spells use in hit', ['panorama/images/spellicons/obsidian_destroyer_arcane_orb_png.vtex_c',
+	'panorama/images/spellicons/drow_ranger_frost_arrows_png.vtex_c',
+	'panorama/images/spellicons/silencer_glaives_of_wisdom_png.vtex_c',
+	'panorama/images/spellicons/viper_poison_attack_png.vtex_c',
+	'panorama/images/spellicons/huskar_burning_spear_png.vtex_c'], [true, true, true, true, true])
+		.OnChange((state) => {menu_AbilitiesList = state.newValue;})
+		.GetValue();
 	
   
 	Menu.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama/images/hud/reborn/icon_damage_psd.vtex_c');
@@ -103,7 +109,9 @@ eval(`
 					if (target != null) {
 						const localHeroPosition = localHero.GetAbsOrigin();
 						const EnemyHero = target;
-						const attackRange = localHero.GetAttackRange();
+						const RangeBasic = localHero.GetAttackRange();
+						const RangeBuff = localHero.GetAttackRangeBonus();
+						const attackRange = RangeBasic + RangeBuff;
 						const enemyHeroPosition = EnemyHero.GetAbsOrigin();
 						const dist = localHeroPosition.Distance(enemyHeroPosition) - 50;
 						const attackSpeed = localHero.GetAttacksPerSecond();
@@ -123,9 +131,11 @@ eval(`
 										if (parseInt(newRange) == parseInt(dist)) {
 											myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, enemyHeroPosition, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 										} else {
+											myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, enemyHeroPosition, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+											
 											if (Engine.OnceAt(attackTime)) {
+												
 												myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, pos1, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
-												myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, enemyHeroPosition, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 											}
 										}
 									}
@@ -166,7 +176,7 @@ eval(`
 	};
 
 	RegisterScript(HitRunHeros);
-`);
+
 
 /***/ })
 
