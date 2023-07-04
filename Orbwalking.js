@@ -70,6 +70,19 @@
 		let atan2 = Math.atan2(b.y - a.y, b.x - a.x);
 		return inrad ? atan2 : (atan2 * (180 / Math.PI));
 	}
+	
+	// Definición de la función startMouseBoost
+	HitRunHeros.OnPrepareUnitOrders = (event) => {
+		if (myHero && isUiEnabled.GetValue()) {
+			if (exOrders.includes(event.order)) {
+				let orderIssuer = event.orderIssuer;
+				let target = PlayerResource.GetSelectedHeroEntity(orderIssuer);
+				if (target && target.IsHero() && target.IsAlive() && !target.IsDormant() && target.IsOpposingTeam(myHero.GetTeamNumber())) {
+					console.log("nombre_de_la_habilidad", target); // Reemplaza "nombre_de_la_habilidad" con el nombre de la habilidad que quieres lanzar
+				}
+			}
+		}
+	};
 
 	//=====================
 	HitRunHeros.OnUpdate = () => {
