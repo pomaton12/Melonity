@@ -180,17 +180,70 @@
 				const attackTime = 1 / attackSpeed;
 				let Abilite = null;
 				
-				
+				if (menu_AbilitiesList[0]) {
+					if (localHero.GetUnitName() == "npc_dota_obsidian_destroyer") {
+						let abilExist = localHero.GetAbilityByIndex(0);
+						if (abilExist && abilExist.IsExist() && abilExist.CanCast()) {
+							
+							Abilite = abilExist;
+
+						} else{
+							Abilite = null;
+						}
+					}
+				}
+
 				if (menu_AbilitiesList[1]) {
-					let abilExist = localHero.GetAbilityByName("drow_ranger_frost_arrows");
-					console.log(abilExist);
-					if (abilExist && abilExist.IsExist() && abilExist.CanCast()) {
+					if (localHero.GetUnitName() == "npc_dota_drow_ranger") {
+						let abilExist = localHero.GetAbilityByIndex(0);
+						if (abilExist && abilExist.IsExist() && abilExist.CanCast()) {
+							
+							Abilite = abilExist;
 
-						//Abilite.CastTarget(comboTarget);
-
+						} else{
+							Abilite = null;
+						}
 					}
 				}
 				
+				if (menu_AbilitiesList[2]) {
+					if (localHero.GetUnitName() == "npc_dota_silencer") {
+						let abilExist = localHero.GetAbilityByIndex(1);
+						if (abilExist && abilExist.IsExist() && abilExist.CanCast()) {
+							
+							Abilite = abilExist;
+
+						} else{
+							Abilite = null;
+						}
+					}
+				}
+				
+				if (menu_AbilitiesList[3]) {
+					if (localHero.GetUnitName() == "npc_dota_viper") {
+						let abilExist = localHero.GetAbilityByIndex(0);
+						if (abilExist && abilExist.IsExist() && abilExist.CanCast()) {
+							
+							Abilite = abilExist;
+
+						} else{
+							Abilite = null;
+						}
+					}
+				}		
+
+				if (menu_AbilitiesList[4]) {
+					if (localHero.GetUnitName() == "npc_dota_huskar") {
+						let abilExist = localHero.GetAbilityByIndex(1);
+						if (abilExist && abilExist.IsExist() && abilExist.CanCast()) {
+							
+							Abilite = abilExist;
+
+						} else{
+							Abilite = null;
+						}
+					}
+				}	
 				
 				
 				if (DisplayMode === 0 ) {							
@@ -204,9 +257,17 @@
 							if (newRange) {
 								pos1 = localHeroPosition.add(new Vector(dist - newRange).Rotated(GetAngleToPos(localHeroPosition, enemyHeroPosition)));
 								if (parseInt(newRange) == parseInt(dist)) {
-									myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, enemyHeroPosition, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+									if(Abilite != null) {
+										Abilite.CastTarget(EnemyHero);
+									}else{
+										myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, enemyHeroPosition, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+									}
 								} else {
-									myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, enemyHeroPosition, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+									if(Abilite != null) {
+										Abilite.CastTarget(EnemyHero);
+									}else{
+										myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, EnemyHero, enemyHeroPosition, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+									}
 									
 									if (Engine.OnceAt(attackTime)) {
 										
