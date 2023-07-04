@@ -18,13 +18,15 @@
 	let createHUD = 0;	
 	let SafeDistanceUI = null;
 	let SafeDistanceUIval = 0;
+	let comboTarget = null;
+	let enemyList = [];
 	
 	
 	const path_ = ['Heroes', 'Orbwalking'];
 
 	let isUiEnabled1 = Menu.AddToggle(path_, 'Orbwalking Enable', true);
 
-	let KeyBindOrbwalk = Menu.AddKeyBind(path_, 'Key of OrbWalk', Enum.ButtonCode.KEY_NONE);
+	let KeyBindOrbwalk = Menu.AddKeyBind(path_, 'Key OrbWalk (Key use same in combo)', Enum.ButtonCode.KEY_NONE);
 
 	let isUiEnabled2 = Menu.AddToggle(path_, 'Kill Safe Pos (No recomend)', false);
 	
@@ -73,6 +75,22 @@
 		return inrad ? atan2 : (atan2 * (180 / Math.PI));
 	}
 	
+	function GetNearHeroInRadius(vector, radius = 1000) {
+        let en = enemyList;
+        if (en.length == 0)
+            return undefined;
+        let accessHero = Array(enemyList.length);
+        en.forEach((object) => {
+            if (object.GetAbsOrigin().Distance(vector) <= radius) {
+                accessHero.push([object, object.GetAbsOrigin().Distance(vector)]);
+            }
+        });
+        accessHero.sort((a, b) => {
+            return (a[1] - b[1]);
+        });
+        return accessHero[0] ? accessHero[0][0] : undefined;
+    }
+	
 	let exOrders = [Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_MOVE];
 	
 	// Definición de la función startMouseBoost
@@ -109,30 +127,48 @@
 				}
 			}
 			
+			if (enemyList.length < 5) {
+                enemyList = [];
+                let heroes = EntitySystem.GetHeroesList();
+                if (heroes) {
+                    for (let hero of heroes) {
+                        if (hero && !hero.IsIllusion() && !hero.IsMeepoClone() && hero.IsHero() && hero.IsAlive() &&
+                            !hero.IsDormant() && !hero.IsSameTeam(localHero)) {
+                            enemyList.push(hero);
+                        }
+                    }
+                }
+            }
+			
+			
 			if (KeyBindOrbwalk.IsKeyDown()) {
-				const mousePos = Input.GetWorldCursorPos();
-				const enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
-				enemies.sort((a, b) => {
-					const distA = a.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
-					const distB = b.GetAbsOrigin().Distance(localHero.GetAbsOrigin());
-					return distA - distB;
-				});
-				let enemiHero = null;
-				for (const enemy of enemies) {
-					const dist = enemy.GetAbsOrigin().Distance(mousePos);
-					if (dist <= 150 || enemiHero == null) {
-						enemiHero = enemy;
+				
+				if (comboTarget && !comboTarget.IsAlive()){
+						comboTarget = null;
+				}
+							
+				let enemiHero = GetNearHeroInRadius(Input.GetWorldCursorPos());
+
+				if (!comboTarget && enemiHero && enemiHero.IsExist())
+					comboTarget = enemiHero;
+				else if (!comboTarget) {
+					comboTarget = null;
+					if (Engine.OnceAt(0.2)){
+						//SendOrderMovePos(Input.GetWorldCursorPos(), localHero);
 					}
 				}
 
-				HitRunOrbFunction(enemiHero);
+				HitRunOrbFunction(comboTarget);
+				
+			} else{
+				comboTarget = null;
 			}
 		}
 	};
 	
 	function HitRunOrbFunction(target){
 		if (Engine.OnceAt(0.2)) {
-			if (target != null) {
+			if (target && target.IsExist()) {
 				const localHeroPosition = localHero.GetAbsOrigin();
 				const EnemyHero = target;
 				const RangeBasic = localHero.GetAttackRange();
@@ -192,6 +228,7 @@
 	HitRunHeros.OnScriptLoad = HitRunHeros.OnGameStart = () => {
 	  localHero = EntitySystem.GetLocalHero();
 	  myPlayer = EntitySystem.GetLocalPlayer();
+	  enemyList = [];
 	};
 
 	HitRunHeros.OnGameEnd = () => {
