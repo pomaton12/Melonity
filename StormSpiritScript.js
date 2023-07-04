@@ -24,7 +24,7 @@
 	let enemyList = [];
 	let lastUltimateTime = 0;
 	
-	const path_ = ["Custom Scripts","Heroes", "Intelligence"];
+	const path = ["Custom Scripts","Heroes", "Intelligence"];
 	const path_ = ["Custom Scripts","Heroes", "Intelligence", "Storm Spirit"];
 	const path_Ulti = ["Custom Scripts","Heroes", "Intelligence", "Storm Spirit","Agresive Best Ulti"];
 	const path_UltiCast = ["Custom Scripts","Heroes", "Intelligence", "Storm Spirit","Ulti CastDistance"];	
