@@ -562,7 +562,7 @@
 																		AbilHybritList[keyAbil][3] = AbilHybrid.GetCooldown();
 																		
 																		myPlayer.PrepareUnitOrders(30, null, enemyHePos, AbilHybrid, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
-																		AbilHybrid.CastPosition(BestPost);	
+																		AbilHybrid.CastPosition(IdealPosition);	
 																		
 
 																	}
