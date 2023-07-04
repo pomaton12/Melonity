@@ -30,11 +30,13 @@
 
 	let isUiEnabled2 = Menu.AddToggle(path_, 'Kill Safe Pos (No recomend)', false);
 	
-	let isUiEnabled3 = Menu.AddToggle(path_, 'Auto Orbwalk on right click hero enemy', true);
+	let isUiEnabled3 = Menu.AddToggle(path_, 'Auto Orbwalk on right click hero enemy', false);
 	
 	let DisplayMode = Menu.AddComboBox(path_, 'Display', ['To Enemy', 'Mouse position'],0)
 	.OnChange(state =>{	DisplayMode = state.newValue;})
 	.GetValue();
+	
+	
 	
 	let menu_AbilitiesList = Menu.AddMultiSelect(path_, 'Spells use in hit', ['panorama/images/spellicons/obsidian_destroyer_arcane_orb_png.vtex_c',
 	'panorama/images/spellicons/drow_ranger_frost_arrows_png.vtex_c',
@@ -43,7 +45,9 @@
 	'panorama/images/spellicons/huskar_burning_spear_png.vtex_c'], [true, true, true, true, true])
 		.OnChange((state) => {menu_AbilitiesList = state.newValue;})
 		.GetValue();
-	
+		
+	let isUiEnabled4 = Menu.AddToggle(path_, 'Use Diffusal or Disperser', true);
+	isUiEnabled4.SetImage('panorama/images/items/diffusal_blade.vtex_c');
   
 	Menu.GetFolder(['Heroes', 'Orbwalking']).SetImage('panorama/images/hud/reborn/icon_damage_psd.vtex_c');
 
@@ -100,7 +104,7 @@
 				if (exOrders.includes(event.order)) {
 					let EnemiHero = event.target;
 					if (EnemiHero && !EnemiHero.IsIllusion() && !EnemiHero.IsMeepoClone() && EnemiHero.IsHero() && EnemiHero.IsAlive() && !EnemiHero.IsDormant() && !EnemiHero.IsSameTeam(localHero)) {
-						console.log("nombre_del_hero ", EnemiHero.GetUnitName()); // Reemplaza "nombre_de_la_habilidad" con el nombre de la habilidad que quieres lanzar
+						// Reemplaza "nombre_de_la_habilidad" con el nombre de la habilidad que quieres lanzar
 						HitRunOrbFunction(EnemiHero);
 					}
 				}
@@ -117,7 +121,7 @@
 					createHUD = createHUD+1;
 				}else {
 					SafeDistanceUIval = SafeDistanceUI.GetValue();
-					//console.log("Evaluar",SafeDistanceUI.GetValue());
+					
 				}
 			} else {
 				if (DisplayMode === 1 && SafeDistanceUI != null && createHUD > 0) {
@@ -194,7 +198,7 @@
 				}
 
 				if (menu_AbilitiesList[1]) {
-						console.log(localHero.GetUnitName());
+						
 					if (localHero.GetUnitName() == "npc_dota_hero_drow_ranger") {
 						
 						let abilExist = localHero.GetAbilityByIndex(0);
@@ -245,7 +249,18 @@
 							Abilite = null;
 						}
 					}
-				}	
+				}
+
+				//'item_diffusal_blade', 'item_disperser'
+				if (isUiEnabled4.GetValue()) { 
+					let Diffusal = localHero.GetItem('item_diffusal_blade', true) || localHero.GetItem('item_disperser', true);
+					if (Diffusal && Diffusal.IsExist() && Diffusal.CanCast()) { 
+							if(attackRange >= dist){
+								Diffusal.CastTarget(EnemyHero);
+							}
+						}
+					}
+				}
 				
 				
 				if (DisplayMode === 0 ) {							
