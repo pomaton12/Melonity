@@ -38,7 +38,7 @@
 				let nCastRange = abilityTD.GetCastRange();
 				let posMyHero = localHero.GetAbsOrigin();
 				
-				let tableNearbyTrees = Trees.GetAll();
+				SetCameraTarget(posMyHero);
 								
 				console.log("Arbol = ",tableNearbyTrees);
 			}
