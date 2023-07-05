@@ -967,7 +967,7 @@
 
 				if (localHero.IsStunned() || localHero.HasModifier("modifier_legion_commander_duel") || localHero.HasModifier("modifier_axe_berserkers_call") || localHero.HasModifier("modifier_faceless_void_chronosphere") || localHero.HasModifier("modifier_enigma_black_hole_pull") || localHero.GetHealth() <= localHero.GetMaxHealth() * HpThreshold) {
 					if (morph2 && morph2.IsCastable(myMana) && !morph2.GetToggleState()) {
-						morph2.Toggle(true);
+						//morph2.Toggle(true);
 					}
 				}
 			}
