@@ -36,8 +36,9 @@
 				let abilityTD = localHero.GetAbilityByIndex(1); //monkey_king_tree_dance
 				let abilityPS = localHero.GetAbilityByIndex(2); //monkey_king_primal_spring
 				let nCastRange = abilityTD.GetCastRange();
+				let posMyHero = localHero.GetAbsOrigin();
 				
-				let tableNearbyTrees = Trees.InRadius(localHero.GetAbsOrigin(), nCastRange );
+				let tableNearbyTrees = GridNav:GetAllTreesAroundPoint( posMyHero, 1000, true );
 								
 				console.log("Arbol = ",tableNearbyTrees);
 			}
