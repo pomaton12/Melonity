@@ -38,7 +38,7 @@
 				let nCastRange = abilityTD.GetCastRange();
 				let posMyHero = localHero.GetAbsOrigin();
 				
-				let tableNearbyTrees = EntitySystem.GetTreesList();
+				let tableNearbyTrees = Trees.GetAll();
 								
 				console.log("Arbol = ",tableNearbyTrees);
 			}
