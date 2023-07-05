@@ -7,7 +7,6 @@
   \**********************************/
 /***/ (() => {
 
-//eval(`
 	// Definición del objeto AutoSaverWindrunner
 	const AutoSaverWindrunner = {};
 
@@ -196,7 +195,6 @@
 	RegisterScript(AutoSaverWindrunner);
 
 
-`);
 
 /***/ })
 
