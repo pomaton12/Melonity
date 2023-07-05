@@ -175,10 +175,6 @@
 						}
 					}
 
-					// Agregar un if statement para verificar si el modificador "modifier_windrunner_focusfire" ha terminado
-					if (!modifiers.some(modifier => modifier.GetName() === 'modifier_windrunner_focusfire')) {
-						break;
-					}
 				}
 			}
 			
