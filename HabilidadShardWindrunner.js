@@ -131,6 +131,7 @@
 				if (gale_force && gale_force.IsExist() && gale_force.CanCast()) {
 					enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 					for (let enemy of enemies) {
+						console.log(enemy.HasModifier("modifier_windrunner_focusfire"));
 						let enemyId = enemy.GetPlayerID();
 
 						let vec1 = localHero.GetAbsOrigin();
