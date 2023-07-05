@@ -38,7 +38,7 @@
 				let nCastRange = abilityTD.GetCastRange();
 				let posMyHero = localHero.GetAbsOrigin();
 				
-				let tableNearbyTrees = GridNav.GetAllTreesAroundPoint( posMyHero, 1000, true );
+				let tableNearbyTrees = GridNav.GetAllTreesAroundPoint( posMyHero, 1000, true ); 
 								
 				console.log("Arbol = ",tableNearbyTrees);
 			}
