@@ -199,9 +199,11 @@
 			if (menu_AbilitiesList[4] && isUiEnabledGale.GetValue()) {
 				if (exOrders.includes(event.order)) {
 					let EnemiHero = event.target;
+					let EnemiAbil = event.ability;
+					
 					if (EnemiHero && !EnemiHero.IsIllusion() && !EnemiHero.IsMeepoClone() && EnemiHero.IsHero() && EnemiHero.IsAlive() && !EnemiHero.IsDormant() && !EnemiHero.IsSameTeam(localHero)) {
 						// Reemplaza "nombre_de_la_habilidad" con el nombre de la habilidad que quieres lanzar
-						console.log(EnemiHero);
+						console.log(EnemiHero.GetUnitName()," ",EnemiAbil.GetName());
 					}
 				}
 			}
