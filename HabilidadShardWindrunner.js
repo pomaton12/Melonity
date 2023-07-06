@@ -25,7 +25,7 @@
 	// Definición del array path_
 	const path = ["Custom Scripts","Heroes","Universal"];
 	const path_ = ["Custom Scripts","Heroes","Universal","Windranger"];
-	const path_1 = ["Custom Scripts","Heroes","Universal","Windranger","Misc"];
+	const path_1 = ["Custom Scripts","Heroes","Universal","Windranger","Shackle Helper"];
 	
 	const item_Images = [
 	'item_soul_ring', 'item_armlet', 'item_mjollnir', 'item_blink', 'item_abyssal_blade', 'item_fallen_sky',
@@ -57,9 +57,9 @@
 
 	let isUiEnabledGale = Menu.AddToggle(path_, 'GaleForce Use in Ulti', true)
 	
-	let isUiEnabledDogde = Menu.AddToggle(path_, 'Use to Dogde', true);
+	let isUiEnabledDogde = Menu.AddToggle(path_, 'Use to Dogde', false);
 	
-	let isUiEnabledShackle = Menu.AddToggle(path_1, 'Shackle Helper', true);
+	let isUiEnabledShackle = Menu.AddToggle(path_1, 'Auto Shackle 2 Heroes', true);
 	
 	Menu.SetImage(['Custom Scripts', 'Heroes'], '~/menu/40x40/heroes.png');
     Menu.SetImage(path,'panorama/images/primary_attribute_icons/mini_primary_attribute_icon_all_psd.vtex_c');
