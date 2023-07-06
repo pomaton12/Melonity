@@ -59,6 +59,7 @@
 	
 	let isUiEnabledDogde = Menu.AddToggle(path_, 'Use to Dogde', true);
 	
+	let isUiEnabledShackle = Menu.AddToggle(path_1, 'Shackle Helper', true);
 	
 	Menu.SetImage(['Custom Scripts', 'Heroes'], '~/menu/40x40/heroes.png');
     Menu.SetImage(path,'panorama/images/primary_attribute_icons/mini_primary_attribute_icon_all_psd.vtex_c');
