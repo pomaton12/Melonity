@@ -25,7 +25,8 @@
 	// Definición del array path_
 	const path = ["Custom Scripts","Heroes","Universal"];
 	const path_ = ["Custom Scripts","Heroes","Universal","Windranger"];
-	const path_1 = ["Custom Scripts","Heroes","Universal","Windranger","Shackle Helper"];
+	const path_1 = ["Custom Scripts","Heroes","Universal","Windranger","Gale Force Helper"];
+	const path_2 = ["Custom Scripts","Heroes","Universal","Windranger","Shackle Helper"];
 	
 	const item_Images = [
 	'item_soul_ring', 'item_armlet', 'item_mjollnir', 'item_blink', 'item_abyssal_blade', 'item_fallen_sky',
@@ -57,16 +58,20 @@
 
 	let isUiEnabledGale = Menu.AddToggle(path_, 'GaleForce Use in Ulti', true)
 	
-	let isUiEnabledDogde = Menu.AddToggle(path_, 'Use to Dogde', false);
+	let isUiEnabledDogde = Menu.AddToggle(path_1, 'Enable', false);
 	
-	let isUiEnabledShackle = Menu.AddToggle(path_1, 'Auto Shackle 2 Heroes', true);
+	let EnemyUI = Menu.AddSlider(path_1, 'Target enemies for Auto GaleForce ', 1, 5, 3)
+		.OnChange(state => EnemyUI = state.newValue)
+		.GetValue();
+	
+	let isUiEnabledShackle = Menu.AddToggle(path_2, 'Auto Shackle 2 Heroes', true);
 	
 	Menu.SetImage(['Custom Scripts', 'Heroes'], '~/menu/40x40/heroes.png');
     Menu.SetImage(path,'panorama/images/primary_attribute_icons/mini_primary_attribute_icon_all_psd.vtex_c');
     Menu.SetImage(path_, 'panorama/images/heroes/icons/npc_dota_hero_windrunner_alt1_png.vtex_c');
 	Menu.GetFolder([...path_, 'Linkens Breaker Settings']).SetImage('panorama/images/hud/reborn/minimap_gemdrop_psd.vtex_c');
-	Menu.SetImage(path_1, 'panorama/images/spellicons/windrunner_shackleshot_png.vtex_c');
-	isUiEnabledDogde.SetImage('panorama/images/spellicons/windrunner_gale_force_png.vtex_c');
+	Menu.SetImage(path_1, 'panorama/images/spellicons/windrunner_gale_force_png.vtex_c');
+	Menu.SetImage(path_2, 'panorama/images/spellicons/windrunner_shackleshot_png.vtex_c');
 	isUiEnabledGale.SetImage('panorama/images/spellicons/windrunner_gale_force_png.vtex_c');
 	
 	
@@ -571,9 +576,9 @@
 								let  castRange = focusfire.GetCastRange();
 								if (TargetInRadius(comboTarget, castRange, localHero)) {
 
-									
-									focusfire.CastTarget(comboTarget);
 									TarjetFocusfire = comboTarget;
+									focusfire.CastTarget(comboTarget);
+									
 								}
 							}                       
 						}
@@ -618,9 +623,9 @@
 			if (isUiEnabledDogde.GetValue()) {
 
 				if (menu_AbilitiesList[3] && gale_force && gale_force.IsExist() && gale_force.CanCast()) {
-					let enemies = localHero.GetHeroesInRadius(400, Enum.TeamType.TEAM_ENEMY);
+					let enemies = localHero.GetHeroesInRadius(500, Enum.TeamType.TEAM_ENEMY);
 					let enemyPositions = {};
-					if (enemies.length >= 3){
+					if (enemies.length >= EnemyUI){
 						
 						for (let enemy of enemies) {
 							
