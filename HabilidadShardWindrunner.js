@@ -681,7 +681,7 @@
 							bkb.CastNoTarget();
 						}
 					}
-
+					console.log(TarjetFocusfire);
 					if (TarjetFocusfire.IsAlive()) {
 						if (!TarjetFocusfire.IsDormant()) {	
 							if (TarjetFocusfire.HasModifier("modifier_item_blade_mail_reflect")) {
