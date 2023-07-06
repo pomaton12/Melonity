@@ -718,7 +718,7 @@
 									}
 
 									if (posINI.x === posFIN.x && posINI.y === posFIN.y) {
-										continue;
+										//continue;
 									}
 
 									const enemyDirection = (posFIN.sub(posINI)).Normalized();
