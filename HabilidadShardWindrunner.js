@@ -693,10 +693,6 @@
 			if (isUiEnabledGale.GetValue()) {
 				if (menu_AbilitiesList[4] && ModifierFocusfire) {
 
-					// Nueva condición para activar windrun siempre
-					if (menu_AbilitiesList[2] && windrun && windrun.IsExist() && windrun.CanCast()) {
-						windrun.CastNoTarget();
-					}
 					// Nueva condición para activar BKB si el enemigo tiene activado Blade Mail
 					let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 
@@ -769,6 +765,11 @@
 									if (TarjetFocusfire.HasModifier("modifier_black_king_bar_immune") === false) {
 										gale_force.CastPosition(pushPosition);
 										setTimeout(function() {}, 300);
+									}
+									
+									// Nueva condición para activar windrun siempre
+									if (menu_AbilitiesList[2] && windrun && windrun.IsExist() && windrun.CanCast()) {
+										windrun.CastNoTarget();
 									}
 								}
 							}
