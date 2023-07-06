@@ -397,7 +397,7 @@
 						
 						if (menu_ItemsList.IsEnabled('item_blink') ) { 
 							let itemblink = localHero.GetItem('item_blink', true) || localHero.GetItem('item_overwhelming_blink', true) || localHero.GetItem('item_arcane_blink', true) || localHero.GetItem('item_swift_blink', true);
-							if (itemblink && CustomCanCast(gungir) && !MyModSilverEdge) { 
+							if (itemblink && CustomCanCast(itemblink) && !MyModSilverEdge) { 
 								let  castRange = itemblink.GetCastRange();
 								let castRangeBonus = localHero.GetCastRangeBonus();
 								let castRangeTotal =  castRange + castRangeBonus;
