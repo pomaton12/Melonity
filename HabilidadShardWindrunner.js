@@ -202,9 +202,8 @@
 					let EnemiAbil = event.ability;
 					if (EnemiAbil.GetName() === "windrunner_focusfire") {
 						if (EnemiHero && !EnemiHero.IsIllusion() && !EnemiHero.IsMeepoClone() && EnemiHero.IsHero() && EnemiHero.IsAlive() && !EnemiHero.IsDormant() && !EnemiHero.IsSameTeam(localHero)) {
-							// Reemplaza "nombre_de_la_habilidad" con el nombre de la habilidad que quieres lanzar
-							console.log(EnemiHero.GetUnitName()," ",EnemiAbil.GetName());
-							//TarjetFocusfire = EnemiHero;
+
+							TarjetFocusfire = EnemiHero;
 						}
 					}
 				}
@@ -769,7 +768,7 @@
 									
 									// Nueva condición para activar windrun siempre
 									if (menu_AbilitiesList[2] && windrun && windrun.IsExist() && windrun.CanCast()) {
-										windrun.CastNoTarget();
+										//windrun.CastNoTarget();
 									}
 								}
 							}
