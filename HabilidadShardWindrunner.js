@@ -265,6 +265,7 @@
 			let MyModSilverEdge = localHero.HasModifier("modifier_item_silver_edge_windwalk");
 			let ModifierFocusfire = localHero.HasModifier("modifier_windrunner_focusfire"); //  Ultimate Focusfire
 			
+						
 			let shackleshot = localHero.GetAbilityByIndex(0);
 			let powershot = localHero.GetAbilityByIndex(1);
 			let windrun = localHero.GetAbilityByIndex(2);
@@ -332,7 +333,8 @@
 						let Silenced = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_SILENCED);
 						let Ethereo = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_ATTACK_IMMUNE);
 						
-						let LinkenActive = comboTarget.HasModifier("modifier_item_sphere_target"); 
+						let LinkenActive = comboTarget.HasModifier("modifier_item_sphere_target");
+						let ModifierShackleshot = comboTarget.HasModifier("modifier_windrunner_shackle_shot"); //  Ultimate Focusfire						
 
 						let [linken, mirror] = [comboTarget.GetItem('item_sphere', true), comboTarget.GetItem('item_mirror_shield', false)];
                         if (linken && linken.CanCast() || mirror && mirror.CanCast() && !MyModSilverEdge) {
@@ -360,6 +362,54 @@
                                 }
 							}
                         }
+						
+						if (menu_ItemsList.IsEnabled('item_rod_of_atos') ) { 
+							let Atos = localHero.GetItem('item_rod_of_atos', true);
+							if (Atos && CustomCanCast(Atos) && !InmuneMagic && !Stunned && !Hexxed && !ModifierShackleshot && !MyModSilverEdge) { 
+								let  castRange = Atos.GetCastRange();
+								let castRangeBonus = localHero.GetCastRangeBonus();
+								let castRangeTotal =  castRange + castRangeBonus;
+								
+								if (TargetInRadius(comboTarget, castRangeTotal, localHero)) {
+
+									Atos.CastTarget(comboTarget);
+
+								}
+							}
+						}
+						
+						if (menu_ItemsList.IsEnabled('item_gungir') ) { 
+							let gungir = localHero.GetItem('item_gungir', true);
+							if (gungir && CustomCanCast(gungir) && !InmuneMagic && !Stunned && !ModifierShackleshot && !Hexxed && !MyModSilverEdge) { 
+								let  castRange = gungir.GetCastRange();
+								let castRangeBonus = localHero.GetCastRangeBonus();
+								let castRangeTotal =  castRange + castRangeBonus;
+								
+								if (TargetInRadius(comboTarget, castRangeTotal, localHero)) {
+									let enemyHeroes = comboTarget.GetHeroesInRadius(castRangeTotal, Enum.TeamType.TEAM_ENEMY);
+									let posbesttt = BestPosition(enemyHeroes, 375);
+									
+									gungir.CastPosition(posbesttt);
+
+								}
+							}
+						}
+						
+						if (menu_ItemsList.IsEnabled('item_blink') ) { 
+							let itemblink = localHero.GetItem('item_blink', true) || localHero.GetItem('item_overwhelming_blink', true) || localHero.GetItem('item_arcane_blink', true) || localHero.GetItem('item_swift_blink', true);
+							if (itemblink && CustomCanCast(gungir) && !MyModSilverEdge) { 
+								let  castRange = itemblink.GetCastRange();
+								let castRangeBonus = localHero.GetCastRangeBonus();
+								let castRangeTotal =  castRange + castRangeBonus;
+								
+								if (TargetInRadius(comboTarget, castRangeTotal, localHero)) {
+									
+									itemblink.CastPosition(comboTarget.GetAbsOrigin());
+
+								}
+							}
+						}
+						
 
 						if (menu_ItemsList.IsEnabled('item_hurricane_pike') ) { 
 							let pike = localHero.GetItem('item_hurricane_pike', true);
@@ -440,7 +490,7 @@
 						
 						if (menu_ItemsList.IsEnabled('item_orchid') ) { 
 							let Orchid = localHero.GetItem('item_orchid', true);
-							if (Orchid && CustomCanCast(Orchid)  && !Stunned && !InmuneMagic && !Hexxed  && !Silenced && !MyModSilverEdge) { 
+							if (Orchid && CustomCanCast(Orchid)  && !Stunned && !InmuneMagic && !Hexxed && !ModifierShackleshot  && !Silenced && !MyModSilverEdge) { 
 								if (TargetInRadius(comboTarget, 900, localHero)) {
 									Orchid.CastTarget(comboTarget);
 								}
@@ -451,7 +501,7 @@
 						
 						if (menu_ItemsList.IsEnabled('item_bloodthorn') ) { 
 							let Bloodthorn = localHero.GetItem('item_bloodthorn', true);
-							if (Bloodthorn && CustomCanCast(Bloodthorn) && !Stunned && !InmuneMagic && !Hexxed && !Silenced && !MyModSilverEdge) { 
+							if (Bloodthorn && CustomCanCast(Bloodthorn) && !Stunned && !InmuneMagic && !Hexxed && !ModifierShackleshot && !Silenced && !MyModSilverEdge) { 
 								if (TargetInRadius(comboTarget, 900, localHero)) {
 									Bloodthorn.CastTarget(comboTarget);								
 								}
@@ -461,7 +511,7 @@
 						
 						if (menu_ItemsList.IsEnabled('item_sheepstick') ) {
 							let Sheepstick = localHero.GetItem('item_sheepstick', true);
-							if (Sheepstick && CustomCanCast(Sheepstick) && !Stunned && !InmuneMagic && !Hexxed && !MyModSilverEdge) {
+							if (Sheepstick && CustomCanCast(Sheepstick) && !Stunned && !InmuneMagic && !Hexxed && !ModifierShackleshot && !MyModSilverEdge) {
 								if (TargetInRadius(comboTarget, 600, localHero)) {
 									Sheepstick.CastTarget(comboTarget);
 									
@@ -527,7 +577,7 @@
 
 						if (menu_ItemsList.IsEnabled('item_bullwhip') ) { 
 							let Bullwhip = localHero.GetItem('item_bullwhip', false);
-							if (Bullwhip && CustomCanCast(Bullwhip) && !InmuneMagic && comboTarget.IsRunning() && !Hexxed && !MyModSilverEdge) { 
+							if (Bullwhip && CustomCanCast(Bullwhip) && !InmuneMagic && comboTarget.IsRunning() && !Hexxed && !ModifierShackleshot && !MyModSilverEdge) { 
 								if (TargetInRadius(comboTarget, 850, localHero)) {
 									Bullwhip.CastTarget(comboTarget);
 								}
@@ -537,7 +587,7 @@
 						//'item_diffusal_blade', 'item_disperser'
 						if (menu_ItemsList.IsEnabled('item_diffusal_blade') ) { 
 							let Diffusal = localHero.GetItem('item_diffusal_blade', true);
-							if (Diffusal && CustomCanCast(Diffusal) && !InmuneMagic && comboTarget.IsRunning() && !Hexxed && !MyModSilverEdge) { 
+							if (Diffusal && CustomCanCast(Diffusal) && !InmuneMagic && comboTarget.IsRunning() && !Hexxed && !ModifierShackleshot && !MyModSilverEdge) { 
 								if (TargetInRadius(comboTarget, 600, localHero)) {
 									Diffusal.CastTarget(comboTarget);
 								}
@@ -546,7 +596,7 @@
 						
 						if (menu_ItemsList.IsEnabled('item_disperser') ) { 
 							let Disperser = localHero.GetItem('item_disperser', true);
-							if (Disperser && CustomCanCast(Disperser) && !InmuneMagic && comboTarget.IsRunning() && !Hexxed && !MyModSilverEdge) { 
+							if (Disperser && CustomCanCast(Disperser) && !InmuneMagic && comboTarget.IsRunning() && !Hexxed && !ModifierShackleshot && !MyModSilverEdge) { 
 								if (TargetInRadius(comboTarget, 600, localHero)) {
 									Disperser.CastTarget(comboTarget);
 								}
@@ -565,7 +615,7 @@
 						}	
 
 						if (menu_AbilitiesList[1]) {
-							if (powershot && powershot.IsExist() && powershot.CanCast() && !MyModSilverEdge) {   
+							if (powershot && powershot.IsExist() && powershot.CanCast() && ModifierShackleshot && !MyModSilverEdge) {   
 								let castRange = powershot.GetCastRange();
 								let castRangeBonus = localHero.GetCastRangeBonus();
 								let castRangeTotal =  castRange + castRangeBonus;
@@ -600,7 +650,6 @@
 								if (TargetInRadius(comboTarget, castRange, localHero)) {
 
 									TarjetFocusfire = comboTarget;
-									//console.log(TarjetFocusfire);
 									focusfire.CastTarget(comboTarget);
 									
 								}
