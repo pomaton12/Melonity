@@ -717,10 +717,10 @@
 								let disperserI = localHero.GetItem('item_disperser', true);
 								let diffusalI = localHero.GetItem('item_diffusal_blade', true);
 								if (disperserI && disperserI.CanCast()) {
-									disperserI.CastNoTarget();
+									//disperserI.CastNoTarget();
 								}
 								if (diffusalI && diffusalI.CanCast()) {
-									diffusalI.CastNoTarget();
+									//diffusalI.CastNoTarget();
 								}
 							}
 
