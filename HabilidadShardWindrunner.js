@@ -200,10 +200,12 @@
 				if (exOrders.includes(event.order)) {
 					let EnemiHero = event.target;
 					let EnemiAbil = event.ability;
-					
-					if (EnemiHero && !EnemiHero.IsIllusion() && !EnemiHero.IsMeepoClone() && EnemiHero.IsHero() && EnemiHero.IsAlive() && !EnemiHero.IsDormant() && !EnemiHero.IsSameTeam(localHero)) {
-						// Reemplaza "nombre_de_la_habilidad" con el nombre de la habilidad que quieres lanzar
-						console.log(EnemiHero.GetUnitName()," ",EnemiAbil.GetName());
+					if (EnemiAbil.GetName() === "windrunner_focusfire") {
+						if (EnemiHero && !EnemiHero.IsIllusion() && !EnemiHero.IsMeepoClone() && EnemiHero.IsHero() && EnemiHero.IsAlive() && !EnemiHero.IsDormant() && !EnemiHero.IsSameTeam(localHero)) {
+							// Reemplaza "nombre_de_la_habilidad" con el nombre de la habilidad que quieres lanzar
+							console.log(EnemiHero.GetUnitName()," ",EnemiAbil.GetName());
+							TarjetFocusfire = EnemiHero;
+						}
 					}
 				}
 			}
@@ -599,7 +601,7 @@
 								if (TargetInRadius(comboTarget, castRange, localHero)) {
 
 									TarjetFocusfire = comboTarget;
-									console.log(TarjetFocusfire);
+									//console.log(TarjetFocusfire);
 									focusfire.CastTarget(comboTarget);
 									
 								}
