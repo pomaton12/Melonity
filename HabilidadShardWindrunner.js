@@ -249,7 +249,7 @@
 			let focusfire = localHero.GetAbilityByIndex(5);			
 			
 			if (!ModifierFocusfire) {
-				TarjetFocusfire = null;
+				//TarjetFocusfire = null;
 			}
 			
 			if (KeyBindOrderAgresive.IsKeyDown()) {
