@@ -1,14 +1,14 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/MorphlingUltiAbuse.ts":
+/***/ "./src/AutoSaverWindrunner.ts":
 /*!**********************************!*\
-  !*** ./src/MorphlingUltiAbuse.ts ***!
+  !*** ./src/AutoSaverWindrunner.ts ***!
   \**********************************/
 /***/ (() => {
 
-	// Definición del objeto MorphlingUltiAbuse
-	const MorphlingUltiAbuse = {};
+	// Definición del objeto AutoSaverWindrunner
+	const AutoSaverWindrunner = {};
 
 	// Declaración de la variable localHero
 	let localHero = null;
@@ -19,7 +19,8 @@
 	let enemyList = [];
 	
 	let TarjetFocusfire = null;
-	
+	let posFIN;
+	let posFIN1;
 	
 	// Definición del array path_
 	const path = ["Custom Scripts","Heroes","Universal"];
@@ -182,7 +183,7 @@
     }
 	
 	
-	MorphlingUltiAbuse.OnDraw = () => {
+	AutoSaverWindrunner.OnDraw = () => {
         if (localHero && isUiEnabled.GetValue()) {
 			if (localHero.GetUnitName() !== "npc_dota_hero_windrunner") {
 				return;
@@ -212,7 +213,7 @@
     };
 
 	// Definición de la función OnUpdate
-	MorphlingUltiAbuse.OnUpdate = () => {
+	AutoSaverWindrunner.OnUpdate = () => {
 			
         if (localHero && isUiEnabled.GetValue()) {			
 			if (localHero.GetUnitName() !== "npc_dota_hero_windrunner") {
@@ -895,7 +896,7 @@
 	}
 	
 	// Definición de la función OnScriptLoad
-	MorphlingUltiAbuse.OnScriptLoad = MorphlingUltiAbuse.OnGameStart = () => {
+	AutoSaverWindrunner.OnScriptLoad = AutoSaverWindrunner.OnGameStart = () => {
 		localHero = EntitySystem.GetLocalHero();
 	    myPlayer = EntitySystem.GetLocalPlayer();
 		enemyList = [];
@@ -903,13 +904,13 @@
 	};
 
 	// Definición de la función OnGameEnd
-	MorphlingUltiAbuse.OnGameEnd = () => {
+	AutoSaverWindrunner.OnGameEnd = () => {
 		localHero = null;
 	    myPlayer = null;
 	};
 
 	// Registro del script
-	RegisterScript(MorphlingUltiAbuse);
+	RegisterScript(AutoSaverWindrunner);
 
 /***/ })
 
@@ -920,7 +921,7 @@
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
 /******/ 	var __webpack_exports__ = {};
-/******/ 	__webpack_modules__["./src/MorphlingUltiAbuse.ts"]();
+/******/ 	__webpack_modules__["./src/AutoSaverWindrunner.ts"]();
 /******/ 	
 /******/ })()
 ;
