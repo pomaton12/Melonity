@@ -577,6 +577,7 @@
 								if (TargetInRadius(comboTarget, castRange, localHero)) {
 
 									TarjetFocusfire = comboTarget;
+									console.log(TarjetFocusfire);
 									focusfire.CastTarget(comboTarget);
 									
 								}
