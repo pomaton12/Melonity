@@ -188,6 +188,26 @@
         return item && !hasModf && owner.GetMana() >= item.GetManaCost() && item.IsCastable(owner.GetMana());
     }
 	
+	let exOrders = [Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_TARGET];
+	
+	AutoSaverWindrunner.OnPrepareUnitOrders = (event) => {
+		if (localHero && isUiEnabled.GetValue()) {
+			if (localHero.GetUnitName() !== "npc_dota_hero_windrunner") {
+				return;
+			}			
+			
+			if (menu_AbilitiesList[4] && isUiEnabledGale.GetValue()) {
+				if (exOrders.includes(event.order)) {
+					let EnemiHero = event.target;
+					if (EnemiHero && !EnemiHero.IsIllusion() && !EnemiHero.IsMeepoClone() && EnemiHero.IsHero() && EnemiHero.IsAlive() && !EnemiHero.IsDormant() && !EnemiHero.IsSameTeam(localHero)) {
+						// Reemplaza "nombre_de_la_habilidad" con el nombre de la habilidad que quieres lanzar
+						console.log(EnemiHero);
+					}
+				}
+			}
+		}
+	};
+	
 	
 	AutoSaverWindrunner.OnDraw = () => {
         if (localHero && isUiEnabled.GetValue()) {
@@ -677,12 +697,14 @@
 					let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 
 					if (enemies.length >= 3) {
-						let bkb = localHero.GetItem('item_black_king_bar', true);
-						if (bkb && bkb.CanCast()) {
-							bkb.CastNoTarget();
+						if (menu_ItemsList.IsEnabled('item_black_king_bar') ) { 
+							let bkb = localHero.GetItem('item_black_king_bar', true);
+							if (bkb && bkb.CanCast()) {
+								bkb.CastNoTarget();
+							}
 						}
 					}
-					console.log(TarjetFocusfire);
+
 					if (TarjetFocusfire!= null && TarjetFocusfire.IsAlive()) {
 						if (!TarjetFocusfire.IsDormant()) {	
 							if (TarjetFocusfire.HasModifier("modifier_item_blade_mail_reflect")) {
