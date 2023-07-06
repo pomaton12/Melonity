@@ -204,7 +204,7 @@
 						if (EnemiHero && !EnemiHero.IsIllusion() && !EnemiHero.IsMeepoClone() && EnemiHero.IsHero() && EnemiHero.IsAlive() && !EnemiHero.IsDormant() && !EnemiHero.IsSameTeam(localHero)) {
 							// Reemplaza "nombre_de_la_habilidad" con el nombre de la habilidad que quieres lanzar
 							console.log(EnemiHero.GetUnitName()," ",EnemiAbil.GetName());
-							TarjetFocusfire = EnemiHero;
+							//TarjetFocusfire = EnemiHero;
 						}
 					}
 				}
