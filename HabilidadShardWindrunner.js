@@ -682,7 +682,7 @@
 						}
 					}
 					console.log(TarjetFocusfire);
-					if (TarjetFocusfire.IsAlive()) {
+					if (TarjetFocusfire!= null && TarjetFocusfire.IsAlive()) {
 						if (!TarjetFocusfire.IsDormant()) {	
 							if (TarjetFocusfire.HasModifier("modifier_item_blade_mail_reflect")) {
 								let bkb = localHero.GetItem('item_black_king_bar', true);
