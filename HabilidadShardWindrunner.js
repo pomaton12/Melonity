@@ -713,14 +713,14 @@
 								}
 							}
 
-							if (TarjetFocusfire.HasModifier("modifier_black_king_bar_immune") === false ) {
+							if (TarjetFocusfire.HasModifier("modifier_black_king_bar_immune") === false && TarjetFocusfire.IsRunning()) {
 								let disperserI = localHero.GetItem('item_disperser', true);
 								let diffusalI = localHero.GetItem('item_diffusal_blade', true);
 								if (disperserI && disperserI.CanCast()) {
-									//disperserI.CastNoTarget();
+									disperserI.CastTarget(TarjetFocusfire);
 								}
 								if (diffusalI && diffusalI.CanCast()) {
-									//diffusalI.CastNoTarget();
+									diffusalI.CastTarget(TarjetFocusfire);
 								}
 							}
 
@@ -768,7 +768,7 @@
 									
 									// Nueva condición para activar windrun siempre
 									if (menu_AbilitiesList[2] && windrun && windrun.IsExist() && windrun.CanCast()) {
-										//windrun.CastNoTarget();
+										windrun.CastNoTarget();
 									}
 								}
 							}
