@@ -42,7 +42,7 @@
 				let nearestTree = null;
 				let nearestTreeDistance = Infinity;
 				for (const tree of tableNearbyTrees) {
-					const distance = hero.GetAbsOrigin().Distance(tree.GetAbsOrigin());
+					const distance = localHero.GetAbsOrigin().Distance(tree.GetAbsOrigin());
 					if (distance < nearestTreeDistance) {
 						nearestTree = tree;
 						nearestTreeDistance = distance;
