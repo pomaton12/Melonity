@@ -960,7 +960,7 @@
 			const enemyHero1Pos = EnemyHeroLocal.GetAbsOrigin();
 			const enemyHero2Pos = closestEnemy.GetAbsOrigin();
 			const dirEn1En2 = (enemyHero1Pos.sub(enemyHero2Pos)).Normalized();
-			bestPosition = enemyHero1Pos.add(dirEn1En2.mul(new Vector(-100, -100, 0)));
+			bestPosition = enemyHero1Pos.add(dirEn1En2.mul(new Vector(100, 100, 0)));
 		} else{
 			bestPosition = EnemyHeroLocal.GetAbsOrigin();
 		}
