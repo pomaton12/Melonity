@@ -400,13 +400,12 @@
 							let itemblink = localHero.GetItem('item_blink', true) || localHero.GetItem('item_overwhelming_blink', true) || localHero.GetItem('item_arcane_blink', true) || localHero.GetItem('item_swift_blink', true);
 							if (itemblink && CustomCanCast(itemblink) && !MyModSilverEdge) { 
 								let  castRange = itemblink.GetLevelSpecialValueFor("abilitycastrange");
-								console.log(localHero.GetTreesInRadius(300));
 								let castRangeBonus = localHero.GetCastRangeBonus();
 								let castRangeTotal =  castRange + castRangeBonus;
 								
 								if (TargetInRadius(comboTarget, castRangeTotal, localHero)) {
-									
-									itemblink.CastPosition(comboTarget.GetAbsOrigin());
+									const postBlink = BestPosBlink(comboTarget);
+									itemblink.CastPosition(postBlink);
 
 								}
 							}
@@ -923,6 +922,46 @@
 		}
 		return Math.max(mod.GetDieTime() - GameRules.GetGameTime(), 0);
 	}
+	
+	function BestPosBlink(EnemyHeroLocal) {
+		let tableNearbyTrees = EnemyHeroLocal.GetTreesInRadius(575);	
+		let enemyHeroesAll = EnemyHeroLocal.GetHeroesInRadius(575, Enum.TeamType.TEAM_ENEMY);
+		let bestPosition = null;
+		let closestEnemy = null;
+		let closestDistance = Infinity;
+
+		for (let enemy of enemyHeroesAll) {
+			let distance = EnemyHeroLocal.GetAbsOrigin().Distance(enemy.GetAbsOrigin());
+			if (distance < closestDistance) {
+				closestEnemy = enemy;
+				closestDistance = distance;
+			}
+		}
+
+		if (closestEnemy == null) {
+			let closestDistance = Infinity;
+			for (let tree of tableNearbyTrees) {
+				let distance = EnemyHeroLocal.GetAbsOrigin().Distance(tree.GetAbsOrigin());
+				if (distance < closestDistance) {
+					closestEnemy = tree;
+					closestDistance = distance;
+				}
+			}
+		}
+
+		if (closestEnemy != null) {
+			const enemyHero1Pos = EnemyHeroLocal.GetAbsOrigin();
+			const enemyHero2Pos = closestEnemy.GetAbsOrigin();
+			const dirEn1En2 = (enemyHero1Pos.sub(enemyHero2Pos)).Normalized();
+			bestPosition = enemyHero1Pos.add(dirEn1En2.mul(new Vector(-100, -100, 0)));
+		} else{
+			bestPosition = EnemyHeroLocal.GetAbsOrigin();
+		}
+		
+		return bestPosition;
+	}
+
+	
 	// radius Rdio de Casteo
 	function BestPosition(EnemiInRadius, radius) {
 		if (!EnemiInRadius || EnemiInRadius.length <= 0) return null;
