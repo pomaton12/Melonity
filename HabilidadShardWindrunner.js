@@ -933,11 +933,14 @@
 		
 		if(enemyHeroesAll.length > 1){
 			for (let enemy of enemyHeroesAll) {
-				console.log(enemy.GetUnitName());
-				let distance = EnemyHeroLocal.GetAbsOrigin().Distance(enemy.GetAbsOrigin());
-				if (distance < closestDistance) {
-					closestEnemy = enemy;
-					closestDistance = distance;
+				
+				if(enemy.GetUnitName() !== EnemyHeroLocal.GetUnitName() ){
+					console.log(enemy.GetUnitName());
+					let distance = EnemyHeroLocal.GetAbsOrigin().Distance(enemy.GetAbsOrigin());
+					if (distance < closestDistance) {
+						closestEnemy = enemy;
+						closestDistance = distance;
+					}
 				}
 			}
 		}
