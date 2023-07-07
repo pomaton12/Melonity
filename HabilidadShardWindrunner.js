@@ -951,6 +951,7 @@
 		}
 
 		if (closestEnemy != null) {
+			console.log(closestEnemy);
 			const enemyHero1Pos = EnemyHeroLocal.GetAbsOrigin();
 			const enemyHero2Pos = closestEnemy.GetAbsOrigin();
 			const dirEn1En2 = (enemyHero1Pos.sub(enemyHero2Pos)).Normalized();
