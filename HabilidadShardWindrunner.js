@@ -15,7 +15,7 @@
 	let myPlayer = null;
 	let comboTarget = null;
 	let particle = null;
-	
+	let shackleshotCast = false;
 	let enemyList = [];
 	
 	let TarjetFocusfire = null;
@@ -379,7 +379,7 @@
 							blinkCast = true;
 						}
 						
-						let shackleshotCast = false;
+						
 						if (menu_AbilitiesList[0]) {
                             
                             if (shackleshot && shackleshot.IsExist() && shackleshot.CanCast() && blinkCast && !InmuneMagic && !Stunned  && !Hexxed && !MyModSilverEdge) {
