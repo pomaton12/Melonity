@@ -7,7 +7,7 @@
   \**********************************/
 /***/ (() => {
 
-//eval(`
+
   // Definición del objeto AutoSaveMonkeyKing
   const AutoSaveMonkeyKing = {};
 
@@ -74,7 +74,7 @@
 
   // Registro del script
   RegisterScript(AutoSaveMonkeyKing);
-`);
+
 
 /***/ })
 
