@@ -791,17 +791,6 @@
 								}
 							}
 
-							if (TarjetFocusfire.HasModifier("modifier_black_king_bar_immune") === false && TarjetFocusfire.IsRunning()) {
-								let disperserI = localHero.GetItem('item_disperser', true);
-								let diffusalI = localHero.GetItem('item_diffusal_blade', true);
-								if (disperserI && disperserI.CanCast()) {
-									disperserI.CastTarget(TarjetFocusfire);
-								}
-								if (diffusalI && diffusalI.CanCast()) {
-									diffusalI.CastTarget(TarjetFocusfire);
-								}
-							}
-
 							let enemyPositions = {};
 							if (menu_AbilitiesList[3] && gale_force && gale_force.IsExist() && gale_force.CanCast()) {
 
