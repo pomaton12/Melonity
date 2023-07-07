@@ -1,4 +1,4 @@
-/******/ (() => { // webpackBootstrap 
+/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/AutoSaverWindrunner.ts":
@@ -405,6 +405,7 @@
 								
 								if (TargetInRadius(comboTarget, castRangeTotal, localHero)) {
 									const postBlink = BestPosBlink(comboTarget);
+									console.log(postBlink);
 									itemblink.CastPosition(postBlink);
 
 								}
