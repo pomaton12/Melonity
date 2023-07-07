@@ -400,7 +400,7 @@
 							let itemblink = localHero.GetItem('item_blink', true) || localHero.GetItem('item_overwhelming_blink', true) || localHero.GetItem('item_arcane_blink', true) || localHero.GetItem('item_swift_blink', true);
 							if (itemblink && CustomCanCast(itemblink) && !MyModSilverEdge) { 
 								let  castRange = itemblink.GetLevelSpecialValueFor("abilitycastrange");
-								console.log(Trees.Count());
+								console.log(Tree.Count());
 								let castRangeBonus = localHero.GetCastRangeBonus();
 								let castRangeTotal =  castRange + castRangeBonus;
 								
