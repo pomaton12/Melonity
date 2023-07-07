@@ -360,7 +360,7 @@
 								let castRangeTotal =  castRange + castRangeBonus;
 								
 								if (TargetInRadius(comboTarget, castRangeTotal, localHero)) {
-									if(!shackleshotCast){
+									if(shackleshot && shackleshot.IsExist() && shackleshot.CanCast()){
 										const postBlink = BestPosBlink(comboTarget);
 										blinkCast = true;
 										itemblink.CastPosition(postBlink);
@@ -387,14 +387,10 @@
 								let castRangeBonus = localHero.GetCastRangeBonus();
 								let castRangeTotal =  castRange + castRangeBonus;
                                 if (comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), castRangeTotal, 0)) {
-									shackleshotCast = true;
+									
 									shackleshot.CastTarget(comboTarget);
                                 }
-							} else{
-								shackleshotCast = true;
-							}
-						} else{
-							shackleshotCast = true;
+							} 
 						}
 						
 						if (menu_ItemsList.IsEnabled('item_rod_of_atos') ) { 
