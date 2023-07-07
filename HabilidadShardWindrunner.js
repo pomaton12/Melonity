@@ -1011,7 +1011,7 @@
 	
 	function castShackleshot(HeroLocal) {
 		const searchRadius = 800;
-		const searchRadius2 = 575;
+		const searchRadius2 = 575 + 800;
 
 		let enemyHeroesAll = HeroLocal.GetHeroesInRadius(searchRadius, Enum.TeamType.TEAM_ENEMY);
 		let targetEnemy = null;
@@ -1033,8 +1033,8 @@
 			const enemyHero2Pos = HeroLocal.GetAbsOrigin();
 			const dirEn1En2 = (enemyHero1Pos.sub(enemyHero2Pos)).Normalized();
 
-			let units = targetEnemy.GetUnitsInRadius(searchRadius2, Enum.TeamType.TEAM_ENEMY);
-			let trees = targetEnemy.GetTreesInRadius(searchRadius2);
+			let units = HeroLocal.GetUnitsInRadius(searchRadius2, Enum.TeamType.TEAM_ENEMY);
+			let trees = HeroLocal.GetTreesInRadius(searchRadius2);
 
 			// Buscamos el objetivo detrás del enemigo
 			for (let unit of units.concat(trees)) {
