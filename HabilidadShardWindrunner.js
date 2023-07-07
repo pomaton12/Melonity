@@ -930,23 +930,27 @@
 		let bestPosition = null;
 		let closestEnemy = null;
 		let closestDistance = Infinity;
-
-		for (let enemy of enemyHeroesAll) {
-			console.log(enemy.GetUnitName());
-			let distance = EnemyHeroLocal.GetAbsOrigin().Distance(enemy.GetAbsOrigin());
-			if (distance < closestDistance) {
-				closestEnemy = enemy;
-				closestDistance = distance;
+		
+		if(enemyHeroesAll.length > 1){
+			for (let enemy of enemyHeroesAll) {
+				console.log(enemy.GetUnitName());
+				let distance = EnemyHeroLocal.GetAbsOrigin().Distance(enemy.GetAbsOrigin());
+				if (distance < closestDistance) {
+					closestEnemy = enemy;
+					closestDistance = distance;
+				}
 			}
 		}
 
-		if (closestEnemy == null) {
-			let closestDistance = Infinity;
-			for (let tree of tableNearbyTrees) {
-				let distance = EnemyHeroLocal.GetAbsOrigin().Distance(tree.GetAbsOrigin());
-				if (distance < closestDistance) {
-					closestEnemy = tree;
-					closestDistance = distance;
+		if(tableNearbyTrees.length > 0){
+			if (closestEnemy == null) {
+				let closestDistance = Infinity;
+				for (let tree of tableNearbyTrees) {
+					let distance = EnemyHeroLocal.GetAbsOrigin().Distance(tree.GetAbsOrigin());
+					if (distance < closestDistance) {
+						closestEnemy = tree;
+						closestDistance = distance;
+					}
 				}
 			}
 		}
