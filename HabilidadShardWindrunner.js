@@ -64,7 +64,7 @@
 		.OnChange(state => EnemyUI = state.newValue)
 		.GetValue();
 	
-	let isUiEnabledShackle = Menu.AddToggle(path_2, 'Auto Shackle 2 Heroes', true);
+	let isUiEnabledShackle = Menu.AddToggle(path_2, 'Auto Best Shackle oportunity', false);
 	
 	Menu.SetImage(['Custom Scripts', 'Heroes'], '~/menu/40x40/heroes.png');
     Menu.SetImage(path,'panorama/images/primary_attribute_icons/mini_primary_attribute_icon_all_psd.vtex_c');
@@ -705,12 +705,21 @@
 				comboTarget = null;
 			}
 
-			
+			// ===== Funcion Opcion Panel =========
+			if (isUiEnabledShackle.GetValue()) {
+				if (menu_AbilitiesList[0] && shackleshot && shackleshot.IsExist() && shackleshot.CanCast() && !MyModSilverEdge) {
+					let tarjetDetected = castShackleshot(localHero);
+					if(tarjetDetected!= null && !tarjetDetected.HasModifier("modifier_black_king_bar_immune")  && !tarjetDetected.HasState(Enum.ModifierState.MODIFIER_STATE_STUNNED) && !tarjetDetected.HasState(Enum.ModifierState.MODIFIER_STATE_HEXED)){
+						shackleshot.CastTarget(tarjetDetected);
+					}
+				}
+			}	
+				
 			
 			// ===== Funcion Opcion Panel =========
 			if (isUiEnabledDogde.GetValue()) {
 
-				if (menu_AbilitiesList[3] && gale_force && gale_force.IsExist() && gale_force.CanCast()) {
+				if (menu_AbilitiesList[3] && gale_force && gale_force.IsExist() && gale_force.CanCast() && !MyModSilverEdge) {
 					let enemies = localHero.GetHeroesInRadius(500, Enum.TeamType.TEAM_ENEMY);
 					let enemyPositions = {};
 					if (enemies.length >= EnemyUI){
@@ -998,6 +1007,46 @@
 		}
 		
 		return bestPosition;
+	}
+	
+	function castShackleshot(HeroLocal) {
+		const searchRadius = 800;
+		const searchRadius2 = 575;
+
+		let enemyHeroesAll = HeroLocal.GetHeroesInRadius(searchRadius, Enum.TeamType.TEAM_ENEMY);
+		let targetEnemy = null;
+		let targetEnemy2 = null;
+		let tarjetTrue = null;
+
+		// Buscamos el enemigo más cercano
+		for (let enemy of enemyHeroesAll) {
+			if (enemy != HeroLocal) {
+				if (targetEnemy == null || HeroLocal.GetAbsOrigin().Distance(enemy.GetAbsOrigin()) < HeroLocal.GetAbsOrigin().Distance(targetEnemy.GetAbsOrigin())) {
+					targetEnemy = enemy;
+				}
+			}
+		}
+
+		// Si encontramos un enemigo, buscamos detrás suyo otro objetivo
+		if (targetEnemy != null) {
+			let behindTargetPos = targetEnemy.GetAbsOrigin().sub(HeroLocal.GetAbsOrigin()).Normalized().mul(new Vector(-searchRadius2, -searchRadius2, 0)).add(targetEnemy.GetAbsOrigin());
+			let units = HeroLocal.GetUnitsInRadius(searchRadius2, Enum.TeamType.TEAM_ENEMY);
+			let trees = HeroLocal.GetTreesInRadius(searchRadius2);
+
+			// Buscamos el objetivo detrás del enemigo
+			for (let unit of units.concat(trees)) {
+				if (unit != targetEnemy && behindTargetPos.Distance(unit.GetAbsOrigin()) <= searchRadius2) {
+					targetEnemy2 = unit;
+					break;
+				}
+			}
+
+			// Si encontramos un objetivo detrás del enemigo, casteamos Shackleshot
+			if (targetEnemy2 != null) {
+				tarjetTrue = targetEnemy;
+			}
+		}
+		return tarjetTrue;
 	}
 
 	
