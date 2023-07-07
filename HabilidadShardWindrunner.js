@@ -332,6 +332,7 @@
 						let Hexxed = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_HEXED);
 						let Silenced = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_SILENCED);
 						let Ethereo = comboTarget.HasState(Enum.ModifierState.MODIFIER_STATE_ATTACK_IMMUNE);
+	
 						
 						let LinkenActive = comboTarget.HasModifier("modifier_item_sphere_target");
 						let ModifierShackleshot = comboTarget.HasModifier("modifier_windrunner_shackle_shot"); //  Ultimate Focusfire						
@@ -353,7 +354,7 @@
 
 						if (menu_AbilitiesList[0]) {
                             
-                            if (shackleshot && shackleshot.IsExist() && shackleshot.CanCast() && !MyModSilverEdge) {
+                            if (shackleshot && shackleshot.IsExist() && shackleshot.CanCast() && !InmuneMagic && !Stunned  && !Hexxed && !MyModSilverEdge) {
 								let  castRange = shackleshot.GetCastRange();
 								let castRangeBonus = localHero.GetCastRangeBonus();
 								let castRangeTotal =  castRange + castRangeBonus;
@@ -399,7 +400,7 @@
 							let itemblink = localHero.GetItem('item_blink', true) || localHero.GetItem('item_overwhelming_blink', true) || localHero.GetItem('item_arcane_blink', true) || localHero.GetItem('item_swift_blink', true);
 							if (itemblink && CustomCanCast(itemblink) && !MyModSilverEdge) { 
 								let  castRange = itemblink.GetLevelSpecialValueFor("abilitycastrange");
-								console.log(castRange);
+								console.log(Trees.Count());
 								let castRangeBonus = localHero.GetCastRangeBonus();
 								let castRangeTotal =  castRange + castRangeBonus;
 								
