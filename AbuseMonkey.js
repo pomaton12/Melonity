@@ -26,7 +26,7 @@
   
 
 	// Definición de la función OnUpdate
-	AutoSaveMonkeyKing.OnUpdate = () => { 
+	AutoSaveMonkeyKing.OnUpdate = () => {
         if (localHero && isUiEnabled) {
             if (localHero.GetUnitName() !== "npc_dota_hero_monkey_king"){
                 return;
@@ -51,6 +51,8 @@
 				if (nearestTree) {
 					// hacer algo con el árbol más cercano, como destruirlo
 					console.log("El árbol más cercano está a una distancia de " + nearestTreeDistance + " unidades.");
+					abilityTD.CastTarget(nearestTree);
+					
 				} else {
 					console.log("No hay árboles cercanos.");
 				}
