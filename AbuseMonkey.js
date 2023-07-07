@@ -26,7 +26,7 @@
   
 
 	// Definición de la función OnUpdate
-	AutoSaveMonkeyKing.OnUpdate = () => {
+	AutoSaveMonkeyKing.OnUpdate = () => { 
         if (localHero && isUiEnabled) {
             if (localHero.GetUnitName() !== "npc_dota_hero_monkey_king"){
                 return;
