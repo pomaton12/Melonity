@@ -988,7 +988,7 @@
 	};
 
 	// Definición de la función OnGameEnd
-	AutoSaverWindrunner.OnGameEnd = () => {
+	AutoSaverWindrunner.OnGameEnd = () => { 
 		localHero = null;
 	    myPlayer = null;
 	};
