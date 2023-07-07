@@ -1029,13 +1029,16 @@
 
 		// Si encontramos un enemigo, buscamos detrás suyo otro objetivo
 		if (targetEnemy != null) {
-			let behindTargetPos = targetEnemy.GetAbsOrigin().sub(HeroLocal.GetAbsOrigin()).Normalized().mul(new Vector(-searchRadius2, -searchRadius2, 0)).add(targetEnemy.GetAbsOrigin());
+			const enemyHero1Pos = targetEnemy.GetAbsOrigin();
+			const enemyHero2Pos = HeroLocal.GetAbsOrigin();
+			const dirEn1En2 = (enemyHero1Pos.sub(enemyHero2Pos)).Normalized();
+
 			let units = HeroLocal.GetUnitsInRadius(searchRadius2, Enum.TeamType.TEAM_ENEMY);
 			let trees = HeroLocal.GetTreesInRadius(searchRadius2);
 
 			// Buscamos el objetivo detrás del enemigo
 			for (let unit of units.concat(trees)) {
-				if (unit != targetEnemy && behindTargetPos.Distance(unit.GetAbsOrigin()) <= searchRadius2) {
+				if (unit != targetEnemy && unit.GetAbsOrigin().sub(enemyHero1Pos).Normalized().Dot(dirEn1En2) > 0.9) {
 					targetEnemy2 = unit;
 					break;
 				}
