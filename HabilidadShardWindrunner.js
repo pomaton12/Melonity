@@ -351,18 +351,51 @@
                             }
                         }
 						
+						let blinkCast = false;
+						if (menu_ItemsList.IsEnabled('item_blink') ) { 
+							let itemblink = localHero.GetItem('item_blink', true) || localHero.GetItem('item_overwhelming_blink', true) || localHero.GetItem('item_arcane_blink', true) || localHero.GetItem('item_swift_blink', true);
+							if (itemblink && CustomCanCast(itemblink) && !MyModSilverEdge) { 
+								let  castRange = itemblink.GetLevelSpecialValueFor("abilitycastrange");
+								let castRangeBonus = localHero.GetCastRangeBonus();
+								let castRangeTotal =  castRange + castRangeBonus;
+								
+								if (TargetInRadius(comboTarget, castRangeTotal, localHero)) {
+									if(!shackleshotCast){
+										const postBlink = BestPosBlink(comboTarget);
+										blinkCast = true;
+										itemblink.CastPosition(postBlink);
+									} else{
 
+										blinkCast = true;
+										itemblink.CastPosition(comboTarget.GetAbsOrigin());
+										
+									}
+								}
+								
+							} else{
+								blinkCast = true;
+							}
+						} else{
+							blinkCast = true;
+						}
+						
+						let shackleshotCast = false;
 						if (menu_AbilitiesList[0]) {
                             
-                            if (shackleshot && shackleshot.IsExist() && shackleshot.CanCast() && !InmuneMagic && !Stunned  && !Hexxed && !MyModSilverEdge) {
+                            if (shackleshot && shackleshot.IsExist() && shackleshot.CanCast() && blinkCast && !InmuneMagic && !Stunned  && !Hexxed && !MyModSilverEdge) {
 								let  castRange = shackleshot.GetCastRange();
 								let castRangeBonus = localHero.GetCastRangeBonus();
 								let castRangeTotal =  castRange + castRangeBonus;
                                 if (comboTarget.IsPositionInRange(localHero.GetAbsOrigin(), castRangeTotal, 0)) {
+									shackleshotCast = true;
 									shackleshot.CastTarget(comboTarget);
                                 }
+							} else{
+								shackleshotCast = true;
 							}
-                        }
+						} else{
+							shackleshotCast = true;
+						}
 						
 						if (menu_ItemsList.IsEnabled('item_rod_of_atos') ) { 
 							let Atos = localHero.GetItem('item_rod_of_atos', true);
@@ -395,23 +428,7 @@
 								}
 							}
 						}
-						
-						if (menu_ItemsList.IsEnabled('item_blink') ) { 
-							let itemblink = localHero.GetItem('item_blink', true) || localHero.GetItem('item_overwhelming_blink', true) || localHero.GetItem('item_arcane_blink', true) || localHero.GetItem('item_swift_blink', true);
-							if (itemblink && CustomCanCast(itemblink) && !MyModSilverEdge) { 
-								let  castRange = itemblink.GetLevelSpecialValueFor("abilitycastrange");
-								let castRangeBonus = localHero.GetCastRangeBonus();
-								let castRangeTotal =  castRange + castRangeBonus;
-								
-								if (TargetInRadius(comboTarget, castRangeTotal, localHero)) {
-									const postBlink = BestPosBlink(comboTarget);
-									console.log(postBlink);
-									itemblink.CastPosition(postBlink);
-
-								}
-							}
-						}
-						
+												
 
 						if (menu_ItemsList.IsEnabled('item_hurricane_pike') ) { 
 							let pike = localHero.GetItem('item_hurricane_pike', true);
@@ -927,6 +944,7 @@
 	function BestPosBlink(EnemyHeroLocal) {
 		let tableNearbyTrees = EnemyHeroLocal.GetTreesInRadius(575);	
 		let enemyHeroesAll = EnemyHeroLocal.GetHeroesInRadius(575, Enum.TeamType.TEAM_ENEMY);
+		let units = EnemyHeroLocal.GetUnitsInRadius(575,Enum.TeamType.TEAM_ENEMY);
 		let bestPosition = null;
 		let closestEnemy = null;
 		let closestDistance = Infinity;
@@ -935,7 +953,7 @@
 			for (let enemy of enemyHeroesAll) {
 				
 				if(enemy.GetUnitName() !== EnemyHeroLocal.GetUnitName() ){
-					console.log(enemy.GetUnitName());
+					
 					let distance = EnemyHeroLocal.GetAbsOrigin().Distance(enemy.GetAbsOrigin());
 					if (distance < closestDistance) {
 						closestEnemy = enemy;
@@ -957,9 +975,24 @@
 				}
 			}
 		}
+		
+		if(units.length > 0){
+			if (closestEnemy == null) {
+				let closestDistance = Infinity;
+				for (let unit of tableNearbyTrees) {
+					if(unit.IsCreep() && (unit.IsLaneCreep() || unit.IsNeutral())){
+						let distance = EnemyHeroLocal.GetAbsOrigin().Distance(unit.GetAbsOrigin());
+						if (distance < closestDistance) {
+							closestEnemy = unit;
+							closestDistance = distance;
+						}
+					}
+				}
+			}
+		}
 
 		if (closestEnemy != null) {
-			console.log(closestEnemy);
+			
 			const enemyHero1Pos = EnemyHeroLocal.GetAbsOrigin();
 			const enemyHero2Pos = closestEnemy.GetAbsOrigin();
 			const dirEn1En2 = (enemyHero1Pos.sub(enemyHero2Pos)).Normalized();
