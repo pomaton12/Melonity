@@ -17,6 +17,7 @@
 	let particle = null;
 	let shackleshotCast = false;
 	let enemyList = [];
+	let ordenEmitida = false;
 	
 	let TarjetFocusfire = null;
 	let posFIN;
@@ -786,16 +787,14 @@
 							if (bkb && bkb.CanCast()) {
 								bkb.CastNoTarget();
 							}else{
-								if (isUiEnabledBM.GetValue()){
-									if (Engine.OnceAt(0.2)){
-										//myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_STOP, null, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
-										SendOrderMovePos(Input.GetWorldCursorPos(), localHero);
-										
-										return;
-									}
-									
+								if (isUiEnabledBM.GetValue() && !ordenEmitida){
+									myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_STOP, null, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+										//SendOrderMovePos(Input.GetWorldCursorPos(), localHero);
+									ordenEmitida = true;
 								}
 							}
+						} else{
+							ordenEmitida = false;
 						}
 
 						let enemyPositions = {};
