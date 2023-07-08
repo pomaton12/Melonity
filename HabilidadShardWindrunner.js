@@ -787,15 +787,15 @@
 							if (bkb && bkb.CanCast()) {
 								bkb.CastNoTarget();
 							}else{
-								if (isUiEnabledBM.GetValue() && ordenEmitida === false){
+								if (isUiEnabledBM.GetValue() ){
 									console.log(ordenEmitida);
-									ordenEmitida = true;
-									myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_STOP, null, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
-
+									if (Engine.OnceAt(0.2)) {
+										
+										myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_STOP, null, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
+										return;
+									} 
 								}
 							}
-						} else{
-							ordenEmitida = false;
 						}
 
 						let enemyPositions = {};
