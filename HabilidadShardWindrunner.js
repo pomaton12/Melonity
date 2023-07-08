@@ -1039,7 +1039,7 @@
 
 			// Buscamos el objetivo detrás del enemigo
 			for (let unit of units.concat(trees)) {
-				if (unit != targetEnemy && unit.GetAbsOrigin().sub(enemyHero1Pos).Normalized().Dot(dirEn1En2) > 0.99) {
+				if (unit != targetEnemy && unit.GetAbsOrigin().sub(enemyHero1Pos).Normalized().Dot(dirEn1En2) > 0.99 && unit.GetAbsOrigin().Distance(enemyHero1Pos) < 575) {
 					targetEnemy2 = unit;
 					break;
 				}
