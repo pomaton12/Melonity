@@ -788,7 +788,7 @@
 							}else{
 								if (isUiEnabledBM.GetValue()){
 									if (Engine.OnceAt(0.2)){
-										myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_STOP, null, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, myHero, false, true);
+										myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_STOP, null, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
 										return;
 										//SendOrderMovePos(Input.GetWorldCursorPos(), localHero);
 									}
