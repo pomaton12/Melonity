@@ -764,95 +764,95 @@
 			}
 
 			// ===== Funcion Opcion Panel =========
-			if (isUiEnabledGale.GetValue()) {
-				if (menu_AbilitiesList[4] && ModifierFocusfire) {
 
-					// Nueva condición para activar BKB si el enemigo tiene activado Blade Mail
-					let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
+			if (menu_AbilitiesList[4] && ModifierFocusfire) {
 
-					if (enemies.length >= 3) {
-						if (menu_ItemsList.IsEnabled('item_black_king_bar') ) { 
+				// Nueva condición para activar BKB si el enemigo tiene activado Blade Mail
+				let enemies = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
+
+				if (enemies.length >= 3) {
+					if (menu_ItemsList.IsEnabled('item_black_king_bar') ) { 
+						let bkb = localHero.GetItem('item_black_king_bar', true);
+						if (bkb && bkb.CanCast()) {
+							bkb.CastNoTarget();
+						}
+					}
+				}
+
+				if (TarjetFocusfire!= null && TarjetFocusfire.IsAlive()) {
+					if (!TarjetFocusfire.IsDormant()) {	
+						if (TarjetFocusfire.HasModifier("modifier_item_blade_mail_reflect") && !MyModBkb) {
 							let bkb = localHero.GetItem('item_black_king_bar', true);
 							if (bkb && bkb.CanCast()) {
 								bkb.CastNoTarget();
+							}else{
+								if (isUiEnabledBM.GetValue()){
+									if (Engine.OnceAt(0.2)){
+										myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_STOP, null, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, myHero, false, true);
+
+										//SendOrderMovePos(Input.GetWorldCursorPos(), localHero);
+									}
+									return;
+								}
+							}
+						}
+
+						let enemyPositions = {};
+						if (isUiEnabledGale.GetValue() && menu_AbilitiesList[3] && gale_force && gale_force.IsExist() && gale_force.CanCast()) {
+
+							let enemyId = TarjetFocusfire.GetPlayerID();
+
+							let vec1 = localHero.GetAbsOrigin();
+							let vec2 = TarjetFocusfire.GetAbsOrigin();
+							let distance = vec1.sub(vec2).Length2D();
+
+							if (distance <= 1000) {
+								// Actualizar la posición inicial del enemigo en cada iteración
+								enemyPositions[enemyId] = TarjetFocusfire.GetAbsOrigin();
+
+								// Calcular la dirección en la que el enemigo está viendo
+								let posINI = enemyPositions[enemyId];
+								//let posFIN = enemy.GetAbsOrigin();
+
+								if (Engine.OnceAt(0.2)) {
+									posFIN = TarjetFocusfire.GetAbsOrigin();	      
+								}
+
+								if (posINI.x === posFIN.x && posINI.y === posFIN.y) {
+									//continue;
+								}
+
+								const enemyDirection = (posFIN.sub(posINI)).Normalized();
+
+								enemyPositions[enemyId] = posFIN;
+
+								// Calcular la dirección opuesta
+								const enemyPosition = TarjetFocusfire.GetAbsOrigin();
+								const oppositeDirection = enemyDirection.mul(new Vector(-1, -1, -1));
+
+								// Lanzar Gale Force en la dirección opuesta desde la posición del héroe enemigo
+								let pushPosition = enemyPosition.add(oppositeDirection.mul(new Vector(100, 100, 0)));
+								myPlayer.PrepareUnitOrders(30, null, enemyPosition, gale_force, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
+								// Agregar condición para evitar lanzar gale force si el enemigo tiene activado bkb
+								if (TarjetFocusfire.HasModifier("modifier_black_king_bar_immune") === false) {
+									gale_force.CastPosition(pushPosition);
+									setTimeout(function() {}, 300);
+								}
+								
+								// Nueva condición para activar windrun siempre
+								if (menu_AbilitiesList[2] && windrun && windrun.IsExist() && windrun.CanCast() && !TarjetFocusfire.HasModifier("modifier_windrunner_shackle_shot")) {
+									windrun.CastNoTarget();
+								}
 							}
 						}
 					}
-
-					if (TarjetFocusfire!= null && TarjetFocusfire.IsAlive()) {
-						if (!TarjetFocusfire.IsDormant()) {	
-							if (TarjetFocusfire.HasModifier("modifier_item_blade_mail_reflect") && !MyModBkb) {
-								let bkb = localHero.GetItem('item_black_king_bar', true);
-								if (bkb && bkb.CanCast()) {
-									bkb.CastNoTarget();
-								}else{
-									if (isUiEnabledBM.GetValue()){
-										if (Engine.OnceAt(0.2)){
-											SendOrderMovePos(Input.GetWorldCursorPos(), localHero);
-										}
-										return;
-									}
-								}
-							}
-
-							let enemyPositions = {};
-							if (menu_AbilitiesList[3] && gale_force && gale_force.IsExist() && gale_force.CanCast()) {
-
-								let enemyId = TarjetFocusfire.GetPlayerID();
-
-								let vec1 = localHero.GetAbsOrigin();
-								let vec2 = TarjetFocusfire.GetAbsOrigin();
-								let distance = vec1.sub(vec2).Length2D();
-
-								if (distance <= 1000) {
-									// Actualizar la posición inicial del enemigo en cada iteración
-									enemyPositions[enemyId] = TarjetFocusfire.GetAbsOrigin();
-
-									// Calcular la dirección en la que el enemigo está viendo
-									let posINI = enemyPositions[enemyId];
-									//let posFIN = enemy.GetAbsOrigin();
-
-									if (Engine.OnceAt(0.2)) {
-										posFIN = TarjetFocusfire.GetAbsOrigin();	      
-									}
-
-									if (posINI.x === posFIN.x && posINI.y === posFIN.y) {
-										//continue;
-									}
-
-									const enemyDirection = (posFIN.sub(posINI)).Normalized();
-
-									enemyPositions[enemyId] = posFIN;
-
-									// Calcular la dirección opuesta
-									const enemyPosition = TarjetFocusfire.GetAbsOrigin();
-									const oppositeDirection = enemyDirection.mul(new Vector(-1, -1, -1));
-
-									// Lanzar Gale Force en la dirección opuesta desde la posición del héroe enemigo
-									let pushPosition = enemyPosition.add(oppositeDirection.mul(new Vector(100, 100, 0)));
-									myPlayer.PrepareUnitOrders(30, null, enemyPosition, gale_force, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_HERO_ONLY, localHero);
-									// Agregar condición para evitar lanzar gale force si el enemigo tiene activado bkb
-									if (TarjetFocusfire.HasModifier("modifier_black_king_bar_immune") === false) {
-										gale_force.CastPosition(pushPosition);
-										setTimeout(function() {}, 300);
-									}
-									
-									// Nueva condición para activar windrun siempre
-									if (menu_AbilitiesList[2] && windrun && windrun.IsExist() && windrun.CanCast() && !TarjetFocusfire.HasModifier("modifier_windrunner_shackle_shot")) {
-										windrun.CastNoTarget();
-									}
-								}
-							}
-						}
-						
-					} else{
-						TarjetFocusfire = null;
-					}	
-				}
-
+					
+				} else{
+					TarjetFocusfire = null;
+				}	
 			}
 
-			
+
 			// ===== Particula Kill =========
 				
         }
