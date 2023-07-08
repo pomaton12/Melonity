@@ -788,6 +788,7 @@
 								bkb.CastNoTarget();
 							}else{
 								if (isUiEnabledBM.GetValue() && ordenEmitida === false){
+									console.log(ordenEmitida);
 									if (Engine.OnceAt(0.2)) {
 										ordenEmitida = true;
 										myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_STOP, null, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero, false, true);
