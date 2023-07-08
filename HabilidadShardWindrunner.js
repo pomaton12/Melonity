@@ -55,8 +55,9 @@
 				
 	let menu_LinkensItems = CreatePrioritySelect([...path_, 'Linkens Breaker Settings'], 'Linkens Breaker', linkBreakers, true);
 	
+	let isUiEnabledBM = Menu.AddToggle(path_, 'Ulti attack stop in BM', true);
 
-	let isUiEnabledGale = Menu.AddToggle(path_, 'GaleForce Use in Ulti', true)
+	let isUiEnabledGale = Menu.AddToggle(path_, 'GaleForce Use in Ulti', true);
 	
 	let isUiEnabledDogde = Menu.AddToggle(path_1, 'Enable', false);
 	
@@ -76,7 +77,7 @@
 	Menu.SetImage(path_1, 'panorama/images/spellicons/windrunner_gale_force_png.vtex_c');
 	Menu.SetImage(path_2, 'panorama/images/spellicons/windrunner_shackleshot_png.vtex_c');
 	isUiEnabledGale.SetImage('panorama/images/spellicons/windrunner_gale_force_png.vtex_c');
-	
+	isUiEnabledBM.SetImage('panorama/images/items/blade_mail_png.vtex_c');
 	
 	function GetImagesPath(name, full) {
 		if (name.startsWith('item_')) {
@@ -266,6 +267,7 @@
             }
 						
 			let MyModSilverEdge = localHero.HasModifier("modifier_item_silver_edge_windwalk");
+			let MyModBkb = localHero.HasModifier("modifier_black_king_bar_immune");
 			let ModifierFocusfire = localHero.HasModifier("modifier_windrunner_focusfire"); //  Ultimate Focusfire
 			
 						
@@ -300,8 +302,7 @@
 				
 				if (Engine.OnceAt(0.2)) {
 				
-					let MyModBkb = localHero.HasModifier("modifier_black_king_bar_immune");
-					
+										
 					if (comboTarget && comboTarget.HasModifier('modifier_item_blade_mail_reflect') && !MyModBkb && !MyModSilverEdge) {
 						let bkbItemMy = localHero.GetItem('item_black_king_bar', true);
 						if(menu_ItemsList.IsEnabled('item_black_king_bar') && bkbItemMy && CustomCanCast(bkbItemMy) && TargetInRadius(comboTarget, 1000, localHero)){
@@ -446,7 +447,7 @@
 
 							if (manta && CustomCanCast(manta) && !MyModSilverEdge) { 
 								
-									const silences = localHero.HasModifier('modifier_orchid_malevolence_debuff')
+									let silences = localHero.HasModifier('modifier_orchid_malevolence_debuff')
 										|| localHero.HasModifier('modifier_bloodthorn_debuff')
 										|| localHero.HasModifier('modifier_skywrath_mage_ancient_seal')
 										|| localHero.HasModifier('modifier_drowranger_wave_of_silence') 
@@ -780,10 +781,17 @@
 
 					if (TarjetFocusfire!= null && TarjetFocusfire.IsAlive()) {
 						if (!TarjetFocusfire.IsDormant()) {	
-							if (TarjetFocusfire.HasModifier("modifier_item_blade_mail_reflect")) {
+							if (TarjetFocusfire.HasModifier("modifier_item_blade_mail_reflect") && !MyModBkb) {
 								let bkb = localHero.GetItem('item_black_king_bar', true);
 								if (bkb && bkb.CanCast()) {
 									bkb.CastNoTarget();
+								}else{
+									if (isUiEnabledBM.GetValue()){
+										if (Engine.OnceAt(0.2)){
+											SendOrderMovePos(Input.GetWorldCursorPos(), localHero);
+										}
+										return;
+									}
 								}
 							}
 
