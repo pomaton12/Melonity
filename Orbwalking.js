@@ -105,7 +105,7 @@
 					let EnemiHero = event.target;
 					if (EnemiHero && !EnemiHero.IsIllusion() && !EnemiHero.IsMeepoClone() && EnemiHero.IsHero() && EnemiHero.IsAlive() && !EnemiHero.IsDormant() && !EnemiHero.IsSameTeam(localHero)) {
 						// Reemplaza "nombre_de_la_habilidad" con el nombre de la habilidad que quieres lanzar
-						HitRunOrbFunction(EnemiHero);
+						//HitRunOrbFunction(EnemiHero);
 					}
 				}
 			}
@@ -172,7 +172,7 @@
 	
 	function HitRunOrbFunction(target){
 		if (Engine.OnceAt(0.2)) {
-			if (target && target.IsExist()) {
+			if (target && target.IsExist() && !target.IsChannellingAbility()) {
 				const localHeroPosition = localHero.GetAbsOrigin();
 				const EnemyHero = target;
 				const RangeBasic = localHero.GetAttackRange();
