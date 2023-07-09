@@ -67,8 +67,11 @@
 						
 					if (silences){
 						let enemiesMorRange = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
-						if(enemiesMorRange.length > 0) {									
-							myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_NO_TARGET,null,null,manta,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+						if(enemiesMorRange.length > 0) {
+							if (Engine.OnceAt(0.2)) {
+								console.log("Castea mrda	");
+								myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_NO_TARGET,null,null,manta,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
+							}
 						}
 					}
 				}
@@ -92,8 +95,6 @@
 
 						for (const hero of enemyInRadius) {
 							let HeroItem = hero.GetItem('item_glimmer_cape', true) 
-								|| hero.GetItem('item_cyclone', true) 
-								|| hero.GetItem('item_wind_waker', true) 
 								|| hero.GetItem('item_force_staff', true) 
 			
 							let HeroMod = hero.HasModifier('modifier_item_glimmer_cape_fade') 
@@ -114,8 +115,9 @@
 						
 						
 						if (closestHero != null && !closestHero.HasModifier("modifier_item_lotus_orb_active")) {
-							
-							Nullifier.CastTarget(closestHero);
+							if (Engine.OnceAt(0.2)) {
+								Nullifier.CastTarget(closestHero);
+							}
 						}
 					}
 					
