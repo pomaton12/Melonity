@@ -21,6 +21,17 @@
 	let menu_ItemList = Menu.AddMultiSelect(path, 'Items', ['panorama/images/items/manta_png.vtex_c', 'panorama/images/items/nullifier_png.vtex_c'], [true, true])
 		.OnChange((state) => {menu_ItemList = state.newValue;})
 		.GetValue();
+		
+	function CustomCanCast(item) {
+        let owner = item.GetOwner(), hasModf = owner.HasState(Enum.ModifierState.MODIFIER_STATE_MUTED)
+            || owner.HasState(Enum.ModifierState.MODIFIER_STATE_STUNNED)
+            || owner.HasState(Enum.ModifierState.MODIFIER_STATE_HEXED)
+            || owner.HasState(Enum.ModifierState.MODIFIER_STATE_INVULNERABLE)
+            || owner.HasState(Enum.ModifierState.MODIFIER_STATE_FROZEN)
+            || owner.HasState(Enum.ModifierState.MODIFIER_STATE_FEARED)
+            || owner.HasState(Enum.ModifierState.MODIFIER_STATE_TAUNTED);
+        return item && !hasModf && owner.GetMana() >= item.GetManaCost() && item.IsCastable(owner.GetMana());
+    }
 
 	ItemsDogde.OnDraw = () => {
         if (localHero && isUiEnabled.GetValue()) {
@@ -31,9 +42,9 @@
 
 			if (menu_ItemList[0]) { 
 				let manta = localHero.GetItem('item_manta', true);			
-				if (manta && manta.IsExist() && manta.CanCast() && !MyModSilverEdge && !MyModInvi && !MyModBkb ) { 
+				if (manta && CustomCanCast(manta) && !MyModSilverEdge && !MyModInvi && !MyModBkb ) { 
 					
-					let silences1 = localHero.HasModifier('modifier_orchid_malevolence_debuff')
+					let silences = localHero.HasModifier('modifier_orchid_malevolence_debuff')
 						|| localHero.HasModifier('modifier_bloodthorn_debuff')
 						|| localHero.HasModifier('modifier_skywrath_mage_ancient_seal')
 						|| localHero.HasModifier('modifier_drowranger_wave_of_silence') 
@@ -47,9 +58,8 @@
 						|| localHero.HasModifier('modifier_techies_reactive_tazer_disarmed')
 						|| localHero.HasModifier('modifier_enigma_malefice')
 						|| localHero.HasModifier('modifier_bloodseeker_blood_bath')
-						|| localHero.HasModifier('modifier_dark_willow_bramble_maze');
-						
-					let silences2 =  localHero.HasModifier('modifier_dark_willow_cursed_crown')
+						|| localHero.HasModifier('modifier_dark_willow_bramble_maze')
+						|| localHero.HasModifier('modifier_dark_willow_cursed_crown')
 						|| localHero.HasModifier('modifier_faceless_void_time_dilation_slow')
 						|| localHero.HasModifier('modifier_invoker_cold_snap')
 						|| localHero.HasModifier('modifier_templar_assassin_trap_slow')
@@ -65,8 +75,8 @@
 						|| localHero.HasModifier('modifier_ogre_magi_ignite')
 						|| localHero.HasModifier('modifier_pugna_decrepify')
 						|| localHero.HasModifier('modifier_abaddon_frostmourne_debuff_bonus');
-					console.log("Castea mrda	",silences1);	
-					if (silences1){
+					
+					if (silences){
 						//console.log("Castea mrda	", silences);	
 						let enemiesMorRange = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 						if(enemiesMorRange.length > 0) {
