@@ -507,7 +507,10 @@
 						if (menu_ItemsList.IsEnabled('item_orchid') ) { 
 							let Orchid = localHero.GetItem('item_orchid', true);
 							if (Orchid && CustomCanCast(Orchid)  && !Stunned && !InmuneMagic && !Hexxed && !ModifierShackleshot  && !Silenced && !MyModSilverEdge) { 
-								if (TargetInRadius(comboTarget, 900, localHero)) {
+								let castRange = Orchid.GetCastRange();
+								let castRangeBonus = localHero.GetCastRangeBonus();
+								let castRangeTotal =  castRange + castRangeBonus;
+								if (TargetInRadius(comboTarget, castRangeTotal, localHero)) {
 									Orchid.CastTarget(comboTarget);
 								}
 							}
@@ -518,7 +521,10 @@
 						if (menu_ItemsList.IsEnabled('item_bloodthorn') ) { 
 							let Bloodthorn = localHero.GetItem('item_bloodthorn', true);
 							if (Bloodthorn && CustomCanCast(Bloodthorn) && !Stunned && !InmuneMagic && !Hexxed && !ModifierShackleshot && !Silenced && !MyModSilverEdge) { 
-								if (TargetInRadius(comboTarget, 900, localHero)) {
+								let castRange = Bloodthorn.GetCastRange();
+								let castRangeBonus = localHero.GetCastRangeBonus();
+								let castRangeTotal =  castRange + castRangeBonus;								
+								if (TargetInRadius(comboTarget, castRangeTotal, localHero)) {
 									Bloodthorn.CastTarget(comboTarget);								
 								}
 							}
@@ -528,7 +534,10 @@
 						if (menu_ItemsList.IsEnabled('item_sheepstick') ) {
 							let Sheepstick = localHero.GetItem('item_sheepstick', true);
 							if (Sheepstick && CustomCanCast(Sheepstick) && !Stunned && !InmuneMagic && !Hexxed && !ModifierShackleshot && !MyModSilverEdge) {
-								if (TargetInRadius(comboTarget, 600, localHero)) {
+								let castRange = Sheepstick.GetCastRange();
+								let castRangeBonus = localHero.GetCastRangeBonus();
+								let castRangeTotal =  castRange + castRangeBonus;																
+								if (TargetInRadius(comboTarget, castRangeTotal, localHero)) {
 									Sheepstick.CastTarget(comboTarget);
 									
 								}
@@ -552,11 +561,16 @@
 								|| comboTarget.HasModifier('modifier_ghost_state')
 								|| comboTarget.HasModifier('modifier_item_aeon_disk_buff')								
 								|| comboTarget.HasModifier('modifier_windrunner_windrun')
+								|| comboTarget.HasModifier('modifier_attack_immune')
 								|| comboTarget.HasModifier('modifier_ember_spirit_flame_guard');						
 							
-							
 							if (Nullifier && CustomCanCast(Nullifier) && (HeroItem || HeroMod || Ethereo) && !MyModSilverEdge) { 
-								Nullifier.CastTarget(comboTarget);
+								let castRange = Nullifier.GetCastRange();
+								let castRangeBonus = localHero.GetCastRangeBonus();
+								let castRangeTotal =  castRange + castRangeBonus;	
+								if (TargetInRadius(comboTarget, castRangeTotal, localHero)) {
+									Nullifier.CastTarget(comboTarget);
+								}
 							}
 						}
 					
@@ -604,7 +618,10 @@
 						if (menu_ItemsList.IsEnabled('item_diffusal_blade') ) { 
 							let Diffusal = localHero.GetItem('item_diffusal_blade', true);
 							if (Diffusal && CustomCanCast(Diffusal) && !InmuneMagic && comboTarget.IsRunning() && !Hexxed && !ModifierShackleshot && !MyModSilverEdge) { 
-								if (TargetInRadius(comboTarget, 600, localHero)) {
+								let castRange = Diffusal.GetCastRange();
+								let castRangeBonus = localHero.GetCastRangeBonus();
+								let castRangeTotal =  castRange + castRangeBonus;								
+								if (TargetInRadius(comboTarget, castRangeTotal, localHero)) {
 									Diffusal.CastTarget(comboTarget);
 								}
 							}
@@ -613,7 +630,10 @@
 						if (menu_ItemsList.IsEnabled('item_disperser') ) { 
 							let Disperser = localHero.GetItem('item_disperser', true);
 							if (Disperser && CustomCanCast(Disperser) && !InmuneMagic && comboTarget.IsRunning() && !Hexxed && !ModifierShackleshot && !MyModSilverEdge) { 
-								if (TargetInRadius(comboTarget, 600, localHero)) {
+								let castRange = Disperser.GetCastRange();
+								let castRangeBonus = localHero.GetCastRangeBonus();
+								let castRangeTotal =  castRange + castRangeBonus;									
+								if (TargetInRadius(comboTarget, castRangeTotal, localHero)) {
 									Disperser.CastTarget(comboTarget);
 								}
 							}
@@ -717,7 +737,18 @@
 					}
 				}
 			}	
-				
+			
+			// ===== Lanzamiento de items Nullifier =========
+			if (isUiEnabledShackle.GetValue()) {
+				if (GameRules.GetGameTime() / 60 >= EnemyUIShackle ) {
+					if (menu_AbilitiesList[0] && shackleshot && shackleshot.IsExist() && shackleshot.CanCast() && !MyModSilverEdge) {
+						let tarjetDetected = castShackleshot(localHero);
+						if(tarjetDetected!= null && !tarjetDetected.HasModifier("modifier_black_king_bar_immune")  && !tarjetDetected.HasModifier("modifier_item_lotus_orb_active")  && !tarjetDetected.HasState(Enum.ModifierState.MODIFIER_STATE_STUNNED) && !tarjetDetected.HasState(Enum.ModifierState.MODIFIER_STATE_HEXED)){
+							shackleshot.CastTarget(tarjetDetected);
+						}
+					}
+				}
+			}				
 			
 			// ===== Funcion Opcion Panel =========
 			if (isUiEnabledDogde.GetValue()) {
@@ -763,6 +794,8 @@
 				}
 				  
 			}
+			
+			
 
 			// ===== Funcion Opcion Panel =========
 
@@ -782,14 +815,14 @@
 
 				if (TarjetFocusfire!= null && TarjetFocusfire.IsAlive()) {
 					if (!TarjetFocusfire.IsDormant()) {	
-						if (TarjetFocusfire.HasModifier("modifier_item_blade_mail_reflect") && !MyModBkb) {
+						if (TarjetFocusfire.HasModifier("modifier_item_blade_mail_reflect") && !localHero.HasModifier("modifier_black_king_bar_immune")) {
 							let bkb = localHero.GetItem('item_black_king_bar', true);
 							if (bkb && bkb.CanCast()) {
 								bkb.CastNoTarget();
 							}else{
 								if (isUiEnabledBM.GetValue() ){
 									if (Engine.OnceAt(5.5)) {
-										if (!MyModBkb) {
+										if (!localHero.HasModifier("modifier_black_king_bar_immune")) {
 											myPlayer.PrepareUnitOrdersStructed({
 												entity: localHero,
 												orderType: Enum.UnitOrder.DOTA_UNIT_ORDER_STOP,
@@ -801,6 +834,11 @@
 								}
 							}
 						} 
+						
+						// Nueva condición para activar windrun siempre
+						if (menu_AbilitiesList[2] && windrun && windrun.IsExist() && windrun.CanCast() && !TarjetFocusfire.HasModifier("modifier_windrunner_shackle_shot")) {
+							windrun.CastNoTarget();
+						}
 
 						let enemyPositions = {};
 						if (isUiEnabledGale.GetValue() && menu_AbilitiesList[3] && gale_force && gale_force.IsExist() && gale_force.CanCast()) {
@@ -844,10 +882,6 @@
 									setTimeout(function() {}, 300);
 								}
 								
-								// Nueva condición para activar windrun siempre
-								if (menu_AbilitiesList[2] && windrun && windrun.IsExist() && windrun.CanCast() && !TarjetFocusfire.HasModifier("modifier_windrunner_shackle_shot")) {
-									windrun.CastNoTarget();
-								}
 							}
 						}
 					}
