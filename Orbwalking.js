@@ -170,9 +170,10 @@
 		}
 	};
 	
+	//IsChannellingAbility
 	function HitRunOrbFunction(target){
 		if (Engine.OnceAt(0.2)) {
-			if (target && target.IsExist() && !target.IsChanneling()) {
+			if (target && target.IsExist() && !localHero.IsChannellingAbility()) {
 				const localHeroPosition = localHero.GetAbsOrigin();
 				const EnemyHero = target;
 				const RangeBasic = localHero.GetAttackRange();
