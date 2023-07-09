@@ -32,7 +32,7 @@
 			if (menu_ItemList[0]) { 
 				let manta = localHero.GetItem('item_manta', true);			
 				if (manta && manta.IsExist() && manta.CanCast() && !MyModSilverEdge && !MyModInvi && !MyModBkb ) { 
-					console.log("Castea mrda	");
+					
 					let silences = localHero.HasModifier('modifier_orchid_malevolence_debuff')
 						|| localHero.HasModifier('modifier_bloodthorn_debuff')
 						|| localHero.HasModifier('modifier_skywrath_mage_ancient_seal')
@@ -64,7 +64,7 @@
 						|| localHero.HasModifier('modifier_ogre_magi_ignite')
 						|| localHero.HasModifier('modifier_pugna_decrepify')
 						|| localHero.HasModifier('modifier_abaddon_frostmourne_debuff_bonus');
-						
+					console.log("Castea mrda	");	
 					if (silences){
 						let enemiesMorRange = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 						if(enemiesMorRange.length > 0) {
