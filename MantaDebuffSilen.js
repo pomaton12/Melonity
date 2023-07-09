@@ -32,7 +32,7 @@
 			if (menu_ItemList[0]) { 
 				let manta = localHero.GetItem('item_manta', true);			
 				if (manta && manta.IsExist() && manta.CanCast() && !MyModSilverEdge && !MyModInvi && !MyModBkb ) { 
-					
+					console.log("Castea mrda	");
 					let silences = localHero.HasModifier('modifier_orchid_malevolence_debuff')
 						|| localHero.HasModifier('modifier_bloodthorn_debuff')
 						|| localHero.HasModifier('modifier_skywrath_mage_ancient_seal')
@@ -69,7 +69,7 @@
 						let enemiesMorRange = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 						if(enemiesMorRange.length > 0) {
 							if (Engine.OnceAt(0.2)) {
-								console.log("Castea mrda	");
+								
 								myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_CAST_NO_TARGET,null,null,manta,Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, localHero);
 							}
 						}
