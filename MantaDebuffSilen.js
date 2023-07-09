@@ -1,4 +1,3 @@
-
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -126,8 +125,8 @@
 				}
 			}			
 			
-
-		};
+		}
+	};
 	
 	// Definición de la función OnScriptLoad
 	ItemsDogde.OnScriptLoad = ItemsDogde.OnGameStart = () => {
