@@ -1,7 +1,7 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/ItemsDogde.ts": 
+/***/ "./src/ItemsDogde.ts":
 /*!**********************************!*\
   !*** ./src/ItemsDogde.ts ***!
   \**********************************/
@@ -16,7 +16,7 @@
 
 	const path = ["Custom Scripts","Utility"];
 
-	let isUiEnabled = Menu.AddToggle(path_, 'Enable', false);
+	let isUiEnabled = Menu.AddToggle(path, 'Enable', false);
 
 	let menu_ItemList = Menu.AddMultiSelect(path, 'Items', ['panorama/images/items/blade_mail_png.vtex_c', 'panorama/images/items/nullifier_png.vtex_c'], [true, true])
 		.OnChange((state) => {menu_ItemList = state.newValue;})
