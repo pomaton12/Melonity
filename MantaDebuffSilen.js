@@ -1,6 +1,6 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
- 
+
 /***/ "./src/ItemsDogde.ts":
 /*!**********************************!*\
   !*** ./src/ItemsDogde.ts ***!
@@ -18,7 +18,7 @@
 
 	let isUiEnabled = Menu.AddToggle(path, 'Enable', false);
 
-	let menu_ItemList = Menu.AddMultiSelect(path, 'Items', ['panorama/images/items/blade_mail_png.vtex_c', 'panorama/images/items/nullifier_png.vtex_c'], [true, true])
+	let menu_ItemList = Menu.AddMultiSelect(path, 'Items', ['panorama/images/items/manta_png.vtex_c', 'panorama/images/items/nullifier_png.vtex_c'], [true, true])
 		.OnChange((state) => {menu_ItemList = state.newValue;})
 		.GetValue();
 
@@ -94,10 +94,7 @@
 							let HeroItem = hero.GetItem('item_glimmer_cape', true) 
 								|| hero.GetItem('item_cyclone', true) 
 								|| hero.GetItem('item_wind_waker', true) 
-								|| hero.GetItem('item_ghost', true) 
 								|| hero.GetItem('item_force_staff', true) 
-								|| hero.GetItem('item_aeon_disk', true)
-								|| hero.GetItem('item_hurricane_pike', true);
 			
 							let HeroMod = hero.HasModifier('modifier_item_glimmer_cape_fade') 
 								|| hero.HasModifier('modifier_eul_cyclone') 
