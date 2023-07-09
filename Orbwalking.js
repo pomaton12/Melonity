@@ -172,7 +172,7 @@
 	
 	function HitRunOrbFunction(target){
 		if (Engine.OnceAt(0.2)) {
-			if (target && target.IsExist() && !target.IsChannellingAbility()) {
+			if (target && target.IsExist() && !target.IsChanneling()) {
 				const localHeroPosition = localHero.GetAbsOrigin();
 				const EnemyHero = target;
 				const RangeBasic = localHero.GetAttackRange();
