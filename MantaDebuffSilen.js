@@ -64,9 +64,9 @@
 						|| localHero.HasModifier('modifier_ogre_magi_ignite')
 						|| localHero.HasModifier('modifier_pugna_decrepify')
 						|| localHero.HasModifier('modifier_abaddon_frostmourne_debuff_bonus');
-					//console.log("Castea mrda	");	
+					console.log("Castea mrda	",silences);	
 					if (silences){
-						console.log("Castea mrda	", silences);	
+						//console.log("Castea mrda	", silences);	
 						let enemiesMorRange = localHero.GetHeroesInRadius(1000, Enum.TeamType.TEAM_ENEMY);
 						if(enemiesMorRange.length > 0) {
 							if (Engine.OnceAt(0.2)) {
