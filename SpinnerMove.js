@@ -83,10 +83,10 @@
 		let forward = new Vector(Math.cos(rad), Math.sin(rad), 0);
 		forward.Normalized();
 
-		let right = forward.cross(new Vector(0, 0, 1));
+		let right = forward.Cross(new Vector(0, 0, 1));
 		right.Normalized();
 
-		let up = right.cross(forward);
+		let up = right.Cross(forward);
 		up.Normalized();
 
 		return [forward, right, up];
