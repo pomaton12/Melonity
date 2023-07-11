@@ -101,7 +101,7 @@
 
 				if (bestPos != null) {
 					// Mover a la posición para hacer harass
-					HeroLocal.MoveTo(bestPos);
+					myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, bestPos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, HeroLocal, false, true);
 				}
 			}
 		}
