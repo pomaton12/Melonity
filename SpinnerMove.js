@@ -36,18 +36,18 @@
 			if (KeyBindSpinner.IsKeyDown()) {
 				if (SpinnerType === 0) {
 					if (Engine.OnceAt(0.1)) {
-						localHero.MoveTo(PositionAngle(localHero, 160, 1), false, false);
+						localHero.MoveTo(PositionAngle(localHero, 160, 5), false, false);
 					}
 				}
 				if (SpinnerType === 1) {
 					if (Engine.OnceAt(0.15)) {
-						localHero.MoveTo(PositionAngle(localHero, 100, 40), false, false);
+						localHero.MoveTo(PositionAngle(localHero, 100, 100), false, false);
 					}
 				}
 				if (SpinnerType === 2) {
 					const minitable = [75, -120];
 					if (Engine.OnceAt(0.1)) {
-						localHero.MoveTo(PositionAngle(localHero, minitable[trigerfor3], 1), false, false);
+						localHero.MoveTo(PositionAngle(localHero, minitable[trigerfor3], 5), false, false);
 						trigerfor3 = trigerfor3 + 1;
 						if (trigerfor3 > 1) trigerfor3 = 0;
 					}
