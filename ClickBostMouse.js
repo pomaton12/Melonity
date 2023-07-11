@@ -21,10 +21,10 @@
     };
 
 	// Definición del array path_
-	const path_ = ["Custom Scripts","Utility"];
+	const path_ = ["Custom Scripts","Utility","Mouse Boost Repeat"];
 
 	// Creación del toggle isUiEnabled
-	let isUiEnabled = Menu.AddToggle(path_, 'Mouse Boost Repeat', true);
+	let isUiEnabled = Menu.AddToggle(path_, 'Enable', true);
 
 	// Declaración de la variable mouseBoostInterval
 	let mouseBoostInterval = null;
