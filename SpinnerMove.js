@@ -65,6 +65,9 @@
 		console.log(angle);
 		const angleOffset = new Angle(0, 45 + rotation, 0);
 		angle.yaw = angle.yaw + angleOffset.yaw;
+		
+		console.log("yaw ",angle.yaw);
+		
 		const [x, y, z] = angle.GetVectors();
 		const direction = x.Add(y).Add(z);
 		direction.SetZ(0);
