@@ -62,6 +62,7 @@
 	
 	function PositionAngle(nps, rotation, range) {
 		const angle = nps.GetRotation();
+		console.log(angle);
 		const angleOffset = new Angle(0, 45 + rotation, 0);
 		angle.SetYaw(angle.GetYaw() + angleOffset.GetYaw());
 		const [x, y, z] = angle.GetVectors();
