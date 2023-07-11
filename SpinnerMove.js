@@ -15,7 +15,7 @@
 	let myPlayer = null;
 	
 	let tick = 0;
-	let trigerfor3 = 1;
+	let trigerfor3 = 0;
 
 	const path = ["Custom Scripts","Utility","Spinner"];
 
@@ -37,22 +37,22 @@
 				if (SpinnerType === 0) {
 					if (tick <= GameRules.GetGameTime()) {
 						localHero.MoveTo(PositionAngle(localHero, 160, 1), false, false);
-						tick = GameRules.GetGameTime() + 0.05;
+						tick = GameRules.GetGameTime() + 0.5;
 					}
 				}
 				if (SpinnerType === 1) {
 					if (tick <= GameRules.GetGameTime()) {
 						localHero.MoveTo(PositionAngle(localHero, 100, 40), false, false);
-						tick = GameRules.GetGameTime() + 0.15;
+						tick = GameRules.GetGameTime() + 0.5;
 					}
 				}
 				if (SpinnerType === 2) {
 					const minitable = [75, -120];
 					if (tick <= GameRules.GetGameTime()) {
 						localHero.MoveTo(PositionAngle(localHero, minitable[trigerfor3], 1), false, false);
-						tick = GameRules.GetGameTime() + 0.1;
+						tick = GameRules.GetGameTime() + 0.5;
 						trigerfor3 = trigerfor3 + 1;
-						if (trigerfor3 > 2) trigerfor3 = 1;
+						if (trigerfor3 > 1) trigerfor3 = 0;
 					}
 				}
 			}
