@@ -59,6 +59,7 @@
 		// Buscar enemigos cercanos
 		let enemyHeroesAll = HeroLocal.GetHeroesInRadius(searchRadius, Enum.TeamType.TEAM_ENEMY);
 		let targetEnemy = null;
+		let targetCreep = null;
 
 		for (let enemy of enemyHeroesAll) {
 			if (enemy != HeroLocal) {
@@ -75,35 +76,24 @@
 			const dirEn2Me = (myHeroPos.sub(enemyHeroPos)).Normalized();
 
 			let units = HeroLocal.GetUnitsInRadius(rangeAttack, Enum.TeamType.TEAM_ENEMY);
-			let validUnits = [];
 
 			for (let unit of units) {
-				if (unit != targetEnemy && targetEnemy.GetAbsOrigin().Distance(unit.GetAbsOrigin()) < RangePsique && unit.GetAbsOrigin().sub(myHeroPos).Normalized().Dot(dirEn2Me) > 0.99 && unit.GetAbsOrigin().sub(enemyHeroPos).Normalized().Dot(dirEn2Me) < -0.99) {
-					validUnits.push(unit);
+				if (unit != targetEnemy && unit.IsCreep() && (unit.IsLaneCreep() || unit.IsNeutral()) && targetEnemy.GetAbsOrigin().Distance(unit.GetAbsOrigin()) < RangePsique && unit.GetAbsOrigin().sub(myHeroPos).Normalized().Dot(dirEn2Me) > 0.99 && unit.GetAbsOrigin().sub(enemyHeroPos).Normalized().Dot(dirEn2Me) < -0.99) {
+					targetCreep = unit;
+					break;
 				}
 			}
 
-			if (validUnits.length > 0) {
-				// Buscar mejor posición para hacer harass
-				let bestPos = null;
-				let bestDist = -1;
+			// Si encontramos un objetivo detrás del enemigo, casteamos Shackleshot
+			if (Engine.OnceAt(0.2)) {
+				if (targetCreep != null) {
+						myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, targetCreep, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, HeroLocal, false, true);
 
-				for (let unit of validUnits) {
-					const enemyUnitPos = unit.GetAbsOrigin();
-					const harassPos = enemyUnitPos.add(myHeroPos.sub(enemyUnitPos).Normalized().mul(enemyUnitPos.sub(enemyHeroPos).Length()));
-					const dist = harassPos.Distance(myHeroPos);
-
-					if (bestPos == null || dist < bestDist) {
-						bestPos = harassPos;
-						bestDist = dist;
-					}
-				}
-
-				if (bestPos != null) {
-					// Mover a la posición para hacer harass
-					myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, bestPos, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, HeroLocal, false, true);
+				} else{
+					myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_MOVE_TO_POSITION, null, Input.GetWorldCursorPos(), null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, HeroLocal, false, true);
 				}
 			}
+
 		}
 	}	
 		
