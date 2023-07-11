@@ -14,7 +14,7 @@
 	let localHero = null;
 	let myPlayer = null;
 
-	const path = ["Custom Scripts","Utility"];
+	const path = ["Custom Scripts","Utility","Use Item Estrategic"];
 
 	let isUiEnabled = Menu.AddToggle(path, 'Enable', false);
 
