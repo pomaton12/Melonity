@@ -35,9 +35,9 @@
 			
 			if (KeyBindSpinner.IsKeyDown()) {
 				if (SpinnerType === 0) {
-					if (tick <= GameRules.GetGameTime()) {
+					if (Engine.OnceAt(0.5)) {
 						localHero.MoveTo(PositionAngle(localHero, 160, 1), false, false);
-						tick = GameRules.GetGameTime() + 0.5;
+						//tick = GameRules.GetGameTime() + 0.5;
 					}
 				}
 				if (SpinnerType === 1) {
