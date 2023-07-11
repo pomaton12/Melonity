@@ -35,22 +35,19 @@
 			
 			if (KeyBindSpinner.IsKeyDown()) {
 				if (SpinnerType === 0) {
-					if (Engine.OnceAt(0.5)) {
+					if (Engine.OnceAt(0.1)) {
 						localHero.MoveTo(PositionAngle(localHero, 160, 1), false, false);
-						//tick = GameRules.GetGameTime() + 0.5;
 					}
 				}
 				if (SpinnerType === 1) {
-					if (tick <= GameRules.GetGameTime()) {
+					if (Engine.OnceAt(0.15)) {
 						localHero.MoveTo(PositionAngle(localHero, 100, 40), false, false);
-						tick = GameRules.GetGameTime() + 0.5;
 					}
 				}
 				if (SpinnerType === 2) {
 					const minitable = [75, -120];
-					if (tick <= GameRules.GetGameTime()) {
+					if (Engine.OnceAt(0.1)) {
 						localHero.MoveTo(PositionAngle(localHero, minitable[trigerfor3], 1), false, false);
-						tick = GameRules.GetGameTime() + 0.5;
 						trigerfor3 = trigerfor3 + 1;
 						if (trigerfor3 > 1) trigerfor3 = 0;
 					}
@@ -62,7 +59,6 @@
 	
 	function PositionAngle(nps, rotation, range) {
 		const angle = nps.GetRotation();
-		console.log(angle);
 		const angleOffset = new Angle(0, 45 + rotation, 0);
 		angle.yaw = angle.yaw + angleOffset.yaw;
 		const [x, y, z] = getVectorsFromAngle(angle);
