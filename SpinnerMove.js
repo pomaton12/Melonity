@@ -68,7 +68,7 @@
 		
 		console.log("yaw ",angle.yaw);
 		
-		const [x, y, z] = angle.GetVectors();
+		const [x, y, z] = getVectorsFromAngle(angle);
 		const direction = x.Add(y).Add(z);
 		direction.SetZ(0);
 		direction.Normalize();
@@ -76,6 +76,20 @@
 		const origin = nps.GetAbsOrigin();
 		const needPos = origin.Add(direction);
 		return needPos;
+	}
+	
+	function getVectorsFromAngle(ang) {
+		let rad = ang.yaw * Math.PI / 180;
+		let forward = new Vector(Math.cos(rad), Math.sin(rad), 0);
+		forward.normalize();
+
+		let right = forward.cross(new Vector(0, 0, 1));
+		right.normalize();
+
+		let up = right.cross(forward);
+		up.normalize();
+
+		return [forward, right, up];
 	}
 	
 	// Definición de la función OnScriptLoad
