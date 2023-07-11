@@ -65,12 +65,8 @@
 		console.log(angle);
 		const angleOffset = new Angle(0, 45 + rotation, 0);
 		angle.yaw = angle.yaw + angleOffset.yaw;
-		
-		console.log("yaw ",angle.yaw);
-		
 		const [x, y, z] = getVectorsFromAngle(angle);
 		const direction = x.add(y).add(z);
-		console.log(direction);
 		direction.z = 0;
 		direction.Normalized();
 		direction.Scale(range);
