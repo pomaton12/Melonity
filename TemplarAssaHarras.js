@@ -39,7 +39,7 @@
 					let AttackRangeBasic = localHero.GetAttackRange();
 					let AttackRangeBuff = localHero.GetAttackRangeBonus();
 					let RangeAttackMax = AttackRangeBasic + AttackRangeBuff;
-
+					console.log(Psi_MaxRange," ",RangeAttackMax);
 					
 					psiBladesHarass(localHero, RangeAttackMax, Psi_MaxRange);
 					
