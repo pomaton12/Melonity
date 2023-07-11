@@ -22,6 +22,8 @@
 		.OnChange((state) => {menu_ItemList = state.newValue;})
 		.GetValue();
 		
+	Menu.SetImage(path, 'panorama/images/control_icons/bp2020_gauntlet_icon_png.vtex_c');
+		
 	function CustomCanCast(item) {
         let owner = item.GetOwner(), hasModf = owner.HasState(Enum.ModifierState.MODIFIER_STATE_MUTED)
             || owner.HasState(Enum.ModifierState.MODIFIER_STATE_STUNNED)
