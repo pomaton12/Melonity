@@ -69,12 +69,12 @@
 		console.log("yaw ",angle.yaw);
 		
 		const [x, y, z] = getVectorsFromAngle(angle);
-		const direction = x.Add(y).Add(z);
+		const direction = x.add(y).add(z);
 		direction.SetZ(0);
 		direction.Normalized();
 		direction.Scale(range);
 		const origin = nps.GetAbsOrigin();
-		const needPos = origin.Add(direction);
+		const needPos = origin.add(direction);
 		return needPos;
 	}
 	
