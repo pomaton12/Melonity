@@ -25,6 +25,8 @@
 
 	// Creación del toggle isUiEnabled
 	let isUiEnabled = Menu.AddToggle(path_, 'Enable', true);
+	
+	Menu.SetImage(path_, 'panorama/images/mouse_illustrations_png.vtex_c');	
 
 	// Declaración de la variable mouseBoostInterval
 	let mouseBoostInterval = null;
