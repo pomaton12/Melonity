@@ -41,7 +41,7 @@
 					let RangeAttackMax = AttackRangeBasic + AttackRangeBuff;
 
 					
-					psiBladesHarass(HeroLocal, RangeAttackMax, Psi_MaxRange);
+					psiBladesHarass(localHero, RangeAttackMax, Psi_MaxRange);
 					
 
 				}
