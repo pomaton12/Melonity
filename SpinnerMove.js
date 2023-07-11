@@ -21,7 +21,7 @@
 
 	let isUiEnabled = Menu.AddToggle(path, 'Enable', false);
 	
-	let KeyBindSpinner = Menu.AddKeyBind(path_, 'Key', Enum.ButtonCode.KEY_NONE);
+	let KeyBindSpinner = Menu.AddKeyBind(path, 'Key', Enum.ButtonCode.KEY_NONE);
 	
 	let SpinnerType = Menu.AddComboBox(path, 'Movement Type', ["One place","Сircle","Triger"], 1)
         .OnChange((state) => {SpinnerType = state.newValue;})
