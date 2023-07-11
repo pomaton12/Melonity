@@ -16,6 +16,7 @@
 	
 	let tick = 0;
 	let trigerfor3 = 0;
+	const pat = ["Custom Scripts","Utility"];
 
 	const path = ["Custom Scripts","Utility","Spinner"];
 
@@ -26,9 +27,10 @@
 	let SpinnerType = Menu.AddComboBox(path, 'Movement Type', ["One place","Сircle","Triger"], 1)
         .OnChange((state) => {SpinnerType = state.newValue;})
         .GetValue();
-		
-
-
+	
+	
+	Menu.SetImage(pat, 'panorama/images/rank_tier_icons/handicap/softsupporticon_psd.vtex_c');
+	Menu.SetImage(path, 'panorama/images/control_icons/refresh_psd.vtex_c');
 
 	SpinnerMove.OnDraw = () => {
         if (localHero && isUiEnabled.GetValue()) {
