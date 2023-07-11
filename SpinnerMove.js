@@ -64,7 +64,7 @@
 		const angle = nps.GetRotation();
 		console.log(angle);
 		const angleOffset = new Angle(0, 45 + rotation, 0);
-		angle.SetYaw(angle.GetYaw() + angleOffset.GetYaw());
+		angle.yaw = angle.yaw + angleOffset.yaw;
 		const [x, y, z] = angle.GetVectors();
 		const direction = x.Add(y).Add(z);
 		direction.SetZ(0);
