@@ -1,5 +1,5 @@
 /******/ (() => { // webpackBootstrap
-/******/ 	var __webpack_modules__ = ({ 
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/SpinnerMove.ts":
 /*!**********************************!*\
@@ -70,7 +70,7 @@
 		
 		const [x, y, z] = getVectorsFromAngle(angle);
 		const direction = x.add(y).add(z);
-		direction.SetZ(0);
+		direction.z(0);
 		direction.Normalized();
 		direction.Scale(range);
 		const origin = nps.GetAbsOrigin();
