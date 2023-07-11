@@ -70,6 +70,7 @@
 		
 		const [x, y, z] = getVectorsFromAngle(angle);
 		const direction = x.add(y).add(z);
+		console.log(direction);
 		direction.z(0);
 		direction.Normalized();
 		direction.Scale(range);
