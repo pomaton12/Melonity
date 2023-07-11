@@ -11,7 +11,7 @@
 	const TemplarHarras = {};
 
 	// Declaración de la variable localHero
-	let myHero = null;
+	let localHero = null;
     let myPlayer = null;
 
 	// Definición del array path_
@@ -22,12 +22,12 @@
 	let isUiEnabled = Menu.AddToggle(path_, 'Enable', true);
 	let KeyBindOrderHarras = Menu.AddKeyBind(path_, 'Key', Enum.ButtonCode.KEY_NONE);
 
-	Menu.SetImage(path_, 'panorama/images/heroes/icons/npc_hero_templar_assassin_png.vtex_c');
+	Menu.SetImage(path_, 'panorama/images/heroes/icons/npc_dota_hero_templar_assassin_png.vtex_c');
 
 	// Definición de la función OnUpdate
 	TemplarHarras.OnUpdate = () => {
-		if (myHero && isUiEnabled.GetValue()) {
-			if (localHero.GetUnitName() !== "npc_hero_templar_assassin") {
+		if (localHero && isUiEnabled.GetValue()) {
+			if (localHero.GetUnitName() !== "npc_dota_hero_templar_assassin") {
 				return;
 			}
 			
@@ -111,13 +111,13 @@
 
 	// Definición de la función OnScriptLoad
 	TemplarHarras.OnScriptLoad = TemplarHarras.OnGameStart = () => {
-	  myHero = EntitySystem.GetLocalHero();
+	  localHero = EntitySystem.GetLocalHero();
 	  myPlayer = EntitySystem.GetLocalPlayer();
 	};
 
 	// Definición de la función OnGameEnd
 	TemplarHarras.OnGameEnd = () => {
-	  	myHero = null;
+	  	localHero = null;
 		myPlayer = null;
 
 	};
