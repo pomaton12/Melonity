@@ -78,13 +78,13 @@
 			let units = HeroLocal.GetUnitsInRadius(rangeAttack, Enum.TeamType.TEAM_ENEMY);
 
 			for (let unit of units) {
-				if (unit != targetEnemy && unit.IsCreep() && (unit.IsLaneCreep() || unit.IsNeutral()) && targetEnemy.GetAbsOrigin().Distance(unit.GetAbsOrigin()) < RangePsique && unit.GetAbsOrigin().sub(myHeroPos).Normalized().Dot(dirEn2Me) > 0.9 && unit.GetAbsOrigin().sub(enemyHeroPos).Normalized().Dot(dirEn2Me) < -0.9) {
+				if (unit != targetEnemy && unit.IsCreep() && (unit.IsLaneCreep() || unit.IsNeutral()) && targetEnemy.GetAbsOrigin().Distance(unit.GetAbsOrigin()) < RangePsique && unit.GetAbsOrigin().sub(myHeroPos).Normalized().Dot(dirEn2Me) > 0.95 && unit.GetAbsOrigin().sub(enemyHeroPos).Normalized().Dot(dirEn2Me) < -0.95) {
 					targetCreep = unit;
 					break;
 				}
 			}
 			
-			console.log(targetEnemy," ",targetCreep);
+			console.log(targetEnemy.GetHealthBarOffset());
 			// Si encontramos un objetivo detrás del enemigo, casteamos Shackleshot
 			if (Engine.OnceAt(0.2)) {
 				if (targetCreep != null) {
