@@ -1,6 +1,6 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
-
+ 
 /***/ "./src/TemplarHarras.ts":
 /*!**********************************!*\
   !*** ./src/TemplarHarras.ts ***!
