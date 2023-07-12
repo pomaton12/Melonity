@@ -5,7 +5,7 @@
 /*!**********************************!*\
   !*** ./src/TemplarHarras.ts ***!
   \**********************************/
-/***/ (() => {
+/***/ (() => { 
 
 	// Definición del objeto TemplarHarras
 	const TemplarHarras = {};
