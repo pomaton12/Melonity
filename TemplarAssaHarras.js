@@ -39,8 +39,7 @@
 					let AttackRangeBasic = localHero.GetAttackRange();
 					let AttackRangeBuff = localHero.GetAttackRangeBonus();
 					let RangeAttackMax = AttackRangeBasic + AttackRangeBuff;
-					console.log(Psi_MaxRange," ",RangeAttackMax);
-					
+										
 					psiBladesHarass(localHero, RangeAttackMax, Psi_MaxRange);
 					
 
@@ -69,11 +68,12 @@
 			}
 		}
 
+		console.log(targetEnemy," ",targetCreep);
 		if (targetEnemy != null) {
 			// Buscar unidades entre el enemigo y yo
 			const enemyHeroPos = targetEnemy.GetAbsOrigin();
 			const myHeroPos = HeroLocal.GetAbsOrigin();
-			const dirEn2Me = (myHeroPos.sub(enemyHeroPos)).Normalized();
+			const dirEn2Me = (enemyHeroPos.sub(myHeroPos)).Normalized();
 
 			let units = HeroLocal.GetUnitsInRadius(rangeAttack, Enum.TeamType.TEAM_ENEMY);
 
