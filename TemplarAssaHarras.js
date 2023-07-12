@@ -68,7 +68,7 @@
 			}
 		}
 
-		console.log(targetEnemy," ",targetCreep);
+		
 		if (targetEnemy != null) {
 			// Buscar unidades entre el enemigo y yo
 			const enemyHeroPos = targetEnemy.GetAbsOrigin();
@@ -83,7 +83,8 @@
 					break;
 				}
 			}
-
+			
+			console.log(targetEnemy," ",targetCreep);
 			// Si encontramos un objetivo detrás del enemigo, casteamos Shackleshot
 			if (Engine.OnceAt(0.2)) {
 				if (targetCreep != null) {
