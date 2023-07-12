@@ -78,7 +78,7 @@
 			let units = HeroLocal.GetUnitsInRadius(rangeAttack, Enum.TeamType.TEAM_ENEMY);
 
 			for (let unit of units) {
-				if (unit != targetEnemy && unit.IsCreep() && (unit.IsLaneCreep() || unit.IsNeutral()) && targetEnemy.GetAbsOrigin().Distance(unit.GetAbsOrigin()) < RangePsique && unit.GetAbsOrigin().sub(myHeroPos).Normalized().Dot(dirEn2Me) > 0.99 && unit.GetAbsOrigin().sub(enemyHeroPos).Normalized().Dot(dirEn2Me) < -0.99) {
+				if (unit != targetEnemy && unit.IsCreep() && (unit.IsLaneCreep() || unit.IsNeutral()) && targetEnemy.GetAbsOrigin().Distance(unit.GetAbsOrigin()) < RangePsique && unit.GetAbsOrigin().sub(myHeroPos).Normalized().Dot(dirEn2Me) > 0.9 && unit.GetAbsOrigin().sub(enemyHeroPos).Normalized().Dot(dirEn2Me) < -0.9) {
 					targetCreep = unit;
 					break;
 				}
