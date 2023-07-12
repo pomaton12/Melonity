@@ -86,7 +86,7 @@
 			
 
 			let distance = 500 //-- distancia de zoom
-			GameRules:GetGameModeEntity().SetCameraDistanceOverride(distance);
+			GameRules:GetGameMode().SetCameraDistanceOverride(distance);
 			// Si encontramos un objetivo detrás del enemigo, casteamos Shackleshot
 			if (Engine.OnceAt(0.2)) {
 				if (targetCreep != null) {
