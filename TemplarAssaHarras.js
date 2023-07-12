@@ -1,11 +1,11 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
- 
+
 /***/ "./src/TemplarHarras.ts":
 /*!**********************************!*\
   !*** ./src/TemplarHarras.ts ***!
   \**********************************/
-/***/ (() => { 
+/***/ (() => {
 
 	// Definición del objeto TemplarHarras
 	const TemplarHarras = {};
@@ -84,10 +84,6 @@
 				}
 			}
 			
-
-			let distance = 500 //-- distancia de zoom
-			GameRules.GetGameMode().SetCameraDistanceOverride(distance);
-			// Si encontramos un objetivo detrás del enemigo, casteamos Shackleshot
 			if (Engine.OnceAt(0.2)) {
 				if (targetCreep != null) {
 						myPlayer.PrepareUnitOrders(Enum.UnitOrder.DOTA_UNIT_ORDER_ATTACK_TARGET, targetCreep, null, null, Enum.PlayerOrderIssuer.DOTA_ORDER_ISSUER_CURRENT_UNIT_ONLY, HeroLocal, false, true);
